@@ -1,0 +1,72 @@
+﻿@model JZenoApp.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="discount" class="control-label"></label>
+                <input asp-for="discount" class="form-control" />
+                <span asp-validation-for="discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="form-group">
+                    <label asp-for="isPublish" class="control-label"></label>
+                    <input asp-for="isPublish" class="form-control"/>
+                    <span asp-validation-for="isPublish" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="categoryID" class="control-label"></label>
+                <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
+                <span asp-validation-for="categoryID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Files" class="control-label"></label>
+                <input asp-for="Files" class="form-control" multiple />
+                <span asp-validation-for="Files" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach(var item in @Model.productImages!)
+                {
+                    <img src="/images/products/@item.URL" height="200" asp-append-version="true" />
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

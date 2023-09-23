@@ -1,0 +1,90 @@
+﻿@model IEnumerable<JZenoApp.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.discount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.partnerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productColor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isPublish)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @foreach (var i in item.productImages!)
+                    {
+                        <img src="/images/products/@i.URL" height="50" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.discount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category!.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.partnerID)
+                </td>
+                <td>
+                    @foreach (var i in item.productColor!)
+                    {
+                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSize">@i.Name</a>
+                    }
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.DisplayFor(modelItem => item.isPublish)
+                    }
+                    else
+                    {
+                        <div>Chờ Xác Nhận</div>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
