@@ -13,6 +13,9 @@ namespace JZenoApp.Models
         [Required(ErrorMessage = "Vui lòng nhập giá tiền (Voucher)")]
         [Display(Name = "Giá Voucher")]
         public decimal? price { get; set; }
+        public int? quantity { get; set; }
+        public DateTime? startDate { get; set; }
+        public DateTime? endDate { get; set; }
         public List<Bill>? Bills { get; set; } = new List<Bill>();
     }
 }

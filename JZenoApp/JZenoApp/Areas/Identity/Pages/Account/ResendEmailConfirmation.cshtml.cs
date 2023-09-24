@@ -81,8 +81,8 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                 Input.Email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-            user.Image = "default_avt.png";
-            user.DateCreated = DateTime.Now;
+            user.image = "default_avt.png";
+            user.dateCreated = DateTime.Now;
             await _userManager.UpdateAsync(user);
             ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
             return Page();

@@ -131,10 +131,10 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.FullName = Input.FullName;
-                user.Address = Input.Address;
-                user.DateCreated = DateTime.Now;
-                user.Image = "default_avt.png";
+                user.fullName = Input.FullName;
+                user.address = Input.Address;
+                user.dateCreated = DateTime.Now;
+                user.image = "default_avt.png";
                 user.PhoneNumber = Input.PhoneNumber;
                 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);

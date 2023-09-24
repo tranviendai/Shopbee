@@ -75,17 +75,17 @@ namespace JZenoApp.Data
             new User
             {
                 Id = ADMIN_USER_GUID,
-                Image = "default_avt.png",
+                image = "shobee-logo.png",
                 UserName = "admin@gmail.com",
                 Email = "admin@gmail.com",
                 PasswordHash = hasher.HashPassword(user, "Admin@123"),
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 EmailConfirmed = true,
-                FullName = "Trần Viễn Đại",
+                fullName = "Trần Viễn Đại",
                 PhoneNumber = "0582072743",
-                Address = "Tắc Vân - Cà Mau",
-                DateCreated = DateTime.Now,
+                address = "Tắc Vân - Cà Mau",
+                dateCreated = DateTime.Now,
             });
             });
          
@@ -96,32 +96,32 @@ namespace JZenoApp.Data
                     new Category
                     {
                         Id = "shirt",
-                        Name = "Shirt",
-                        Icon = "shirt.png"
+                        name = "Shirt",
+                        icon = "shirt.png"
                     },
                     new Category
                     {
                         Id = "sandal",
-                        Name = "Sandal",
-                        Icon = "sandal.png"
+                        name = "Sandal",
+                        icon = "sandal.png"
                     },
                     new Category
                     {
                         Id = "shoes",
-                        Name = "Shoes",
-                        Icon = "shoes.png"
+                        name = "Shoes",
+                        icon = "shoes.png"
                     },
                     new Category
                     {
                         Id = "short",
-                        Name = "Short",
-                        Icon = "shorts.png"
+                        name = "Short",
+                        icon = "shorts.png"
                     },
                     new Category
                     {
                         Id = "trouser",
-                        Name = "Trouser",
-                        Icon = "trousers.png"
+                        name = "Trouser",
+                        icon = "trousers.png"
                     }
                     );
             });
@@ -169,6 +169,9 @@ namespace JZenoApp.Data
         public DbSet<DetailOrder> DetailOD { get; set; }
         public DbSet<Voucher> Voucher { get; set; }
         public DbSet<Partner> Partner { get; set; }
+        public DbSet<NewsImages> NewsImage { get; set; }
+        public DbSet<NewsModel> NewsModel { get; set; }
+        public DbSet<ProductComment> ProductComment { get; set; }
 
     }
 }

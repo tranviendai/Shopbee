@@ -98,7 +98,7 @@ namespace JZenoApp.Controllers
                     ProductSize size = new ProductSize();
                     size.quantity = item1.quantity;
                     size.name = item1.name;
-                    size.colorId = item.Id;
+                    size.productColorId = item.Id;
                     size.productColor = color;
                     _context.Add(size);
 

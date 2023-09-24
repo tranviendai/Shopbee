@@ -197,11 +197,11 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
-                        user.Address = Input.Address;
-                        user.FullName = Input.FullName;
+                        user.address = Input.Address;
+                        user.fullName = Input.FullName;
                         user.PhoneNumber = Input.PhoneNumber;
-                        user.DateCreated = DateTime.Now;
-                        user.Image = "default_avt.png";
+                        user.dateCreated = DateTime.Now;
+                        user.image = "default_avt.png";
                         await _userManager.UpdateAsync(user);
                         _userManager.AddToRoleAsync(user, "Customer").Wait();
                         return LocalRedirect(returnUrl);

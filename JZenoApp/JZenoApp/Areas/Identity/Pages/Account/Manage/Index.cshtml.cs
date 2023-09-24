@@ -78,10 +78,10 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            var fullname = user.FullName;
-            var address = user.Address;
-            var image = user.Image;
-            DateTime datetime = user.DateCreated;
+            var fullname = user.fullName;
+            var address = user.address;
+            var image = user.image;
+            DateTime datetime = user.dateCreated;
             Username = userName;
 
             Input = new InputModel
@@ -132,8 +132,8 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            user.Address = Input.Address;
-            user.FullName = Input.FullName;
+            user.address = Input.Address;
+            user.fullName = Input.FullName;
             await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);

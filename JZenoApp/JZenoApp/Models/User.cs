@@ -6,12 +6,12 @@ namespace JZenoApp.Models
     public class User : IdentityUser
     {
         [StringLength(50)]
-        public string? FullName { get; set; }
-        public string? Image { get; set; }
-        public string? Address { get; set; }
+        public string? fullName { get; set; }
+        public string? image { get; set; }
+        public string? address { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/M/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DateCreated { get; set; }
+        public DateTime dateCreated { get; set; }
 
     }
 }

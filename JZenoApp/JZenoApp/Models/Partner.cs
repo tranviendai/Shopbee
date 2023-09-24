@@ -7,7 +7,7 @@ namespace JZenoApp.Models
     {
         [Key]
         public string? Id {get;set;}
-
+        [StringLength(100)]
         public string? name { get; set; }
         [NotMapped]
         public IFormFile? file { get; set; }
