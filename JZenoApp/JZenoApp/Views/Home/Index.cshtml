@@ -1,0 +1,23 @@
+﻿@model List<JZenoApp.Models.Product>
+
+
+<div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="card col-sm-6 col-md-4 d-flex align-items-stretch" style="padding:30px; text-align:center;">
+            <div class="card">
+                @foreach(var img in product.productImages!)
+                {
+                    <img src="~/images/products/@img.URL" height="200" width="200" />
+                }
+                <h3 class="card-header">@product.name</h3>
+
+                <div class="card-body">
+                    <span class="text-muted">@(product.price) VND</span>
+                    <a asp-route="addcart" asp-route-productid="@product.Id"
+                   class="btn btn-secondary btn-sm float-right">Đặt hàng</a>
+                </div>
+            </div>
+        </div>
+        }
+</div>

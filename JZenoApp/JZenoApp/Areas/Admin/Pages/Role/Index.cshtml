@@ -1,0 +1,38 @@
+﻿@page "/admin/role/"
+@model JZenoApp.Areas.Admin.Pages.Role.IndexModel
+@{
+    ViewData["Title"] = "List Role";
+}
+<h3>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<form method="POST" class="my-1 d-inline">
+    <button class="btn btn-secondary" asp-page="./Add" 
+            asp-page-handler="StartNewRole">New Role</button>
+</form>
+<a class="btn btn-secondary" asp-page="./User">Assign Role To Users</a>
+
+<table class="table">
+  <tr>
+    <th>RoleID</th>
+    <th>Name</th>
+    <th></th>
+  </tr>
+        @foreach (var role in Model.roles!)
+        {
+          <tr>
+            <td>@role.Id</td>
+            <td>@role.Name</td>
+            <td>
+                <form method="POST" class="d-inline">
+                  <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm" 
+                      asp-page="./Add" asp-page-handler="StartUpdate">Update</button>
+                </form>
+                <form method="POST" class="d-inline">
+                  <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm" 
+                      asp-page="./Delete">Delete</button>
+                </form>
+            </td>
+          </tr>
+        }
+</table>

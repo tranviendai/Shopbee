@@ -1,0 +1,35 @@
+﻿@page "/admin/role/users/"
+@model JZenoApp.Areas.Admin.Pages.Role.UserModel
+@{
+    ViewData["Title"] = "DANH SÁCH NGƯỜI DÙNG";
+}
+
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<table class="table table-striped">
+    <tr>
+        <th>UserName</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var user in Model.users!)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>@user.listroles</td>
+            <td>
+                <form method="POST" class="d-inline">
+                    <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
+                        asp-page="./AddUserRole">
+                        Cập nhật Role
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+    }
+</table>
+
+
