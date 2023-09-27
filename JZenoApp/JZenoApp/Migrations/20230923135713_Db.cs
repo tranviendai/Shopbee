@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -18,8 +18,8 @@ namespace JZenoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
-                    icon = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,7 @@ namespace JZenoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     dateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -61,10 +61,10 @@ namespace JZenoApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    fullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -92,10 +92,7 @@ namespace JZenoApp.Migrations
                     voucherID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: true),
-                    startDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    endDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,26 +148,6 @@ namespace JZenoApp.Migrations
                         principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NewsModel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    userId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewsModel", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NewsModel_User_userId",
-                        column: x => x.userId,
-                        principalTable: "User",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -304,27 +281,6 @@ namespace JZenoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductComment",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    userName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    comment = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    evaluate = table.Column<int>(type: "int", nullable: true),
-                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductComment", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ProductComment_Product_productId",
-                        column: x => x.productId,
-                        principalTable: "Product",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductImage",
                 columns: table => new
                 {
@@ -344,6 +300,33 @@ namespace JZenoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DetailOD",
+                columns: table => new
+                {
+                    odID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    billID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    quantity = table.Column<int>(type: "int", nullable: true),
+                    price = table.Column<double>(type: "float", nullable: true),
+                    totalPrice = table.Column<double>(type: "float", nullable: true),
+                    productID = table.Column<string>(type: "nvarchar(15)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetailOD", x => x.odID);
+                    table.ForeignKey(
+                        name: "FK_DetailOD_Bill_billID",
+                        column: x => x.billID,
+                        principalTable: "Bill",
+                        principalColumn: "billID");
+                    table.ForeignKey(
+                        name: "FK_DetailOD_Product_productID",
+                        column: x => x.productID,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductSize",
                 columns: table => new
                 {
@@ -351,6 +334,7 @@ namespace JZenoApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
                     quantity = table.Column<double>(type: "float", nullable: true),
+                    colorId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     productColorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -363,38 +347,9 @@ namespace JZenoApp.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DetailOD",
-                columns: table => new
-                {
-                    odID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    billID = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    quantity = table.Column<int>(type: "int", nullable: true),
-                    price = table.Column<double>(type: "float", nullable: true),
-                    totalPrice = table.Column<double>(type: "float", nullable: true),
-                    sizeName = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
-                    colorName = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
-                    productId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DetailOD", x => x.odID);
-                    table.ForeignKey(
-                        name: "FK_DetailOD_Bill_billID",
-                        column: x => x.billID,
-                        principalTable: "Bill",
-                        principalColumn: "billID");
-                    table.ForeignKey(
-                        name: "FK_DetailOD_ProductSize_productId",
-                        column: x => x.productId,
-                        principalTable: "ProductSize",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "icon", "name" },
+                columns: new[] { "Id", "Icon", "Name" },
                 values: new object[,]
                 {
                     { "sandal", "sandal.png", "Sandal" },
@@ -416,8 +371,8 @@ namespace JZenoApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "address", "dateCreated", "fullName", "image" },
-                values: new object[] { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "2f30db76-4759-4c19-a27a-c88978f4a0bb", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEKkrBcpLRfYYzzFJ2TC7ihfaPZbiiwpDbtjDoZcqjXQIblDcFgKEawNkHxCKsoK9YQ==", "0582072743", false, "0596e206-f611-499b-af25-ce90bb43921a", false, "admin@gmail.com", "Tắc Vân - Cà Mau", new DateTime(2023, 9, 27, 7, 10, 36, 744, DateTimeKind.Local).AddTicks(4797), "Trần Viễn Đại", "shobee-logo.png" });
+                columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DateCreated", "Email", "EmailConfirmed", "FullName", "Image", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "Tắc Vân - Cà Mau", "37ead080-501b-42c0-b72a-68e965900b8e", new DateTime(2023, 9, 23, 20, 57, 12, 926, DateTimeKind.Local).AddTicks(4929), "admin@gmail.com", true, "Trần Viễn Đại", "default_avt.png", false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEMgAXVATUKFUfdxm8gAEclCmezDEKs6WgY3IFGzC+g068mWi1v7RHKaS/NonBdYbxw==", "0582072743", false, "c4ddd286-af86-4ba7-a252-123762c4a4cf", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
@@ -440,14 +395,9 @@ namespace JZenoApp.Migrations
                 column: "billID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetailOD_productId",
+                name: "IX_DetailOD_productID",
                 table: "DetailOD",
-                column: "productId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_NewsModel_userId",
-                table: "NewsModel",
-                column: "userId");
+                column: "productID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_categoryID",
@@ -462,11 +412,6 @@ namespace JZenoApp.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ProductColor_productId",
                 table: "ProductColor",
-                column: "productId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductComment_productId",
-                table: "ProductComment",
                 column: "productId");
 
             migrationBuilder.CreateIndex(
@@ -526,13 +471,10 @@ namespace JZenoApp.Migrations
                 name: "DetailOD");
 
             migrationBuilder.DropTable(
-                name: "NewsModel");
-
-            migrationBuilder.DropTable(
-                name: "ProductComment");
-
-            migrationBuilder.DropTable(
                 name: "ProductImage");
+
+            migrationBuilder.DropTable(
+                name: "ProductSize");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
@@ -553,7 +495,7 @@ namespace JZenoApp.Migrations
                 name: "Bill");
 
             migrationBuilder.DropTable(
-                name: "ProductSize");
+                name: "ProductColor");
 
             migrationBuilder.DropTable(
                 name: "Role");
@@ -563,9 +505,6 @@ namespace JZenoApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Voucher");
-
-            migrationBuilder.DropTable(
-                name: "ProductColor");
 
             migrationBuilder.DropTable(
                 name: "Product");

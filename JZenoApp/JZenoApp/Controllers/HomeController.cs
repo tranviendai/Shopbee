@@ -1,4 +1,4 @@
-﻿using JZenoApp.Data;
+using JZenoApp.Data;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
