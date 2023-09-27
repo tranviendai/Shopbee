@@ -1,4 +1,4 @@
-﻿using JZenoApp.Data;
+using JZenoApp.Data;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -129,11 +129,15 @@ namespace JZenoApp.Controllers
                 foreach (var item in cart)
                 {
                     DetailOrder detailOrder = new DetailOrder();
-                    detailOrder.billID = idGUID;
+                    /*                
+      --Select detailOD -> productSize -> ProductColor -> Product (Lưu thông tin tên, hình ảnh, màu sắc, kích cỡ, giá tiền) 
+                     detailOrder.billID = idGUID;
                     detailOrder.quantity = item.quantity;
                     detailOrder.price = item.product!.price;
                     detailOrder.totalPrice = item.product.price * detailOrder.quantity;
-                    detailOrder.productID = item.product!.Id;
+                    detailOrder.product!.productColor!.productId = item.product!.Id;
+     //đồng thời cập nhật lại quantity ở bảng product ( product.quantity - item.quantity (của bảng product trong model cart) -)
+                     */
                     _context.Add(detailOrder);
                 }
                 _context.SaveChanges();

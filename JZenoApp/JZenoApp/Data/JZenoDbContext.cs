@@ -169,7 +169,6 @@ namespace JZenoApp.Data
         public DbSet<DetailOrder> DetailOD { get; set; }
         public DbSet<Voucher> Voucher { get; set; }
         public DbSet<Partner> Partner { get; set; }
-        public DbSet<NewsImages> NewsImage { get; set; }
         public DbSet<NewsModel> NewsModel { get; set; }
         public DbSet<ProductComment> ProductComment { get; set; }
 

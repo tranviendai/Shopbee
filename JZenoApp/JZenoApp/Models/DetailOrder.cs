@@ -30,7 +30,9 @@ namespace JZenoApp.Models
         public string? colorName { get; set; }
 
         [ForeignKey("Id")]
-        public string? productID { get; set; }
-        public Product? product { get; set; }
+      
+        public int? productId { get; set; }
+        public ProductSize? product { get; set; }
+
     }
 }

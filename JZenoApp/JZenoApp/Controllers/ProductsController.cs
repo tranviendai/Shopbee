@@ -101,7 +101,6 @@ namespace JZenoApp.Controllers
                     size.productColorId = item.Id;
                     size.productColor = color;
                     _context.Add(size);
-
                 }
                 _context.Add(color);
             }
