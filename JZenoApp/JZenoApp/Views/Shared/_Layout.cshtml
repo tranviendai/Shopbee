@@ -3,87 +3,719 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - JZenoApp</title>
+    <title>@ViewData["Title"] - Shopbee</title>
+    <link rel="icon" href="~/images/logo/shopee-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/JZenoApp.styles.css" asp-append-version="true" />
+@*     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+ *@    @* <link rel="stylesheet" href="~/JZenoApp.styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/grid.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                @if (User.IsInRole("Admin"))
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Products" asp-action="Index">Shopbee</a>
-                }
-                else
-                {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shopbee</a>
-                }
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+    <!-- main -->
+    <div class="app">
+        <!-- header -->
+        <header class="header">
+            <div class="grid wide">
+                <!-- navbar -->
+                <nav class="header__navbar hide-on-mobile-tablet">
+                    <ul class="header__nav-list">
+                        @* @if (User.IsInRole("Admin"))
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Products" asp-action="Index">Shopbee</a>
+                        }
+                        else
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shopbee</a>
+                        } *@
+                            
                         @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Loại Hàng</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Categories" asp-action="Index">Loại Hàng</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Partners" asp-action="Index">Ứng Tuyển Đối Tác</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Ứng Tuyển Đối Tác</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="/admin/role">Vai Trò</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" href="/admin/role">Vai Trò</a>
                             </li>
 
                         }
                         else if (User.IsInRole("Partner"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
                             </li>
                         }
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">Kênh Người Bán</li>
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate header__show-qr">
+                            Tải ứng dụng
+                        </li>
+                        <!-- qr code -->
+                        <div class="header__qrcode">
+                            <img src="~/images/qr/qr-code.png" class="header__qr">
+                            <div class="header__apps">
+                                <a href="#" class="header__app-link">
+                                    <img src="~/images/qr/app-store.png" class="header__app-img">
+                                </a>
+                                <a href="#" class="header__app-link">
+                                    <img src="~/images/qr/gg-play.png" class="header__app-img">
+                                </a>
+                                <a href="#" class="header__app-link">
+                                    <img src="~/images/qr/app-gallery.png" class="header__app-img">
+                                </a>
+                                <a href="#" class="header__app-link">
+                                    <img src="~/images/qr/ltp-img.png" class="header__app-img">
+                                </a>
+                            </div>
+                        </div>
+                        <li class="header__nav-item">
+                            Kết nối
+                            <a href="#" class="header__nav-icon-link">
+                                <i class="header__nav-icon fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="header__nav-icon-link">
+                                <i class="header__nav-icon fab fa-instagram"></i>
+                            </a>
+                        </li>
                     </ul>
-                    @if (User.IsInRole("Customer"))
-                    {
-                        @await Html.PartialAsync("_CartPartial")
-                    }
-                    <partial name="_LoginPartial" />
+                    <ul class="header__nav-list">
+                        <li class="header__nav-item header__show-note">
+                            <a href="#" class="header__nav-item-link">
+                                <i class="header__nav-icon far fa-bell"></i>
+                                Thông báo
+                            </a>
+                            <!-- thông báo -->
+                            <div class="header__notifi">
+                                <header class="header__notifi-header">
+                                    <h3>Thông Báo Mới Nhận</h3>
+                                </header>
+                                <ul class="header__notifi-list">
+                                    <li class="header__notifi-item">
+                                        <a href="#" class="header__notifi-link">
+                                            <img src="~/images/sp/casio.png" class="header__notifi-img">
+                                            <div class="header__notifi-info">
+                                                <div class="header__notifi-name">
+                                                    Casio fx 580 VN Plus
+                                                </div>
+                                                <div class="header__notifi-desc">
+                                                    Mua Casio 580 của LTP bao xịn, bao mượt, bao đẹp
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notifi-item">
+                                        <a href="#" class="header__notifi-link">
+                                            <img src="~/images/sp/iphone.png" class="header__notifi-img">
+                                            <div class="header__notifi-info">
+                                                <div class="header__notifi-name">
+                                                    Điện Thoại iPhone 13 Pro 128GB - Hàng Nhập Khẩu
+                                                </div>
+                                                <div class="header__notifi-desc">
+                                                    3 Camera: Ống kính góc rộng f/1.5 - Tele f/2.8 - Siêu rộng f/1.8
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notifi-item">
+                                        <a href="#" class="header__notifi-link">
+                                            <img src="~/images/sp/iphone2.png" class="header__notifi-img">
+                                            <div class="header__notifi-info">
+                                                <div class="header__notifi-name">
+                                                    Apple iPhone 12 Pro Max 128GB
+                                                </div>
+                                                <div class="header__notifi-desc">
+                                                    iPhone 12 Pro Max. Màn hình Super Retina XDR 6.7 inch
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notifi-item">
+                                        <a href="#" class="header__notifi-link">
+                                            <img src="~/images/sp/laptop.png" class="header__notifi-img">
+                                            <div class="header__notifi-info">
+                                                <div class="header__notifi-name">
+                                                    Laptop HP 650 g1 siêu khỏe bền
+                                                </div>
+                                                <div class="header__notifi-desc">
+                                                    Laptop siêu bền, HP 650 g1 siêu khỏe bền ssd 120gb 15,6inh FULL HD
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="header__notifi-item">
+                                        <a href="#" class="header__notifi-link">
+                                            <img src="~/images/sp/laptop2.png" class="header__notifi-img">
+                                            <div class="header__notifi-info">
+                                                <div class="header__notifi-name">
+                                                    Laptop thinkpad x240 chất mỏng nhẹ i5 4300u Ram 4gb Ssd 128gb
+                                                </div>
+                                                <div class="header__notifi-desc">
+                                                    HP 650 g1 chip M đời 4, cpu i5 4200M ram 4gb -8gb
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <footer class="header__notifi-footer">
+                                    <a href="#" class="header__notifi-footer-btn">Xem tất cả</a>
+                                </footer>
+                            </div>
+                        </li>
+                        <li class="header__nav-item">
+                            <a href="#" class="header__nav-item-link">
+                                <i class="header__nav-icon far fa-question-circle"></i>
+                                Hỗ trợ
+                            </a>
+                        </li>
+                        @* //// *@
+                        @if (User.IsInRole("Customer"))
+                        {
+                            @await Html.PartialAsync("_CartPartial")
+                        }
+                        <partial name="_LoginPartial" />
+
+
+                        
+                    </ul>
+                </nav>
+                <!-- search -->
+                <div class="header__contain">
+                    <label for="mobile-search" class="header__mobile-search">
+                        <i class="header__mobile-search-icon fas fa-search"></i>
+                    </label>
+                    <div class="header__logo">
+                        <a class="header__logo-link" asp-area="" asp-controller="Home" asp-action="Index">
+                            <img src="~/images/logo/logo-full-white.png" class="header__logo-img">
+                        </a>
+                    </div>
+                    <input type="checkbox" id="mobile-search" class="header__search-check" hidden>
+                    <div class="header__search">
+                        <div class="header__search-input-wrap">
+                            <input type="text" class="header__search-input" placeholder="Tìm kiếm trên Shoppee">
+                            <div class="header__search-history">
+                                <ul class="header__search-history-list">
+                                    <li class="header__search-history-item">
+                                        <a href="#">Combo 30 điểm đại học khối A</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Combo 30 điểm đại học khối D</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Mỹ phẩm cho người yêu</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Bí kíp tán crush auto đổ</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Iphone 13 Pro Max giá rẻ</a>
+                                    </li>
+                                    <li class="header__search-history-item">
+                                        <a href="#">Người yêu đẹp trai như LTP</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn header__search-btn">
+                            <i class="header__search-btn-icon fas fa-search"></i>
+                        </button>
+                    </div>
+                    <!-- header__cart--no-cart --><!-- header__cart--has-cart -->
+                    <div class="header__cart header__cart--has-cart">
+                        <i class="header__cart-icon fas fa-shopping-cart"></i>
+                        <div class="header__cart-count">4</div>
+
+                        <div class="header__cart-list no-cart">
+                            <img src="~/images/sp/no-cart.png" class="header__no-cart-img">
+                            <p class="header__no-cart-text">Chưa có sản phẩm</p>
+                        </div>
+
+                        <div class="header__cart-list has-cart">
+                            <h4 class="header__cart-heading">Sản phẩm đã chọn</h4>
+                            <ul class="header__cart-list-item">
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/1.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Thanh Thanh 2000 1m57 46kg 88-62-89</h3>
+                                            <p class="header__cart-item-price">2.000.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 2</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/2.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Hồng Ánh 1998 1m62 48kg 89-64-91</h3>
+                                            <p class="header__cart-item-price">2.500.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 1</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/3.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Quỳnh Như 1999 1m65 49kg 90-62-89</h3>
+                                            <p class="header__cart-item-price">2.800.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 1</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/4.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Kim Ngân 2001 1m55 45kg 86-60-87</h3>
+                                            <p class="header__cart-item-price">3.200.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 3</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/5.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Thanh Thanh 2000 1m57 46kg 88-62-89</h3>
+                                            <p class="header__cart-item-price">2.000.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 2</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/6.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Hồng Ánh 1998 1m62 48kg 89-64-91</h3>
+                                            <p class="header__cart-item-price">2.500.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 1</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/7.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Quỳnh Như 1999 1m65 49kg 90-62-89</h3>
+                                            <p class="header__cart-item-price">2.800.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 1</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="header__cart-item">
+                                    <img src="~/images/sp/8.PNG" class="header__cart-item-img">
+                                    <div class="header__cart-item-info">
+                                        <div class="header__cart-item-heading">
+                                            <h3 class="header__cart-item-name">Kim Ngân 2001 1m55 45kg 86-60-87</h3>
+                                            <p class="header__cart-item-price">3.200.000đ</p>
+                                        </div>
+                                        <div class="header__cart-item-body">
+                                            <p class="header__cart-item-number">x 3</p>
+                                            <div class="header__cart-item-close">
+                                                Xoá
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="header__cart-footer">
+                                <a href="#" class="btn btn--primary header__cart-see-cart">Xem giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - JZenoApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <ul class="header__sort-bar">
+                <li class="header__sort-item">
+                    <a href="#" class="header__sort-link">Liên quan</a>
+                </li>
+                <li class="header__sort-item header__sort-item--active">
+                    <a href="#" class="header__sort-link">Mới nhất</a>
+                </li>
+                <li class="header__sort-item">
+                    <a href="#" class="header__sort-link">Bán chạy</a>
+                </li>
+                <li class="header__sort-item">
+                    <a href="#" class="header__sort-link">Giá</a>
+                </li>
+            </ul>
+        </header>
+        <!-- container -->
+        <div class="grid wide">
+            <div class="row sm-gutter">
+                <main role="main" class="pb-3" style="height:500px; ">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-    </footer>
+        <!-- footer -->
+        <footer class="footer" style="padding: 0;">
+            <!-- main footer -->
+            <div class="main-footer">
+                <div class="grid wide">
+                    <div class="row sm-gutter main-footer-info">
+                        <div class="col l-2-4 m-4 c-6">
+                            <h3 class="footer__heading">CHĂM SÓC KHÁCH HÀNG</h3>
+                            <ul class="footer-list">
+                                <li>
+                                    <a href="#" class="footer-item-link">Trung Tâm Trợ Giúp</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Shopee Blog</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Shopee Mall</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Hướng Dẫn Mua Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Hướng Dẫn Bán Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Thanh Toán</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Shopee Xu</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Vận Chuyển</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Trả Hàng & Hoàn Tiền</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Chăm Sóc Khách Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Chính Sách Bảo Hành</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <h3 class="footer__heading">VỀ SHOPEE</h3>
+                            <ul class="footer-list">
+                                <li>
+                                    <a href="#" class="footer-item-link">Giới Thiệu Về Shopee Việt Nam</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Tuyển Dụng</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Điều Khoản Shopee</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Chính Sách Bảo Mật</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Chính Hãng</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Kênh Người Bán</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Flash Sales</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Chương Trình Tiếp Thị Liên Kết Shopee</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link">Liên Hệ Với Truyền Thông</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l-2-4 m-4 c-12 pay-and-ship">
+                            <div>
+                                <h3 class="footer__heading">THANH TOÁN</h3>
+                                <div class="footer-sale-ship">
+                                    <img src="~/images/pay/1.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/pay/2.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/pay/3.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/pay/4.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/pay/5.PNG" class="footer-item-sale-ship">
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="footer__heading">ĐƠN VỊ VẬN CHUYỂN</h3>
+                                <div class="footer-sale-ship">
+                                    <img src="~/images/ship/1.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/2.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/3.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/4.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/5.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/6.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/7.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/8.PNG" class="footer-item-sale-ship">
+                                    <img src="~/images/ship/9.PNG" class="footer-item-sale-ship">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2-4 m-4 c-6">
+                            <h3 class="footer__heading">THEO DÕI CHÚNG TÔI</h3>
+                            <ul class="footer-list">
+                                <li>
+                                    <a href="#" class="footer-item-link footer-item-link-fb">
+                                        <i class="footer-item-icon fab fa-facebook-square"></i>
+                                        Facebook
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link footer-item-link-is">
+                                        <i class="footer-item-icon fab fa-instagram-square"></i>
+                                        Instagram
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="footer-item-link footer-item-link-li">
+                                        <i class="footer-item-icon fab fa-linkedin"></i>
+                                        LinkedIn
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l-2-4 m-8 c-6">
+                            <h3 class="footer__heading">TẢI ỨNG DỤNG SHOPEE</h3>
+                            <div class="footer-download">
+                                <a href="#" class="footer-download-link">
+                                    <img src="~/images/qr/qr-code.png" class="footer-download-qr">
+                                </a>
+                                <div class="footer-download-app">
+                                    <a href="#" class="footer-download-link">
+                                        <img src="~/images/qr/gg-play.png" class="footer-download-app-img">
+                                    </a>
+                                    <a href="#" class="footer-download-link">
+                                        <img src="~/images/qr/app-store.png" class="footer-download-app-img">
+                                    </a>
+                                    <a href="#" class="footer-download-link">
+                                        <img src="~/images/qr/app-gallery.png" class="footer-download-app-img">
+                                    </a>
+                                    <a href="#" class="footer-download-link">
+                                        <img src="~/images/qr/ltp-img.png" class="footer-download-app-img">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- copyright -->
+                    <div class="row">
+                        <div class="grid">
+                            <p class="copyright-title">
+                                © 2021 Shopee copyright - Công ty TNHH CRF - Product by LTP
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- other footer -->
+            <div class="other-footer">
+                <div class="grid wide">
+                    <div class="row other-footer-heading">
+                        <div class="col l-2">
+                            <a href="#" class="other-footer-link">
+                                CHÍNH SÁCH BẢO MẬT
+                            </a>
+                        </div>
+                        <div class="col l-2">
+                            <a href="#" class="other-footer-link">
+                                QUY CHẾ HOẠT ĐỘNG
+                            </a>
+                        </div>
+                        <div class="col l-2">
+                            <a href="#" class="other-footer-link">
+                                CHÍNH SÁCH VẬN CHUYỂN
+                            </a>
+                        </div>
+                        <div class="col l-2">
+                            <a href="#" class="other-footer-link">
+                                TRẢ HÀNG VÀ HOÀN TIỀN
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="grid other-footer-info">
+                            <p class="other-footer-title">Thông tin về Shoppee</p>
+                            <p class="other-footer-more">
+                                Địa chỉ: Tầng 4-5-6, Tòa nhà Capital Place, số 29 đường Liễu Giai,
+                                Phường Ngọc Khánh, Quận Ba Đình, Thành phố Hà Nội, Việt Nam.
+                                Tổng đài hỗ trợ: 19001221 - Email: cskh@hotro.shopee.vn
+                            </p>
+                            <p class="other-footer-more">
+                                Chịu Trách Nhiệm Quản Lý Nội Dung: Nguyễn Đức Trí -
+                                Điện thoại liên hệ: 024 73081221 (ext 4678)
+                            </p>
+                            <p class="other-footer-more">
+                                Mã số doanh nghiệp: 0106773786 do Sở Kế hoạch & Đầu tư
+                                TP Hà Nội cấp lần đầu ngày 10/02/2015
+                            </p>
+                            <p class="other-footer-more">
+                                Ngày sản xuất 2015 -
+                                Bản quyền gốc thuộc về Công ty TNHH Shopee
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- modal -->
+    <div class="modal">
+        <div class="modal__body">
+            <!-- authen signin-->
+            <div class="auth-form">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng Ký</h3>
+                        <div class="auth-form__switch-btn">Đăng nhập</div>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input type="text" placeholder="Số điện thoại" class="auth-form__input">
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="password" placeholder="Mật khẩu" class="auth-form__input">
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="auth-form__input">
+                        </div>
+                    </div>
+                    <div class="auth-form__policy">
+                        <p class="auth-form__policy-text">
+                            Bằng việc đăng ký, bạn đồng ý với Shoppee về
+                            <a href="#" class="auth-form__text-link">Điều khoản dịch vụ</a> &
+                            <a href="#" class="auth-form__text-link">Chính sách bảo mật</a>
+                        </p>
+                    </div>
+                    <div class="auth-form__control">
+                        <button class="btn auth-form__back">TRỞ LẠI</button>
+                        <button class="btn btn--primary">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+                <div class="auth-form__signin">
+                    <a href="#" class="btn btn-signin auth-form__signin-fb">
+                        <i class="auth-form__signin-icon fab fa-facebook-square"></i>
+                        <p class="auth-form__signin-text">
+                            Kết nối với Facebook
+                        </p>
+                    </a>
+                    <a href="#" class="btn btn-signin auth-form__signin-gg">
+                        <i class="auth-form__signin-icon fab fa-google"></i>
+                        <p class="auth-form__signin-text">
+                            Kết nối với Google
+                        </p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- authen login-->
+            <div class="auth-form">
+                <div class="auth-form__container">
+                    <div class="auth-form__header">
+                        <h3 class="auth-form__heading">Đăng Nhập</h3>
+                        <div class="auth-form__switch-btn">Đăng ký</div>
+                    </div>
+                    <div class="auth-form__form">
+                        <div class="auth-form__group">
+                            <input type="text" placeholder="Số điện thoại" class="auth-form__input">
+                        </div>
+                        <div class="auth-form__group">
+                            <input type="password" placeholder="Mật khẩu" class="auth-form__input">
+                        </div>
+                    </div>
+                    <div class="auth-form__help">
+                        <a href="#" class="auth-form__help-link auth-form__help-forgot">Quên Mật Khẩu</a>
+                        <div class="auth-form__help--separate"></div>
+                        <a href="#" class="auth-form__help-link">Cần trợ giúp?</a>
+                    </div>
+                    <div class="auth-form__control">
+                        <button class="btn auth-form__back">TRỞ LẠI</button>
+                        <button class="btn btn--primary">ĐĂNG NHẬP</button>
+                    </div>
+                </div>
+
+                <div class="auth-form__signin">
+                    <a href="#" class="btn btn-signin auth-form__signin-sms">
+                        <i class="auth-form__signin-icon fas fa-sms"></i>
+                        <p class="auth-form__signin-text">
+                            SMS
+                        </p>
+                    </a>
+                    <a href="#" class="btn btn-signin auth-form__signin-fb">
+                        <i class="auth-form__signin-icon fab fa-facebook-square"></i>
+                        <p class="auth-form__signin-text">
+                            Facebook
+                        </p>
+                    </a>
+                    <a href="#" class="btn btn-signin auth-form__signin-gg">
+                        <i class="auth-form__signin-icon fab fa-google"></i>
+                        <p class="auth-form__signin-text">
+                            Google
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
