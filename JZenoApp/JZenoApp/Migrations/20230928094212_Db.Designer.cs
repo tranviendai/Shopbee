@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JZenoApp.Migrations
 {
     [DbContext(typeof(JZenoDbContext))]
-    [Migration("20230927001037_Db")]
+    [Migration("20230928094212_Db")]
     partial class Db
     {
         /// <inheritdoc />
@@ -417,20 +417,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "a79e98b4-d8a6-4640-98eb-5b417ffb2661",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2f30db76-4759-4c19-a27a-c88978f4a0bb",
+                            ConcurrencyStamp = "93580ed1-581c-452b-8842-95bd6f2d9a8f",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKkrBcpLRfYYzzFJ2TC7ihfaPZbiiwpDbtjDoZcqjXQIblDcFgKEawNkHxCKsoK9YQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOwK/rkTcrt3s4obg8quKOBlFxFz9Ytz9sLH40yLO8iR0/zcAJDEf5Y6Sm/GNmrpVg==",
                             PhoneNumber = "0582072743",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0596e206-f611-499b-af25-ce90bb43921a",
+                            SecurityStamp = "b0577d9b-baab-47f8-b875-a1d31e4e6136",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com",
                             address = "Tắc Vân - Cà Mau",
-                            dateCreated = new DateTime(2023, 9, 27, 7, 10, 36, 744, DateTimeKind.Local).AddTicks(4797),
+                            dateCreated = new DateTime(2023, 9, 28, 16, 42, 12, 273, DateTimeKind.Local).AddTicks(1720),
                             fullName = "Trần Viễn Đại",
                             image = "shobee-logo.png"
                         });
