@@ -78,7 +78,7 @@ namespace JZenoApp.Data
                 image = "shobee-logo.png",
                 UserName = "admin@gmail.com",
                 Email = "admin@gmail.com",
-                PasswordHash = hasher.HashPassword(user, "Admin@123"),
+                PasswordHash = hasher.HashPassword(user, "123456"),
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 EmailConfirmed = true,

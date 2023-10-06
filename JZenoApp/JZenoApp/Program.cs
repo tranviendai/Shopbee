@@ -28,7 +28,15 @@ builder.Services.AddSession(cfg => {                    // Đăng ký dịch v�
     cfg.Cookie.Name = "JZeno";                          // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
     cfg.IdleTimeout = new TimeSpan(0, 30, 0);           // Thời gian tồn tại của Session
 });
-
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default Password settings.
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 3;
+});
 var app = builder.Build();
 app.UseSession();
 
