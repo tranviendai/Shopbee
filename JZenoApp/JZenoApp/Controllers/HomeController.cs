@@ -109,7 +109,7 @@ namespace JZenoApp.Controllers
             SaveCartSession(cart);
             return RedirectToAction(nameof(Cart));
         }
-        [Authorize(Roles = "Customer")]
+       // [Authorize(Roles = "Customer")]
         [Route("/checkout")]
         public IActionResult CheckOut()
         {

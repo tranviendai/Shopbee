@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
-    [Authorize(Roles = "Admin, Partner")]
+    //[Authorize(Roles = "Admin, Partner")]
     public class ProductsController : Controller
     {
         private readonly JZenoDbContext _context;

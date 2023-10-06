@@ -13,7 +13,6 @@ namespace JZenoApp.Models
         [ForeignKey("Id")]
         public string? productId { get; set; }
         public Product? product { get; set; }
-
         public List<ProductSize>? productSize { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly JZenoDbContext _context;
