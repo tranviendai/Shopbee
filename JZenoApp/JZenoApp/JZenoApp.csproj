@@ -35,8 +35,4 @@
     <PackageReference Include="PayPal" Version="1.9.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\products\" />
-  </ItemGroup>
-
 </Project>
