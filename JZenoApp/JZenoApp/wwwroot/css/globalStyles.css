@@ -1,0 +1,26 @@
+﻿body {
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.active {
+    background-color: #4285f4 !important;
+}
+
+.notiBox {
+    display: none;
+}
+
+.showNoti {
+    cursor: pointer;
+}
+
+    .showNoti:hover .notiBox {
+        display: block !important;
+        cursor: pointer;
+    }
+.bg-shopbee {
+    background-image: linear-gradient(var(--main-color1), var(--main-color2));
+}
