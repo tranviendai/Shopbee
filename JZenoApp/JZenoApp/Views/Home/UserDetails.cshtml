@@ -1,0 +1,10 @@
+﻿@model JZenoApp.Models.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div>
+    @Html.DisplayFor(model => model.fullName);
+    <img src="~/images/users/@Model.image" alt="" />
+</div>

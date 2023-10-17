@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name</a>
+
+    </li>
+}
+else
+{
+    <li class="header__nav-item header__nav-item--bold header__nav-item--separate">
+        <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Register">Đăng ký</a>
+    </li>
+    <li class="header__nav-item header__nav-item--bold">
+        <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+    </li>
+}
