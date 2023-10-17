@@ -8,17 +8,43 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+    .info{
+        font-size:18px;
+    }
+    .order, .notification, .voucher{
+        margin-top:15px;
+    }
 
-<h1>Manage your account</h1>
-
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
+    .order a, .notification a, .voucher a , .hs{
+        text-decoration:none;
+        margin-left:23px;
+    }
+</style>
+<div class="info">
     <div class="row">
         <div class="col-md-3">
-            <partial name="_ManageNav" />
+            <div class="hos">
+               <i class="ti-info-alt" style="color:#007bff; margin-right:5px;font-size:28px;"></i> <span class="hs">Hồ sơ</span></i>
+            </div>
+            <div class="row">
+                <div class="col-2"> </div>
+                <div class="col-10"> <partial name="_ManageNav" /></div>
+            </div>
+            <div class="order">
+                <i class="ti-clipboard" style="color:#007bff;margin-right:5px;font-size:28px;"></i><a href="#" style="color:black;">Đơn hàng</a>
+            </div>
+            <div class="notification">
+                <i class="ti-bell" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a href="#" style="color:black;">Thông báo</a>
+            </div>
+            <div class="voucher">
+                <i class="bx bxs-discount" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a href="#" style="color:black;">Kho voucher</a>
+            </div>
+            
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" style="padding-left:40px;">
             @RenderBody()
         </div>
     </div>
