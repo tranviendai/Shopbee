@@ -282,7 +282,6 @@ namespace JZenoApp.Controllers
             return View(user);
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
