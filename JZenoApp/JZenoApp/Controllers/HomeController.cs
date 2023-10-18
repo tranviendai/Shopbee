@@ -17,7 +17,6 @@ namespace JZenoApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly JZenoDbContext _context;
         public const string CARTKEY = "cart";
-
         public HomeController(ILogger<HomeController> logger, JZenoDbContext context)
         {
             _logger = logger;
@@ -275,6 +274,12 @@ namespace JZenoApp.Controllers
             };
 
             return this.payment.Create(apiContext);
+        }
+
+        public async Task<IActionResult> UserDetails(string id)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);
+            return View(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

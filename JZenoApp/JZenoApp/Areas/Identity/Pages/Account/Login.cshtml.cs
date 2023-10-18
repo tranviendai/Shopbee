@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
 
 namespace JZenoApp.Areas.Identity.Pages.Account
 {
@@ -133,9 +135,10 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
-
+            
             // If we got this far, something failed, redisplay form
             return Page();
         }
+        
     }
 }
