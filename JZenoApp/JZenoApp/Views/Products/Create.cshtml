@@ -5,7 +5,10 @@
     ViewData["Title"] = "Thêm Sản Phẩm";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     <link rel="stylesheet" href="~/css/managementForm.css">
+    <script src="~/js/tinyMCE.js"></script>
 }
+
+
 
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
     <div class="col-md-15">
@@ -36,8 +39,17 @@
                 <span class="col label-name">Mô tả</span>
 
                 <input asp-for="description" class="form-control" />
+                <textarea id="basic-example">
+
+                </textarea>
 
                 <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="col label-name">Mô tả</span>
+                <textarea id="basic-example">
+                </textarea>
             </div>
             <div class="form-group">
                 <span class="col control-label">Màu sắc</span>
@@ -140,5 +152,6 @@
             $("#total").val(rowCount);
             $(this).closest('#inputRow' + rowCount + '').remove();
         });
+
     </script>
 }  
