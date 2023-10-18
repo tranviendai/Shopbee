@@ -277,7 +277,6 @@ namespace JZenoApp.Controllers
             return this.payment.Create(apiContext);
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

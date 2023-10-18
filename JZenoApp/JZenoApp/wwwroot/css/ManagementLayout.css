@@ -35,7 +35,7 @@ a {
 
 
         .list-menu li a {
-            color: #fff;
+            color: #fff !important;
         }
 
         .list-menu li:hover a {
