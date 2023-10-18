@@ -107,7 +107,7 @@ namespace JZenoApp.Controllers
 
             if (ModelState.IsValid)
             {
-                product.partnerID = User.FindFirstValue(ClaimTypes.Name);
+                product._partnerID = User.FindFirstValue(ClaimTypes.Name);
                 product.isPublish = false;
                 product.postDate = DateTime.Now;
                 _context.Add(product);

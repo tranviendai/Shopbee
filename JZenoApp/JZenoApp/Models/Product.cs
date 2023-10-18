@@ -27,7 +27,7 @@ namespace JZenoApp.Models
 
         [Required]
 
-        [ForeignKey("id")]
+        [ForeignKey("Id")]
         public string? categoryID { get; set; }
         public Category? Category { get; set; }
         [NotMapped]
@@ -36,8 +36,8 @@ namespace JZenoApp.Models
         public List<ProductImage>? productImages { get; set; } = new List<ProductImage>();
         public List<ProductColor>? productColor { get; set; }
 
-        [ForeignKey("Id")]
-        public string? partnerID { get; set; }
+        [ForeignKey("partnerId")]
+        public string? _partnerID { get; set; }
         public Partner? Partner { get; set; } //Đối tác
 
     }

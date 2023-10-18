@@ -37,7 +37,7 @@ namespace JZenoApp.Areas.QuanLy
             }
 
             var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.partnerId == id);
             if (partner == null)
             {
                 return NotFound();

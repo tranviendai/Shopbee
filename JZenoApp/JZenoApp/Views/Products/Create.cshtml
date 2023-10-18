@@ -1,4 +1,4 @@
-﻿@using JZenoApp.Enum
+﻿﻿@using JZenoApp.Enum
 @model JZenoApp.Models.Product
 
 @{
@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="~/css/managementForm.css">
     <script src="~/js/tinyMCE.js"></script>
 }
-
-
-
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
     <div class="col-md-15">
         <form asp-action="Create" enctype="multipart/form-data">
@@ -64,12 +61,13 @@
                     font-weight: bold;
                     color: #fff;
                     cursor: pointer;
-                    ">+
+                    ">
+                    +
                 </div>
                 <div id="newRow">
-                    <div  class="row g-15">
+                    <div class="row g-15">
                         <div class="col-sm-3">
-                            <input name="productColor[0].Name" id="productColor[0].Name" class="form-control" placeholder="Màu"/>
+                            <input name="productColor[0].Name" id="productColor[0].Name" class="form-control" placeholder="Màu" />
                         </div>
                         <div class="col-sm-2">
                             <input name="productColor[0].productSize[0].name" id="productColor[0].productSize[0].name" class="form-control" placeholder="Size" />
@@ -78,15 +76,21 @@
                             <input name="productColor[0].productSize[0].quantity" id="productColor[0].productSize[0].quantity" class="form-control" placeholder="Số lượng" />
                         </div>
                         <div class="col-sm-2">
-                            <input name="productColor[0].productSize[0].name" id="productColor[0].productSize[1].name" class="form-control" placeholder="Size" />
+                            <input name="productColor[0].productSize[1].name" id="productColor[0].productSize[1].name" class="form-control" placeholder="Size" />
                         </div>
                         <div class="col-sm-2">
-                            <input name="productColor[0].productSize[0].quantity" id="productColor[0].productSize[1].quantity" class="form-control" placeholder="Số lượng" />
+                            <input name="productColor[0].productSize[1].quantity" id="productColor[0].productSize[1].quantity" class="form-control" placeholder="Số lượng" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input name="productColor[0].productSize[2].name" id="productColor[0].productSize[2].name" class="form-control" placeholder="Size" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input name="productColor[0].productSize[2].quantity" id="productColor[0].productSize[2].quantity" class="form-control" placeholder="Số lượng" />
                         </div>
                         <input type="hidden" id="total" value="1" />
                     </div>
                 </div>
-               
+
             </div>
 
             <!--
@@ -126,6 +130,8 @@
 </div>
 
 
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 
 @section Scripts
@@ -138,20 +144,24 @@
             $("#total").val(rowCount);
             var html = '';
             html += '<div id="inputRow'+rowCount+'" class="row g-15">';
-            html += '<div class="col-sm-3"> <input name="productColor[' + (rowCount - 1) + '].Name" id="productColor[' + (rowCount - 1) + '].Name" class="form-control" /> </div>';
-            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[0].name" id="productColor[' + (rowCount - 1) + '].productSize[0].name" class="form-control" /></div>';
-            html += '<div class="col-sm-2"><input name="productColor[' + (rowCount - 1) + '].productSize[0].quantity" id="productColor[' + (rowCount - 1) + '].productSize[0].quantity" class="form-control"/></div>';
-            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[1].name" id="productColor[' + (rowCount - 1) + '].productSize[1].name" class="form-control" /></div>';
-            html += '<div class="col-sm-2"><input name="productColor[' + (rowCount - 1) + '].productSize[1].quantity" id="productColor[' + (rowCount - 1) + '].productSize[1].quantity" class="form-control"/></div>';
-            html += '<button id="removeRow" type="button" class="btn btn-danger col-sm-1">Remove</button>';
+            html += '<div class="col-sm-3"> <input name="productColor[' + (rowCount - 1) + '].Name" id="productColor[' + (rowCount - 1) + '].Name" class="form-control" placeholder="Màu" /> </div>';
+            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[0].name" id="productColor[' + (rowCount - 1) + '].productSize[0].name" class="form-control" placeholder="Size" /></div>';
+            html += '<div class="col-sm-2"><input name="productColor[' + (rowCount - 1) + '].productSize[0].quantity" id="productColor[' + (rowCount - 1) + '].productSize[0].quantity" class="form-control" placeholder="Số Lượng" /></div>';
+            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[1].name" id="productColor[' + (rowCount - 1) + '].productSize[1].name" class="form-control" placeholder="Size/></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[1].quantity" id="productColor[' + (rowCount - 1) + '].productSize[1].quantity" class="form-control" placeholder="Số Lượng"/></div>';
+            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[2].name" id="productColor[' + (rowCount - 1) + '].productSize[2].name" class="form-control" placeholder="Size"/></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[2].quantity" id="productColor[' + (rowCount - 1) + '].productSize[2].quantity" class="form-control" placeholder="Số Lượng"/></div>';
             $('#newRow').append(html);
         });
-        $(document).on('click', '#removeRow', function () {
-            var rowCount = parseInt($("#total").val());
-            rowCount--;
-            $("#total").val(rowCount);
-            $(this).closest('#inputRow' + rowCount + '').remove();
+        tinymce.init({
+            selector: "textarea#basic-example",
+            height: 600,
+            branding: false,
+            menubar: true,
+            table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+            plugins:
+                " table print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen codesample charmap hr nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap  emoticons",
+            toolbar: "undo redo | charmap emoticons | bold italic"
         });
-
     </script>
 }  
