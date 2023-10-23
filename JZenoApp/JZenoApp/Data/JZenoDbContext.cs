@@ -175,7 +175,48 @@ namespace JZenoApp.Data
                 entity.ToTable("UserTokens");
             });
 
-
+            builder.Entity<Partner>(entity =>
+            {
+                entity.HasData(
+                    new Partner
+                    {
+                        partnerId = PARTNERID01,
+                        name = "Cửa Hàng A",
+                        isActive= true,
+                        image = "default_avt.png",
+                        description= "Chưa Cập Nhật",
+                        dateCreated= DateTime.Now,
+                    },
+                    new Partner
+                    {
+                        partnerId = PARTNERID02,
+                        name = "Cửa Hàng B",
+                        isActive = true,
+                        image = "default_avt.png",
+                        description = "Chưa Cập Nhật",
+                        dateCreated = DateTime.Now,
+                    },
+                     new Partner
+                     {
+                         partnerId = PARTNERID03,
+                         name = "Cửa Hàng C",
+                         isActive = true,
+                         image = "default_avt.png",
+                         description = "Chưa Cập Nhật",
+                         dateCreated = DateTime.Now,
+                     },
+                      new Partner
+                      {
+                          partnerId = PARTNERID04,
+                          name = "Cửa Hàng D",
+                          isActive = true,
+                          image = "default_avt.png",
+                          description = "Chưa Cập Nhật",
+                          dateCreated = DateTime.Now,
+                      }
+                    );
+            }
+            );
             //Category -- Data
             builder.Entity<Category>(entity =>
             {
@@ -221,7 +262,7 @@ namespace JZenoApp.Data
                         name = "Áo thun nam",
                         discount = 10,
                         price = 50000,
-                        _partnerID = PARTNERID01,
+                        partnerID = PARTNERID01,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.",
@@ -233,7 +274,7 @@ namespace JZenoApp.Data
                         name = "Quần Short nam",
                         discount = 20,
                         price = 30000,
-                        _partnerID = PARTNERID01,
+                        partnerID = PARTNERID01,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.",
@@ -245,7 +286,7 @@ namespace JZenoApp.Data
                         name = "Giày thể thao nam",
                         discount = 30,
                         price = 120000,
-                        _partnerID = PARTNERID01,
+                        partnerID = PARTNERID01,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.",
@@ -257,7 +298,7 @@ namespace JZenoApp.Data
                         name = "Áo sơ mi nữ",
                         discount = 35,
                         price = 70000,
-                        _partnerID = PARTNERID02,
+                        partnerID = PARTNERID02,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.",
@@ -269,7 +310,7 @@ namespace JZenoApp.Data
                         name = "Quần dài nữ",
                         discount = 25,
                         price = 50000,
-                        _partnerID = PARTNERID02,
+                        partnerID = PARTNERID02,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.",
@@ -281,7 +322,7 @@ namespace JZenoApp.Data
                         name = "Giày sandal nữ",
                         discount = 15,
                         price = 100000,
-                        _partnerID = PARTNERID02,
+                        partnerID = PARTNERID02,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.",
@@ -293,7 +334,7 @@ namespace JZenoApp.Data
                         name = "Áo sơ mi nam",
                         discount = 55,
                         price = 60000,
-                        _partnerID = PARTNERID03,
+                        partnerID = PARTNERID03,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
@@ -305,7 +346,7 @@ namespace JZenoApp.Data
                         name = "Quần dài nam",
                         discount = 45,
                         price = 40000,
-                        _partnerID = PARTNERID03,
+                        partnerID = PARTNERID03,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
@@ -317,7 +358,7 @@ namespace JZenoApp.Data
                         name = "Giày sandal nam",
                         discount = 35,
                         price = 110000,
-                        _partnerID = PARTNERID03,
+                        partnerID = PARTNERID03,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.",
@@ -329,7 +370,7 @@ namespace JZenoApp.Data
                         name = "Áo thun nữ",
                         discount = 50,
                         price = 80000,
-                        _partnerID = PARTNERID04,
+                        partnerID = PARTNERID04,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.",
@@ -341,7 +382,7 @@ namespace JZenoApp.Data
                         name = "Quần Short nữ",
                         discount = 40,
                         price = 60000,
-                        _partnerID = PARTNERID04,
+                        partnerID = PARTNERID04,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...",
@@ -353,7 +394,7 @@ namespace JZenoApp.Data
                         name = "Giày thể thao nữ",
                         discount = 30,
                         price = 130000,
-                        _partnerID = PARTNERID04,
+                        partnerID = PARTNERID04,
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.",

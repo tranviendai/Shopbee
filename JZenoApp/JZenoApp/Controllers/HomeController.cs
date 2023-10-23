@@ -279,7 +279,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> UserDetails(string id)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);
-            return View(user);
+            return  PartialView(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

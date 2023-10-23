@@ -40,7 +40,7 @@ namespace JZenoApp.Areas.Admin.Pages.Role
         {
 
             var cuser = await _userManager.GetUserAsync(User);
-            await _userManager.AddToRolesAsync(cuser, new string[] { "Admin" });
+           // await _userManager.AddToRolesAsync(cuser!, new string[] { "Admin" });
 
             if (pageNumber == 0)
                 pageNumber = 1;

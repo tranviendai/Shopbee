@@ -1094,7 +1094,7 @@ border-color: red green blue yellow */
 }
 
 .home-product-item__img {
-    padding-top: 100%;
+    /*padding-top: 100%;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;

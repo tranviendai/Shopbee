@@ -39,7 +39,7 @@ namespace JZenoApp.Models
 
 
         [ForeignKey("partnerId")]
-        public string? _partnerID { get; set; }
+        public string? partnerID { get; set; }
         public Partner? Partner { get; set; } //Đối tác
 
     }
