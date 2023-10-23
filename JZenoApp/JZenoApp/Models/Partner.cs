@@ -6,7 +6,7 @@ namespace JZenoApp.Models
     public class Partner
     {
         [Key]
-        public string? Id {get;set;}
+        public string? partnerId {get;set;}
         [StringLength(100)]
         public string? name { get; set; }
         [NotMapped]

@@ -45,7 +45,7 @@ namespace JZenoApp.Controllers
             }
 
             var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.partnerId == id);
             if (partner == null)
             {
                 return NotFound();
@@ -68,7 +68,7 @@ namespace JZenoApp.Controllers
             {
                 string stringFileName = UploadFile(partner.file!);
                 partner.image = stringFileName;
-                partner.Id = User.FindFirstValue(ClaimTypes.Name);
+                partner.partnerId = User.FindFirstValue(ClaimTypes.Name);
                 partner.isActive = false;
                 partner.dateCreated = DateTime.Now;
                 _context.Add(partner);
@@ -103,7 +103,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> Edit(string id, [Bind("Id,name,image,file,description,dateCreated,isActive")] Partner partner)
         {
             string image = partner.image!;
-            if (id != partner.Id)
+            if (id != partner.partnerId)
             {
                 return NotFound();
             }
@@ -120,7 +120,7 @@ namespace JZenoApp.Controllers
                     {
                         partner.image = image;
                     }
-                    User user = _context.User.Where(s => s.UserName == partner.Id).FirstOrDefault()!;
+                    User user = _context.User.Where(s => s.UserName == partner.partnerId).FirstOrDefault()!;
                     if (partner.isActive == true)
                     {
                         _userManager.AddToRoleAsync(user,"Partner").Wait();
@@ -136,7 +136,7 @@ namespace JZenoApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PartnerExists(partner.Id))
+                    if (!PartnerExists(partner.partnerId))
                     {
                         return NotFound();
                     }
@@ -150,47 +150,10 @@ namespace JZenoApp.Controllers
             return View(partner);
         }
 
-        // GET: Partners/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.Partner == null)
-            {
-                return NotFound();
-            }
-
-            var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (partner == null)
-            {
-                return NotFound();
-            }
-
-            return View(partner);
-        }
-
-        // POST: Partners/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.Partner == null)
-            {
-                return Problem("Entity set 'JZenoDbContext.Partner'  is null.");
-            }
-            var partner = await _context.Partner.FindAsync(id);
-            if (partner != null)
-            {
-                DeleteFile(partner.image!);
-                _context.Partner.Remove(partner);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+       
         private bool PartnerExists(string id)
         {
-          return (_context.Partner?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Partner?.Any(e => e.partnerId == id)).GetValueOrDefault();
         }
         private void DeleteFile(string file)
         {

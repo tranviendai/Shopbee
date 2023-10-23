@@ -189,46 +189,7 @@ namespace JZenoApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.Product == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Product
-                .Include(p => p.Category)
-                .Include(p => p.productColor)
-                .Include(p => p.Partner)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.Product == null)
-            {
-                return Problem("Entity set 'JZenoDbContext.Product'  is null.");
-            }
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
-            {
-                _context.Product.Remove(product);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+     
         private bool ProductExists(string id)
         {
             return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "List Role";
 }
-<h3>@ViewData["Title"]</h1>
+<h3>Danh sách role</h3>
 <partial name="_StatusMessage" model="@Model.StatusMessage" />
 
 <form method="POST" class="my-1 d-inline">
-    <button class="btn btn-secondary" asp-page="./Add" 
+    <button style="background-color:var(--main-color1); border:none;" class="btn btn-secondary" asp-page="./Add" 
             asp-page-handler="StartNewRole">New Role</button>
 </form>
-<a class="btn btn-secondary" asp-page="./User">Assign Role To Users</a>
+<a style="background-color:var(--main-color1); border:none;" class="btn btn-secondary" asp-page="./User">Assign Role To Users</a>
 
 <table class="table">
   <tr>

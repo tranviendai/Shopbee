@@ -1,0 +1,84 @@
+﻿/*body {
+    background-color: #eee;
+}*/
+
+.sum {
+    margin: 100px;
+}
+
+.choose {
+    margin-left: 20px;
+}
+
+.lc div {
+    margin-bottom: 30px;
+}
+
+.tk {
+    margin-left: 24px;
+}
+
+.tk {
+    margin-left: 15px;
+}
+
+.info {
+    background-color: white;
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.ttlienhe {
+    font-size: 20px;
+    color: #6F6F6F;
+}
+.hoso {
+    background-color: white;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+}
+h5 {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    border: 0;
+    border-bottom: 1px solid rgb(107 101 101 / 30%);
+}
+.email {
+    display: block;
+    width: 78%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #EDF1FF;
+    border-radius: 0;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+    margin-left: 15px;
+}
+.grid.wide {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+.form-control{
+    font-size:1.5rem;
+}
+
+.save:: hover {
+    background-color: f26053;
+}
+.form-floating{
+    margin-top:5px;
+}
+.imagemail {
+    margin-left: 13px;
+    margin-top: 38px;
+    width: 464px;
+}

@@ -1,0 +1,17 @@
+﻿@model JZenoApp.Models.User
+
+@{
+    ViewData["Title"] = "User Details";
+}
+<div style="margin-top:22px;">
+    @if (Model.image == null)
+    {
+        <i class="ti-user" style="border:1px solid gray; border-radius:50%;padding: 20px;margin-right: 5px;"></i>
+    }
+    else
+    {
+        <img src="~/images/users/@Model.image" style="border-radius:50%;margin-right: 5px;width:60px;height:60px;margin-top:-15px" />
+    }
+    <span>@Html.DisplayFor(model => model.fullName)</span> <br />
+
+</div>

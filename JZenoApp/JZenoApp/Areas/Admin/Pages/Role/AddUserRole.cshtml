@@ -7,21 +7,174 @@
 <h4>@ViewData["Title"]</h4>
 <div class="row">
     <div class="col-md-6">
-        <p>Chọn các role gán cho <strong>@Model.Input!.Name</strong></p>
+        <p style="border-bottom: 1px solid #cccaca94">Chọn các role gán cho <strong>@Model.Input!.Name</strong></p>
         <form method="post">
             <partial name="_StatusMessage" model="@Model.StatusMessage" />
             <div class="form-group">
-                @Html.LabelFor(x => x.Input!.RoleNames)
+                <div class="chooseRole" style="font-size:18px;font-weight:600; margin-bottom: 3px;">Chọn role</div>
                 @Html.ListBoxFor(x => x.Input!.RoleNames,
                 new SelectList( Model.AllRoles ),
-                new {@class="w-100", id = "selectrole"})
+                new {@class="w-100", id = "selectrole", onchange = "myFunction()"})
             </div>
-
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <input type="hidden" asp-for="Input!.ID">
-            <input type="hidden" asp-for="isConfirmed">
-            <a class="btn btn-primary" asp-page="./User">Danh sách</a>
-            <button type="submit" class="btn btn-danger">Cập nhật</button>
+            <div style="display:flex; justify-content:center;margin-top:15px;">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Input!.ID">
+                <input type="hidden" asp-for="isConfirmed">
+                <a class="btn btn-primary" asp-page="./User">Danh sách</a>
+                <button type="submit" class="btn btn-danger">Cập nhật</button>
+            </div>
         </form>
     </div>
+    <div class="col-md-6" > 
+        <div class="ds">
+            Những quyền được cấp <span id="namerole"></span>
+        </div>
+        <div id="QAdmin">
+            <div class="form-group1 row p-0">
+                <span class="col label-name">Quyền 1</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quản lý thống kê</span>
+            </div>
+
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 2</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý sản phẩm</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 3</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý role</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 4</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý tin tức</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 5</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý đối tác</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 6</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý Khách hàng</span>
+            </div>
+        </div>
+
+        @* Quyền của đối tác *@
+        <div id="Qdoitac" style="display:none;"> 
+            <div class="form-group1 row p-0">
+                <span class="col label-name">Quyền 1</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quản lý đơn hàng</span>
+            </div>
+
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 2</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quản lý voucher</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 3</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý thống kê</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 4</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý sản phẩm</span>
+            </div>
+        </div>
+
+        @* Quyền của khách hàng *@
+        <div id="Qkhachhang" style="display:none;">
+            <div class="form-group1 row p-0">
+                <span class="col label-name">Quyền 1</span>
+                <span class="input-form col-10" style="background-color:#fff;">Xem sản phẩm</span>
+            </div>
+
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 2</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quản lý đơn hàng</span>
+            </div>
+            <div class="form-group1 row p-0" style="margin-top:-17px;">
+                <span class="col label-name">Quyền 3</span>
+                <span class="input-form col-10" style="background-color:#fff;">Quán lý voucher</span>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    var s = "Admin";
+    document.getElementById("namerole").innerHTML = "&nbsp;" + s;
+    function myFunction() {       
+        var x = document.getElementById("selectrole").value;
+        document.getElementById("namerole").innerHTML = "&nbsp;" + x;
+        if (x == "Admin") {
+            document.getElementById("QAdmin").style.display = "block";
+            document.getElementById("Qdoitac").style.display = "none";
+            document.getElementById("Qkhachhang").style.display = "none";
+        }
+        if (x == "Customer") {
+            document.getElementById("QAdmin").style.display = "none";
+            document.getElementById("Qdoitac").style.display = "none";
+            document.getElementById("Qkhachhang").style.display = "block";
+        }
+        if (x == "Partner") {
+            document.getElementById("QAdmin").style.display = "none";
+            document.getElementById("Qdoitac").style.display = "block";
+            document.getElementById("Qkhachhang").style.display = "none";
+        }
+    }
+</script>
+<style>
+    option{
+        padding-left:10px;
+    }
+    .ds{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 600;
+        margin-top: 27px;
+    }
+    .form-group1 {
+        background-color: #ffebea;
+        margin: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        color: #000000;
+        border: 1px solid #cdd9ed;
+    }
+
+    .title-form {
+        color: #fff;
+        font-weight: 600;
+        padding: 16px;
+        margin: 0;
+        border-radius: 8px 8px 0 0;
+        /*    background-color: #4285f4;
+    */
+        background-image: url('https://www.slidebackground.com/uploads/technology-background/technology-wallpapers-download-pixelstalk-24.jpg');
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .label-name {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        border-right: 1px solid #ffebea;
+    }
+
+    .input-form {
+        padding: 12px;
+        border: 0;
+        outline: none;
+        border-radius: 0 8px 8px 0;
+    }
+
+    .delete-form {
+        padding: 12px;
+    }
+
+    .form-group1:focus-within {
+        color: #fff !important;
+        border: 1px solid #4285f4;
+        background-color: #4285f4;
+    }
+</style>

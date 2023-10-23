@@ -1,0 +1,101 @@
+﻿body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    padding: 12px 0;
+}
+
+.nav-left {
+    width: 15%;
+    float: left;
+    padding: 10px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.list-menu {
+    margin-top: 16px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 700;
+    list-style-type: none;
+}
+
+    .list-menu li {
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+    }
+
+
+        .list-menu li a {
+            color: #fff !important;
+        }
+
+        .list-menu li:hover a {
+            color: #f7432e !important;
+        }
+        .list-menu li:hover i {
+            color: #f7432e !important;
+        }
+
+        .list-menu li:hover {
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+.content-right {
+    width: 85%;
+    height: 500px;
+    float: right
+}
+
+.nav-content {
+    height: 60px;
+    justify-content: center;
+    align-content: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.content {
+    margin: 16px;
+}
+
+.box-section-content {
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.btn a, i {
+    color: #fff !important;
+}
+
+thead, tfoot {
+    color: #4285f4;
+}
+
+.ui-money {
+    color: red !important;
+    font-weight: 700;
+}
+
+.product-meta {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .product-meta:hover {
+        width: 300px;
+        white-space: normal;
+        overflow: hidden;
+        cursor: pointer;
+    }

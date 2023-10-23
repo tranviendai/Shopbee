@@ -1,0 +1,118 @@
+﻿.form-group {
+    background-color: rgba(201, 185, 179, 0.1);
+    margin: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    color: #000000;
+    border: 1px solid #cdd9ed;
+}
+
+.title-form {
+    color: #fff;
+    font-weight: 600;
+    padding: 16px;
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+    background-image: url('https://www.slidebackground.com/uploads/technology-background/technology-wallpapers-download-pixelstalk-24.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-name {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-right: 1px solid #cdd9ed;
+}
+
+.input-form {
+    padding: 12px;
+    border: 0;
+    outline: none;
+    border-radius: 0 8px 8px 0;
+}
+
+.delete-form {
+    padding: 12px;
+}
+
+.form-group:focus-within {
+    color: #fff !important;
+    border: 1px solid #ee4d2d;
+    background-color: #ee4d2d;
+}
+
+textarea {
+    min-height: 150px;
+    border: 0;
+    outline: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.textArea {
+    min-height: 150px;
+    border: 0;
+    outline: none;
+    border-radius: 0 0 8px 8px;
+}
+
+.box-form {
+    margin: 16px;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+
+.img-create {
+    width: 200px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+::-webkit-file-upload-button {
+    background: #198754;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.form-btn {
+    margin: 0 16px;
+}
+
+.parent-box-confirm {
+    display: none;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.box-confirm {
+    position: absolute;
+    top: 151px;
+    right: 628px;
+    background: #fff;
+    height: 200px;
+    width: 400px;
+    align-items: end;
+    display: flex;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+}
+
+.box-white {
+    background-color: #fff;
+}
+
+.fullWidth {
+    width: 100% !important;
+}
