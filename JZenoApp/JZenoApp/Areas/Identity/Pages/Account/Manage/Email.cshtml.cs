@@ -72,16 +72,19 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             [EmailAddress]
             [Display(Name = "New email")]
             public string NewEmail { get; set; }
+            [Display(Name = "Image")]
+            public string Image { get; set; }
         }
 
         private async Task LoadAsync(User user)
         {
             var email = await _userManager.GetEmailAsync(user);
             Email = email;
-
+            var image = user.image;
             Input = new InputModel
             {
                 NewEmail = email,
+                Image = image,
             };
 
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
