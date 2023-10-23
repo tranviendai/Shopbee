@@ -1,4 +1,5 @@
 ﻿
+@inject UserManager<User> UserManager
 @inject SignInManager<User> SignInManager
 
 @{
@@ -6,7 +7,7 @@
 }
 
 <ul class=" flex-column" style="list-style: none;">
-
+   
     <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Tài khoản của tôi</a></li>
     <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
     <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>

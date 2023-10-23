@@ -76,6 +76,41 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Confirm new password")]
             [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+            [Required(ErrorMessage = "Please, input data \"Full Name\"!")]
+            [Display(Name = "Full Name")]
+            [StringLength(50)]
+            public string FullName { get; set; }
+            [Display(Name = "Image")]
+            public string Image { get; set; }
+            [Required(ErrorMessage = "Please, input data \"Display\"!")]
+            [Display(Name = "Address")]
+            public string Address { get; set; }
+            [DataType(DataType.Date)]
+            public DateTime DateCreated { get; set; }
+        }
+        public string Username { get; set; }
+        private async Task LoadAsync(User user)
+        {
+            var userName = await _userManager.GetUserNameAsync(user);
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
+            var fullname = user.fullName;
+            var address = user.address;
+            var image = user.image;
+            DateTime datetime = user.dateCreated;
+            Username = userName;
+
+            Input = new InputModel
+            {
+                PhoneNumber = phoneNumber,
+                Image = image,
+                Address = address,
+                FullName = fullname,
+                DateCreated = datetime,
+            };
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -91,7 +126,7 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             {
                 return RedirectToPage("./SetPassword");
             }
-
+            await LoadAsync(user);
             return Page();
         }
 

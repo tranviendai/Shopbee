@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,6 +48,8 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        [BindProperty]
+        public InputModel Input { get; set; }
         public bool ShowRemoveButton { get; set; }
 
         /// <summary>
@@ -55,10 +58,33 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
         /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
+        public class InputModel
+        {
+            /// <summary>
+            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+            ///     directly from your code. This API may change or be removed in future releases.
+            /// </summary>
+            
+            public string NewEmail { get; set; }
+            [Display(Name = "Image")]
+            public string Image { get; set; }
+        }
+        private async Task LoadAsync(User user)
+        {
+            
+            var image = user.image;
+            Input = new InputModel
+            {
+          
+                Image = image,
+            };
 
+           
+        }
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
+            await LoadAsync(user);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
