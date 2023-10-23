@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JZenoApp.Migrations
 {
     [DbContext(typeof(JZenoDbContext))]
-    [Migration("20231018170657_Database")]
-    partial class Database
+    [Migration("20231023111052_Database Final")]
+    partial class DatabaseFinal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,44 @@ namespace JZenoApp.Migrations
                     b.HasKey("partnerId");
 
                     b.ToTable("Partner");
+
+                    b.HasData(
+                        new
+                        {
+                            partnerId = "5215212-mx18-4213-h6d1-420b466e4502",
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6723),
+                            description = "Chưa Cập Nhật",
+                            image = "default_avt.png",
+                            isActive = true,
+                            name = "Cửa Hàng A"
+                        },
+                        new
+                        {
+                            partnerId = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6738),
+                            description = "Chưa Cập Nhật",
+                            image = "default_avt.png",
+                            isActive = true,
+                            name = "Cửa Hàng B"
+                        },
+                        new
+                        {
+                            partnerId = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6748),
+                            description = "Chưa Cập Nhật",
+                            image = "default_avt.png",
+                            isActive = true,
+                            name = "Cửa Hàng C"
+                        },
+                        new
+                        {
+                            partnerId = "iosxiof-mx18-4213-h6d1-420b466e4502",
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6750),
+                            description = "Chưa Cập Nhật",
+                            image = "default_avt.png",
+                            isActive = true,
+                            name = "Cửa Hàng D"
+                        });
                 });
 
             modelBuilder.Entity("JZenoApp.Models.Product", b =>
@@ -204,9 +242,6 @@ namespace JZenoApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("_partnerID")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("categoryID")
                         .IsRequired()
@@ -226,7 +261,7 @@ namespace JZenoApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("partnerId")
+                    b.Property<string>("partnerID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("postDate")
@@ -239,7 +274,7 @@ namespace JZenoApp.Migrations
 
                     b.HasIndex("categoryID");
 
-                    b.HasIndex("partnerId");
+                    b.HasIndex("partnerID");
 
                     b.ToTable("Product");
 
@@ -247,145 +282,145 @@ namespace JZenoApp.Migrations
                         new
                         {
                             Id = "shirt1",
-                            _partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
                             categoryID = "shirt",
                             description = "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.",
                             discount = 10,
                             isPublish = true,
                             name = "Áo thun nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3650),
+                            partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6859),
                             price = 50000.0
                         },
                         new
                         {
                             Id = "short1",
-                            _partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
                             categoryID = "short",
                             description = "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.",
                             discount = 20,
                             isPublish = true,
                             name = "Quần Short nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3669),
+                            partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6870),
                             price = 30000.0
                         },
                         new
                         {
                             Id = "shoes1",
-                            _partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
                             categoryID = "shoes",
                             description = "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.",
                             discount = 30,
                             isPublish = true,
                             name = "Giày thể thao nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3674),
+                            partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6883),
                             price = 120000.0
                         },
                         new
                         {
                             Id = "shirt2",
-                            _partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             categoryID = "shirt",
                             description = "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.",
                             discount = 35,
                             isPublish = true,
                             name = "Áo sơ mi nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3678),
+                            partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6939),
                             price = 70000.0
                         },
                         new
                         {
                             Id = "trouser2",
-                            _partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             categoryID = "trouser",
                             description = "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.",
                             discount = 25,
                             isPublish = true,
                             name = "Quần dài nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3681),
+                            partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6942),
                             price = 50000.0
                         },
                         new
                         {
                             Id = "sandal2",
-                            _partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             categoryID = "sandal",
                             description = "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.",
                             discount = 15,
                             isPublish = true,
                             name = "Giày sandal nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3684),
+                            partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6945),
                             price = 100000.0
                         },
                         new
                         {
                             Id = "shirt3",
-                            _partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             categoryID = "shirt",
                             description = "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
                             discount = 55,
                             isPublish = true,
                             name = "Áo sơ mi nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3694),
+                            partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6947),
                             price = 60000.0
                         },
                         new
                         {
                             Id = "trouser3",
-                            _partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             categoryID = "trouser",
                             description = "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
                             discount = 45,
                             isPublish = true,
                             name = "Quần dài nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3697),
+                            partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6950),
                             price = 40000.0
                         },
                         new
                         {
                             Id = "sandal3",
-                            _partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             categoryID = "sandal",
                             description = "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.",
                             discount = 35,
                             isPublish = true,
                             name = "Giày sandal nam",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3701),
+                            partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6953),
                             price = 110000.0
                         },
                         new
                         {
                             Id = "shirt4",
-                            _partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             categoryID = "shirt",
                             description = "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.",
                             discount = 50,
                             isPublish = true,
                             name = "Áo thun nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3710),
+                            partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6956),
                             price = 80000.0
                         },
                         new
                         {
                             Id = "short4",
-                            _partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             categoryID = "short",
                             description = "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...",
                             discount = 40,
                             isPublish = true,
                             name = "Quần Short nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3732),
+                            partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6958),
                             price = 60000.0
                         },
                         new
                         {
                             Id = "shoes4",
-                            _partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             categoryID = "shoes",
                             description = "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.",
                             discount = 30,
                             isPublish = true,
                             name = "Giày thể thao nữ",
-                            postDate = new DateTime(2023, 10, 19, 0, 6, 57, 516, DateTimeKind.Local).AddTicks(3735),
+                            partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(6961),
                             price = 130000.0
                         });
                 });
@@ -1644,20 +1679,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "a79e98b4-d8a6-4640-98eb-5b417ffb2661",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5c96a3b-df9e-460d-a8e8-ef623c7df109",
+                            ConcurrencyStamp = "adeee61f-eab1-4a42-a473-c6a364dc2330",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPPskGy+iIkyLvPPQjK/rMmEzPEveaHnGzFYSH7nmVAH4xoe94kb8fuU1/gGMSmGrw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMFBMU3RWSdkz8RoExVP5fKANdHT99c0cTby3ObCIqh3aVpgQrkaEwk/qIn+abhUBg==",
                             PhoneNumber = "0582072743",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "05b6f9ae-0157-4eab-91b8-231a766141f7",
+                            SecurityStamp = "6d50d94e-7c2a-438f-a06a-7e8072452175",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com",
                             address = "Tắc Vân - Cà Mau",
-                            dateCreated = new DateTime(2023, 10, 19, 0, 6, 57, 125, DateTimeKind.Local).AddTicks(2123),
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 244, DateTimeKind.Local).AddTicks(1944),
                             fullName = "Trần Viễn Đại",
                             image = "shobee-logo.png"
                         },
@@ -1665,20 +1700,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5215212-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "94e6b14b-adb4-47ca-9b70-04fc338f49dd",
+                            ConcurrencyStamp = "fb796ccc-5876-46af-bc3a-dcd8e2fcbe9e",
                             Email = "partner1@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER1@GMAIL.COM",
                             NormalizedUserName = "PARTNER1@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOjPxvGl7hj86pDgMGnzqBeZvMZpQVnzpO2Oc4zgxetuQDrgfkpkb4zKcK36EKjSlw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF2liuyBm+Kk8xqtg73yTNrqKn7ahJ34P0fbsB6AemCKK80FeSW+S/5H2aauZSa8SA==",
                             PhoneNumber = "0582012351",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0474b23e-a51b-4511-8dde-3cfc873b649c",
+                            SecurityStamp = "f313f45a-a410-483e-8aa8-93887d4081d7",
                             TwoFactorEnabled = false,
                             UserName = "partner1@gmail.com",
                             address = "Bình Chánh - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 19, 0, 6, 57, 225, DateTimeKind.Local).AddTicks(7813),
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 338, DateTimeKind.Local).AddTicks(8716),
                             fullName = "Đối Tác Một",
                             image = "shobee-logo.png"
                         },
@@ -1686,20 +1721,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "23bc8022-cd7c-4eac-b7a8-3962c97e401f",
+                            ConcurrencyStamp = "1a75a7ca-475e-464c-a0bd-b8e084383695",
                             Email = "partner2@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER2@GMAIL.COM",
                             NormalizedUserName = "PARTNER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB1Wkvd5wQ5H4fqTfKxYOCSRGsQSed1NIgk/AZXpzgZjVzSB297XR10dd5UQRyi1XA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO3891kRRysdd8ZTBBPXnRR4BZtbCKJXGvMSMpmkR4wSrGKxDk+HbJkFBYyCe9zuPA==",
                             PhoneNumber = "0582015681",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "94640bad-4fb5-4b9d-82d4-a21d66de1627",
+                            SecurityStamp = "95ddc773-e06c-42fc-93e3-3fbef03d7039",
                             TwoFactorEnabled = false,
                             UserName = "partner2@gmail.com",
                             address = "Trảng Bom - Đồng Nai",
-                            dateCreated = new DateTime(2023, 10, 19, 0, 6, 57, 320, DateTimeKind.Local).AddTicks(3298),
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 426, DateTimeKind.Local).AddTicks(7865),
                             fullName = "Đối Tác Hai",
                             image = "shobee-logo.png"
                         },
@@ -1707,20 +1742,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a56309f-0939-46ef-8fc8-c3ce318a9b74",
+                            ConcurrencyStamp = "1d72209e-6e96-463a-a5d1-32beca2f6e2c",
                             Email = "partner3@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER3@GMAIL.COM",
                             NormalizedUserName = "PARTNER3@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI20nz08XKTz+xtxxdMXyBr+ZeID74KPGdAsEZ8UQQlSzqK7xKTxokaHuW/w0Iz/Kg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEERqBCvL3fZJ9v8T54UDtzbODELivQhJy+dzw65f+gOJVaBpvu7jrKFINT4k7eoOAg==",
                             PhoneNumber = "0582014561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d5b73ed-245e-4f63-a02e-5965b0b27291",
+                            SecurityStamp = "fb3e72aa-8c00-4c0a-893a-f751de0c48bb",
                             TwoFactorEnabled = false,
                             UserName = "partner3@gmail.com",
                             address = "Quận 1 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 19, 0, 6, 57, 414, DateTimeKind.Local).AddTicks(3285),
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 516, DateTimeKind.Local).AddTicks(5727),
                             fullName = "Đối Tác Ba",
                             image = "shobee-logo.png"
                         },
@@ -1728,20 +1763,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b9fb3f33-a5aa-4104-bdad-3b9d878860fa",
+                            ConcurrencyStamp = "36fe637f-833a-4cfb-8764-01d78d2eef80",
                             Email = "partner4@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER4@GMAIL.COM",
                             NormalizedUserName = "PARTNER4@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPfCXllRxSui6Ckk+Vbri/8n3h7WCtgyMpjJryu4QuqOly7DLSQrpOJWD8qjJMThDw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGQwJg2y9RsRulMWRZ0tSfoje2r4u16V8Cuqq8MeRWSjnFLQ8qLp4Lra/0LftL/OVg==",
                             PhoneNumber = "0582753561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "26da27de-0dab-4aa5-bafb-2c47bbb2032d",
+                            SecurityStamp = "b77e4202-c476-4efd-ab4c-0776f0651fec",
                             TwoFactorEnabled = false,
                             UserName = "partner4@gmail.com",
                             address = "Quận 10 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 19, 0, 6, 57, 515, DateTimeKind.Local).AddTicks(8979),
+                            dateCreated = new DateTime(2023, 10, 23, 18, 10, 52, 605, DateTimeKind.Local).AddTicks(2628),
                             fullName = "Đối Tác Bốn",
                             image = "shobee-logo.png"
                         });
@@ -2008,7 +2043,7 @@ namespace JZenoApp.Migrations
 
                     b.HasOne("JZenoApp.Models.Partner", "Partner")
                         .WithMany("products")
-                        .HasForeignKey("partnerId");
+                        .HasForeignKey("partnerID");
 
                     b.Navigation("Category");
 

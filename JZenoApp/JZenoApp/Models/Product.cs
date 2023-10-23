@@ -37,7 +37,7 @@ namespace JZenoApp.Models
         public List<ProductColor>? productColor { get; set; }
 
         [ForeignKey("partnerId")]
-        public string? _partnerID { get; set; }
+        public string? partnerID { get; set; }
         public Partner? Partner { get; set; } //Đối tác
 
     }
