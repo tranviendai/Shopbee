@@ -42,7 +42,10 @@ namespace JZenoApp.Controllers
             var product = await _context.Product
                 .Include(p => p.Category)
                 .Include(p => p.productColor)
+                .ThenInclude(p => p.productSize)
                 .Include(p => p.Partner)
+                .Include(p => p.productImages)
+                .Include(p => p.productComment)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
