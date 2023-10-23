@@ -35,6 +35,8 @@ namespace JZenoApp.Models
 
         public List<ProductImage>? productImages { get; set; } = new List<ProductImage>();
         public List<ProductColor>? productColor { get; set; }
+        public List<ProductComment>? productComment { get; set; }
+
 
         [ForeignKey("partnerId")]
         public string? partnerID { get; set; }

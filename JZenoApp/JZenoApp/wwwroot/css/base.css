@@ -20,11 +20,13 @@
 }
 
 * {
+    font-size: 100%;
+    line-height: 1.6rem;
     box-sizing: inherit;
 }
 
-a {
-    color: #ee4d2d !important;
+li a {
+    color: #fff ;
 }
 
 .grid__row {
