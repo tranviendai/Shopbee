@@ -1,5 +1,67 @@
 ﻿@model List<JZenoApp.Models.Product>
 
+<head>
+    <link href="~/css/Home.css" rel="stylesheet">
+
+</head>
+
+<style>
+    swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .pt-5 {
+        padding-top: 0.5rem !important;
+    }
+
+    .cat-item:hover {
+        background: #FA5230;
+    }
+
+    .cat-item h4:hover {
+        color: white;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 35% !important;
+        max-width: 35% !important;
+    }
+
+    .col-lg-8 {
+        flex: 0 0 65% !important;
+        max-width: 65% !important;
+    }
+
+    .home-product-item__imgg:hover {
+        transform: scale(1.1);
+        transition: 0.5s ease-out;
+    }
+
+    .home-product-item__name{
+        font-size: 14px;
+    }
+
+    .home-product-item__name{
+        font-size: 14px;
+    }
+</style>
 
 <div class="row">
         @foreach (var product in Model)
@@ -21,3 +83,672 @@
         </div>
         }
 </div>
+
+
+@*Slide start*@
+<div class="container-fluid mb-3" style="padding-top: 15px;">
+    <div class="row px-xl-5" style="margin-left: -50px; margin-right: -50px;">
+        <div class="col-lg-8">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel" >
+                <div class="carousel-inner">
+                    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
+                                      centered-slides="true" autoplay-delay="2300" autoplay-disable-on-interaction="false">
+                        <swiper-slide><img src="~/images/logo/slide1.png" /></swiper-slide>
+                        <swiper-slide><img src="~/images/logo/slide2.png" /></swiper-slide>
+                        <swiper-slide><img src="~/images/logo/slide3.png" /></swiper-slide>
+                        <swiper-slide><img src="~/images/logo/slide4.png" /></swiper-slide>
+                        <swiper-slide><img src="~/images/logo/slide5.png" /></swiper-slide>
+                    </swiper-container>
+                    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="product-offer mb-30" style="height: 43%;">
+                <img class="img-fluid" src="~/images/logo/slide6.png" alt="">
+            </div>
+            <div class="product-offer mb-30" style="height: 43%">
+                <img class="img-fluid" src="~/images/logo/slide7.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+@*Slide end*@
+
+@*Category start*@
+<div class="container-fluid pt-5" >
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" style="color: #F2765E;"><span class="bg-secondary pr-3">DANH MỤC</span></h2>
+    <div class="row px-xl-5 pb-3" style="margin-left: -50px; margin-right: -50px;">
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/aonu.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Quần áo nữ</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/mayanh.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Máy ảnh % Máy quay phim</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/giay.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Giày dép nam</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/aonam.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Quần áo nam</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/dongho.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Đồng hồ</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/giaynu.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Giày dép nữ</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/product-10.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Điện thoại</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+            <a class="text-decoration-none" href="">
+                <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                        <img class="img-fluid" src="~/images/logo/product-11.png" alt="">
+                    </div>
+                    <div class="flex-fill pl-3">
+                        <h4>Máy tính</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+@*Category end*@
+
+
+
+@* Flash sale start *@
+<div id="list-product" class="row sm-gutter" style="background-color: #FFFFFF; padding-top: 15px;">
+    <div class="flashsale" style="padding-left: 15px;">
+        <img src="~/images/logo/FS.png" />       
+    </div>
+    <div style="position: absolute; padding-left: 200px; font-size: 30px; top: 670px;" id="countdown">00:00:00</div>
+    <div class="col l-2-4 m-3 c-6 home-product-item">
+        <a class="home-product-item-linkk" href="#">
+            @* Ảnh sản phẩm *@
+            <div class="home-product-item__imgg"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+            <div class="home-product-item__info">
+                @* Tên sản phẩm *@
+                <h4 class="home-product-item__name" style="font-size: 14px">iPhone 15 Pro Max 1TB Titan</h4>
+                <div class="home-product-item__price">
+                    @* Giá sản phẩm *@
+                    <p class="home-product-item__price-old">47.990.000đ</p>
+                    <p class="home-product-item__price-new">46.990.000đ</p>
+                    <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                </div>
+                <div class="home-product-item__footer">
+                    <div class="home-product-item__save">
+                        <input type="checkbox" name="save-check" id="heart-save">
+                        <label for="heart-save" class="far fa-heart"></label>
+                    </div>
+                    <div class="home-product-item__rating-star">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    @* Số lượng đã bán *@
+                    <div class="home-product-item__saled">Đã bán 3,8k</div>
+                </div>
+                @* Địa chỉ shop *@
+                <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                <div class="home-product-item__favourite">
+                    Yêu thích
+                </div>
+                <div class="home-product-item__sale-off">
+                    @* Giảm giá (bao nhiêu %) *@
+                    <div class="home-product-item__sale-off-value">1%</div>
+                    <div class="home-product-item__sale-off-label">GIẢM</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col l-2-4 m-3 c-6 home-product-item">
+        <a class="home-product-item-linkk" href="#">
+            @* Ảnh sản phẩm *@
+            <div class="home-product-item__imgg"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+            <div class="home-product-item__info">
+                @* Tên sản phẩm *@
+                <h4 class="home-product-item__name" style="font-size: 14px">iPhone 15 Pro Max 1TB Titan</h4>
+                <div class="home-product-item__price">
+                    @* Giá sản phẩm *@
+                    <p class="home-product-item__price-old">47.990.000đ</p>
+                    <p class="home-product-item__price-new">46.990.000đ</p>
+                    <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                </div>
+                <div class="home-product-item__footer">
+                    <div class="home-product-item__save">
+                        <input type="checkbox" name="save-check" id="heart-save">
+                        <label for="heart-save" class="far fa-heart"></label>
+                    </div>
+                    <div class="home-product-item__rating-star">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    @* Số lượng đã bán *@
+                    <div class="home-product-item__saled">Đã bán 3,8k</div>
+                </div>
+                @* Địa chỉ shop *@
+                <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                <div class="home-product-item__favourite">
+                    Yêu thích
+                </div>
+                <div class="home-product-item__sale-off">
+                    @* Giảm giá (bao nhiêu %) *@
+                    <div class="home-product-item__sale-off-value">1%</div>
+                    <div class="home-product-item__sale-off-label">GIẢM</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col l-2-4 m-3 c-6 home-product-item">
+        <a class="home-product-item-link" href="#">
+            @* Ảnh sản phẩm *@
+            <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+            <div class="home-product-item__info">
+                @* Tên sản phẩm *@
+                <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                <div class="home-product-item__price">
+                    @* Giá sản phẩm *@
+                    <p class="home-product-item__price-old">47.990.000đ</p>
+                    <p class="home-product-item__price-new">46.990.000đ</p>
+                    <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                </div>
+                <div class="home-product-item__footer">
+                    <div class="home-product-item__save">
+                        <input type="checkbox" name="save-check" id="heart-save">
+                        <label for="heart-save" class="far fa-heart"></label>
+                    </div>
+                    <div class="home-product-item__rating-star">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    @* Số lượng đã bán *@
+                    <div class="home-product-item__saled">Đã bán 3,8k</div>
+                </div>
+                @* Địa chỉ shop *@
+                <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                <div class="home-product-item__favourite">
+                    Yêu thích
+                </div>
+                <div class="home-product-item__sale-off">
+                    <div class="home-product-item__sale-off-value">1%</div>
+                    <div class="home-product-item__sale-off-label">GIẢM</div>
+                </div>
+            </div>
+            <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+        </a>
+    </div>
+    <div class="col l-2-4 m-3 c-6 home-product-item">
+        <a class="home-product-item-link" href="#">
+            @* Ảnh sản phẩm *@
+            <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+            <div class="home-product-item__info">
+                @* Tên sản phẩm *@
+                <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                <div class="home-product-item__price">
+                    @* Giá sản phẩm *@
+                    <p class="home-product-item__price-old">47.990.000đ</p>
+                    <p class="home-product-item__price-new">46.990.000đ</p>
+                    <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                </div>
+                <div class="home-product-item__footer">
+                    <div class="home-product-item__save">
+                        <input type="checkbox" name="save-check" id="heart-save">
+                        <label for="heart-save" class="far fa-heart"></label>
+                    </div>
+                    <div class="home-product-item__rating-star">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    @* Số lượng đã bán *@
+                    <div class="home-product-item__saled">Đã bán 3,8k</div>
+                </div>
+                @* Địa chỉ shop *@
+                <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                <div class="home-product-item__favourite">
+                    Yêu thích
+                </div>
+                <div class="home-product-item__sale-off">
+                    <div class="home-product-item__sale-off-value">1%</div>
+                    <div class="home-product-item__sale-off-label">GIẢM</div>
+                </div>
+            </div>
+            <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+        </a>
+    </div>
+    <div class="col l-2-4 m-3 c-6 home-product-item">
+        <a class="home-product-item-link" href="#">
+            @* Ảnh sản phẩm *@
+            <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+            <div class="home-product-item__info">
+                @* Tên sản phẩm *@
+                <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                <div class="home-product-item__price">
+                    @* Giá sản phẩm *@
+                    <p class="home-product-item__price-old">47.990.000đ</p>
+                    <p class="home-product-item__price-new">46.990.000đ</p>
+                    <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                </div>
+                <div class="home-product-item__footer">
+                    <div class="home-product-item__save">
+                        <input type="checkbox" name="save-check" id="heart-save">
+                        <label for="heart-save" class="far fa-heart"></label>
+                    </div>
+                    <div class="home-product-item__rating-star">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    @* Số lượng đã bán *@
+                    <div class="home-product-item__saled">Đã bán 3,8k</div>
+                </div>
+                @* Địa chỉ shop *@
+                <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                <div class="home-product-item__favourite">
+                    Yêu thích
+                </div>
+                <div class="home-product-item__sale-off">
+                    <div class="home-product-item__sale-off-value">1%</div>
+                    <div class="home-product-item__sale-off-label">GIẢM</div>
+                </div>
+            </div>
+            <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+        </a>
+    </div>
+</div>
+
+
+@* Product start *@
+<div class="home-product">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" style="color: #F2765E;"><span class="bg-secondary pr-3">SẢN PHẨM HÔM NAY</span></h2>
+    <div id="list-product" class="row sm-gutter">
+        <div class="col l-2-4 m-3 c-6 home-product-item">
+            <a class="home-product-item-link" href="#">
+                @* Ảnh sản phẩm *@
+                <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+                <div class="home-product-item__info">
+                    @* Tên sản phẩm *@
+                    <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                    <div class="home-product-item__price">
+                        @* Giá sản phẩm *@
+                        <p class="home-product-item__price-old">47.990.000đ</p>
+                        <p class="home-product-item__price-new">46.990.000đ</p>
+                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="home-product-item__footer">
+                        <div class="home-product-item__save">
+                            <input type="checkbox" name="save-check" id="heart-save">
+                            <label for="heart-save" class="far fa-heart"></label>
+                        </div>
+                        <div class="home-product-item__rating-star">
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                        </div>
+                        @* Số lượng đã bán *@
+                        <div class="home-product-item__saled">Đã bán 3,8k</div>
+                    </div>
+                    @* Địa chỉ shop *@
+                    <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                    <div class="home-product-item__favourite">
+                        Yêu thích
+                    </div>
+                    <div class="home-product-item__sale-off">
+                        @* Giảm giá (bao nhiêu %) *@
+                        <div class="home-product-item__sale-off-value">1%</div>
+                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                    </div>
+                </div>
+                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+            </a>
+        </div>
+        <div class="col l-2-4 m-3 c-6 home-product-item">
+            <a class="home-product-item-link" href="#">
+                @* Ảnh sản phẩm *@
+                <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+                <div class="home-product-item__info">
+                    @* Tên sản phẩm *@
+                    <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                    <div class="home-product-item__price">
+                        @* Giá sản phẩm *@
+                        <p class="home-product-item__price-old">47.990.000đ</p>
+                        <p class="home-product-item__price-new">46.990.000đ</p>
+                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="home-product-item__footer">
+                        <div class="home-product-item__save">
+                            <input type="checkbox" name="save-check" id="heart-save">
+                            <label for="heart-save" class="far fa-heart"></label>
+                        </div>
+                        <div class="home-product-item__rating-star">
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                        </div>
+                        @* Số lượng đã bán *@
+                        <div class="home-product-item__saled">Đã bán 3,8k</div>
+                    </div>
+                    @* Địa chỉ shop *@
+                    <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                    <div class="home-product-item__favourite">
+                        Yêu thích
+                    </div>
+                    <div class="home-product-item__sale-off">
+                        <div class="home-product-item__sale-off-value">1%</div>
+                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                    </div>
+                </div>
+                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+            </a>
+        </div>
+        <div class="col l-2-4 m-3 c-6 home-product-item">
+            <a class="home-product-item-link" href="#">
+                @* Ảnh sản phẩm *@
+                <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+                <div class="home-product-item__info">
+                    @* Tên sản phẩm *@
+                    <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                    <div class="home-product-item__price">
+                        @* Giá sản phẩm *@
+                        <p class="home-product-item__price-old">47.990.000đ</p>
+                        <p class="home-product-item__price-new">46.990.000đ</p>
+                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="home-product-item__footer">
+                        <div class="home-product-item__save">
+                            <input type="checkbox" name="save-check" id="heart-save">
+                            <label for="heart-save" class="far fa-heart"></label>
+                        </div>
+                        <div class="home-product-item__rating-star">
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                        </div>
+                        @* Số lượng đã bán *@
+                        <div class="home-product-item__saled">Đã bán 3,8k</div>
+                    </div>
+                    @* Địa chỉ shop *@
+                    <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                    <div class="home-product-item__favourite">
+                        Yêu thích
+                    </div>
+                    <div class="home-product-item__sale-off">
+                        <div class="home-product-item__sale-off-value">1%</div>
+                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                    </div>
+                </div>
+                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+            </a>
+        </div>
+        <div class="col l-2-4 m-3 c-6 home-product-item">
+            <a class="home-product-item-link" href="#">
+                @* Ảnh sản phẩm *@
+                <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+                <div class="home-product-item__info">
+                    @* Tên sản phẩm *@
+                    <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                    <div class="home-product-item__price">
+                        @* Giá sản phẩm *@
+                        <p class="home-product-item__price-old">47.990.000đ</p>
+                        <p class="home-product-item__price-new">46.990.000đ</p>
+                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="home-product-item__footer">
+                        <div class="home-product-item__save">
+                            <input type="checkbox" name="save-check" id="heart-save">
+                            <label for="heart-save" class="far fa-heart"></label>
+                        </div>
+                        <div class="home-product-item__rating-star">
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                        </div>
+                        @* Số lượng đã bán *@
+                        <div class="home-product-item__saled">Đã bán 3,8k</div>
+                    </div>
+                    @* Địa chỉ shop *@
+                    <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                    <div class="home-product-item__favourite">
+                        Yêu thích
+                    </div>
+                    <div class="home-product-item__sale-off">
+                        <div class="home-product-item__sale-off-value">1%</div>
+                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                    </div>
+                </div>
+                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+            </a>
+        </div>
+        <div class="col l-2-4 m-3 c-6 home-product-item">
+            <a class="home-product-item-link" href="#">
+                @* Ảnh sản phẩm *@
+                <div class="home-product-item__img"><img class="img-fluid" src="~/images/logo/15promax.png" alt=""></div>
+                <div class="home-product-item__info">
+                    @* Tên sản phẩm *@
+                    <h4 class="home-product-item__name">iPhone 15 Pro Max 1TB Titan</h4>
+                    <div class="home-product-item__price">
+                        @* Giá sản phẩm *@
+                        <p class="home-product-item__price-old">47.990.000đ</p>
+                        <p class="home-product-item__price-new">46.990.000đ</p>
+                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="home-product-item__footer">
+                        <div class="home-product-item__save">
+                            <input type="checkbox" name="save-check" id="heart-save">
+                            <label for="heart-save" class="far fa-heart"></label>
+                        </div>
+                        <div class="home-product-item__rating-star">
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                            <i class="star-checked far fa-star"></i>
+                        </div>
+                        @* Số lượng đã bán *@
+                        <div class="home-product-item__saled">Đã bán 3,8k</div>
+                    </div>
+                    @* Địa chỉ shop *@
+                    <div class="home-product-item__origin">TP Hồ Chí Minh</div>
+                    <div class="home-product-item__favourite">
+                        Yêu thích
+                    </div>
+                    <div class="home-product-item__sale-off">
+                        <div class="home-product-item__sale-off-value">1%</div>
+                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                    </div>
+                </div>
+                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+            </a>
+        </div>
+
+        
+    </div>
+</div>
+
+@* Product end *@
+
+
+@*<div class="products-content">
+    <div class="products-content-title">
+        <h2>FLASH SALE ⚡</h2>
+    </div>
+    <div class="products-content-container">
+
+        <div class="products-content-items-content">
+
+            <div class="products-content-items">
+
+                <div class="products-content-item">
+                    <img src="~/images/logo/15promax.png" />
+                    <div class="products-content-item-text">
+                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
+                        <li>iPhone 15 Pro Max 1TB</li>
+                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
+                        <li>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </li>
+                    </div>
+                </div>
+                <div class="products-content-item">
+                    <img src="~/images/logo/15promax.png" />
+                    <div class="products-content-item-text">
+                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
+                        <li>iPhone 15 Pro Max 1TB</li>
+                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
+                        <li>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </li>
+                    </div>
+                </div>
+                <div class="products-content-item">
+                    <img src="~/images/logo/15promax.png" />
+                    <div class="products-content-item-text">
+                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
+                        <li>iPhone 15 Pro Max 1TB</li>
+                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
+                        <li>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </li>
+                    </div>
+                </div>
+                <div class="products-content-item">
+                    <img src="~/images/logo/15promax.png" />
+                    <div class="products-content-item-text">
+                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
+                        <li>iPhone 15 Pro Max 1TB</li>
+                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
+                        <li>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </li>
+                    </div>
+                </div>
+                <div class="products-content-item">
+                    <img src="~/images/logo/15promax.png" />
+                    <div class="products-content-item-text">
+                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
+                        <li>iPhone 15 Pro Max 1TB</li>
+                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
+                        <li>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-content-container-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+    </div>
+</div>*@
+
+
+
+<script src="~/js/home.js"></script>
