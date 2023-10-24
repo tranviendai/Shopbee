@@ -2,61 +2,56 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Đăng nhập";
 }
+<!--<h1>@ViewData["Title"]</h1>-->
+<link rel="stylesheet" href="~/css/StyleSheetLG.css"/>
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
+
+<div id="wrapper">
+    <form action="">
+            <h3 style="padding-bottom: 15px">Đăng nhập</h3>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 mt-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <label asp-for="Input.Email" class="form-label">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mt-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
+
+
+            <div class="d-flex mb-3 align-items-center" style="font-size: 14px; font-family: 'Roboto Serif', serif;">
+                    <label asp-for="Input.RememberMe" class="form-label" style="margin-top: 0.5rem">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
-                </div>
+                    <span class="ml-auto" style="margin-left: auto !important">
+                    <a id="forgot-password" asp-page="./ForgotPassword">Quên mật khẩu</a>
+                    </span>
+            </div>
+               
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="margin: 0px ">ĐĂNG NHẬP</button>
                 </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
+            
+               
+            <h3 style="color: black; padding: 0 16px;text-transform: uppercase;font-size:12px; padding: 15px 0 15px 0">
+               HOẶC
+            </h3>
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                article
+                                about setting up this ASP.NET application to support logging in via external services
+                            </a>.
                         </p>
                     </div>
                 }
@@ -67,16 +62,29 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button id="google-submit" type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="justify-content:center; align-content:center;display: flex; margin:0px;" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <img class="btn-google" src="/images/logo/icon-google.png" /> @provider.DisplayName </button>
                                 }
+                            </p>   
+                        </div>
+
+                        <div class="text-center mb-3 align-items-center" style="font-size: 14px; font-family: 'Roboto Serif', serif;">
+                            <p>
+                                <span class="txtRegister">Bạn mới biết đến Shopee?</span>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:#ee4d2d">Đăng ký</a>
+                            </p>
+                            <p class="verify-email" style="margin-left: auto !important">
+                                <span class="txtEmail">Gửi xác nhận lại</span>
+                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Email</a>
                             </p>
                         </div>
                     </form>
                 }
             }
-        </section>
-    </div>
+           
+        </form>
+    </form>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

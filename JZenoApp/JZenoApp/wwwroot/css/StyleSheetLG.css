@@ -1,0 +1,95 @@
+﻿body {
+}
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+form{
+    border: 1px solid #dadce0;
+    border-radius: 5px;
+    padding: 30px;
+    justify-content: center;
+    align-items:center;
+    width: 400px;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+form-floalting mb-3{
+}
+
+#login-submit {
+    background-color: #ee4d2d;
+    color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.09);
+    height: 40px;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+d-flex mb-5 align-items-center {
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    margin:0;
+}
+
+a {
+    color: #05a;
+}
+
+.form-floating>.form-control{
+    height:40px;
+}
+.form-control{
+    font-size:1.5rem;
+}
+
+#external-account {
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid rgba(0,0,0,.26);
+    background-color: #dadce0;
+    color: rgba(0,0,0,.87);
+    padding: 0 2px;
+    border-radius: 2px;
+    width: 100%;
+    height: 40px;
+    font-size: .875rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.btn-google {
+    width: 19px;
+    margin-right: 10px;
+    padding-bottom: 1px;
+    vertical-align: middle;
+    border-style: none;
+}
+
+#google-submit {
+    background-color: #dadce0;
+    color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.09);
+    height: 40px;
+    display:flex;
+    color:rgba(0,0,0,.87)
+}
+
+txt {
+    rgba(0,0,0,.26);
+    white-space: pre;
+}
