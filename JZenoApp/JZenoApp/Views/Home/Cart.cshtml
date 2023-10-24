@@ -28,11 +28,11 @@
            <td>@(thanhtien)</td>
            <td>
               <button class="btn btn-success updatecartitem" 
-                    data-productid="@cartitem.product.Id">
+                    data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
                         Cập nhật
                     </button>
-                    <a asp-route="removecart" asp-route-productid="@cartitem.product.Id"
-                class="btn btn-danger">Xóa</a>
+                    <a asp-route="removecart" asp-route-productid="@cartitem.product.Id"class="btn btn-danger">Xóa</a>
+                    <input type="text" id="unique" hidden >
            </td>
         </tr>
     }
@@ -51,13 +51,15 @@
               $(".updatecartitem").click(function (event) {
                   event.preventDefault();
                   var productid = $(this).attr("data-productid");
+                var productUnique = $(this).attr("data-productUnique");
                   var quantity = $("#quantity-" + productid).val();
                   $.ajax({
                       type: "POST",
                       url:"@Url.RouteUrl("updatecart")",
                       data: {
                           productid: productid,
-                          quantity:quantity
+                          quantity:quantity,
+                        isUnique: productUnique
                       },
                       success: function (result) {
                           window.location.href = "@Url.RouteUrl("cart")";

@@ -3,11 +3,10 @@
 @{
     ViewData["Title"] = "Chi tiết sản phẩm";
     <link rel="stylesheet" href="~/css/products/detail.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/shoprating/598.1ffc6b27d5ba26049293.css">
 }
 
-<div class="">
+<div class="productDetail" data-productid="@Model.Id">
     <div class="info-product main-detail" style="display: flex;">
         <div class="image-product col-5 p-0">
             @{
@@ -31,7 +30,6 @@
                 <div class="fav-label">Yêu thích</div>
                 <span class="detail-name">@Model.name</span>
             </div>
-
             <div class="detail-rating-product">
                 <div class="rate">
                     Chưa Có Đánh Giá
@@ -78,7 +76,7 @@
                                 foreach (var i in Model.productColor!)
                                 {
                                     <div class="choose-color-product" id="@i.Id">
-                                        <input type="radio" class="check-size" name="productColor" value="@i.Name"/>
+                                        <input type="radio" class="check-size" name="productColor" data-color="@i.Id" value="@i.Name"/>
                                         <label class="choose-color" for="a25">@i.Name</label>
                                     </div>
                                     indexColor++;
@@ -103,7 +101,7 @@
                                         if(@y.name != temp)
                                         {
                                             <div class="choose-product size-hide active-hide size-@i.Id">
-                                                <input type="radio" class="check-size" name="productSize" value="@y.name" />
+                                                <input id="" type="radio" class="check-size" name="productSize" data-size="@y.Id" value="@y.name" />
                                                 <label class="" for="a25">@y.name</label>
                                             </div>
                                         }
