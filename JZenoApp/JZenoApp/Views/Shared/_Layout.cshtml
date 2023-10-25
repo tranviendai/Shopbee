@@ -24,46 +24,26 @@
                 <!-- navbar -->
                 <nav class="header__navbar hide-on-mobile-tablet">
                     <ul class="header__nav-list">
-                        @* @if (User.IsInRole("Admin"))
-                        {
-                            <a class="navbar-brand" asp-area="" asp-controller="Products" asp-action="Index">Shopbee</a>
-                        }
-                        else
-                        {
-                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shopbee</a>
-                        } *@
-                            
-                        @if (User.IsInRole("Admin"))
-                        {
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Categories" asp-action="Index">Loại Hàng</a>
+                            <a class="header__nav-item-link" asp-area="Manage" asp-controller="Categories" asp-action="Index">Loại Hàng</a>
                             </li>
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
-                            </li>
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Ứng Tuyển Đối Tác</a>
-                            </li>
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                            <a class="header__nav-item-link" asp-area="Manage" asp-controller="Products" asp-action="Index">Quản Lý Sản Phẩm</a>
+                        </li>
+                               <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" href="/admin/role">Vai Trò</a>
                             </li>
-
-                        }
-                        else if (User.IsInRole("Partner"))
-                        {
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
                             </li>
-                        }
-                        else
-                        {
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
+                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                                <a class="header__nav-item-link" asp-area="Manage" asp-controller="Partners" asp-action="Index">Quản Lý Đối Tác</a>
                             </li>
-                        }
+
+                        
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate">Kênh Người Bán</li>
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate header__show-qr">
                             Tải ứng dụng
@@ -400,9 +380,13 @@
             </ul>
         </header>
         <!-- container -->
-        <div class="grid wide">
+        <div class="grid wide" style="padding: 24px;">
             <div class="row sm-gutter">
+@* <<<<<<< HEAD
                 <main role="main" class="pb-3" style="height:100%; ">
+======= *@
+                <main role="main" class="pb-3">
+@* >>>>>>> 5268a5c605e9938df1de9569b7fd36d7a72581ec *@
                     @RenderBody()
                 </main>
             </div>
@@ -714,6 +698,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

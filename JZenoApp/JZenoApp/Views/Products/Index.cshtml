@@ -4,87 +4,370 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.partnerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.productColor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isPublish)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @foreach (var i in item.productImages!)
+<div class="grid wide">
+    <div class="row sm-gutter">
+        <div class="col l-2 m-0 c-0">
+            <!-- category -->
+            <nav class="category">
+                <h3 class="category-heading">
+                    <i class="category-heading-icon fas fa-list-ul"></i>
+                    Bộ lọc tìm kiếm
+                </h3>
+                <div class="category-group">
+                    <div class="category-group-title">Theo Danh Mục</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Thiết bị mạng
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Chuột và bàn phím
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            USB
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Link kiện máy tính
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Wifi
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Nơi Bán</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Hà Nội
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Hồ Chí Minh
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Đà Nẵng
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Đơn Vị Vận Chuyển</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Hoả tốc
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Nhanh
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Tiết kiệm
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Thương Hiệu</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Kingston
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Sandisk
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Seagate
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Khoảng Giá</div>
+                    <div class="category-group-filter">
+                        <input type="number" placeholder="đ TỪ" class="category-group-filter-input">
+                        <i class="fas fa-arrow-right"></i>
+                        <input type="number" placeholder="đ ĐẾN" class="category-group-filter-input">
+                    </div>
+                    <button class="btn btn--primary category-group-filter-btn">Áp dụng</button>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Loại Shop</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Shoppee
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Shoppee Mail
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Shop yêu thích
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Tình Trạng</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Mới
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Đã sử dụng
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Lựa Chọn Thanh Toán</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Thanh toán khi nhận hàng
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Chuyển khoản
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Trả góp 0%
+                        </li>
+                    </ul>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Đánh Giá</div>
+                    <div class="rating-star">
+                        <input type="checkbox" class="category-group-item-check">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                    </div>
+                    <div class="rating-star">
+                        <input type="checkbox" class="category-group-item-check">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                    </div>
+                    <div class="rating-star">
+                        <input type="checkbox" class="category-group-item-check">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                    </div>
+                    <div class="rating-star">
+                        <input type="checkbox" class="category-group-item-check">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                    </div>
+                    <div class="rating-star">
+                        <input type="checkbox" class="category-group-item-check">
+                        <i class="star-checked far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                        <i class="star-uncheck far fa-star"></i>
+                    </div>
+                </div>
+                <div class="category-group">
+                    <div class="category-group-title">Dịch Vụ & Khuyến Mãi</div>
+                    <ul class="category-group-list">
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Freeship Xtra
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Hoàn xu Xtra
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Đang giảm giá
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Miễn phí vận chuyển
+                        </li>
+                        <li class="category-group-item">
+                            <input type="checkbox" class="category-group-item-check">
+                            Gì cũng rẻ
+                        </li>
+                    </ul>
+                </div>
+                <button class="btn btn--primary category-group-filter-btn category-group--margin">LÀM MỚI</button>
+            </nav>
+        </div>
+        <div class="col l-10 m-12 c-12">
+            <!-- home filter -->
+            <div class="home-filter hide-on-mobile-tablet">
+                <div class="home-filter-control">
+                    <p class="home-filter-title">Sắp xếp theo</p>
+                    <button class="btn btn--primary home-filter-btn">Phổ biến</button>
+                    <button class="btn home-filter-btn">Mới nhất</button>
+                    <button class="btn home-filter-btn">Bán chạy</button>
+                    <div class="btn home-filter-sort">
+                        <p class="home-filter-sort-btn" style="margin:0;">Giá</p>
+                        <i class="fas fa-sort-amount-down-alt"></i>
+                        <ul class="home-filter-sort-list">
+                            <li>
+                                <a href="#" class="home-filter-sort-item-link">
+                                    Giảm dần
+                                    <i class="fas fa-sort-amount-down-alt"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="home-filter-sort-item-link">
+                                    Tăng dần
+                                    <i class="fas fa-sort-amount-up-alt"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="home-filter-page">
+                    <div class="home-filter-page-number">
+                        <p class="home-filter-page-now" style="margin: 0;">1</p>
+                        /14
+                    </div>
+                    <div class="home-filter-page-control">
+                        <a href="#" class="home-filter-page-btn home-filter-page-btn--disable">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                        <a href="#" class="home-filter-page-btn">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- home product -->
+            <div class="home-product">
+                <nav class="mobile-category">
+                    <ul class="mobile-category-list">
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Thiết bị mạng</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Chuột và bàn phím</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">USB</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Link kiện máy tính</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Wifi</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Ổ cứng</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">CD/DVD</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Tai nghe</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Lót chuột</a>
+                        </li>
+                        <li class="mobile-category-item">
+                            <a href="#" class="mobile-category-item-link">Micro</a>
+                        </li>
+                    </ul>
+                </nav>
+                @* Products *@
+                <div id="list-product" class="row sm-gutter">
+                    @foreach (var item in Model)
                     {
-                        <img src="/images/products/@i.URL" height="50" />
+                        <div data="${item.id}" class="col l-2-4 m-3 c-6 home-product-item">
+                            <a class="home-product-item-link" href="#">
+                                @foreach (var i in item.productImages!)
+                                {
+                                    <div class="home-product-item__img" style="background-image: url(./images/products/@i.URL);"></div>
+                                }
+                                <div class="home-product-item__info">
+                                    <h4 class="home-product-item__name">@item.name</h4>
+                                    <div class="home-product-item__price">
+                                        <p class="home-product-item__price-old">@Convert.ToDecimal(item.price).ToString("N0")đ</p>
+                                        <p class="home-product-item__price-new">@Convert.ToDecimal(item.discount).ToString("N0")đ</p>
+                                        <i class="home-product-item__ship fas fa-shipping-fast"></i>
+                                    </div>
+                                    <div class="home-product-item__footer">
+                                        <div class="home-product-item__save">
+                                            <input type="checkbox" id="heart-save-${item.id}">
+                                            <label for="heart-save-${item.id}" class="far fa-heart"></label>
+                                        </div>
+                                        <div class="home-product-item__rating-star">
+                                            <i class="star-checked far fa-star"></i>
+                                            <i class="star-checked far fa-star"></i>
+                                            <i class="star-checked far fa-star"></i>
+                                            <i class="star-checked far fa-star"></i>
+                                            <i class="star-uncheck far fa-star"></i>
+                                        </div>
+                                        <div class="home-product-item__saled">Đã bán 2k</div>
+                                    </div>
+                                    <div class="home-product-item__origin">TPHCM</div>
+                                    <div class="home-product-item__favourite">
+                                        Yêu thích
+                                    </div>
+                                    <div class="home-product-item__sale-off">
+                                        <div class="home-product-item__sale-off-value">@(((item.price - item.discount)/item.price) * 100) %</div>
+                                        <div class="home-product-item__sale-off-label">GIẢM</div>
+                                    </div>
+                                </div>
+                                <div class="home-product-item-footer">Tìm sản phẩm tương tự</div>
+                            </a>
+                        </div>
                     }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category!.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.partnerID)
-                </td>
-                <td>
-                    @foreach (var i in item.productColor!)
-                    {
-                        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSize">@i.Name</a>
-                    }
-                </td>
-                <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        @Html.DisplayFor(modelItem => item.isPublish)
-                    }
-                    else
-                    {
-                        <div>Chờ Xác Nhận</div>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            </div>
+            <!-- pagination -->
+            <ul class="pagination home-product-pagination">
+                <li class="pagination-item">
+                    <a href="#" class="pagination-item-link pagination-item-link--disable">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                <li class="pagination-item pagination-item--active">
+                    <a href="#" class="pagination-item-link">1</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="#" class="pagination-item-link">2</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="#" class="pagination-item-link">3</a>
+                </li>
+                <li class="pagination-item">
+                    <a class="pagination-item-link pagination-item-link--disable">. . .</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="#" class="pagination-item-link">8</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="#" class="pagination-item-link">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

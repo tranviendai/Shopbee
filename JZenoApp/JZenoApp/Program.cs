@@ -23,10 +23,10 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 builder.Services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                    .AddEntityFrameworkStores<JZenoDbContext>().AddDefaultTokenProviders().AddDefaultUI();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDistributedMemoryCache();           // Đăng ký dịch vụ lưu cache trong bộ nhớ (Session sẽ sử dụng nó)
-builder.Services.AddSession(cfg => {                    // Đăng ký dịch vụ Session
-    cfg.Cookie.Name = "JZeno";                          // Đặt tên Session - tên này sử dụng ở Browser (Cookie)
-    cfg.IdleTimeout = new TimeSpan(0, 30, 0);           // Thời gian tồn tại của Session
+builder.Services.AddDistributedMemoryCache();       
+builder.Services.AddSession(cfg => {                    
+    cfg.Cookie.Name = "JZeno";                        
+    cfg.IdleTimeout = new TimeSpan(0, 30, 0);           
 });
 builder.Services.Configure<IdentityOptions>(options =>
 {

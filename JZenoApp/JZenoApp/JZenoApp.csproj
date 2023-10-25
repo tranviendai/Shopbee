@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\images\home\**" />
+    <Content Remove="wwwroot\images\home\**" />
+    <EmbeddedResource Remove="wwwroot\images\home\**" />
+    <None Remove="wwwroot\images\home\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
@@ -25,12 +32,8 @@
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="PayPal" Version="1.9.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\home\" />
-    <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
 </Project>

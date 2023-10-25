@@ -150,44 +150,7 @@ namespace JZenoApp.Controllers
             return View(partner);
         }
 
-        // GET: Partners/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.Partner == null)
-            {
-                return NotFound();
-            }
-
-            var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (partner == null)
-            {
-                return NotFound();
-            }
-
-            return View(partner);
-        }
-
-        // POST: Partners/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.Partner == null)
-            {
-                return Problem("Entity set 'JZenoDbContext.Partner'  is null.");
-            }
-            var partner = await _context.Partner.FindAsync(id);
-            if (partner != null)
-            {
-                DeleteFile(partner.image!);
-                _context.Partner.Remove(partner);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
+       
         private bool PartnerExists(string id)
         {
           return (_context.Partner?.Any(e => e.Id == id)).GetValueOrDefault();

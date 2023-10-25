@@ -134,25 +134,26 @@ namespace JZenoApp.Data
                           Id = ""
                       });
               });
-              builder.Entity<Product>(e =>
+            */
+            builder.Entity<Product>(e =>
               {
                   e.HasData(
                       new Product
                       {
-                          Id = "JZeno",
-                          Name = "Shoes Black",
-                          Discount = 1,
-                          Price = 25000,
-                          Description = "....",
-                          PostDate = DateTime.Now,
+                          Id = "JZeno0",
+                          name = "iPhone 15 Pro Max (1TB) Natural Titanium",
+                          discount = 1,
+                          price = 46990000,
+                          description = "Điện thoại iPhone 15 Pro Max 1TB mới là một sự kết hợp hoàn hảo giữa thiết kế đẳng cấp và hiệu năng vượt trội.",
+                          postDate = DateTime.Now,
                           isPublish = false,
-                          Size = "S",
-                          categoryID = "shoes",
-                          colorName = "Black",
-                          partnerID = ""
+                          //Size = "S",
+                          categoryID = "Điện thoại",
+                          //productColor = "Natural Titanium",
+                          //partnerID = ""
                       });
               });
-             */
+             
 
         }
         public JZenoDbContext(DbContextOptions<JZenoDbContext> options)

@@ -3,6 +3,7 @@ using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PayPal.Api;
@@ -26,9 +27,18 @@ namespace JZenoApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["GetCate"] = await _context.Category.ToListAsync();
             var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages);
+
             return View(await jZenoDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> CategoryPartial()
+        {
+            var jZenoDbContext = await _context.Category.ToListAsync();
+            return PartialView("CategoryPartial", jZenoDbContext);
+        }
+
         List<CartItem> GetCartItems()
         {
             var session = HttpContext.Session;
@@ -283,5 +293,10 @@ namespace JZenoApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+
     }
 }
