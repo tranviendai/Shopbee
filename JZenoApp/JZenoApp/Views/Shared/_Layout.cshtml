@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Shopbee</title>
+    <title>@ViewData["Title"] - Shopbee | Sàn thương mại điện tử</title>
     <link rel="icon" href="~/images/logo/shopee-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/grid.css">
     <link rel="stylesheet" href="~/css/responsive.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="~/js/cartajax.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -187,7 +189,7 @@
                     <input type="checkbox" id="mobile-search" class="header__search-check" hidden>
                     <div class="header__search">
                         <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input" placeholder="Tìm kiếm trên Shoppee">
+                            <input type="text" class="header__search-input" placeholder="Tìm kiếm trên Shopbee">
                             <div class="header__search-history">
                                 <ul class="header__search-history-list">
                                     <li class="header__search-history-item">
@@ -694,6 +696,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

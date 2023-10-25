@@ -1,4 +1,4 @@
-﻿using JZenoApp.Models;
+using JZenoApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

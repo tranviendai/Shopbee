@@ -1,11 +1,11 @@
-﻿﻿@using JZenoApp.Enum
-@model JZenoApp.Models.Product
+﻿@model JZenoApp.Models.Product;
 
 @{
-    ViewData["Title"] = "Thêm Sản Phẩm";
+    ViewData["Title"] = "Thêm sản phẩm";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     <link rel="stylesheet" href="~/css/managementForm.css">
-    <script src="~/js/tinyMCE.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
 }
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
     <div class="col-md-15">
@@ -23,31 +23,24 @@
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group row p-0">
-                <span class="col label-name">Giá bán đã giảm</span>
+                <span class="col label-name">% Giảm giá</span>
                 <input asp-for="discount" class="input-form col-10" />
                 <span asp-validation-for="discount" class="text-danger"></span>
             </div>
             <div class="form-group row p-0">
-                <span class="col label-name">Giá bán chưa giảm</span>
+                <span class="col label-name">Giá bán</span>
                 <input asp-for="price" class="input-form col-10" />
                 <span asp-validation-for="price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="col label-name">Mô tả</span>
-
-                <input asp-for="description" class="form-control" />
-                <textarea id="basic-example">
+                <textarea id="basic-example" asp-for="description">
 
                 </textarea>
 
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <span class="col label-name">Mô tả</span>
-                <textarea id="basic-example">
-                </textarea>
-            </div>
             <div class="form-group">
                 <span class="col control-label">Màu sắc</span>
                 <div id="addRow" class="" style="
@@ -69,19 +62,19 @@
                         <div class="col-sm-3">
                             <input name="productColor[0].Name" id="productColor[0].Name" class="form-control" placeholder="Màu" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <input name="productColor[0].productSize[0].name" id="productColor[0].productSize[0].name" class="form-control" placeholder="Size" />
                         </div>
                         <div class="col-sm-2">
                             <input name="productColor[0].productSize[0].quantity" id="productColor[0].productSize[0].quantity" class="form-control" placeholder="Số lượng" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <input name="productColor[0].productSize[1].name" id="productColor[0].productSize[1].name" class="form-control" placeholder="Size" />
                         </div>
                         <div class="col-sm-2">
                             <input name="productColor[0].productSize[1].quantity" id="productColor[0].productSize[1].quantity" class="form-control" placeholder="Số lượng" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <input name="productColor[0].productSize[2].name" id="productColor[0].productSize[2].name" class="form-control" placeholder="Size" />
                         </div>
                         <div class="col-sm-2">
@@ -93,17 +86,12 @@
 
             </div>
 
-            <!--
-                <div>
-                <label asp-for="colors" class="control-label"></label>
-                <select asp-for="colors" class="form-control" asp-items="Html.GetEnumSelectList<ColorEnum>()" multiple>
-                </select>
-                <span asp-validation-for="colors" class="text-danger"></span>
-            </div>
-            -->
             <div class="form-group">
                 <span class="col control-label">Hình ảnh</span>
-                <input asp-for="Files" class="form-control" multiple />
+                <img src="~/images/products/no-image-product.png" id="img-not-found" class="img-create" alt="Chưa có hình ảnh sản phẩm" width="200px" height="200px" />
+                <div class="gallery img-create" style="display: inline; background: transparent;"></div>
+                <input asp-for="Files" id="gallery-photo-add" class="form-control mt-2" style="display: inline;" onchange="ResetImage()" multiple />
+                
                 <span asp-validation-for="Files" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -143,19 +131,19 @@
 
             $("#total").val(rowCount);
             var html = '';
-            html += '<div id="inputRow'+rowCount+'" class="row g-15">';
+            html += '<div id="inputRow'+rowCount+'" class="row g-15 mt-1">';
             html += '<div class="col-sm-3"> <input name="productColor[' + (rowCount - 1) + '].Name" id="productColor[' + (rowCount - 1) + '].Name" class="form-control" placeholder="Màu" /> </div>';
-            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[0].name" id="productColor[' + (rowCount - 1) + '].productSize[0].name" class="form-control" placeholder="Size" /></div>';
-            html += '<div class="col-sm-2"><input name="productColor[' + (rowCount - 1) + '].productSize[0].quantity" id="productColor[' + (rowCount - 1) + '].productSize[0].quantity" class="form-control" placeholder="Số Lượng" /></div>';
-            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[1].name" id="productColor[' + (rowCount - 1) + '].productSize[1].name" class="form-control" placeholder="Size/></div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[0].name" id="productColor[' + (rowCount - 1) + '].productSize[0].name" class="form-control" placeholder="Size" /></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[0].quantity" id="productColor[' + (rowCount - 1) + '].productSize[0].quantity" class="form-control" placeholder="Số Lượng" /></div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[1].name" id = "productColor[' + (rowCount - 1) + '].productSize[1].name" class="form-control" placeholder = "Size" /></div>';
             html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[1].quantity" id="productColor[' + (rowCount - 1) + '].productSize[1].quantity" class="form-control" placeholder="Số Lượng"/></div>';
-            html += '<div class="col-sm-2">  <input name="productColor[' + (rowCount - 1) + '].productSize[2].name" id="productColor[' + (rowCount - 1) + '].productSize[2].name" class="form-control" placeholder="Size"/></div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[2].name" id="productColor[' + (rowCount - 1) + '].productSize[2].name" class="form-control" placeholder="Size"/></div>';
             html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[2].quantity" id="productColor[' + (rowCount - 1) + '].productSize[2].quantity" class="form-control" placeholder="Số Lượng"/></div>';
             $('#newRow').append(html);
         });
         tinymce.init({
             selector: "textarea#basic-example",
-            height: 600,
+            height: 300,
             branding: false,
             menubar: true,
             table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',

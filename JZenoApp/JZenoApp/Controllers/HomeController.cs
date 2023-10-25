@@ -3,12 +3,16 @@ using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Newtonsoft.Json;
 using PayPal.Api;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.Security.Claims;
+using System.Text.Json.Nodes;
 
 namespace JZenoApp.Controllers
 {
@@ -22,12 +26,20 @@ namespace JZenoApp.Controllers
             _logger = logger;
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
+            ViewData["GetCate"] = await _context.Category.ToListAsync();
             var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages);
+
             return View(await jZenoDbContext.ToListAsync());
         }
+
+        public async Task<IActionResult> CategoryPartial()
+        {
+            var jZenoDbContext = await _context.Category.ToListAsync();
+            return PartialView("CategoryPartial", jZenoDbContext);
+        }
+
         List<CartItem> GetCartItems()
         {
             var session = HttpContext.Session;
@@ -50,19 +62,40 @@ namespace JZenoApp.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
-        [Route("addcart/{productid}", Name = "addcart")]
-        public IActionResult AddToCart([FromRoute] string productid)
+        [Route("/addcart", Name = "addcart")]
+        public  IActionResult AddToCart(string? id, string? color, int? size)
         {
             var product = _context.Product
-                .Where(p => p.Id == productid)
-                .FirstOrDefault();
+             .Where(p => p.Id == id)
+             .Select(e => new Product
+             {
+                 Id = e.Id,
+                 name = e.name,
+                 Category = e.Category,
+                 price = e.price,
+                 discount = e.discount,
+                 productColor = e.productColor!.Select(
+                     c => new ProductColor
+                     {
+                         Id = c.Id,
+                        Name = c.Name,
+                        productSize = c.productSize!.Select(
+                            s => new ProductSize
+                            {
+                                Id = s.Id,
+                                name = s.name,
+                                quantity = s.quantity
+                            }).Where(s=>s.Id == size).ToList()
+                     }).Where(c=>c.Id == color).ToList()
+             }
+            ).ToList()
+             .FirstOrDefault();
             if (product == null)
                 return NotFound("Không có sản phẩm");
-
             // Xử lý đưa vào Cart ...
             var cart = GetCartItems();
 
-            var cartitem = cart.Find(p => p.product!.Id == productid);
+            var cartitem = cart.Find(e=>e.product!.Id == id && e.isUnique == size);
             if (cartitem != null)
             {
                 // Đã tồn tại, tăng thêm 1
@@ -71,21 +104,22 @@ namespace JZenoApp.Controllers
             else
             {
                 //  Thêm mới
-                cart.Add(new CartItem() { quantity = 1, product = product });
+                cart.Add(new CartItem() { quantity = 1, product = product, isUnique = size });
             }
 
             // Lưu cart vào Session
             SaveCartSession(cart);
             // Chuyển đến trang hiện thị Cart
-            return RedirectToAction(nameof(Cart));
+            return Json(cart);
+            //return RedirectToAction(nameof(Cart));
         }
         [Route("/updatecart", Name = "updatecart")]
         [HttpPost]
-        public IActionResult UpdateCart([FromForm] string productid, [FromForm] int quantity)
+        public IActionResult UpdateCart([FromForm] string productid, [FromForm] int quantity, [FromForm] int isUnique)
         {
             // Cập nhật Cart thay đổi số lượng quantity ...
             var cart = GetCartItems();
-            var cartitem = cart.Find(p => p.product!.Id == productid);
+            var cartitem = cart.Find(p => p.product!.Id == productid && p.isUnique == isUnique);
             if (cartitem != null)
             {
                 // Đã tồn tại, tăng thêm 1
@@ -149,13 +183,11 @@ namespace JZenoApp.Controllers
             return RedirectToAction("Index", "Home");
            // return Content("Thành Công Rồi Á");
         }
-        [Authorize(Roles = "Customer")]
         [Route("/cart", Name = "cart")]
         public IActionResult Cart()
         {
             return View(GetCartItems());
         }
-        [Authorize(Roles = "Customer")]
         public IActionResult PaymentWithPaypal(string? Cancel = null)
         {
             APIContext apiContext = PaypalConfiguration.GetAPIContext();
@@ -287,5 +319,10 @@ namespace JZenoApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+
     }
 }
