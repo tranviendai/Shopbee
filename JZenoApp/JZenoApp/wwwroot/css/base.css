@@ -20,10 +20,14 @@
 }
 
 * {
+    font-size: 100%;
+    line-height: 1.6rem;
     box-sizing: inherit;
 }
 
-
+li a {
+    color: #fff ;
+}
 
 .grid__row {
     display: flex;

@@ -1,60 +1,499 @@
 ﻿@model JZenoApp.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    <link rel="stylesheet" href="~/css/products/detail.css">
+    <link rel="stylesheet" href="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/shoprating/598.1ffc6b27d5ba26049293.css">
 }
 
-<h1>Details</h1>
+<div class="productDetail" data-productid="@Model.Id">
+    <div class="info-product main-detail" style="display: flex;">
+        <div class="image-product col-5 p-0">
+            @{
+                var index = 0;
+                foreach (var i in Model.productImages!)
+                {
+                    if (index == 0)
+                    {
+                        <img src="~/images/products/@i.URL" class="main-detail-image" alt="@Model.name" width="450px" height="450px" />
+                    }
+                    <div class="sub-image">
+                        <img src="~/images/products/@i.URL" class="sub-detail-image sub-detail-image-@index" alt="@Model.name" width="82px" height="82px" />
+                    </div>
+                    index++;
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.discount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.discount)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.postDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.postDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.isPublish)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.isPublish)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category!.Id)
-        </dd>
-    </dl>
+                }
+            }
+        </div>
+        <div class="detail-info col-7 p-0">
+            <div class="detail-box-name">
+                <div class="fav-label">Yêu thích</div>
+                <span class="detail-name">@Model.name</span>
+            </div>
+            <div class="detail-rating-product">
+                <div class="rate">
+                    Chưa Có Đánh Giá
+                </div>
+
+                <div class="sold">0 Đã Bán</div>
+
+                <button class="report-product">Tố cáo</button>
+            </div>
+
+            <div class="detail-product-price mt-2">
+                <span class="normal-price">@Convert.ToDecimal(Model.price).ToString("N0")đ</span>
+                <span class="discount-price">@Convert.ToDecimal(Model.price - ((Model.price * Model.discount) / 100)).ToString("N0")đ</span>
+                <div class="discount-label">@(Model.discount)% GIẢM</div>
+            </div>
+
+            <div class="detail-product-option">
+                <div class="option-product">
+                    <h3 class="option-name">Bảo Hiểm</h3>
+                    <div class="option-info">
+                        <div>Bảo hiểm @Model.Category!.name</div>
+                        <div class="label-option">
+                            Mới
+                        </div>
+                        <a href="#" class="option-link">Tìm hiểu thêm</a>
+                    </div>
+                </div>
+
+                <div class="option-product">
+                    <h3 class="option-name">Vận Chuyển</h3>
+                    <div class="option-info">
+                        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/d9e992985b18d96aab90969636ebfd0e.png" height="20" class="free-ship-img">
+                        <div>Miễn Phí Vận Chuyển</div>
+                    </div>
+                </div>
+
+
+                <div class="option-product">
+                    <h3 class="option-name">Màu</h3>
+                    <div class="option-info">
+                        <div class="option-choose">
+                            @{
+                                var indexColor = 0;
+                                foreach (var i in Model.productColor!)
+                                {
+                                    <div class="choose-color-product" id="@i.Id">
+                                        <input type="radio" class="check-size" name="productColor" data-color="@i.Id" value="@i.Name"/>
+                                        <label class="choose-color" for="a25">@i.Name</label>
+                                    </div>
+                                    indexColor++;
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="option-product">
+                    <h3 class="option-name size-hide active-hide">Size</h3>
+                    <div class="option-info">
+                        <div class="option-choose">
+                            @{
+                                var indexSize = 0;
+                                var temp = "";
+                                foreach (var i in Model.productColor!)
+                                {
+                                    foreach (var y in i.productSize!.Distinct())
+                                    {
+                                        if(@y.name != temp)
+                                        {
+                                            <div class="choose-product size-hide active-hide size-@i.Id">
+                                                <input id="" type="radio" class="check-size" name="productSize" data-size="@y.Id" value="@y.name" />
+                                                <label class="" for="a25">@y.name</label>
+                                            </div>
+                                        }
+                                        temp = @y.name;
+                                        Console.WriteLine(temp);
+                                        indexSize++;
+
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="option-product">
+                    <h3 class="option-name">Số Lượng</h3>
+                    <div class="option-info" id="amount-product">
+                        <button class="minus-btn" onclick="HandleMinus()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                            </svg>
+                        </button>
+                        <input type="text" name="quantity" value="1" id="sl-product" />
+                        <button class="plus-btn" onclick="HandlePlus()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="option-product">
+                    <button class="add-cart">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" height="20px" style="margin-right: 0.5rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+
+                        Thêm Vào Giỏ Hàng
+                    </button>
+
+                    <button class="buy-product">
+                        Mua Ngay
+                    </button>
+                </div>
+
+                <div style="margin-top: 30px; border-top: 1px solid rgba(0, 0, 0, 0.05);">
+                    <div class="sure-box">
+                        <a target="_blank" href="#" class="sure">
+                            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" class="sure-img">
+                            <span class="sure-name">Shopee Đảm Bảo</span>
+                            <span class="sure-sub">3 Ngày Trả Hàng / Hoàn Tiền</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shop-product main-detail mt-4" style="display: flex;">
+        <div class="shop-detail-product">
+            <div>
+                <a class="avt-shop" href="#SHOP">
+                    <div class="box-img-shop">
+                        <img class="img-shop" alt="click here to visit shop" src="~/images/partner/@Model.Partner!.image">
+                    </div>
+                </a>
+            </div>
+
+            <div class="shop-info">
+                <div class="shop-name">
+                    @Model.Partner!.name
+                </div>
+                <div class="shop-active">
+                    Online 1 Giờ Trước
+                </div>
+
+                <div class="action-shop">
+                    <button class="chat-now">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" height="20px" style="margin-right: 0.5rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                        </svg>
+                        Chat Ngay
+                    </button>
+
+                    <a class="btn-view" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" height="20px" style="margin-right: 0.5rem;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+                        </svg>
+
+                        <span>Xem Shop</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="shop-info-detail">
+            <div class="box-shop-info">
+                <label>Đánh giá</label>
+                <span>5k</span>
+            </div>
+            <div class="box-shop-info">
+                <label>tỉ lệ phản hồi</label>
+                <span>1%</span>
+            </div>
+            <div class="box-shop-info">
+                <label>tham gia</label>
+                <span>15 tháng trước</span>
+            </div>
+            <a class="box-shop-info" href="#">
+                <label>Sản phẩm</label>
+                <span>36</span>
+            </a>
+            <div class="box-shop-info">
+                <label>thời gian phản hồi</label>
+                <span>trong vài phút</span>
+            </div>
+            <div class="box-shop-info">
+                <label>Người theo dõi</label>
+                <span>6,1k</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-detail mt-4">
+        <div class="description-detail-product">
+            <h2>CHI TIẾT SẢN PHẨM</h2>
+            <div class="detail-description-box">
+                <div class="detail-description">
+                    <label class="detail-description-name">Danh Mục</label>
+                    <div class="flex items-center">
+                        <a class="" href="/" style="text-decoration: none;">@Model.Category!.name</a>
+                    </div>
+                </div>
+                <div class="detail-description">
+                    <label class="detail-description-name eqeCX7">Xuất xứ</label>
+                    <div>Việt Nam</div>
+                </div>
+                <div class="detail-description">
+                    <label class="detail-description-name eqeCX7">Kho hàng</label>
+                    <div>11118</div>
+                </div>
+                <div class="detail-description">
+                    <label class="detail-description-name eqeCX7">Gửi từ</label>
+                    <div>TPHCM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="description-detail-product">
+            <h2>MÔ TẢ SẢN PHẨM</h2>
+            <div class="detail-description-box">
+                <p class="detail-description-info">
+                    @Model.description
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-detail mt-4">
+        <div class="rate-detail-product">
+            <h2>ĐÁNH GIÁ SẢN PHẨM</h2>
+            <div class="rate-info-box">
+                <div class="product-rating-overview">
+                    <div class="product-rating-overview__score-wrapper mb-4">
+                        <span class="product-rating-overview__rating-score">4.5</span>
+                        <span class="product-rating-overview__rating-score-out-of"> trên 5 </span>
+                    </div>
+                    <div class="shopee-rating-stars product-rating-overview__stars">
+                        <div class="shopee-rating-stars__stars">
+                            <div class="shopee-rating-stars__star-wrapper">
+                                <div class="shopee-rating-stars__lit" style="width: 100%;">
+                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                    </svg>
+                                </div>
+                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
+                                    <polygon fill="none" points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                </svg>
+                            </div>
+                            <div class="shopee-rating-stars__star-wrapper">
+                                <div class="shopee-rating-stars__lit" style="width: 100%;">
+                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                                        </polygon>
+                                    </svg>
+                                </div>
+                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
+                                    <polygon fill="none" points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                </svg>
+                            </div>
+                            <div class="shopee-rating-stars__star-wrapper">
+                                <div class="shopee-rating-stars__lit" style="width: 100%;">
+                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                    </svg>
+                                </div>
+                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
+                                    <polygon fill="none" points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                </svg>
+                            </div>
+                            <div class="shopee-rating-stars__star-wrapper">
+                                <div class="shopee-rating-stars__lit" style="width: 100%;">
+                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                    </svg>
+                                </div>
+                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
+                                    <polygon fill="none" points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                </svg>
+                            </div>
+                            <div class="shopee-rating-stars__star-wrapper">
+                                <div class="shopee-rating-stars__lit" style="width: 53.2604%;">
+                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__primary-star icon-rating-solid">
+                                        <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                    </svg>
+                                </div>
+                                <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon shopee-rating-stars__hollow-star icon-rating">
+                                    <polygon fill="none" points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="product-rating-overview__filters">
+                    <div class="product-rating-overview__filter active-cmt">tất cả</div>
+                    <div class="product-rating-overview__filter">5 Sao (1,7k)</div>
+                    <div class="product-rating-overview__filter">4 Sao (265)</div>
+                    <div class="product-rating-overview__filter">3 Sao (107)</div>
+                    <div class="product-rating-overview__filter">2 Sao (46)</div>
+                    <div class="product-rating-overview__filter">1 Sao (104)</div>
+                    <div class="product-rating-overview__filter">Có Bình luận (754)</div>
+                    <div class="product-rating-overview__filter">Có hình ảnh / video (354)</div>
+                </div>
+            </div>
+
+            @foreach (var cmt in Model.productComment!)
+            {
+                if (cmt.productId == Model.Id)
+                {
+                    <div class="shopee-product-rating">
+                        <a class="shopee-product-rating__avatar" href="/shop/691760243">
+                            <div class="shopee-avatar">
+                                <img class="shopee-avatar__img" src="~/images/users/user.png">
+                            </div>
+                        </a>
+
+                        <div class="shopee-product-rating__main">
+                            <a class="shopee-product-rating__author-name" href="/user/mtthanh0618">@cmt.userName</a>
+                            <div class="repeat-purchase-con">
+                                <div class="shopee-product-rating__rating">
+                                    @if(cmt.evaluate == 1)
+                                    {
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                    } 
+                                    @if(cmt.evaluate == 2)
+                                    {
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                    } 
+                                    @if(cmt.evaluate == 3)
+                                    {
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                    }
+                                    @if(cmt.evaluate == 4)
+                                    {
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                    }
+                                    @if (cmt.evaluate == 5)
+                                    {
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                        <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-rating-solid--active icon-rating-solid">
+                                            <polygon points="7.5 .8 9.7 5.4 14.5 5.9 10.7 9.1 11.8 14.2 7.5 11.6 3.2 14.2 4.3 9.1 .5 5.9 5.3 5.4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></polygon>
+                                        </svg>
+                                    }
+                                </div>
+                            </div>
+@*                             <div class="shopee-product-rating__time">2023-05-22 17:38</div>
+ *@                            <div class="comment">
+                                <div style="margin-top: 0.75rem;">@cmt.comment</div>
+                                <div class="_5kZDl7"></div>
+                            </div>
+                            <div class="shopee-product-rating__image-list-wrapper">
+                                <div class="rating-media-list">
+                                    <div class="rating-media-list__container">
+                                        <div class="rating-media-list__image-wrapper rating-media-list__image-wrapper--inactive">
+                                            <div class="shopee-rating-media-list-image__wrapper">
+                                                <div class="shopee-rating-media-list-image__place-holder">
+                                                    <svg enable-background="new 0 0 15 15" viewBox="0 0 15 15" x="0" y="0" class="shopee-svg-icon icon-loading-image">
+                                                        <g>
+                                                            <rect fill="none" height="8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="10" x="1" y="4.5"></rect>
+                                                            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1" x2="11" y1="6.5" y2="6.5"></line>
+                                                            <rect fill="none" height="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="3" x="11" y="6.5"></rect>
+                                                            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1" x2="11" y1="14.5" y2="14.5"></line>
+                                                            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="6" x2="6" y1=".5" y2="3"></line>
+                                                            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="3.5" x2="3.5" y1="1" y2="3"></line>
+                                                            <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.5" x2="8.5" y1="1" y2="3"></line>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <div class="shopee-rating-media-list-image__content" style="background-image: url(&quot;https://down-ws-sg.img.susercontent.com/vn-11110103-23050-7iey3i6qkdrv78&quot;);">
+                                                    <div class="shopee-rating-media-list-image__content--blur"> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<script>
+    let amountElement = document.getElementById("sl-product");
+    let amount = amountElement.value;
+
+    let Render = (amount) => {
+        amountElement.value = amount;
+    }
+
+    let HandlePlus = () => {
+        amount++;
+        Render(amount);
+    }
+
+    let HandleMinus = () => {
+        if (amount > 1) {
+            amount--;
+        }
+        Render(amount);
+    }
+
+
+
+    $(() => {
+        $(".sub-detail-image-0").addClass("active-border");
+
+        $(".choose-color-product").click(function () {
+            let colorid = ".size-" + $(this).attr("id");
+            $(".size-hide").addClass("active-hide")
+            $(".option-name").removeClass("active-hide")
+            $(colorid).removeClass("active-hide");
+        })
+
+        $(".sub-image .sub-detail-image").click(function () {
+            let imgPath = $(this).attr("src");
+            $(".main-detail-image").attr("src", imgPath);
+            $(".active-border").removeClass("active-border");
+            $(this).addClass("active-border");
+        })
+    })
+</script>

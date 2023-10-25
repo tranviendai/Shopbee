@@ -12,16 +12,16 @@
     <tr>
         <th>UserName</th>
         <th>Roles</th>
-        <th>Actions</th>
+        <th style ="display:flex; justify-content:center;">Actions</th>
     </tr>
     @foreach (var user in Model.users!)
     {
         <tr>
             <td>@user.UserName</td>
             <td>@user.listroles</td>
-            <td>
+            <td style="display:flex; justify-content:center;">
                 <form method="POST" class="d-inline">
-                    <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
+                    <button style="background-color:var(--main-color1); border:none;" name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
                         asp-page="./AddUserRole">
                         Cập nhật Role
                     </button>
@@ -31,5 +31,8 @@
 
     }
 </table>
+<style>
+     
+</style>
 
 

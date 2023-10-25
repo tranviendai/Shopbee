@@ -1,4 +1,4 @@
-﻿@model List<JZenoApp.Models.Product>
+@model List<JZenoApp.Models.Product>
 
 @using JZenoApp.Models;
 @{
@@ -127,26 +127,7 @@
 
 </style>
 
-@* <div class="row">
-        @foreach (var product in Model)
-        {
-            <div class="card col-sm-6 col-md-4 d-flex align-items-stretch" style="padding:30px; text-align:center;">
-            <div class="card">
-                @foreach(var img in product.productImages!)
-                {
-                    <img src="~/images/products/@img.URL" height="200" width="200" />
-                }
-                <h3 class="card-header">@product.name</h3>
 
-                <div class="card-body">
-                    <span class="text-muted">@(product.price) VND</span>
-                    <a asp-route="addcart" asp-route-productid="@product.Id"
-                   class="btn btn-secondary btn-sm float-right">Đặt hàng</a>
-                </div>
-            </div>
-        </div>
-        }
-</div> *@
 
 
 @*Slide start*@
@@ -363,101 +344,7 @@
 @* Product end *@
 
 
-@*<div class="products-content">
-    <div class="products-content-title">
-        <h2>FLASH SALE ⚡</h2>
-    </div>
-    <div class="products-content-container">
 
-        <div class="products-content-items-content">
-
-            <div class="products-content-items">
-
-                <div class="products-content-item">
-                    <img src="~/images/logo/15promax.png" />
-                    <div class="products-content-item-text">
-                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
-                        <li>iPhone 15 Pro Max 1TB</li>
-                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
-                        <li>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </li>
-                    </div>
-                </div>
-                <div class="products-content-item">
-                    <img src="~/images/logo/15promax.png" />
-                    <div class="products-content-item-text">
-                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
-                        <li>iPhone 15 Pro Max 1TB</li>
-                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
-                        <li>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </li>
-                    </div>
-                </div>
-                <div class="products-content-item">
-                    <img src="~/images/logo/15promax.png" />
-                    <div class="products-content-item-text">
-                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
-                        <li>iPhone 15 Pro Max 1TB</li>
-                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
-                        <li>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </li>
-                    </div>
-                </div>
-                <div class="products-content-item">
-                    <img src="~/images/logo/15promax.png" />
-                    <div class="products-content-item-text">
-                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
-                        <li>iPhone 15 Pro Max 1TB</li>
-                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
-                        <li>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </li>
-                    </div>
-                </div>
-                <div class="products-content-item">
-                    <img src="~/images/logo/15promax.png" />
-                    <div class="products-content-item-text">
-                        <li><img src="~/images/logo/iconsale.png" /><p>Giá sốc online</p></li>
-                        <li>iPhone 15 Pro Max 1TB</li>
-                        <li>46.990.000<sup>đ</sup> <span style="color: #EB5757; margin-left: 8px;"> -6%</span></li>
-                        <li>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </li>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="products-content-container-btn">
-            <i class="fa-solid fa-chevron-left"></i>
-            <i class="fa-solid fa-chevron-right"></i>
-        </div>
-
-    </div>
-</div>*@
 
 
 

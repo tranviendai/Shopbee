@@ -20,13 +20,18 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientSecret = builder.Configuration.GetSection("GoogleAuthSettings")
 .GetValue<string>("ClientSecret")!;
 });
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
+});
 builder.Services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                    .AddEntityFrameworkStores<JZenoDbContext>().AddDefaultTokenProviders().AddDefaultUI();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();       
 builder.Services.AddSession(cfg => {                    
     cfg.Cookie.Name = "JZeno";                        
-    cfg.IdleTimeout = new TimeSpan(0, 30, 0);           
+    cfg.IdleTimeout = new TimeSpan(0, 1, 0);           
 });
 builder.Services.Configure<IdentityOptions>(options =>
 {
