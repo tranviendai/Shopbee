@@ -1,0 +1,74 @@
+﻿body {
+}
+.tvc{
+    margin: 0px 5px;
+    text-decoration: none;
+    color: red;
+}
+
+.timhieu {
+    color: gray;
+}
+
+.chia {
+    color: gray;
+}
+
+.bgkhung {
+    border: none;
+    background-color: rgba(0,0,0,.03);
+}
+
+.Ksearchvoucher {
+    padding: 30px 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.lablenamevc {
+    color: black;
+    font-size: 20px;
+    font-weight: 490;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.inputsearch {
+    height: 30px;
+    width: 300px;
+    padding: 20px 10px;
+    border-color: 1px rgba(0,0,0,.14);
+}
+
+.btnsearch {
+    margin-left: 7px;
+    border: none;
+    color: white;
+    background-color: rgba(0,0,0,.1);
+    padding: 0px 30px;
+    border-radius: 2px;
+}
+
+.kloc {
+    padding: 10px 0px;
+}
+
+.loc {
+    color: rgb(71, 70, 70);
+    margin-right: 50px;
+}
+
+.dsvoucher {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px -0.05px 2.6px;
+}
+
+    .dsvoucher div {
+        font-size: 30px;
+    }
+
+.timevc i, .timevc span {
+    color: red;
+    margin-top: 15px;
+}
+
