@@ -1,0 +1,28 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using JZenoApp.Models
+@{
+    IEnumerable<Category> list = (IEnumerable<Category>)ViewData["GetCate"]!;
+}
+
+
+@foreach (var hinh in list)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+        <a class="text-decoration-none" href="">
+            <div class="cat-item d-flex align-items-center mb-4">
+                <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                    <img class="img-fluid" src="/images/logo/@hinh.icon" alt="">
+                </div>
+                <div class="flex-fill pl-3">
+                    <h4>@hinh.name</h4>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+
