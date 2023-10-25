@@ -1,0 +1,55 @@
+﻿@page
+@model JZenoApp.Areas.Identity.Pages.Account.Manage.Vouchers.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Voucher</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Voucher.voucherID" />
+            <div class="form-group">
+                <label asp-for="Voucher.name" class="control-label"></label>
+                <input asp-for="Voucher.name" class="form-control" />
+                <span asp-validation-for="Voucher.name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.price" class="control-label"></label>
+                <input asp-for="Voucher.price" class="form-control" />
+                <span asp-validation-for="Voucher.price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.quantity" class="control-label"></label>
+                <input asp-for="Voucher.quantity" class="form-control" />
+                <span asp-validation-for="Voucher.quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.startDate" class="control-label"></label>
+                <input asp-for="Voucher.startDate" class="form-control" />
+                <span asp-validation-for="Voucher.startDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voucher.endDate" class="control-label"></label>
+                <input asp-for="Voucher.endDate" class="form-control" />
+                <span asp-validation-for="Voucher.endDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

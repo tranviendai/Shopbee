@@ -4,8 +4,8 @@
 @{
     ViewData["Title"] = "User Details";
 }
-<div style="margin-top:22px;margin-bottom:44px;">
-    <img src="/images/users/@Model.Input.Image" style="margin-right:12px;height:50px;" />
+
+    <div style="margin-top:22px;margin-bottom:44px;">
+    <img src="/images/users/@UserManager.GetUserAsync(User)!.Result!.image" style="margin-right:12px;height:50px;" />
     <span>@UserManager.GetUserName(User)</span> <br />
 </div>
-

@@ -1,0 +1,60 @@
+﻿@page
+@model JZenoApp.Areas.Identity.Pages.Account.Manage.Vouchers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].startDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voucher[0].endDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Voucher) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.endDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.voucherID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.voucherID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.voucherID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
