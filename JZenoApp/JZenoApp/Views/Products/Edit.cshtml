@@ -1,80 +1,163 @@
 ﻿@model JZenoApp.Models.Product
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh Sửa Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    <link rel="stylesheet" href="~/css/managementForm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
 }
 
-<h1>Edit</h1>
-
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
+    <div class="col-md-15">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
+
+            <div class="form-group row p-0">
+                <span class="col label-name">ID sản phẩm</span>
+                <input asp-for="Id" class="input-form col-10" readonly />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group row p-0">
+                <span class="col label-name">Tên sản phẩm</span>
+                <input asp-for="name" class="input-form col-10" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="discount" class="control-label"></label>
-                <input asp-for="discount" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">% Giảm giá</span>
+                <input asp-for="discount" class="input-form col-10" />
                 <span asp-validation-for="discount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Giá bán</span>
+                <input asp-for="price" class="input-form col-10" />
                 <span asp-validation-for="price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
+                <span class="col label-name">Mô tả</span>
+                <textarea id="basic-example" asp-for="description">
+
+                </textarea>
+
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
-            
-                <div class="form-group">
-                    <label asp-for="isPublish" class="control-label"></label>
-                    <input asp-for="isPublish" class="form-control"/>
-                    <span asp-validation-for="isPublish" class="text-danger"></span>
-                </div>
-            @if (User.IsInRole("Admin"))
-            {
-                /* phân quyền vs admin
-                <div class="form-group">
-                <label asp-for="isPublish" class="control-label"></label>
-                <input asp-for="isPublish" class="form-control"/>
-                <span asp-validation-for="isPublish" class="text-danger"></span>
-                </div>
-                */
-            }
 
             <div class="form-group">
-                <label asp-for="categoryID" class="control-label"></label>
-                <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
-                <span asp-validation-for="categoryID" class="text-danger"></span>
+                <span class="col control-label">Màu sắc</span>
+                <div id="addRow" class="" style="
+                    margin-bottom: 8px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    background: #ffc107;
+                    width: 24px;
+                    height: 24px;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    cursor: pointer;
+                    ">
+                    +
+                </div>
+                @* <div id="newRow">
+                    @{
+                        var indexColor = 0;
+                        var indexSize = 0;
+                        foreach (var color in Model.productColor!)
+                        {
+                            <div class="row g-15 mt-4">
+                                <div class="col-sm-2 mt-2">
+                                    <input name="productColor[@indexColor].Name" id="productColor[@indexColor].Name" class="form-control" placeholder="Màu" value="@color.Name" />
+                                </div>
+                                @foreach(var size in color.productSize!)
+                                {
+                                    <div class="col-sm-1 mt-2">
+                                        <input name="productColor[@indexColor].productSize[@indexSize].name" id="productColor[@indexColor].productSize[@indexSize].name" class="form-control" placeholder="Size" value="@size.name" />
+                                    </div>
+                                    <div class="col-sm-2 mt-2">
+                                        <input name="productColor[@indexColor].productSize[@indexSize].quantity" id="productColor[@indexColor].productSize[@indexSize].quantity" class="form-control" placeholder="Số lượng" value="@size.quantity" />
+                                    </div>
+                                    indexSize++;
+                                }
+                                <input type="hidden" id="total" value="1" />
+                            </div>
+                            indexColor++;
+                        }
+                    }
+                    
+                </div> *@
+
             </div>
 
             <div class="form-group">
-                <label asp-for="Files" class="control-label"></label>
-                <input asp-for="Files" class="form-control" multiple />
-                <span asp-validation-for="Files" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @foreach(var item in @Model.productImages!)
+                <span class="col control-label">Hình ảnh</span>
+                @if (Model.productImages == null)
+                {
+                    <img src="~/images/products/no-image-product.png" id="img-not-found" class="img-create" alt="Chưa có hình ảnh sản phẩm" width="200px" height="200px" />
+                }
+                @foreach (var item in @Model.productImages!)
                 {
                     <img src="/images/products/@item.URL" height="200" asp-append-version="true" />
                 }
+                <div class="gallery img-create" style="display: inline; background: transparent;"></div>
+                <input asp-for="Files" id="gallery-photo-add" class="form-control mt-2" style="display: inline;" onchange="ResetImage()" multiple />
+
+                <span asp-validation-for="Files" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <span class="col control-label">Danh Mục</span>
+                <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
+            </div>
+            <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
+                <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" style="
+                    width: 100%;
+                    background: #ee4d2d;
+                    height: 38px;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 24px;
+                    font-weight: bold;" />
             </div>
         </form>
     </div>
 </div>
-
+ 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở lại</a>
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+@section Scripts
+    {
+    <script>
+        $("#addRow").click(function () {
+            var rowCount = parseInt($("#total").val());
+            rowCount++;
+
+            $("#total").val(rowCount);
+            var html = '';
+            html += '<div id="inputRow' + rowCount + '" class="row g-15 mt-1">';
+            html += '<div class="col-sm-3"> <input name="productColor[' + (rowCount - 1) + '].Name" id="productColor[' + (rowCount - 1) + '].Name" class="form-control" placeholder="Màu" /> </div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[0].name" id="productColor[' + (rowCount - 1) + '].productSize[0].name" class="form-control" placeholder="Size" /></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[0].quantity" id="productColor[' + (rowCount - 1) + '].productSize[0].quantity" class="form-control" placeholder="Số Lượng" /></div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[1].name" id = "productColor[' + (rowCount - 1) + '].productSize[1].name" class="form-control" placeholder = "Size" /></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[1].quantity" id="productColor[' + (rowCount - 1) + '].productSize[1].quantity" class="form-control" placeholder="Số Lượng"/></div>';
+            html += '<div class="col-sm-1"> <input name="productColor[' + (rowCount - 1) + '].productSize[2].name" id="productColor[' + (rowCount - 1) + '].productSize[2].name" class="form-control" placeholder="Size"/></div>';
+            html += '<div class="col-sm-2"> <input name="productColor[' + (rowCount - 1) + '].productSize[2].quantity" id="productColor[' + (rowCount - 1) + '].productSize[2].quantity" class="form-control" placeholder="Số Lượng"/></div>';
+            $('#newRow').append(html);
+        });
+        tinymce.init({
+            selector: "textarea#basic-example",
+            height: 300,
+            branding: false,
+            menubar: true,
+            table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+            plugins:
+                " table print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen codesample charmap hr nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap  emoticons",
+            toolbar: "undo redo | charmap emoticons | bold italic"
+        });
+    </script>
+}
 

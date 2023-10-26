@@ -129,7 +129,11 @@ namespace JZenoApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.Include(p => p.productImages).FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _context.Product
+                .Include(p => p.productImages)
+                .Include(p => p.productColor)
+                .ThenInclude(p => p.productSize)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
