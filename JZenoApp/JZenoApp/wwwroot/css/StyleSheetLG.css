@@ -27,12 +27,9 @@ h3 {
 form-floalting mb-3{
 }
 
-#login-submit {
-    background-color: #ee4d2d;
-    color: #fff;
-    box-shadow: 0 1px 1px rgba(0,0,0,.09);
-    height: 40px;
-}
+
+
+
 
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,100&display=swap');

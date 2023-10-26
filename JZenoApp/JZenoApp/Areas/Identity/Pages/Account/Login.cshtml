@@ -9,18 +9,18 @@
 
 
 <div id="wrapper">
-    <form action="">
+    <form id ="login-form" asp-route-returnUrl="@Model.ReturnUrl" method="post" >
             <h3 style="padding-bottom: 15px">Đăng nhập</h3>
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3 mt-3">
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <label asp-for="Input.Email" class="form-label" style="color: #dadce0">Email</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating mt-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
+                <label asp-for="Input.Password" class="form-label" style="color: #dadce0">Mật khẩu</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
 
@@ -30,17 +30,19 @@
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
-                    <span class="ml-auto" style="margin-left: auto !important">
-                    <a id="forgot-password" asp-page="./ForgotPassword">Quên mật khẩu</a>
+                    <span class="ml-auto" style="margin-left: auto">
+                    <a id="forgot-password" style="text-decoration:none" asp-page="./ForgotPassword">Quên mật khẩu</a>
                     </span>
             </div>
                
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="margin: 0px ">ĐĂNG NHẬP</button>
+                <button id="login-submit" type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="margin: 0px;color: #fff; background-color: #ee4d2d;box-shadow: 0 1px 1px rgba(0,0,0,.09)">
+                    ĐĂNG NHẬP
+                </button>
                 </div>
             
                
-            <h3 style="color: black; padding: 0 16px;text-transform: uppercase;font-size:12px; padding: 15px 0 15px 0">
+            <h3 style="color: #dadce0; padding: 0 16px;text-transform: uppercase;font-size:12px; padding: 12px 0 12px 0">
                HOẶC
             </h3>
             @{
@@ -67,14 +69,14 @@
                             </p>   
                         </div>
 
-                        <div class="text-center mb-3 align-items-center" style="font-size: 14px; font-family: 'Roboto Serif', serif;">
+                        <div class="text-center align-items-center" style="font-size: 14px; font-family: 'Roboto Serif', serif;margin-bottom:-20px;margin-top:12px">
                             <p>
                                 <span class="txtRegister">Bạn mới biết đến Shopee?</span>
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:#ee4d2d">Đăng ký</a>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:#ee4d2d;text-decoration:none">Đăng ký</a>
                             </p>
-                            <p class="verify-email" style="margin-left: auto !important">
+                            <p class="verify-email" style="margin-left: auto">
                                 <span class="txtEmail">Gửi xác nhận lại</span>
-                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Email</a>
+                                <a id="resend-confirmation" style="text-decoration:none" asp-page="./ResendEmailConfirmation">Email</a>
                             </p>
                         </div>
                     </form>
