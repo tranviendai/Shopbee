@@ -86,7 +86,8 @@ namespace JZenoApp.Controllers
                                 name = s.name,
                                 quantity = s.quantity
                             }).Where(s=>s.Id == size).ToList()
-                     }).Where(c=>c.Id == color).ToList()
+                     }).Where(c=>c.Id == color).ToList(),
+                 productImages = e.productImages,
              }
             ).ToList()
              .FirstOrDefault();
