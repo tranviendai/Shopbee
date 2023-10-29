@@ -1,77 +1,219 @@
 ﻿@model IEnumerable<JZenoApp.Models.Product>
 
 @{
-    ViewData["Title"] = "Index";
-}
+    ViewData["Title"] = "Quản Lý Sản Phẩm";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
 
-<h1>Index</h1>
+}
+<style>
+    .product-meta {
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+        .product-meta:hover {
+            width: 300px;
+            white-space: normal;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .create-btn {
+        color: #fff;
+        position: relative;
+        overflow: visible;
+        outline: 0;
+        background: #ee4d2d !important;
+        max-width: 250px;
+        width: 180px;
+        height: 48px;
+        padding: 0 20px;
+        text-overflow: ellipsis;
+        flex-direction: column;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: capitalize;
+        text-decoration: none;
+        }
+
+    .current {
+        color: #ee4d2d !important;
+        background: #fff !important;
+        border: 1px solid #ee4d2d;
+    }
+
+    .paginate_button a {
+        color: #fff ;
+    }
+
+    .paginate_button {
+        padding: 4px;
+        margin: 6px;
+        border-radius: 4px;
+        min-width: 37px !important;
+        cursor: pointer;
+        }
+
+        
+</style>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create-btn" style="color: #fff !important;">Thêm Mới</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.postDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.isPublish)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Partner)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.discount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.postDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isPublish)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Partner.partnerId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="box-section-content" style="background: #fff;">
+    <table id="example" class="table table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Tên Sản Phẩm
+                </th>
+                <th>
+                    Giảm Giá
+                </th>
+                <th>
+                    Đơn Giá
+                </th>
+                <th>
+                    Mô Tả
+                </th>
+                <th>
+                    Ngày Đăng
+                </th>
+                <th>
+                    Trạng Thái
+                </th>
+                <th>
+                    Danh Mục
+                </th>
+                <th>
+                    Đối Tác
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @foreach (var i in item.productImages!)
+                        {
+                            var index = 0;
+                            @if (i.URL != null)
+                            {
+                                @if(index == 0)
+                                {
+                                    <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;"/>
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
+                            }
+                            index++;
+                        }
+                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.discount)%
+                    </td>
+                    <td class="ui-money">
+                        @Convert.ToDecimal(item.price).ToString("N0")đ
+                    </td>
+
+                    <td class="product-meta">
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.postDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isPublish)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category!.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Partner!.name)
+                    </td>
+                    <td style="text-align: center;">
+                        <span class="btn btn-warning" style="min-width: 42px !important;">
+                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                        </span>
+
+                        <span class="btn btn-primary" style="min-width: 42px !important;">
+                            <a asp-action="Details" asp-route-id="@item.Id">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+
+                        </span>
+
+                        <span class="btn btn-danger" style="min-width: 42px !important;">
+                            <a href="#" >
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Tên Sản Phẩm
+                </th>
+                <th>
+                    % Giảm Giá
+                </th>
+                <th>
+                    Đơn Giá
+                </th>
+                <th>
+                    Mô Tả
+                </th>
+                <th>
+                    Ngày Đăng
+                </th>
+                <th>
+                    Trạng Thái
+                </th>
+                <th>
+                    Danh Mục
+                </th>
+                <th>
+                    Đối Tác
+                </th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
