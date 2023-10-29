@@ -14,7 +14,7 @@
 <body style="background-color: #EBEEF0">
     <div class="p-0 m-0">
         <div class="nav-left bg-shopbee" style=" position: fixed;">
-            <a href="@Url.Action("TrangChu", "TrangChu")">
+            <a href="@Url.Action("Index", "Home")">
                 <img src="~/images/logo/logo-full-white.png" alt="logo" width="100" style="display: flex; margin: 0 auto;" />
             </a>
             <ul class="list-menu">
@@ -71,14 +71,14 @@
             <div class="nav-content mb-3" style="background: #fff">
                 <div class="nav" style="line-height: 44px; padding: 0 8px; display: block;">
                     <div class="d-flex bd-highlight">
-                        <div class="p-2 flex-grow-1 bd-highlight" style="color: #f7432e; font-weight: bold">
+                        <div class="p-2 flex-grow-1 bd-highlight" style="color: #f7432e; font-weight: bold; align-items: center; display: flex;">
                             @* <img src="~/Content/Images/@ViewBag.Icon" width="20" /> *@
                             @Convert.ToString(ViewBag.Title)
                         </div>
                         
 
                         <div class="p-2 bd-highlight">
-                            <div style="background: rgb(251, 88, 49, 0.1);border-radius: 14px; display: flex;">
+                            <div style="background: rgb(251, 88, 49, 0.1);border-radius: 14px; display: flex;  align-items: center;">
                                 <img src="~/images/users/user.png" alt="avatar" style="border-radius: 9999px; width: 45px; padding: 5px;" />
                                 <p style="margin: 0; padding-right: 6px;">
                                     Admin
