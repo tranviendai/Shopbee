@@ -34,8 +34,9 @@ namespace JZenoApp.Controllers
             }
 
             var bill = await _context.Bill
-                .Include(b => b.User)
-                .Include(b => b.Voucher)
+                .Include(b => b.User)!
+                .Include(b => b.Voucher)!
+                .Include(e=> e.detailsOrders)!.ThenInclude(e=>e.Product)!
                 .FirstOrDefaultAsync(m => m.billID == id);
             if (bill == null)
             {
@@ -45,9 +46,6 @@ namespace JZenoApp.Controllers
             return View(bill);
         }
 
-        private bool BillExists(string id)
-        {
-          return (_context.Bill?.Any(e => e.billID == id)).GetValueOrDefault();
-        }
+
     }
 }
