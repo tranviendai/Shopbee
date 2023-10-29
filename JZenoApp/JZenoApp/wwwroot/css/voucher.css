@@ -27,7 +27,7 @@
 
 .lablenamevc {
     color: black;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 490;
     margin-right: 15px;
     display: flex;
@@ -37,7 +37,7 @@
 .inputsearch {
     height: 30px;
     width: 300px;
-    padding: 20px 10px;
+    padding: 18px 10px;
     border-color: 1px rgba(0,0,0,.14);
 }
 
@@ -64,7 +64,7 @@
 }
 
     .dsvoucher div {
-        font-size: 30px;
+        font-size: 17px;
     }
 
 .timevc i, .timevc span {
