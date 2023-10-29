@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Bill[0].Voucher)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Bill[0].User)
+                @Html.DisplayNameFor(model => model.Bill[0].billStatic)
             </th>
             <th></th>
         </tr>
@@ -50,10 +50,10 @@
                 @Html.DisplayFor(modelItem => item.deliveryForm)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Voucher.voucherID)
+                @Html.DisplayFor(modelItem => item.Voucher!.voucherID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.billStatic)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.billID">Edit</a> |

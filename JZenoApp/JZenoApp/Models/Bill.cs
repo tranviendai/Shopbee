@@ -26,6 +26,10 @@ namespace JZenoApp.Models
         public int? voucherID { get; set; }
         public Voucher? Voucher { get; set; }
 
+        [Display(Name ="Trạng Thái")]
+        [Range(0,5)]
+        public int? billStatic {get;set;}
+
         [Display(Name = "Mã khách hàng")]
         [ForeignKey("Id")]
         public string? UserId { get; set; }

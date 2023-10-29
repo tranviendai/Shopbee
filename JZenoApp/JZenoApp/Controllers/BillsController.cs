@@ -26,7 +26,6 @@ namespace JZenoApp.Controllers
             return View(await jZenoDbContext.ToListAsync());
         }
 
-        // GET: Bills/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Bill == null)
