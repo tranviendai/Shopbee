@@ -1,5 +1,5 @@
 ﻿$(function () {
-    $(".buy-product").click(function () {
+    $(".buy-product").click(function (event) {
         event.preventDefault();
         var productid = $(".productDetail").attr("data-productid");
         var color = $('input[name=productColor]:checked', '.option-choose').attr("data-color");

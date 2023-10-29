@@ -154,25 +154,23 @@ namespace JZenoApp.Controllers
                 Bill bill = new Bill();
                 bill.billID = idGUID;
                 bill.date = DateTime.Now;
-               // bill.payment = ... -> phần này xử lý bằng ajax hoặc dùng ViewBag cho dễ nha
-               // bill.deliveryForm = ... -> này dùng Enum tạo ra các giá trị [Key,Value] và lưu ở dạng Key , còn value của nó thì dùng để get(tiền) -- Ví dụ: (giao hàng nhanh, 30000),...
-               // bill.voucherID = ... phần này thì dùng _context.Voucher... lấy data-list của nó rồi hiển thị lên FE, r sử dụng ajax/ViewBag như trên nha
+                bill.payment = false;
+                bill.deliveryForm = true;
+                //bill.voucherID = 
                 bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); //User Identity Name -> thay vì Name thì userID
                 bill.price = (decimal?) cart.Sum(s => s.product!.price * s.quantity);
                 _context.Add(bill);
                 foreach (var item in cart)
                 {
-                    DetailOrder detailOrder = new DetailOrder();
-                    /*                
-      --Select detailOD -> productSize -> ProductColor -> Product (Lưu thông tin tên, hình ảnh, màu sắc, kích cỡ, giá tiền) 
+                    /*
+                      DetailOrder detailOrder = new DetailOrder();   
                      detailOrder.billID = idGUID;
-                    detailOrder.quantity = item.quantity;
-                    detailOrder.price = item.product!.price;
-                    detailOrder.totalPrice = item.product.price * detailOrder.quantity;
-                    detailOrder.product!.productColor!.productId = item.product!.Id;
-     //đồng thời cập nhật lại quantity ở bảng product ( product.quantity - item.quantity (của bảng product trong model cart) -)
+                     detailOrder.quantity = item.quantity;
+                     detailOrder.price = item.product!.price;
+                     detailOrder.totalPrice = item.product.price * detailOrder.quantity;
+                     detailOrder.product!.productColor!.productId = item.product!.Id;                     
+                     _context.Add(detailOrder);
                      */
-                    _context.Add(detailOrder);
                 }
                 _context.SaveChanges();
             }

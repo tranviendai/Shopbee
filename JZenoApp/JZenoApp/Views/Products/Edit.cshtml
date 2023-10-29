@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="~/css/managementForm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/productajax.js"> </script>
 }
 
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
@@ -36,9 +37,7 @@
             <div class="form-group">
                 <span class="col label-name">Mô tả</span>
                 <textarea id="basic-example" asp-for="description">
-
                 </textarea>
-
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
 
@@ -58,7 +57,7 @@
                     ">
                     +
                 </div>
-                @* <div id="newRow">
+                <div id="newRow">
                     @{
                         var indexColor = 0;
                         var indexSize = 0;
@@ -66,15 +65,15 @@
                         {
                             <div class="row g-15 mt-4">
                                 <div class="col-sm-2 mt-2">
-                                    <input name="productColor[@indexColor].Name" id="productColor[@indexColor].Name" class="form-control" placeholder="Màu" value="@color.Name" />
+                                    <input id="productColor" data-color="@color.Id" class="form-control" placeholder="Màu" value="@color.Name" />
                                 </div>
-                                @foreach(var size in color.productSize!)
+                                @foreach (var size in color.productSize!)
                                 {
                                     <div class="col-sm-1 mt-2">
-                                        <input name="productColor[@indexColor].productSize[@indexSize].name" id="productColor[@indexColor].productSize[@indexSize].name" class="form-control" placeholder="Size" value="@size.name" />
+                                        <input id="productSize" data-size="@size.Id" class="form-control" placeholder="Size" value="@size.name" />
                                     </div>
                                     <div class="col-sm-2 mt-2">
-                                        <input name="productColor[@indexColor].productSize[@indexSize].quantity" id="productColor[@indexColor].productSize[@indexSize].quantity" class="form-control" placeholder="Số lượng" value="@size.quantity" />
+                                        <input id="productQuantity" data-quantity="@size.Id" class="form-control" placeholder="Số lượng" value="@size.quantity" />
                                     </div>
                                     indexSize++;
                                 }
@@ -83,8 +82,8 @@
                             indexColor++;
                         }
                     }
-                    
-                </div> *@
+
+                </div>
 
             </div>
 
@@ -108,7 +107,7 @@
                 <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
             </div>
             <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
-                <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" style="
+                <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" id="updateProduct" style="
                     width: 100%;
                     background: #ee4d2d;
                     height: 38px;

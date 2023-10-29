@@ -10,6 +10,7 @@ using JZenoApp.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System.Drawing;
 
 namespace JZenoApp.Controllers
 {
@@ -25,11 +26,19 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchCategory)
         {
-            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner);
-            return View(await jZenoDbContext.ToListAsync());
+            var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
+                          select m;
+            if (!String.IsNullOrEmpty(searchCategory))
+            {
+                return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToListAsync());
+            }
+            else
+            {
+                return View(await product.ToListAsync());
+            }
+            
         }
 
         // GET: Products/Details/5
@@ -41,8 +50,8 @@ namespace JZenoApp.Controllers
             }
 
             var product = await _context.Product
-                .Include(p => p.Category)
-                .Include(p => p.productColor)
+                .Include(p => p.Category!)
+                .Include(p => p.productColor!)
                 .ThenInclude(p => p.productSize)
                 .Include(p => p.Partner)
                 .Include(p => p.productImages)
@@ -131,8 +140,8 @@ namespace JZenoApp.Controllers
             }
 
             var product = await _context.Product
-                .Include(p => p.productImages)
-                .Include(p => p.productColor)
+                .Include(p => p.productImages!)
+                .Include(p => p.productColor!)
                 .ThenInclude(p => p.productSize)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -142,13 +151,9 @@ namespace JZenoApp.Controllers
             ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
             return View(product);
         }
-
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID")] Product product)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID,productColor")] Product product)
         {
             if (id != product.Id)
             {
@@ -176,6 +181,11 @@ namespace JZenoApp.Controllers
                 };
                 _context.Add(productImgs);
             }
+            var productColor = _context.ProductColor.Include(e => e.productSize).Where(m => m.productId == id);
+            foreach (var item in productColor)
+            {
+
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -199,8 +209,30 @@ namespace JZenoApp.Controllers
             ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
             return View(product);
         }
-
-     
+        public IActionResult PutColor(string id, string name)
+        {
+            var product = _context.ProductColor.FirstOrDefault(e => e.Id == id);
+            product!.Name = name;
+            _context.Update(product);
+            _context.SaveChanges();
+            return Json(product);
+        }
+        public IActionResult PutSize(int id, string name)
+        {
+            var product = _context.ProductSize.FirstOrDefault(e => e.Id == id);
+            product!.name = name;
+            _context.Update(product);
+            _context.SaveChanges();
+            return Json(product);
+        }
+        public IActionResult PutQuantity(int id, int quantity)
+        {
+            var product = _context.ProductSize.FirstOrDefault(e => e.Id == id);
+            product!.quantity = quantity;
+            _context.Update(product);
+            _context.SaveChanges();
+            return Json(product);
+        }
         private bool ProductExists(string id)
         {
             return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
