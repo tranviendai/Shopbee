@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Drawing;
+using X.PagedList;
 
 namespace JZenoApp.Controllers
 {
@@ -26,17 +27,18 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchCategory)
+        public async Task<IActionResult> Index(string searchCategory,int? page)
         {
+            ViewData["GetData"] = searchCategory;
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
             if (!String.IsNullOrEmpty(searchCategory))
             {
-                return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToListAsync());
+                return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToPagedListAsync(page ?? 1, 10));
             }
             else
             {
-                return View(await product.ToListAsync());
+                return View(await product.ToPagedListAsync(page ?? 1, 10));
             }
             
         }
