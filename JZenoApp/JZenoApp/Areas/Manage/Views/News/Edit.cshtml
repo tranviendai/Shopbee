@@ -1,44 +1,72 @@
 ﻿@model JZenoApp.Models.NewsModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa tin tức";
+    <link rel="stylesheet" href="~/css/managementForm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 }
 
-<h1>Edit</h1>
+<style>
+    body {
+        font-size: 1.6rem;
+    }
+</style>
 
-<h4>NewsModel</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" />
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Tiêu đề</span>
+                <input asp-for="title" class="input-form col-10" />
                 <span asp-validation-for="title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
+
+            <div class="form-group row p-0">
+                <span class="col label-name p-4">Mô tả</span>
+                <textarea id="basic-example" asp-for="description"></textarea>
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="userId" class="control-label"></label>
-                <select asp-for="userId" class="form-control" asp-items="ViewBag.userId"></select>
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Người đăng</span>
+                <select  asp-for="userId" class="form-control" asp-items="ViewBag.userId"></select>
                 <span asp-validation-for="userId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
+                <input type="submit" value="Lưu chỉnh sửa" class="btn btn-primary" style="
+                    width: 50%;
+                    background: #ee4d2d;
+                    color: #fff;
+                    height: 48px;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 24px;
+                    font-weight: bold;" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        tinymce.init({
+            selector: "textarea#basic-example",
+            height: 500,
+            branding: false,
+            menubar: true,
+            table_toolbar: 'tableprops tabledelete | tableinsertrowbefore tableinsertrowafter tabledeleterow | tableinsertcolbefore tableinsertcolafter tabledeletecol',
+            plugins:
+                " table print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen codesample charmap hr nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap  emoticons",
+            toolbar: "undo redo | charmap emoticons | bold italic"
+        });
+    </script>
 }

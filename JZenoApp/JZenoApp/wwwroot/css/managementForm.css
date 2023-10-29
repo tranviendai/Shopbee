@@ -37,11 +37,11 @@
     padding: 12px;
 }
 
-.form-group:focus-within {
+/*.form-group:focus-within {
     color: #fff !important;
     border: 1px solid #ee4d2d;
     background-color: #ee4d2d;
-}
+}*/
 
 textarea {
     min-height: 150px;
