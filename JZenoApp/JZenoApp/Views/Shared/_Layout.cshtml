@@ -167,11 +167,6 @@
                                 Hỗ trợ
                             </a>
                         </li>
-                        @* //// *@
-                        @if (User.IsInRole("Customer"))
-                        {
-                            @await Html.PartialAsync("_CartPartial")
-                        }
                         <partial name="_LoginPartial" />
                         
                     </ul>
