@@ -3,38 +3,10 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].deliveryForm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].Voucher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].billStatic)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<link href="~/css/ordercustomer.css" rel="stylesheet" />
+<script src="~/js/jquery.min.js"></script>
 @foreach (var item in Model.Bill) {
         <tr>
             <td>
@@ -55,12 +27,157 @@
             <td>
                 @Html.DisplayFor(modelItem => item.billStatic)
             </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.billID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.billID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.billID">Delete</a>
-            </td>
+          
         </tr>
 }
-    </tbody>
-</table>
+<section id="tabs">
+    <div class="trangthai">
+        <h6 class="section-title h1 text-left"><i class="ti-ruler"></i> </h6>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class=" nav-link active" id="nav-cd-tab" data-toggle="tab" href="#nav-cd"
+                           role="tab" aria-controls="nav-cd" aria-selected="true">Tất cả</a>
+                        <a class=" nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                           role="tab" aria-controls="nav-home" aria-selected="false">
+                            Chờ thanh toán
+                            <img src="./image/new-logo.png" width="80" alt="">
+                        </a>
+                        <a class=" nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                           role="tab" aria-controls="nav-profile" aria-selected="false">Vận chuyển</a>
+
+                        <a class=" nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                           role="tab" aria-controls="nav-contact" aria-selected="false">Đang giao</a>
+
+                        <a class=" nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
+                           role="tab" aria-controls="nav-about" aria-selected="false">Hoàn thành</a>
+
+                        <a class=" nav-link" id="nav-huy-tab" data-toggle="tab" href="#nav-huy"
+                           role="tab" aria-controls="nav-huy" aria-selected="false">Hủy đơn</a>
+
+                        <a class=" nav-link" id="nav-hoan-tab" data-toggle="tab" href="#nav-hoan"
+                           role="tab" aria-controls="nav-hoan" aria-selected="false">Trả hàng/Hoàn tiền</a>
+                    </div>
+                </nav>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-cd" role="tabpanel"
+                         aria-labelledby="nav-cd-tab">
+                        <div class="container" style="margin: 0px 10px;max-width: 100%;">
+                          @foreach (var item in Model.Bill) {
+                              
+                            <div class="khungsearch">
+                                <i class='bx bx-search'></i>
+                                <span>Bạn có thể tìm kiếm theo thên shop, ID đơn hàng hoặc tên sản phẩm</span>
+                            </div>
+                            <div class="order">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <span class="like">Yêu thích</span>
+                                        <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                        <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                        <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                    </div>
+                                    <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                        @if(Convert.ToInt16(item.billStatic) == 1)
+                                        {
+                                            <span>Chờ thanh toán</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 2)
+                                        {
+                                            <span>Vận chuyển</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 3)
+                                        {
+                                            <span>Đang giao</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 4)
+                                        {
+                                            <span>Hoàn thành</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 5)
+                                        {
+                                            <span>Hủy đơn</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 6)
+                                        {
+                                            <span>Trà hành/Hoàn tiền</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;"></div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="./ao.jpg" width="95%">
+                                    </div>
+                                    <div class="col-10">
+                                        <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item.billID</p>
+                                        <div class="row">
+                                            <div class="col-10" style="color: gray;">Phân loại hàng: Tốt 1m2/ XÁM ĐEN</div>
+                                            <div class="col-2" style="color: red; justify-content: right; display: flex;">đ98.000</div>
+                                        </div>
+                                        <div>x1</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pay">
+                                <div class="tt">
+                                    <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                    <span class="tien">Thành tiền:</span>
+                                    <span style="color: red; text-decoration: underline;">đ</span>
+                                    <span class="toltal">101.100</span>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-5 note1">
+                                        Đánh giá sản phẩm trước 10/12/2023
+                                    </div>
+                                    <div class="col-7 phu">
+                                        <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                        <button class="contactoorder">Liên hệ người bán</button>
+                                        <button class="contactoorder">Mua lại</button>
+                                    </div>
+                                </div>
+                              
+                              </div>
+                             
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade  " id="nav-home" role="tabpanel"
+                         aria-labelledby="nav-home-tab">
+                        <div class="container">
+                            moi
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="container">
+                            ádfđsf
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="container">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                        <div class="container">
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-huy" role="tabpanel" aria-labelledby="nav-huy-tab">
+                        <div class="container">
+                            nav-huy
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-hoan" role="tabpanel" aria-labelledby="nav-hoan-tab">
+                        <div class="container">
+                            hoan
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/js/bootstrap.bundle.min.js"></script>
