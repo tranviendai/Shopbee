@@ -9,6 +9,7 @@ using JZenoApp.Data;
 using JZenoApp.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.IdentityModel.Tokens;
 
 namespace JZenoApp.Controllers
 {
@@ -147,7 +148,7 @@ namespace JZenoApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,name,discount,price,description,postDate,isPublish,Files,categoryID,productColor,productImages")] Product product)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID")] Product product)
         {
             if (id != product.Id)
             {
@@ -158,8 +159,11 @@ namespace JZenoApp.Controllers
             {
                 foreach (var item in productImg)
                 {
-                    DeleteFile(item.URL!);
-                    _context.Remove(item);
+                    if (!product.Files!.IsNullOrEmpty())
+                    {
+                        DeleteFile(item.URL!);
+                        _context.Remove(item);
+                    }
                 }
             }
             foreach (var item in product.Files!)

@@ -9,7 +9,60 @@
     if (jsoncart != null)
     {
         var cart = JsonConvert.DeserializeObject<List<CartItem>>(jsoncart);
-        <div class="nav-item"><a asp-route="cart">Cart(@cart!.Count)</a></div>
+        <div class="header__cart header__cart--has-cart">
+            <i class="header__cart-icon fas fa-shopping-cart"></i>
+            <div class="header__cart-count">@cart!.Count</div>
 
+            <div class="header__cart-list has-cart">
+                <h4 class="header__cart-heading">Sản phẩm đã chọn</h4>
+                <ul class="header__cart-list-item">
+                    @foreach (var i in cart!)
+                    {
+                        <li class="header__cart-item">
+                            @{
+                                var index = 0;
+                                foreach (var img in @i.product!.productImages!)
+                                {
+                                    if (index == 0)
+                                    {
+                                        <img src="~/images/products/@img.URL" class="header__cart-item-img">
+                                        break;
+                                    }
+                                    index++;
+                                }
+                            }
+                            <div class="header__cart-item-info">
+                                <div class="header__cart-item-heading">
+                                    <h3 class="header__cart-item-name">@i.product!.name</h3>
+                                    <p class="header__cart-item-price">@Convert.ToDecimal(@i.product!.price - ((@i.product!.price * @i.product!.discount) / 100)).ToString("N0")đ</p>
+                                </div>
+                                <div class="header__cart-item-body">
+                                    <p class="header__cart-item-number">x 2</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="header__cart-footer">
+                    <a href="/Cart" class="btn btn--primary header__cart-see-cart">Xem giỏ hàng</a>
+                </div>
+            </div>
+        </div>
+    } else
+    {
+        <div class="header__cart header__cart--has-cart">
+            <i class="header__cart-icon fas fa-shopping-cart"></i>
+            <div class="header__cart-count">0</div>
+
+            <div class="header__cart-list has-cart" style="min-height: 214px !important;">
+                <div class="">
+                    <img src="~/images/sp/no-cart.png" class="header__no-cart-img">
+                    <p class="header__no-cart-text">Chưa có sản phẩm</p>
+                </div>
+                <div class="header__cart-footer">
+                    <a href="/Cart" class="btn btn--primary header__cart-see-cart mt-4" style="float: none;">Xem giỏ hàng</a>
+                </div>
+            </div>
+        </div>
     }
 }

@@ -1,58 +1,143 @@
 ﻿@model List<JZenoApp.Models.CartItem>
 
+    @{
+    ViewData["Title"] = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_LayoutCart.cshtml";
+    <link rel="stylesheet" href="~/css/cart/cart.css"/>
+    <link rel="stylesheet" href="~/css/products/detail.css" />
+    }
+
 <h2>GIỎ HÀNG</h2>
 
 @if (Model.Count > 0) {
   double? total = 0;
   int stt = 1;
-  
-  <table class="table">
-    <tr>
-      <th>#</th>
-      <th>Sản phẩm</th>
-      <th>Giá</th>
-      <th>Số lượng</th>
-      <th>Thành tiền</th>
-      <th></th>
-    </tr>
+
+    <div class="header-cart">
+        <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
+            Sản Phẩm
+        </div>
+        <div style="text-align: center; width: 15.88022%;">
+            Đơn Giá
+        </div>
+        <div style="text-align: center; width: 15.4265%;">
+            Số Lượng
+        </div>
+        <div style="text-align: center; width: 10.43557%;">
+            Số Tiền
+        </div>
+        <div style="text-align: center; width: 12.70417%;">
+            Thao Tác
+        </div>
+    </div>
     @foreach (var cartitem in Model)
     {
         var thanhtien = cartitem.quantity * cartitem.product!.price;
         total += thanhtien;
 
-        <tr>
-           <td>@(stt++)</td>
-           <td>@cartitem.product.name</td>
-           <td>@(cartitem.product.price)</td>
-           <td><input asp-for="@cartitem.quantity" id="@($"quantity-{cartitem.product.Id}")"/></td>
-           <td>@(thanhtien)</td>
-           <td>
-              <button class="btn btn-success updatecartitem" 
-                    data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
-                        Cập nhật
-                    </button>
-                    <a asp-route="removecart" asp-route-productid="@cartitem.product.Id"class="btn btn-danger">Xóa</a>
-                    <input type="text" id="unique" hidden >
-           </td>
-        </tr>
-    }
-      <tr>
-          <td colspan="4" class="text-right">Tổng tiền</td>
-          <td>@(total)</td>
-          <td></td>
-      </tr>
-  </table>
+            <div class="body-cart">
+                <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
+                    <div style="display: flex;">
+                        @{
+                            var index = 0;
+                            foreach (var img in cartitem.product!.productImages!)
+                            {
+                                if (index == 0)
+                                {
+                                    <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                    break;
+                                }
+                                index++;
+                            }
+                        }
+                        <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name</p>
+                    </div>
+                </div>
 
-    <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn-success">Payment with Paypal</a>
-    <a asp-controller="Home" asp-action="checkout" class="btn btn-success">Payment upon delivery</a>
+                <div style="text-align: center; width: 15.88022%; color: rgba(0,0,0,.8);">
+                    @Convert.ToDecimal(cartitem.product.price).ToString("N0")đ
+                </div>
+                <div style="text-align: center; width: 15.4265%;">
+                    <div class="option-product m-0" style="justify-content: center;">
+                        <div class="option-info" id="amount-product">
+                            <button class="minus-btn updatecartitem" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                </svg>
+                            </button>
+                            <input asp-for="@cartitem.quantity" id="sl-product" class="@($"quantity-{cartitem.product.Id}")" />
+                            <button class="plus-btn updatecartitem" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div style="text-align: center; width: 10.43557%; color: rgba(0,0,0,.8);">
+                    @Convert.ToDecimal(thanhtien).ToString("N0")đ
+                </div>
+                <div style="text-align: center; width: 12.70417%;">
+                <a asp-route="removecart" asp-route-productid="@cartitem.product.Id" class="" style="color: rgba(0,0,0,.8); text-decoration: none;">Xóa</a>
+                    <input type="text" id="unique" hidden>
+                </div>
+            </div>
+    }
+
+
+
+    <div class="grid-container">
+        <div class="grid-item" style="justify-content: center; text-align: center; align-items: center; display: flex;">
+            <div class="total-payment-left">
+                <span>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28px" height="28px" viewBox="0,0,256,256"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M46,36c0,1.657 -1.343,3 -3,3h-38c-1.657,0 -3,-1.343 -3,-3v-24c0,-1.657 1.343,-3 3,-3h38c1.657,0 3,1.343 3,3z" fill="#ff5252"></path><path d="M21.045,16.097c-0.637,-0.731 -1.49,-1.097 -2.558,-1.097c-1.069,0 -1.917,0.372 -2.545,1.117c-0.628,0.745 -0.942,1.706 -0.942,2.884v0.944c0,1.25 0.322,2.238 0.968,2.965c0.645,0.727 1.494,1.09 2.545,1.09c1.06,0 1.906,-0.363 2.538,-1.09c0.633,-0.727 0.949,-1.688 0.949,-2.885v-0.97c0,-1.241 -0.319,-2.227 -0.955,-2.958zM19.628,19.985c0,0.532 -0.101,0.962 -0.301,1.29c-0.201,0.328 -0.473,0.492 -0.814,0.492c-0.333,0 -0.609,-0.157 -0.827,-0.472c-0.218,-0.314 -0.327,-0.738 -0.327,-1.27v-0.984c0,-0.54 0.103,-0.977 0.308,-1.309c0.205,-0.332 0.478,-0.499 0.821,-0.499c0.35,0 0.628,0.166 0.833,0.499c0.205,0.332 0.308,0.756 0.308,1.27v0.983zM20,34l-1.832,-1.039l9.986,-19l1.846,1.039zM32.04,25.083c-0.64,-0.722 -1.489,-1.083 -2.546,-1.083c-1.049,0 -1.894,0.366 -2.534,1.097c-0.64,0.731 -0.96,1.695 -0.96,2.891v0.984c0,1.214 0.315,2.189 0.947,2.925c0.631,0.736 1.489,1.103 2.572,1.103c1.075,0 1.924,-0.366 2.547,-1.097c0.622,-0.731 0.934,-1.69 0.934,-2.878v-0.97c0,-1.259 -0.32,-2.249 -0.96,-2.972zM30.633,29.198c-0.034,1.055 -0.405,1.582 -1.113,1.582c-0.316,0 -0.587,-0.168 -0.813,-0.505c-0.226,-0.337 -0.339,-0.753 -0.339,-1.25v-0.758c0,-1.356 0.375,-2.034 1.126,-2.034c0.341,0 0.616,0.162 0.825,0.485c0.209,0.324 0.314,0.747 0.314,1.27z" fill="#ffffff"></path></g></g></svg>
+                    Shopee Voucher
+                </span>
+                <a href="#" style="color: #ee4d2d; text-decoration: None; margin-left: 28px">Chọn Voucher</a>
+            </div>
+        </div>
+        <div class="grid-item"></div>
+        <div class="grid-item">
+            <div class="total-payment-right">
+                <span>
+                    Tổng thanh toán (@Model.Count Sản phẩm):
+                    <span style="color: #ee4d2d;">₫@Convert.ToDecimal(total).ToString("N0")</span>
+                </span>
+                <div class="buy-now" data-bs-toggle="modal" data-bs-target="#exampleModal" asp-area="" style="margin-left: 8px;">Mua Hàng</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Button trigger modal -->
+    
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Phương Thức Thanh Toán</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="display: flex; justify-content: center; justify-items: center; align-items: center; text-align: center;">
+                    <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn--primary header__cart-see-cart">Thanh Toán Bằng Paypal</a>
+                    <a asp-controller="Home" asp-action="checkout" class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
       @section Scripts {
         <script>
+
           $(document).ready(function () {
-              $(".updatecartitem").click(function (event) {
+              $(".plus-btn").click(function (event) {
                   event.preventDefault();
                   var productid = $(this).attr("data-productid");
                 var productUnique = $(this).attr("data-productUnique");
-                  var quantity = $("#quantity-" + productid).val();
+                var quantity = parseInt($(".quantity-" + productid).val()) +1;
                   $.ajax({
                       type: "POST",
                       url:"@Url.RouteUrl("updatecart")",
@@ -67,10 +152,45 @@
                   });
               });
           });
+
+        $(document).ready(function () {
+            $(".minus-btn").click(function (event) {
+                event.preventDefault();
+                var productid = $(this).attr("data-productid");
+                var productUnique = $(this).attr("data-productUnique");
+                var quantity = parseInt($(".quantity-" + productid).val()) - 1;
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.RouteUrl("updatecart")",
+                    data: {
+                        productid: productid,
+                        quantity: quantity,
+                        isUnique: productUnique
+                    },
+                    success: function (result) {
+                        window.location.href = "@Url.RouteUrl("cart")";
+                    }
+                });
+            });
+        });
         </script>
       }
 
 }
 else {
-  <p class="alert alert-danger">Giỏ hàng trống</p>
+
+    <div class="body-cart" style="height: 500px !important; justify-content: center;">
+        <div>
+            <img src="~/images/sp/no-cart.png" class="header__no-cart-img" style="min-width: 300px;">
+            <p style="display: flex; justify-content: center; text-align: center; margin: 8px; font-size: 1.8rem;">Giỏ hàng trống</p>
+            <p style="display: flex; justify-content: center; text-align: center; margin: 8px;">
+                <a class="buy-now" asp-area="" asp-controller="Products" asp-action="Index">Mua Hàng Ngay</a>
+            </p>
+        </div>
+    </div>
 }
+
+
+
+
+

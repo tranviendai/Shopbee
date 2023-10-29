@@ -23,7 +23,7 @@ namespace JZenoApp.Areas.QuanLy.Controllers
         [Route("Manage/Products")]
         public async Task<IActionResult> Index()
         {
-            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.Partner);
+            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.Partner).Include(p => p.productImages);
             return View(await jZenoDbContext.ToListAsync());
         }
 

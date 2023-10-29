@@ -4,57 +4,143 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link href="~/css/voucher.css" rel="stylesheet" />
 
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher[0].name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher[0].price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher[0].quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher[0].startDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher[0].endDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="row" style="margin:20px 10px ;">
+    <div class="col-6">
+        <h4 style="font-size:26px;">Kho voucher</h4>
+    </div>
+    <div class="col-6" style="display: flex; justify-content: right;">
+
+        <a href="#" class="tvc">Tìm kiếm voucher</a>
+        <span class="chia">|</span>
+        <a href="#" class="tvc">Xem lịch sử voucher</a>
+        <span class="chia">|</span>
+        <a href="#" class="tvc timhieu">Tìm hiểu</a>
+    </div>
+</div>
+
+<div class="bgkhung Ksearchvoucher">
+    <span class="lablenamevc">Mã voucher</span>
+    <input class="inputsearch" maxlength="255" type="text" placeholder="Nhập mã voucher tại đây">
+    <button class="btnsearch"> Lưu</button>
+</div>
+
+<div style="font-size: 20px; margin: 27px; font-weight: 500;">Voucher của Shope</div>
+
+<div class="bgkhung kloc">
+    <a class="tvc loc" href="#" style="margin-left: 40px; ">Mới nhất</a>
+    <a class="tvc loc" href="#">Phổ biến</a>
+    <a class="tvc loc" href="#">Sắp hết hạn</a>
+</div>
+<div class="row" style="margin:20px 20px;">
 @foreach (var item in Model.Voucher) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.startDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.endDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.voucherID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.voucherID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.voucherID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        
+        <div class="col-6" style="padding: 20px;"> 
+                <div class="row dsvoucher">
+                    <div class="col-3" style="margin: -4px 0px; margin-left: -27px;">
+                        <img src="~/images/voucher/voucher%.png" width="140px">
+                    </div>
+
+                    <div class="col-9 detailvc" style="padding:6px 25px 6px 35px;">
+                        <div class="row">
+                            <div class="col-6">
+                                @Html.DisplayFor(modelItem => item.name)
+                            </div>
+                            <div class="col-6" style="display: flex; justify-content: right;">
+                                <a href="#" style=" color: red; text-decoration: none; margin-right: -27px; font-size:17px;">Dùng sau ></a>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            
+                           @if (Convert.ToDouble(item.price) == 0.1)
+                            {
+                                <div>
+                                      Đơn Tối Thiểu ₫50k Giảm tối đa ₫20k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.2)
+                            {
+                                <div>
+                                    Đơn Tối Thiểu ₫70k Giảm tối đa ₫20k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.3)
+                            {
+                                <div>
+                                    Đơn Tối Thiểu ₫100k Giảm tối đa ₫20k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.4)
+                            {
+                                <div>
+                                    Đơn Tối Thiểu ₫110k Giảm tối đa ₫40k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.5)
+                            {
+                                <div>
+                                    Đơn Tối Thiểu ₫290k Giảm tối đa ₫50k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.6)
+                            {
+                                 <div>
+                                     Đơn Tối Thiểu ₫320k Giảm tối đa ₫70k
+                                 </div>
+                            }
+                            @if (Convert.ToDouble(item.price) == 0.7)
+                            {
+                                <div>
+                                Đơn Tối Thiểu ₫390k Giảm tối đa ₫100k
+                                </div>
+                            }
+                            @if (Convert.ToDouble(item.price) > 1)
+                            {
+                                <div>
+                                Giảm @Convert.ToDecimal(item.price).ToString("N0")đ 
+                            </div>
+                            }
+                        </div>
+                        <div class="timevc">
+                            <div class="row">
+                                <div class="col-8">
+                                    <i class='bx bx-stopwatch'></i>
+                                    <span>Có hiệu lực sau 1 ngày</span>
+                                </div>
+                                <div class="col-4" style=" display: flex;justify-content: right; font-size: 25px;">
+                                    <a href="#" style="font-size:17px; color: rgb(32, 235, 235);text-decoration: none;margin-top: 15px; margin-right: -20px;">Điều Kiện</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+        </div>
+    }       
+</div>
+
+<style>
+    .grid.wide {
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+    .vcr{
+        background-color: white;
+        padding: 20px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border-radius: 8px;
+    }
+
+    .sm-gutter{
+        padding:20px;
+    }
+
+    .detailvc{
+        width: 79%;
+    }
+    *{
+        line-height: revert;
+    }
+</style>
