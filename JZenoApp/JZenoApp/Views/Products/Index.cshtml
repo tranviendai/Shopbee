@@ -6,6 +6,23 @@
     ViewData["Title"] = "Sản phẩm";
 }
 
+<style>
+    .pagination {
+        font-size: 1.8rem;
+        padding: 4px;
+    }
+
+    .pagination .page-link{
+        color: #ee4d2d;
+        margin: 4px;
+    } 
+
+    .pagination .active .page-link{
+        background-color: #ee4d2d;
+        border-color: #ee4d2d;
+    }
+</style>
+
 <div class="grid wide">
     <div class="row sm-gutter">
         <div class="col l-2 m-0 c-0">
@@ -349,14 +366,16 @@
                     }
                 </div>
             </div>
-            @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index","Products",new { page,
-            searchCategory= @ViewData["GetData"]}),
-            new X.PagedList.Web.Common.PagedListRenderOptions{
-            DisplayLinkToIndividualPages = true,
-            DisplayPageCountAndCurrentLocation = false,
-            LiElementClasses = new string[] {"page-item"},
-            PageClasses = new string[] {"page-link"}
-            })
+            <ul class="pagination home-product-pagination">
+                @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index","Products",new { page,
+                searchCategory= @ViewData["GetData"]}),
+                new X.PagedList.Web.Common.PagedListRenderOptions{
+                DisplayLinkToIndividualPages = true,
+                DisplayPageCountAndCurrentLocation = false,
+                LiElementClasses = new string[] {"page-item"},
+                PageClasses = new string[] {"page-link"}
+                })
+            </ul>
             <!--
             <ul class="pagination home-product-pagination">
                             <li class="pagination-item">
@@ -369,15 +388,6 @@
                             </li>
                             <li class="pagination-item">
                                 <a href="#" class="pagination-item-link">2</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="#" class="pagination-item-link">3</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a class="pagination-item-link pagination-item-link--disable">. . .</a>
-                            </li>
-                            <li class="pagination-item">
-                                <a href="#" class="pagination-item-link">8</a>
                             </li>
                             <li class="pagination-item">
                                 <a href="#" class="pagination-item-link">
