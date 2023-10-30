@@ -22,11 +22,11 @@
                 {
                     if (index == 0)
                     {
-                        <img src="~/images/products/@i.URL" class="main-detail-image" alt="@Model.name" width="450px" height="450px" />
+                            <img src="~/images/products/@i.URL" class="main-detail-image" alt="@Model.name" width="450px" height="450px" />
                     }
-                    <div class="sub-image">
-                        <img src="~/images/products/@i.URL" class="sub-detail-image sub-detail-image-@index" alt="@Model.name" width="82px" height="82px" />
-                    </div>
+                        <div class="sub-image">
+                            <img src="~/images/products/@i.URL" class="sub-detail-image sub-detail-image-@index" alt="@Model.name" width="82px" height="82px" />
+                        </div>
                     index++;
 
                 }
@@ -82,10 +82,10 @@
                                 var indexColor = 0;
                                 foreach (var i in Model.productColor!)
                                 {
-                                    <div class="choose-color-product" id="@i.Id">
-                                        <input type="radio" class="check-size" name="productColor" data-color="@i.Id" value="@i.Name"/>
-                                        <label class="choose-color" for="a25">@i.Name</label>
-                                    </div>
+                                        <div class="choose-color-product" id="@i.Id">
+                                            <input type="radio" class="check-size" name="productColor" data-color="@i.Id" value="@i.Name"/>
+                                            <label class="choose-color" for="a25">@i.Name</label>
+                                        </div>
                                     indexColor++;
 
                                 }
@@ -106,15 +106,15 @@
                                     {
                                         if(y.quantity > 0)
                                         {
-                                            <div class="choose-product size-hide active-hide size-@i.Id">
-                                                <input id="" type="radio" class="check-size" name="productSize" data-size="@y.Id" value="@y.name" />
-                                                <label class="" for="a25">@y.name</label>
-                                            </div>
+                                                <div class="choose-product size-hide active-hide size-@i.Id">
+                                                    <input id="" type="radio" class="check-size" name="productSize" data-size="@y.Id" value="@y.name" />
+                                                    <label class="" for="a25">@y.name</label>
+                                                </div>
                                         } else
                                         {
-                                            <div class="choose-product size-hide active-hide size-@i.Id" id="not-avaiable" style="background: #dddddd; opacity: 0.8;">
-                                                <label class="" for="a25">@y.name</label>
-                                            </div>
+                                                <div class="choose-product size-hide active-hide size-@i.Id" id="not-avaiable" style="background: #dddddd; opacity: 0.8;">
+                                                    <label class="" for="a25">@y.name</label>
+                                                </div>
                                         }
                                         indexSize++;
 
@@ -469,6 +469,10 @@
     let amountElement = document.getElementById("sl-product");
     let amount = amountElement.value;
 
+    setTimeout(() => {
+        Render(amount)
+    }, 100);
+
     let Render = (amount) => {
         amountElement.value = amount;
     }
@@ -487,12 +491,11 @@
 
     var descriptionProduct = `@Model.description`;
 
-    console.log(descriptionProduct);
-
     $('#description-product').html(descriptionProduct);
 
 
     $(() => {
+
         $(".sub-detail-image-0").addClass("active-border");
 
         $(".choose-color-product").click(function () {
