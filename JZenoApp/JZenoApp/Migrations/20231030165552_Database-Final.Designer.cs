@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JZenoApp.Migrations
 {
     [DbContext(typeof(JZenoDbContext))]
-    [Migration("20231029131618_Database-Final")]
+    [Migration("20231030165552_Database-Final")]
     partial class DatabaseFinal
     {
         /// <inheritdoc />
@@ -107,6 +107,30 @@ namespace JZenoApp.Migrations
                             Id = "trouser",
                             icon = "trousers.png",
                             name = "Trouser"
+                        },
+                        new
+                        {
+                            Id = "camera",
+                            icon = "camera.png",
+                            name = "Camera"
+                        },
+                        new
+                        {
+                            Id = "phone",
+                            icon = "phone.png",
+                            name = "Phone"
+                        },
+                        new
+                        {
+                            Id = "watch",
+                            icon = "watch.png",
+                            name = "Watch"
+                        },
+                        new
+                        {
+                            Id = "computer",
+                            icon = "computer.png",
+                            name = "Computer"
                         });
                 });
 
@@ -121,6 +145,9 @@ namespace JZenoApp.Migrations
                     b.Property<string>("billID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("color")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("price")
                         .HasColumnType("float");
 
@@ -129,6 +156,9 @@ namespace JZenoApp.Migrations
 
                     b.Property<int?>("quantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("size")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("totalPrice")
                         .HasColumnType("float");
@@ -196,7 +226,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "5215212-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9097),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(7950),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -205,7 +235,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9111),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(7966),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -214,7 +244,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9113),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(7978),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -223,7 +253,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9115),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(7980),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -283,7 +313,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo thun nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9236),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8096),
                             price = 50000.0
                         },
                         new
@@ -295,7 +325,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần Short nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9242),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8104),
                             price = 30000.0
                         },
                         new
@@ -307,8 +337,20 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày thể thao nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9245),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8107),
                             price = 120000.0
+                        },
+                        new
+                        {
+                            Id = "camera1",
+                            categoryID = "camera",
+                            description = "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.",
+                            discount = 40,
+                            isPublish = true,
+                            name = "Máy ảnh",
+                            partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8110),
+                            price = 5000000.0
                         },
                         new
                         {
@@ -319,7 +361,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo sơ mi nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9252),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8113),
                             price = 70000.0
                         },
                         new
@@ -331,7 +373,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần dài nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9266),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8116),
                             price = 50000.0
                         },
                         new
@@ -343,8 +385,20 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày sandal nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9269),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8119),
                             price = 100000.0
+                        },
+                        new
+                        {
+                            Id = "phone2",
+                            categoryID = "phone",
+                            description = "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.",
+                            discount = 5,
+                            isPublish = true,
+                            name = "Điện thoại",
+                            partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8121),
+                            price = 7500000.0
                         },
                         new
                         {
@@ -355,7 +409,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo sơ mi nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9273),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8153),
                             price = 60000.0
                         },
                         new
@@ -367,7 +421,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần dài nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9286),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8157),
                             price = 40000.0
                         },
                         new
@@ -379,8 +433,20 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày sandal nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9289),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8159),
                             price = 110000.0
+                        },
+                        new
+                        {
+                            Id = "watch3",
+                            categoryID = "watch",
+                            description = "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.",
+                            discount = 25,
+                            isPublish = true,
+                            name = "Đồng hồ",
+                            partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8162),
+                            price = 500000.0
                         },
                         new
                         {
@@ -391,7 +457,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo thun nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9292),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8165),
                             price = 80000.0
                         },
                         new
@@ -403,7 +469,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần Short nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9295),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8167),
                             price = 60000.0
                         },
                         new
@@ -415,8 +481,20 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày thể thao nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9298),
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8170),
                             price = 130000.0
+                        },
+                        new
+                        {
+                            Id = "computer4",
+                            categoryID = "computer",
+                            description = "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.",
+                            discount = 20,
+                            isPublish = true,
+                            name = "Máy tính",
+                            partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
+                            postDate = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(8173),
+                            price = 10000000.0
                         });
                 });
 
@@ -477,6 +555,18 @@ namespace JZenoApp.Migrations
                         },
                         new
                         {
+                            Id = "blackcamera1",
+                            Name = "Đen",
+                            productId = "camera1"
+                        },
+                        new
+                        {
+                            Id = "whitecamera1",
+                            Name = "Trắng",
+                            productId = "camera1"
+                        },
+                        new
+                        {
                             Id = "yellowshirt2",
                             Name = "Vàng",
                             productId = "shirt2"
@@ -510,6 +600,18 @@ namespace JZenoApp.Migrations
                             Id = "greensandal2",
                             Name = "Xanh Lá",
                             productId = "sandal2"
+                        },
+                        new
+                        {
+                            Id = "bluephone2",
+                            Name = "Xanh Dương",
+                            productId = "phone2"
+                        },
+                        new
+                        {
+                            Id = "naturalphone2",
+                            Name = "Tự Nhiên",
+                            productId = "phone2"
                         },
                         new
                         {
@@ -549,6 +651,18 @@ namespace JZenoApp.Migrations
                         },
                         new
                         {
+                            Id = "pinkwatch3",
+                            Name = "Hồng",
+                            productId = "watch3"
+                        },
+                        new
+                        {
+                            Id = "whitewatch3",
+                            Name = "Trắng",
+                            productId = "watch3"
+                        },
+                        new
+                        {
                             Id = "greyshirt4",
                             Name = "Xám",
                             productId = "shirt4"
@@ -582,6 +696,18 @@ namespace JZenoApp.Migrations
                             Id = "pinkshoes4",
                             Name = "Hồng",
                             productId = "shoes4"
+                        },
+                        new
+                        {
+                            Id = "bluecomputer4",
+                            Name = "Xanh Dương",
+                            productId = "computer4"
+                        },
+                        new
+                        {
+                            Id = "blackcomputer4",
+                            Name = "Đen",
+                            productId = "computer4"
                         });
                 });
 
@@ -674,110 +800,158 @@ namespace JZenoApp.Migrations
                         new
                         {
                             Id = 7,
+                            URL = "camera1_black.jpg",
+                            productId = "camera1"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            URL = "camera1_white.jpg",
+                            productId = "camera1"
+                        },
+                        new
+                        {
+                            Id = 9,
                             URL = "shirt2_yellow.jpg",
                             productId = "shirt2"
                         },
                         new
                         {
-                            Id = 8,
+                            Id = 10,
                             URL = "shirt2_green.jpg",
                             productId = "shirt2"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 11,
                             URL = "trouser2_white.jpg",
                             productId = "trouser2"
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 12,
                             URL = "trouser2_pink.jpg",
                             productId = "trouser2"
                         },
                         new
                         {
-                            Id = 11,
+                            Id = 13,
                             URL = "sandal2_blue.jpg",
                             productId = "sandal2"
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 14,
                             URL = "sandal2_green.jpg",
                             productId = "sandal2"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 15,
+                            URL = "phone2_blue.jpg",
+                            productId = "phone2"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            URL = "phone2_natural.jpg",
+                            productId = "phone2"
+                        },
+                        new
+                        {
+                            Id = 17,
                             URL = "shirt3_black.jpg",
                             productId = "shirt3"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 18,
                             URL = "shirt3_white.jpg",
                             productId = "shirt3"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 19,
                             URL = "trouser3_black.jpg",
                             productId = "trouser3"
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 20,
                             URL = "trouser3_white.jpg",
                             productId = "trouser3"
                         },
                         new
                         {
-                            Id = 17,
+                            Id = 21,
                             URL = "sandal3_brown.jpg",
                             productId = "sandal3"
                         },
                         new
                         {
-                            Id = 18,
+                            Id = 22,
                             URL = "sandal3_green.jpg",
                             productId = "sandal3"
                         },
                         new
                         {
-                            Id = 19,
+                            Id = 23,
+                            URL = "watch3_pink.jpg",
+                            productId = "watch3"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            URL = "watch3_white.jpg",
+                            productId = "watch3"
+                        },
+                        new
+                        {
+                            Id = 25,
                             URL = "shirt4_grey.jpg",
                             productId = "shirt4"
                         },
                         new
                         {
-                            Id = 20,
+                            Id = 26,
                             URL = "shirt4_pink.jpg",
                             productId = "shirt4"
                         },
                         new
                         {
-                            Id = 21,
+                            Id = 27,
                             URL = "short4_black.jpg",
                             productId = "short4"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 28,
                             URL = "short4_blue.jpg",
                             productId = "short4"
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 29,
                             URL = "shoes4_purple.jpg",
                             productId = "shoes4"
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 30,
                             URL = "shoes4_pink.jpg",
                             productId = "shoes4"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            URL = "computer4_blue.jpg",
+                            productId = "computer4"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            URL = "computer4_black.jpg",
+                            productId = "computer4"
                         });
                 });
 
@@ -1674,20 +1848,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "a79e98b4-d8a6-4640-98eb-5b417ffb2661",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e47f6157-75c1-469e-9eb6-0e0112ca29d6",
+                            ConcurrencyStamp = "d2d4078a-0968-4ccf-8eeb-4913d98ba9a0",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGXo+ke/qIZhszX1Lg7jydgl4G8NwwCErvjYoyFsfZwKbE1RvwAkn0CqGmA3+9vjjQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECzYTBKo54as12z8Whx7wHaRDd8nX9gnTlD1KY+gGEOI2NScWQitneuz7V8LIEa05w==",
                             PhoneNumber = "0582072743",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e67466b7-f816-4d19-807a-e697da33fd8f",
+                            SecurityStamp = "17a2d31a-72cb-4e6f-a240-4ca676dd7016",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com",
                             address = "Tắc Vân - Cà Mau",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 455, DateTimeKind.Local).AddTicks(4895),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 51, 669, DateTimeKind.Local).AddTicks(1314),
                             fullName = "Trần Viễn Đại",
                             image = "shobee-logo.png"
                         },
@@ -1695,20 +1869,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5215212-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "258e7cc9-16f6-4224-97dc-f81fa3b776b5",
+                            ConcurrencyStamp = "317e2ae0-8aea-485d-aae4-98ebcc1b6aae",
                             Email = "partner1@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER1@GMAIL.COM",
                             NormalizedUserName = "PARTNER1@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDjcw0oYjtD8kmZKLkcA42y+28iJPqMbQ4UOYDtsww9yfmJaf5IXDQIjq6yoMrE1Mw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJeEbfllrPw4EAu3fJSSpgUHL4YANiE/6wmVd39UaDv+ElMf+lR6XAAdc/hTPLvKVA==",
                             PhoneNumber = "0582012351",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "04934142-efdf-45a2-94ed-ee664f9fc478",
+                            SecurityStamp = "da2f953a-8378-4168-8242-66dad0e50872",
                             TwoFactorEnabled = false,
                             UserName = "partner1@gmail.com",
                             address = "Bình Chánh - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 539, DateTimeKind.Local).AddTicks(6865),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 51, 769, DateTimeKind.Local).AddTicks(1976),
                             fullName = "Đối Tác Một",
                             image = "shobee-logo.png"
                         },
@@ -1716,20 +1890,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08d09cbf-ad51-49e8-95b6-820f1756cae4",
+                            ConcurrencyStamp = "48e66bed-a750-4c20-9dcb-892d1a5085e4",
                             Email = "partner2@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER2@GMAIL.COM",
                             NormalizedUserName = "PARTNER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN8k21+mYUiLD0t4iaQfiX0hEU+7oqPMVHGoEpWP0WEIce8DQ+dfypzGCecp9aCXBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL1Xr7Glf+nUhSMf1ZbjpGrNxpMvlbWJ2BoYMFEBgcmFRVn/VVAy7yTTSu9rGxiIJw==",
                             PhoneNumber = "0582015681",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0840858b-3694-4b08-b2d7-bffce532f514",
+                            SecurityStamp = "eaeabf1b-221a-4d46-b870-9c09a2c5f9a7",
                             TwoFactorEnabled = false,
                             UserName = "partner2@gmail.com",
                             address = "Trảng Bom - Đồng Nai",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 625, DateTimeKind.Local).AddTicks(1025),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 51, 860, DateTimeKind.Local).AddTicks(950),
                             fullName = "Đối Tác Hai",
                             image = "shobee-logo.png"
                         },
@@ -1737,20 +1911,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a56e061-0ae6-4e67-89d9-0fcf6709dc0b",
+                            ConcurrencyStamp = "3b448b96-60f1-4651-9347-f2c352d276ae",
                             Email = "partner3@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER3@GMAIL.COM",
                             NormalizedUserName = "PARTNER3@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKo9BJVq7NfFiLufpTTWZ4s053L9jhel+8sWLkXNkkYW+Sm00Aji8jYVS+kxBRaJAg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF95d4lvcxnsUXDQiKmP842B4XiP+ITqfFQFy0SEV2LUO9xc4vma9TPox6R1wNRJAw==",
                             PhoneNumber = "0582014561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f887f28f-adf5-4ad5-a376-736ca7bbb9b3",
+                            SecurityStamp = "ebcb1137-84d8-4db2-94c5-23ee960ea0f8",
                             TwoFactorEnabled = false,
                             UserName = "partner3@gmail.com",
                             address = "Quận 1 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 713, DateTimeKind.Local).AddTicks(1860),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 51, 948, DateTimeKind.Local).AddTicks(9229),
                             fullName = "Đối Tác Ba",
                             image = "shobee-logo.png"
                         },
@@ -1758,20 +1932,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d82fa525-1430-4e99-99af-15589b6350a5",
+                            ConcurrencyStamp = "7d0e4cac-de17-48c7-b7d9-0237dcc70550",
                             Email = "partner4@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER4@GMAIL.COM",
                             NormalizedUserName = "PARTNER4@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJ81ox8Rq0HShFVPZMgu+B/+qnGTFIU27mJOP9Jz/r84dE18lrNSDd/vwyasghfSSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJEU6JjRmGbPGSBynBRLypB7GsisP8KjW+yve8AB1xTcTAyewXiquTCJkmaN3noGKw==",
                             PhoneNumber = "0582753561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7c3fd8e-93ae-4a5a-ae72-96730b675a94",
+                            SecurityStamp = "e0607ec1-8b4c-4d73-b003-600fb947862c",
                             TwoFactorEnabled = false,
                             UserName = "partner4@gmail.com",
                             address = "Quận 10 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(4666),
+                            dateCreated = new DateTime(2023, 10, 30, 23, 55, 52, 38, DateTimeKind.Local).AddTicks(4805),
                             fullName = "Đối Tác Bốn",
                             image = "shobee-logo.png"
                         });

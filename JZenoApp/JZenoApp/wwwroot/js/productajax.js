@@ -47,4 +47,15 @@
             });
         });
     });
+    $('button[id^=update-isActive]').on("click", function () {
+        var id = $(this).attr('data-productid');
+        $.ajax({
+            method: "PUT",
+            url: "/Manage/Products/updateActive/" + id,
+            dataType: "json",
+            success: function (data) {
+                window.location.href = "";
+            }
+        });
+    });
 });
