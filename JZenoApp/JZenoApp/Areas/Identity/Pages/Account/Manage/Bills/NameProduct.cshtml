@@ -2,3 +2,15 @@
 @model JZenoApp.Areas.Identity.Pages.Account.Manage.Bills.NameProductModel
 @{
 }
+
+<div class="col-2">
+    <img src="/images/users/@Model.ProductImage.URL" width="95%" />
+</div>
+<div class="col-10">
+    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@Model.Product.name</p>
+    <div class="row">
+        <div class="col-10" style="color: gray;">Phân loại hàng: @Model.ProductSize.name / @Model.ProductColor.Name</div>
+        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(Model.DetailOrder.price).ToString("N0")đ </div>
+    </div>
+    <div>@Model.DetailOrder.quantity</div>
+</div>

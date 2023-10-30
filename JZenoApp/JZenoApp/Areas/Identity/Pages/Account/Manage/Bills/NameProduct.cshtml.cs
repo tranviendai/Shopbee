@@ -13,18 +13,39 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
         {
             _context = context;
         }
-        public IList<Bill> Bill { get; set; } = default!;
-        public string Name { get; set; }
-        public async Task OnGetAsync(string id)
+        public Bill Bill { get; set; } = default!;
+        public Product Product { get; set; } = default!;
+        public DetailOrder DetailOrder { get; set; } = default!;
+        public ProductColor ProductColor { get; set; } = default!;
+        public ProductSize ProductSize { get; set; } = default!;
+        public ProductImage ProductImage { get; set; } = default!;
+        
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (_context.Bill != null)
+            if (id == null || _context.Bill == null)
             {
-                Bill = await _context.Bill
-                .Include(b => b.User)
-                .Include(b => b.Voucher).ToListAsync();
+                return NotFound();
             }
-            var name = _context.DetailOD.Where(s => s.billID == id).FirstOrDefault();
-            //var a = _context.Product.Where(s => s.Id == name.productId).FirstOrDefault();
+
+            var bill = await _context.Bill.FirstOrDefaultAsync(m => m.billID == id);
+            var detailOrder = await _context.DetailOD.FirstOrDefaultAsync(m=> m.billID == bill.billID);
+            var product = await _context.Product.FirstOrDefaultAsync(m => m.Id == detailOrder.productId);
+            var productcolor = await _context.ProductColor.FirstOrDefaultAsync(m => m.productId == product.Id);
+            var productSize = await _context.ProductSize.FirstOrDefaultAsync(m => m.productColorId == productcolor.Id);
+
+            if (detailOrder == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                Bill = bill;
+                DetailOrder = detailOrder;
+                Product = product;
+                ProductColor = productcolor;
+                ProductSize = productSize;
+            }
+            return Page();
         }
     }
 }
