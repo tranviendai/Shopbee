@@ -24,14 +24,9 @@ namespace JZenoApp.Models
         [Display(Name = "Thành Tiền")]
         public double? totalPrice { get; set; }
 
-        [StringLength(4)]
-        public string? sizeName { get; set; }
-        [StringLength(24)]
-        public string? colorName { get; set; }
-
         [ForeignKey("Id")]
-        public int? productId { get; set; }
-        public ProductSize? product { get; set; }
+        public string? productId { get; set; }
+        public Product? Product { get; set; }
 
     }
 }

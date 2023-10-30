@@ -250,6 +250,30 @@ namespace JZenoApp.Data
                         Id = "trouser",
                         name = "Trouser",
                         icon = "trousers.png"
+                    },
+                    new Category
+                    {
+                        Id = "camera",
+                        name = "Camera",
+                        icon = "camera.png"
+                    },
+                    new Category
+                    {
+                        Id = "phone",
+                        name = "Phone",
+                        icon = "phone.png"
+                    },
+                    new Category
+                    {
+                        Id = "watch",
+                        name = "Watch",
+                        icon = "watch.png"
+                    },
+                    new Category
+                    {
+                        Id = "computer",
+                        name = "Computer",
+                        icon = "computer.png"
                     }
                     );
             });
@@ -292,6 +316,18 @@ namespace JZenoApp.Data
                         description = "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.",
                         categoryID = "shoes"
                     },
+                    new Product
+                    {
+                        Id = "camera1",
+                        name = "Máy ảnh",
+                        discount = 40,
+                        price = 5000000,
+                        partnerID = PARTNERID01,
+                        isPublish = true,
+                        postDate = DateTime.Now,
+                        description = "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.",
+                        categoryID = "camera"
+                    },
                     new Product // Sản phẩm của Đối Tác Hai
                     {
                         Id = "shirt2",
@@ -327,6 +363,18 @@ namespace JZenoApp.Data
                         postDate = DateTime.Now,
                         description = "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.",
                         categoryID = "sandal"
+                    },
+                    new Product
+                    {
+                        Id = "phone2",
+                        name = "Điện thoại",
+                        discount = 5,
+                        price = 7500000,
+                        partnerID = PARTNERID02,
+                        isPublish = true,
+                        postDate = DateTime.Now,
+                        description = "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.",
+                        categoryID = "phone"
                     },
                     new Product // Sản phẩm của Đối Tác Ba
                     {
@@ -364,6 +412,18 @@ namespace JZenoApp.Data
                         description = "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.",
                         categoryID = "sandal"
                     },
+                    new Product
+                    {
+                        Id = "watch3",
+                        name = "Đồng hồ",
+                        discount = 25,
+                        price = 500000,
+                        partnerID = PARTNERID03,
+                        isPublish = true,
+                        postDate = DateTime.Now,
+                        description = "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.",
+                        categoryID = "watch"
+                    },
                     new Product // Sản phẩm của Đối Tác Bốn
                     {
                         Id = "shirt4",
@@ -399,6 +459,18 @@ namespace JZenoApp.Data
                         postDate = DateTime.Now,
                         description = "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.",
                         categoryID = "shoes"
+                    },
+                    new Product
+                    {
+                        Id = "computer4",
+                        name = "Máy tính",
+                        discount = 20,
+                        price = 10000000,
+                        partnerID = PARTNERID04,
+                        isPublish = true,
+                        postDate = DateTime.Now,
+                        description = "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.",
+                        categoryID = "computer"
                     }
                 );
             });
@@ -442,6 +514,18 @@ namespace JZenoApp.Data
                         Name = "Trắng",
                         productId = "shoes1"
                     },
+                    new ProductColor
+                    {
+                        Id = "blackcamera1",
+                        Name = "Đen",
+                        productId = "camera1"
+                    },
+                    new ProductColor
+                    {
+                        Id = "whitecamera1",
+                        Name = "Trắng",
+                        productId = "camera1"
+                    },
                     new ProductColor // Màu sản phẩm của Đối Tác Hai
                     {
                         Id = "yellowshirt2",
@@ -477,6 +561,18 @@ namespace JZenoApp.Data
                         Id = "greensandal2",
                         Name = "Xanh Lá",
                         productId = "sandal2"
+                    },
+                    new ProductColor
+                    {
+                        Id = "bluephone2",
+                        Name = "Xanh Dương",
+                        productId = "phone2"
+                    },
+                    new ProductColor
+                    {
+                        Id = "naturalphone2",
+                        Name = "Tự Nhiên",
+                        productId = "phone2"
                     },
                     new ProductColor // Màu sản phẩm của Đối Tác Ba
                     {
@@ -514,6 +610,18 @@ namespace JZenoApp.Data
                         Name = "Xanh Lá",
                         productId = "sandal3"
                     },
+                    new ProductColor
+                    {
+                        Id = "pinkwatch3",
+                        Name = "Hồng",
+                        productId = "watch3"
+                    },
+                    new ProductColor
+                    {
+                        Id = "whitewatch3",
+                        Name = "Trắng",
+                        productId = "watch3"
+                    },
                     new ProductColor // Màu sản phẩm của Đối Tác Bốn
                     {
                         Id = "greyshirt4",
@@ -549,6 +657,18 @@ namespace JZenoApp.Data
                         Id = "pinkshoes4",
                         Name = "Hồng",
                         productId = "shoes4"
+                    },
+                    new ProductColor
+                    {
+                        Id = "bluecomputer4",
+                        Name = "Xanh Dương",
+                        productId = "computer4"
+                    },
+                    new ProductColor
+                    {
+                        Id = "blackcomputer4",
+                        Name = "Đen",
+                        productId = "computer4"
                     }
                 );
             });
@@ -1383,113 +1503,161 @@ namespace JZenoApp.Data
                         URL = "shoes1_white.jpg",
                         productId = "shoes1"
                     },
-                    new Models.ProductImage // Hình ảnh sản phẩm của Đối Tác Hai
+                    new Models.ProductImage
                     {
                         Id = 7,
+                        URL = "camera1_black.jpg",
+                        productId = "camera1"
+                    },
+                    new Models.ProductImage
+                    {
+                        Id = 8,
+                        URL = "camera1_white.jpg",
+                        productId = "camera1"
+                    },
+                    new Models.ProductImage // Hình ảnh sản phẩm của Đối Tác Hai
+                    {
+                        Id = 9,
                         URL = "shirt2_yellow.jpg",
                         productId = "shirt2"
                     },
                     new Models.ProductImage
                     {
-                        Id = 8,
+                        Id = 10,
                         URL = "shirt2_green.jpg",
                         productId = "shirt2"
                     },
                     new Models.ProductImage
                     {
-                        Id = 9,
+                        Id = 11,
                         URL = "trouser2_white.jpg",
                         productId = "trouser2"
                     },
                     new Models.ProductImage
                     {
-                        Id = 10,
+                        Id = 12,
                         URL = "trouser2_pink.jpg",
                         productId = "trouser2"
                     },
                     new Models.ProductImage
                     {
-                        Id = 11,
+                        Id = 13,
                         URL = "sandal2_blue.jpg",
                         productId = "sandal2"
                     },
                     new Models.ProductImage
                     {
-                        Id = 12,
+                        Id = 14,
                         URL = "sandal2_green.jpg",
                         productId = "sandal2"
                     },
+                    new Models.ProductImage
+                    {
+                        Id = 15,
+                        URL = "phone2_blue.jpg",
+                        productId = "phone2"
+                    },
+                    new Models.ProductImage
+                    {
+                        Id = 16,
+                        URL = "phone2_natural.jpg",
+                        productId = "phone2"
+                    },
                     new Models.ProductImage // Hình ảnh sản phẩm của Đối Tác Ba
                     {
-                        Id = 13,
+                        Id = 17,
                         URL = "shirt3_black.jpg",
                         productId = "shirt3"
                     },
                     new Models.ProductImage
                     {
-                        Id = 14,
+                        Id = 18,
                         URL = "shirt3_white.jpg",
                         productId = "shirt3"
                     },
                     new Models.ProductImage
                     {
-                        Id = 15,
+                        Id = 19,
                         URL = "trouser3_black.jpg",
                         productId = "trouser3"
                     },
                     new Models.ProductImage
                     {
-                        Id = 16,
+                        Id = 20,
                         URL = "trouser3_white.jpg",
                         productId = "trouser3"
                     },
                     new Models.ProductImage
                     {
-                        Id = 17,
+                        Id = 21,
                         URL = "sandal3_brown.jpg",
                         productId = "sandal3"
                     },
                     new Models.ProductImage
                     {
-                        Id = 18,
+                        Id = 22,
                         URL = "sandal3_green.jpg",
                         productId = "sandal3"
                     },
+                    new Models.ProductImage
+                    {
+                        Id = 23,
+                        URL = "watch3_pink.jpg",
+                        productId = "watch3"
+                    },
+                    new Models.ProductImage
+                    {
+                        Id = 24,
+                        URL = "watch3_white.jpg",
+                        productId = "watch3"
+                    },
                     new Models.ProductImage // Hình ảnh sản phẩm của Đối Tác Bốn
                     {
-                        Id = 19,
+                        Id = 25,
                         URL = "shirt4_grey.jpg",
                         productId = "shirt4"
                     },
                     new Models.ProductImage
                     {
-                        Id = 20,
+                        Id = 26,
                         URL = "shirt4_pink.jpg",
                         productId = "shirt4"
                     },
                     new Models.ProductImage
                     {
-                        Id = 21,
+                        Id = 27,
                         URL = "short4_black.jpg",
                         productId = "short4"
                     },
                     new Models.ProductImage
                     {
-                        Id = 22,
+                        Id = 28,
                         URL = "short4_blue.jpg",
                         productId = "short4"
                     },
                     new Models.ProductImage
                     {
-                        Id = 23,
+                        Id = 29,
                         URL = "shoes4_purple.jpg",
                         productId = "shoes4"
                     },
                     new Models.ProductImage
                     {
-                        Id = 24,
+                        Id = 30,
                         URL = "shoes4_pink.jpg",
                         productId = "shoes4"
+                    },
+                    new Models.ProductImage
+                    {
+                        Id = 31,
+                        URL = "computer4_blue.jpg",
+                        productId = "computer4"
+                    },
+                    new Models.ProductImage
+                    {
+                        Id = 32,
+                        URL = "computer4_black.jpg",
+                        productId = "computer4"
                     }
                 );
             });

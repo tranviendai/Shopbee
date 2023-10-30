@@ -26,7 +26,6 @@ namespace JZenoApp.Controllers
             return View(await jZenoDbContext.ToListAsync());
         }
 
-        // GET: Bills/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Bill == null)
@@ -35,8 +34,9 @@ namespace JZenoApp.Controllers
             }
 
             var bill = await _context.Bill
-                .Include(b => b.User)
-                .Include(b => b.Voucher)
+                .Include(b => b.User)!
+                .Include(b => b.Voucher)!
+                .Include(e=> e.detailsOrders)!.ThenInclude(e=>e.Product)!
                 .FirstOrDefaultAsync(m => m.billID == id);
             if (bill == null)
             {
@@ -46,9 +46,6 @@ namespace JZenoApp.Controllers
             return View(bill);
         }
 
-        private bool BillExists(string id)
-        {
-          return (_context.Bill?.Any(e => e.billID == id)).GetValueOrDefault();
-        }
+
     }
 }

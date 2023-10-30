@@ -34,9 +34,8 @@ namespace JZenoApp.Models
         public IEnumerable<ColorEnum> colors { get; set; } = new List<ColorEnum>();
 
         public List<ProductImage>? productImages { get; set; } = new List<ProductImage>();
-        public List<ProductColor>? productColor { get; set; }
+        public List<ProductColor>? productColor { get; set; } = new List<ProductColor>();
         public List<ProductComment>? productComment { get; set; }
-
 
         [ForeignKey("partnerId")]
         public string? partnerID { get; set; }

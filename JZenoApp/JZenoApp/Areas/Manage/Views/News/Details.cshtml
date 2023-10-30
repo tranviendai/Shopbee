@@ -4,33 +4,61 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<style>
+    body {
+        background: #fff !important;
+        font-size: 1.6rem;
+    }
+    .edit-news {
+        color: #fff !important;
+        position: relative;
+        overflow: visible;
+        outline: 0;
+        background: #ee4d2d !important;
+        max-width: 250px;
+        width: 180px;
+        height: 48px;
+        padding: 0 20px;
+        text-overflow: ellipsis;
+        flex-direction: column;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: capitalize;
+        text-decoration: none;
+    }
+
+    .back-news {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .back-news:hover {
+            color: #ee4d2d;
+    }
+</style>
+
+<a class="edit-news" asp-action="Edit" asp-route-id="@Model?.Id">Sửa bài đăng</a>
+
+
+<div style="padding: 24px 0;">
+    <a asp-action="Index" class="back-news">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0,0,256,256"><g fill="#000000" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M34.96094,2.98047c-0.51953,0.01563 -1.01172,0.23438 -1.375,0.60547l-20,20c-0.78125,0.78125 -0.78125,2.04688 0,2.82813l20,20c0.5,0.52344 1.24609,0.73438 1.94922,0.55078c0.69922,-0.18359 1.24609,-0.73047 1.42969,-1.42969c0.18359,-0.70312 -0.02734,-1.44922 -0.55078,-1.94922l-18.58594,-18.58594l18.58594,-18.58594c0.58984,-0.57422 0.76953,-1.45312 0.44922,-2.21484c-0.32422,-0.75781 -1.07812,-1.24219 -1.90234,-1.21875z"></path></g></g></svg>
+        Tin mới
+    </a>
+</div>
+
+<h1 style="margin: 12px 0;">
+    @Html.DisplayFor(model => model.title)
+</h1>
 
 <div>
-    <h4>NewsModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.user)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.user.Id)
-        </dd>
-    </dl>
+    <h4 style="line-height: 2.5rem; font-weight: lighter;">
+        @Html.DisplayFor(model => model.description)
+    </h4>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
