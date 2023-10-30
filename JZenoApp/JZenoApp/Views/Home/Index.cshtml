@@ -2,7 +2,9 @@
 
 @using JZenoApp.Models;
 @{
+    ViewData["Title"] = "Trang chủ";
     int i = 0;
+
 }
 
 <head>
@@ -54,6 +56,7 @@
         max-width: 65% !important;
     }
 
+
     .home-product-item__imgg:hover {
         transform: scale(1.1);
         transition: 0.5s ease-out;
@@ -71,10 +74,7 @@
     .home-product-item__name{
         font-size: 14px;
     }
-    #countdown{
-        display: inline-block;
-
-    }
+    
     .option-promo{
     display: flex;
     overflow: hidden;
@@ -120,6 +120,19 @@
     max-width: 65%;
 }
 
+    .row.sm-gutter {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+
+    .flashsale .text {
+        color: #fff;
+        position: absolute;
+        margin-left: 60px;
+        margin-top: 20px;
+        font-size: 25px;
+    }
+
 </style>
 
 
@@ -133,8 +146,10 @@
                 <div class="carousel-inner">
                     <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
                                       centered-slides="true" autoplay-delay="2300" autoplay-disable-on-interaction="false">
+                        <swiper-slide><img src="~/images/logo/slide.png" /></swiper-slide>
                         <swiper-slide><img src="~/images/logo/slide1.png" /></swiper-slide>
                         <swiper-slide><img src="~/images/logo/slide2.png" /></swiper-slide>
+                        <swiper-slide><img src="~/images/logo/slide9.png" /></swiper-slide>
                         <swiper-slide><img src="~/images/logo/slide3.png" /></swiper-slide>
                         <swiper-slide><img src="~/images/logo/slide4.png" /></swiper-slide>
                         <swiper-slide><img src="~/images/logo/slide5.png" /></swiper-slide>
@@ -157,13 +172,11 @@
 
 @*Category start*@
 <div class="container-fluid pt-5" >
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" style="color: #F2765E;"><span class="bg-secondary pr-3">DANH MỤC SẢN PHẨM</span></h2>
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4" style="color: #F2765E;"><span class="bg-secondary pr-3">DANH MỤC NỔI BẬT</span></h2>
     <div class="row px-xl-5 pb-3" style="margin-left: -50px; margin-right: -50px;">
        @{
             await Html.RenderPartialAsync("CategoryPartial");
        }
-       
-
     </div>
 </div>
 @*Category end*@
@@ -171,20 +184,25 @@
 
 
 @* Flash sale start *@
-<div id="list-product" class="row sm-gutter" style="background-color: #FFFFFF; padding-top: 15px;">
-    <div class="flashsale" style="padding-left: 15px;">
-        <img src="~/images/logo/FS.png" />        
-        @* FlashSale *@
-        @* <div style="font-size: 25px; margin-left: 10px" id="countdown">00:00:00</div> *@
-        <div style="font-size: 25px; margin-left: 10px" id="countdown">Thời gian còn lại cho Flash Sale:</div>
+<div class="flashsale">
+    <h3 class="text">DIỄN RA TỪ NGÀY 27/10 - 31/10</h3>
+    @* FlashSale *@
+    <div style="color: #fff;font-size: 25px; position: absolute; margin-top: 70px; margin-left: 130px;" id="countdown">
+        Thời gian còn lại cho Flash Sale:
     </div>
+    <img style="width: 100%" src="~/images/logo/halloween.gif" />
+    
+    
+</div>
+<div id="list-product" class="row sm-gutter" style="background-color: #000000; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px">
+    
     
     @foreach (var product in Model.OrderByDescending(e => e.discount))
     {
         i++;
-        if (i < 6)
+        if (i < 7)
         {
-            <div class="col l-2-4 m-3 c-6 home-product-item">
+            <div class="col l-2-4 m-3 c-6 home-product-item" style=" background-color: #FFFFFF;">
                 <a class="home-product-item-linkk" href="/Products/Details/@product.Id">
 
                     @* Ảnh sản phẩm *@
