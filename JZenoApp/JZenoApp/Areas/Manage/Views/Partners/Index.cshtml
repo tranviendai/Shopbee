@@ -2,36 +2,41 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
 }
 
-<h1>Index</h1>
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create-btn" style="color: #fff !important;">Thêm Mới</a>
 </p>
-<table class="table">
+<table class="table table table-striped" style="width:100%;">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                Tên Cửa Hàng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.image)
+                Hình Ảnh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.description)
+                Mô Tả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.dateCreated)
+                Ngày Đăng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isActive)
+                Trạng Thái
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
@@ -48,12 +53,45 @@
             <td>
                 @Html.DisplayFor(modelItem => item.isActive)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.partnerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.partnerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.partnerId">Delete</a>
+            <td style="text-align: center;">
+                <span class="btn btn-warning" style="min-width: 42px !important;">
+                    <a asp-action="Edit" asp-route-id="@item.partnerId">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </span>
+                <span class="btn btn-primary" style="min-width: 42px !important;">
+                   <a asp-action="Details" asp-route-id="@item.partnerId">
+                   <i class="fa-solid fa-circle-info"></i>
+                   </a> 
+                </span>
+               <span class="btn btn-danger" style="min-width: 42px !important;" >
+                   <a asp-action="Delete" asp-route-id="@item.partnerId">
+                    <i class="fa-solid fa-trash"></i>
+                   </a>
+               </span>
+               
             </td>
         </tr>
-}
+    }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                Tên Cửa Hàng
+            </th>
+            <th>
+                Hình Ảnh
+            </th>
+            <th>
+                Mô Tả
+            </th>
+            <th>
+                Ngày Đăng
+            </th>
+            <th>
+                Trạng Thái
+            </th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
