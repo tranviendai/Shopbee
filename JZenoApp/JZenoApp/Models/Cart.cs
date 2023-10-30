@@ -1,6 +1,7 @@
 ﻿using JZenoApp.Data;
 using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JZenoApp.Models
 {

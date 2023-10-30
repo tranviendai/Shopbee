@@ -5,42 +5,43 @@
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
 
-<h1>Edit</h1>
+<link href="~/css/manage.css" rel="stylesheet" />
 
-<h4>Voucher</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="box-form">
+    <div class="form-horizontal">
+        <h4 class="title-form">Chỉnh sửa Voucher</h4>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="voucherID" />
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Tên Voucher</span>
+                <input asp-for="name" class="input-form col-11" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="price" class="control-label"></label>
-                <input asp-for="price" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Giá Voucher</span>
+                <input asp-for="price" class="input-form col-11" />
                 <span asp-validation-for="price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="quantity" class="control-label"></label>
-                <input asp-for="quantity" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Số Lượng</span>
+                <input asp-for="quantity" class="input-form col-11" />
                 <span asp-validation-for="quantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="startDate" class="control-label"></label>
-                <input asp-for="startDate" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Ngày Bắt Đầu</span>
+                <input asp-for="startDate" class="input-form col-11" />
                 <span asp-validation-for="startDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="endDate" class="control-label"></label>
-                <input asp-for="endDate" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Ngày Kết Thúc</span>
+                <input asp-for="endDate" class="input-form col-11" />
                 <span asp-validation-for="endDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-btn d-flex justify-content-center form-btn">
+                <input type="submit" value="Cập nhật" style="background-color:var(--main-color1); border:none;" class="btn btn-primary" class="btn btn-primary" />
             </div>
         </form>
     </div>
