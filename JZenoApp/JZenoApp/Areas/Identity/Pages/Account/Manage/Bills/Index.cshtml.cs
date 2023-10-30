@@ -19,16 +19,19 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
             _context = context;
         }
 
-        public IList<Bill> Bill { get;set; } = default!;
+        public List<Bill> Bill { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
             if (_context.Bill != null)
             {
                 Bill = await _context.Bill
-                .Include(b => b.User)
+                .Include(b => b.User)!
+                .Include(x=>x.detailsOrders)!
+                .ThenInclude(p=>p.Product)!
                 .Include(b => b.Voucher).ToListAsync();
             }
-        }
+           
+        }    
     }
 }
