@@ -18,9 +18,7 @@ namespace JZenoApp.Controllers
         {
             _context = context;
         }
-        public DetailOrder DetailOrder { get; set; }
 
-        // GET: Bills
         public async Task<IActionResult> Index()
         {
             var jZenoDbContext = _context.Bill.Include(b => b.User).Include(b => b.Voucher);
@@ -37,15 +35,35 @@ namespace JZenoApp.Controllers
             var bill = await _context.Bill
                 .Include(b => b.User)!
                 .Include(b => b.Voucher)!
-                .Include(e=> e.detailsOrders)!.ThenInclude(e=>e.Product)!
+                .Include(e=> e.detailsOrders)!.ThenInclude(e=>e.Product)!.ThenInclude(e=>e.productImages)!
                 .FirstOrDefaultAsync(m => m.billID == id);
-            DetailOrder = await _context.DetailOD.FirstOrDefaultAsync(o => o.billID == bill.billID);
             if (bill == null)
             {
                 return NotFound();
             }
 
             return View(bill);
+        }
+        [Route("Bills/updateActive/", Name = "updateActive")]
+        public async Task<JsonResult> updateActive(string billID, int payment)
+        {
+            var bill = await _context.Bill.FindAsync(billID);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (bill!.payment == null) bill.billStatic = 0;
+                    else bill!.billStatic = payment;
+                    _context.Update(bill);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                }
+                return Json(bill);
+            }
+            return Json(bill);
         }
 
         public async Task<IActionResult> Delete(string? id)

@@ -91,24 +91,31 @@
                                 <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
 
                                 </div>
-                                 @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
-                                 {
-                                      <h2></h2>
+                                    @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
+                                    {
+                                        var x = 0;
+                                        <h2></h2>
                                         <div class="row">
                                             <div class="col-2">
-                                               
-                                                <img src="/images/products/@item1.Product.productImages"  width="95%" /> @* Hình ảnh sản phẩm *@
+                                                @foreach (var hinh in item1.Product!.productImages!)
+                                                {
+                                                    if (x == 0)
+                                                    {
+                                                        <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    }
+                                                    x++;
+                                                }
                                             </div>
                                             <div class="col-10">
                                                 <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                 <div class="row">
-                                                    <div class="col-10" style="color: gray; padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                    <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                     <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                 </div>
                                                 <div>@item1.quantity</div>
                                             </div>
                                         </div>
-                                 }
+                                    }
                               </div>
                             <div class="pay">
                                 <div class="tt">
@@ -179,19 +186,24 @@
                                     </div>
                                     <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                     </div>
-                                    @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                    @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                     {
-                                   
-                                        <h2></h2>
-                                        <div class="row">
-                                            <div class="col-2">
-
-                                                <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
-                                            </div>
+                                            var x = 0;
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                       if(x==0){
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
+                                                </div>
                                             <div class="col-10">
                                                 <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                 <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                     <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                 </div>
                                                 <div>@item1.quantity</div>
@@ -256,18 +268,25 @@
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                         </div>
-                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                         {
+                                            var x = 0;
                                             <h2></h2>
                                             <div class="row">
                                                 <div class="col-2">
-
-                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                        if (x == 0)
+                                                        {
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
                                                 </div>
                                                 <div class="col-10">
                                                     <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                     <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                     </div>
                                                     <div>@item1.quantity</div>
@@ -332,18 +351,25 @@
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                         </div>
-                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                         {
+                                            var x = 0;
                                             <h2></h2>
                                             <div class="row">
                                                 <div class="col-2">
-
-                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                        if (x == 0)
+                                                        {
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
                                                 </div>
                                                 <div class="col-10">
                                                     <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                     <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                     </div>
                                                     <div>@item1.quantity</div>
@@ -409,18 +435,25 @@
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                         </div>
-                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                         {
+                                            var x = 0;
                                             <h2></h2>
                                             <div class="row">
                                                 <div class="col-2">
-
-                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                        if (x == 0)
+                                                        {
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
                                                 </div>
                                                 <div class="col-10">
                                                     <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                     <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                     </div>
                                                     <div>@item1.quantity</div>
@@ -484,18 +517,25 @@
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                         </div>
-                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                         {
+                                            var x = 0;
                                             <h2></h2>
                                             <div class="row">
                                                 <div class="col-2">
-
-                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                        if (x == 0)
+                                                        {
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
                                                 </div>
                                                 <div class="col-10">
                                                     <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                     <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                     </div>
                                                     <div>@item1.quantity</div>
@@ -559,18 +599,25 @@
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
                                         </div>
-                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault()!.detailsOrders!)
                                         {
+                                            var x = 0;
                                             <h2></h2>
                                             <div class="row">
                                                 <div class="col-2">
-
-                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                    @foreach (var hinh in item1.Product!.productImages!)
+                                                    {
+                                                        if (x == 0)
+                                                        {
+                                                            <img src="/images/products/@hinh.URL" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                        }
+                                                        x++;
+                                                    }
                                                 </div>
                                                 <div class="col-10">
                                                     <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
                                                     <div class="row">
-                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: @item1.size / @item1.color</div> @* màu với size *@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
                                                     </div>
                                                     <div>@item1.quantity</div>
@@ -608,7 +655,6 @@
                             {
                                 <div class="notorder">
                                     <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
-                                    
                                 </div>
                             }
                         </div>

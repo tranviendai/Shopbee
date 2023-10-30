@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
-    var detailorder = Model.detailsOrders.FirstOrDefault();
-    
+    var detailorder = Model.detailsOrders!.FirstOrDefault();
+    var x = 0;
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -69,79 +69,86 @@
                     }
 
                 </div>
-                <div class="detail_product" style="border-bottom: 1px solid #ccc">
+                <div class="detail_product">
                     <div style="font-weight: bold; padding-top: 15px" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
                     <table>
                         @foreach(var item in Model.detailsOrders)
                         {
-                            <img src="~/images/products/shirt3_black.jpg" style="width:200px;" /> @* Lấy ảnh dùm tui nha *@
-                            <span style="margin-left:10px;" >@item.Product.name</span>
+                            
+                            foreach(var hinh in item.Product.productImages!)
+                            {
+                                if (x == 0)
+                                {
+                                    <img src="~/images/products/@hinh.URL" style="width:200px;" /> @* Lấy ảnh dùm tui nha *@
+                                }
+                                x++;
+                            }
+                            //ai lại xài span như này trời
+                            <span style="margin-left:10px;" >@item.Product.name (@item.color - @item.size)</span>
                             <span style="margin-left:425px;">@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
                         }
                     </table>
                     <div style="font-size:17px;font-weight:600;">Tổng tiền thanh toán: <span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></div>
                 </div>
-                @{
+                <!--
+                {
                     if (Convert.ToInt16(Model.billStatic) == 0 || Convert.ToInt16(Model.billStatic) == 1)
                     {
-                        <div class="row xacthucorrder">
-                            <div class="col pull-left left-pric">
-                                <img src="~/images/voucher/checklist.png" style="width:22px; padding-bottom: 7px" />
-                                <span class="text-xacnhan">Xác nhận đơn hàng</span>
-                            </div>
+                                <div class="row xacthucorrder">
+                                    <div class="col pull-left left-pric">
+                                        <img src="~/images/voucher/checklist.png" style="width:22px; padding-bottom: 7px" />
+                                        <span class="text-xacnhan">Xác nhận đơn hàng</span>
+                                    </div>
 
-                            @if (Convert.ToInt16(Model.billStatic) == 0)
+                            if (Convert.ToInt16(Model.billStatic) == 0)
                             {
-                                <div class="col button-xacnhan">
-                                    <img src="~/images/voucher/handwriting.png" style="width:22px; padding-bottom: 7px" />
-                                    <a class="btn btn-primary btn-sm" href="">
-                                        XÁC NHẬN ĐƠN HÀNG
-                                    </a>
-                                </div>
+                                            <div class="col button-xacnhan">
+                                                <img src="~/images/voucher/handwriting.png" style="width:22px; padding-bottom: 7px" />
+                                                <a class="btn btn-primary btn-sm" href="">
+                                                    XÁC NHẬN ĐƠN HÀNG
+                                                </a>
+                                            </div>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 1)
                             {
-                                <div class="col button-xacnhan">
-                                    <img src="~/images/voucher/check.png" style="width:22px;" />
-                                    <a class="btn btn-primary btn-sm" href="javascript::0">
-                                        <span style="color:#fff;">Đã Xác Nhận Đơn Hàng</span>
-                                    </a>
-                                </div>
+                                            <div class="col button-xacnhan">
+                                                <img src="~/images/voucher/check.png" style="width:22px;" />
+                                                <a class="btn btn-primary btn-sm" href="javascript::0">
+                                                    <span style="color:#fff;">Đã Xác Nhận Đơn Hàng</span>
+                                                </a>
+                                            </div>
                             }
-
-
-                        </div>
+                                </div>
                     }
                 }
-                @{
+                {
                     if (Convert.ToInt16(Model.billStatic) == 0 || Convert.ToInt16(Model.billStatic) == 4)
                     {
-                        <div class="row huyorrder">
-                            <div class="col pull-left left-pric">
-                                <img src="~/images/voucher/checklist.png" style="width:22px; padding-bottom: 7px" />
-                                <span class="text-xacnhan">Hủy đơn hàng</span>
-                            </div>
+                                <div class="row huyorrder">
+                                    <div class="col pull-left left-pric">
+                                        <img src="~/images/voucher/checklist.png" style="width:22px; padding-bottom: 7px" />
+                                        <span class="text-xacnhan">Hủy đơn hàng</span>
+                                    </div>
 
-                            @if (Convert.ToInt16(Model.billStatic) == 4)
+                            if (Convert.ToInt16(Model.billStatic) == 4)
                             {
-                                <div class="col button-huy">
-                                    <img src="~/images/voucher/multiply.png" style="width:22px;" />
-                                    <span style="color:#fff;">Đơn hàng đã hủy</span>
-                                </div>
+                                            <div class="col button-huy">
+                                                <img src="~/images/voucher/multiply.png" style="width:22px;" />
+                                                <span style="color:#fff;">Đơn hàng đã hủy</span>
+                                            </div>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 0)
                             {
-                                <div class="col button-huy">
-                                    <img src="~/images/voucher/multiply.png" style="width:22px;" />
-                                    <span style="color:#fff;">Hủy Đơn Hàng</span>
-                                </div>
+                                            <div class="col button-huy">
+                                                <img src="~/images/voucher/multiply.png" style="width:22px;" />
+                                                <span style="color:#fff;">Hủy Đơn Hàng</span>
+                                            </div>
                             }
 
 
-                        </div>
+                                </div>
                     }
                 }
-                
                 <div class="row xoaorrder">
                     <div class="col pull-left left-pric">
                         <img src="~/images/voucher/checklist.png" style="width:22px; padding-bottom: 7px" />
@@ -152,7 +159,7 @@
                         <a href="" class="btn btn-sm btn-success delete_orderss btn_confirm" style="font-size: 14px;"><span style="color:#fff;">Theo Dõi Đơn Hàng</span></a>
                     </div>
                 </div>
-
+                 -->
             </div>
         </div>
         <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: 550px" class="col-xs-12 col-md-4">

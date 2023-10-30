@@ -13,7 +13,7 @@ namespace JZenoApp.Models
         public string? billID { get; set; }
         [Display(Name = "Số lượng")]
         public int? quantity { get; set; }
-        [MaxLength(4)]
+        [MaxLength(30)]
         public string? size { get; set; }
         [StringLength(24)]
         public string? color { get; set; }

@@ -29,7 +29,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["GetCate"] = await _context.Category.ToListAsync();
-            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages);
+            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Where(e=>e.isPublish == true);
 
             return View(await jZenoDbContext.ToListAsync());
         }
@@ -164,6 +164,10 @@ namespace JZenoApp.Controllers
                 detailOrder.price = item.product!.price;
                 detailOrder.totalPrice = item.product.price * detailOrder.quantity;
                 detailOrder.Product = product.Result;
+                var size = _context.ProductSize.Find(item.isUnique);
+                detailOrder.size = size!.name;
+                var color = _context.ProductColor.Find(size.productColorId);
+                detailOrder.color = color!.Name;
                 _context.Add(detailOrder);
                 var pro = _context.ProductSize.ToList().FirstOrDefault(e => e.Id == item.isUnique);
                 pro!.quantity -= item.quantity;
