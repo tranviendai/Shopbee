@@ -49,14 +49,14 @@
                 <th></th>
         </thead>
         <tbody>
-        @foreach (var item in Model)
-        {
+            @foreach (var item in Model)
+            {
                 <tr>
                     <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                        @Html.DisplayFor(modelItem => item.name)
                     </td>
                     <td>
-                    @Html.DisplayFor(modelItem => item.icon)
+                        @Html.DisplayFor(modelItem => item.icon)
                     </td>
                     <td>
                     <td style="text-align: center;">
@@ -64,24 +64,10 @@
                             <a asp-action="Edit" asp-route-id="@item.Id">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-
-                        </span>
-
-                        <span class="btn btn-primary" style="min-width: 42px !important;">
-                            <a asp-action="Details" asp-route-id="@item.Id">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </a>
-
-                        </span>
-
-                        <span class="btn btn-danger" style="min-width: 42px !important;">
-                            <a href="#">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
                         </span>
                     </td>
                 </tr>
-        }
+            }
         </tbody>
         <tfoot>
             <tr>

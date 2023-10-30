@@ -11,10 +11,6 @@
 
 <h1>Danh sách đơn hàng</h1>
 
-<p class="btn btn-success" style="margin-bottom:20px; padding: 2px 12px 28px 12px; background-color:var(--main-color1); border:none;">
-    <a asp-action="Create">Tạo mới</a>
-</p>
-
 <div class="box-section-content" style="background-color:#fff; padding-top:20px;">
     <table id="example" class="table table-striped" style="width:100%;">
         <thead>
@@ -24,9 +20,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.deliveryForm)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Voucher)
@@ -52,15 +45,11 @@
 
                         @Convert.ToDecimal(item.price).ToString("N0")đ
                     </td>
-
                     <td>
-                        @Html.DisplayFor(modelItem => item.deliveryForm)
+                        @Html.DisplayFor(modelItem => item.Voucher!.voucherID)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Voucher.voucherID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.fullName)
+                        @Html.DisplayFor(modelItem => item.User!.fullName)
                     </td>
                     <td>
                         @switch (item.billStatic)
@@ -140,10 +129,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.price)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.deliveryForm)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Voucher)

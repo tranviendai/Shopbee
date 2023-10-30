@@ -19,7 +19,7 @@
             </a>
             <ul class="list-menu">
                 <li class="@(ViewBag.Current == "ThongKe" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Management")">
+                    <a href="/Manage/Statistic">
                         <i class="fa-solid fa-chart-line"></i> Thống Kê
                     </a>
                 </li>
@@ -38,11 +38,10 @@
                         <i class="fa-solid fa-user"></i> Quản Lý Thành Viên
                     </a>
                 <li class="@(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Categories")">
+                    <a href="/Manage/Categories">
                         <i class="fa-solid fa-box"></i> Quản Lý Danh Mục
                     </a>
                 </li>
-
                 <li class="@(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
                     <a href="@Url.Action("Index", "Vouchers")">
                         <i class="fa-solid fa-box"></i> Quản Lý Voucher
