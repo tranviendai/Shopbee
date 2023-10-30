@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    
+    int dem = 0, dem1 = 0, dem2 = 0, dem3 = 0, dem4 = 0, dem5 =0 ;
 }
 <link href="~/css/profile.css" rel="stylesheet" />
 <link href="~/css/ordercustomer.css" rel="stylesheet" />
@@ -222,9 +222,18 @@
                                     </div>
 
                                 </div>
-                                }                             
+                                 
+                                   dem+=1;
+                                  }                             
                             }
-                            
+                           
+                            @if (dem == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
                         </div>
                     </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -289,7 +298,15 @@
                                         </div>
 
                                     </div>
+                                    dem5+=1;
                                 }
+                            }
+                             @if (dem == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -359,7 +376,15 @@
                                         </div>
 
                                     </div>
+                                    dem1+=1;
                                 }
+                            }
+                            @if (dem1 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -426,7 +451,15 @@
                                         </div>
 
                                     </div>
+                                    dem2+=1;
                                 }
+                            }
+                            @if (dem2 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -493,7 +526,15 @@
                                         </div>
 
                                     </div>
+                                    dem3+=1;
                                 }
+                            }
+                            @if (dem3 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -560,7 +601,15 @@
                                         </div>
 
                                     </div>
+                                    dem4+=1;
                                 }
+                            }
+                            @if (dem4 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -574,6 +623,22 @@
 <style>
     .container{
         padding-top:0px;
+    }
+
+    .notorder {
+        height: 370px;
+        background-color: #fff;
+        margin-top: 18px;
+        justify-content: center;
+        border-radius: 0px 0px 8px 8px;
+        display: flex;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    }
+
+    .notorder img {
+        margin:auto;
+        display: table;
+        vertical-align: middle;
     }
 </style>
 <script src="~/js/bootstrap.bundle.min.js"></script>
