@@ -1,0 +1,14 @@
+﻿@using JZenoApp.Models
+@{
+    IEnumerable<Category> list = (IEnumerable<Category>)ViewData["GetCategory"]!;
+}
+
+
+@foreach (var category in list)
+{
+    <li class="category-group-item">
+        <a style="color:black; text-decoration:none;" href="Products?searchCategory=@category.name">@category.name</a>
+    </li>
+}
+
+

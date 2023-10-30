@@ -26,7 +26,6 @@
 <div class="grid wide">
     <div class="row sm-gutter">
         <div class="col l-2 m-0 c-0">
-            <!-- category -->
             <nav class="category">
                 <h3 class="category-heading">
                     <i class="category-heading-icon fas fa-list-ul"></i>
@@ -35,26 +34,9 @@
                 <div class="category-group">
                     <div class="category-group-title">Theo Danh Mục</div>
                     <ul class="category-group-list">
-                        <li class="category-group-item">
-                            <input type="checkbox" class="category-group-item-check">
-                            Thiết bị mạng
-                        </li>
-                        <li class="category-group-item">
-                            <input type="checkbox" class="category-group-item-check">
-                            Chuột và bàn phím
-                        </li>
-                        <li class="category-group-item">
-                            <input type="checkbox" class="category-group-item-check">
-                            USB
-                        </li>
-                        <li class="category-group-item">
-                            <input type="checkbox" class="category-group-item-check">
-                            Link kiện máy tính
-                        </li>
-                        <li class="category-group-item">
-                            <input type="checkbox" class="category-group-item-check">
-                            Wifi
-                        </li>
+                        @{
+                            await Html.RenderPartialAsync("_CategorypPartial");
+                        }
                     </ul>
                 </div>
                 <div class="category-group">

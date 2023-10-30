@@ -33,10 +33,6 @@
                         <i class="fa-solid fa-box"></i> Quản Lý Đơn Hàng
                     </a>
                 </li>
-                <li class="@(ViewBag.Current == "QuanLyThanhVien" ? "active" : "")">
-                    <a href="@Url.Action("ThanhVien", "Management")">
-                        <i class="fa-solid fa-user"></i> Quản Lý Thành Viên
-                    </a>
                 <li class="@(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
                     <a href="/Manage/Categories">
                         <i class="fa-solid fa-box"></i> Quản Lý Danh Mục
@@ -48,19 +44,12 @@
                     </a>
                 </li>
 
-                <li class="@(ViewBag.Current == "QuanLyNhanVien" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Personnel")">
-                        <i class="fa-solid fa-clipboard-user"></i> Quản Lý Nhân Viên
-                    </a>
-                </li>
-
                 <li class="@(ViewBag.Current == "QuanLyKhaoSat" ? "active" : "")">
-                    <a href="@Url.Action("KhaoSat", "Management")">
-                        <i class="fa-solid fa-square-poll-vertical"></i> Quản Lý Khảo Sát
+                    <a href="/Manage/News">
+                        <i class="fa-solid fa-square-poll-vertical"></i> Quản Lý Tin Tức
                     </a>
                 </li>
                 <li>
-
                     <i class="fa-solid fa-power-off"></i> @Html.ActionLink("Đăng xuất", "Logout", "User")
                 </li>
             </ul>
