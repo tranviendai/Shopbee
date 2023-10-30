@@ -27,27 +27,10 @@ namespace JZenoApp.Areas.QuanLy.Controllers
             return View(await jZenoDbContext.ToListAsync());
         }
 
-        [Route("/Manage/Products/updateActive/{id?}")]
-        public async Task<JsonResult> updateActive(string id)
+      
+        private bool ProductExists(string id)
         {
-            var product = await _context.Product.FindAsync(id);
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    if (product!.isPublish == null) product.isPublish = true;
-                    else product!.isPublish = !product!.isPublish;
-                    product.postDate = DateTime.Now;
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                }
-                return Json(product);
-            }
-            return Json(product);
+          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

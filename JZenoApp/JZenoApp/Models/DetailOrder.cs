@@ -12,11 +12,6 @@ namespace JZenoApp.Models
         [ForeignKey("billID")]
         public string? billID { get; set; }
 
-        [Display(Name = "Màu Sắc")]
-        public string? color { get; set; }
-        [Display(Name = "Kích Cỡ")]
-
-        public string? size { get; set; }
 
         [Display(Name = "Số lượng")]
         public int? quantity { get; set; }
