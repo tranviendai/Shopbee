@@ -18,6 +18,7 @@ namespace JZenoApp.Controllers
         {
             _context = context;
         }
+        public DetailOrder DetailOrder { get; set; }
 
         // GET: Bills
         public async Task<IActionResult> Index()
@@ -38,12 +39,49 @@ namespace JZenoApp.Controllers
                 .Include(b => b.Voucher)!
                 .Include(e=> e.detailsOrders)!.ThenInclude(e=>e.Product)!
                 .FirstOrDefaultAsync(m => m.billID == id);
+            DetailOrder = await _context.DetailOD.FirstOrDefaultAsync(o => o.billID == bill.billID);
             if (bill == null)
             {
                 return NotFound();
             }
 
             return View(bill);
+        }
+
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id == null || _context.Bill == null)
+            {
+                return NotFound();
+            }
+
+            var bill = await _context.Bill
+                .FirstOrDefaultAsync(m => m.billID == id);
+            if (bill == null)
+            {
+                return NotFound();
+            }
+
+            return View(bill);
+        }
+
+        // POST: Vouchers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string? id)
+        {
+            if (_context.Bill == null)
+            {
+                return Problem("Entity set 'JZenoDbContext.Voucher'  is null.");
+            }
+            var bill = await _context.Bill.FindAsync(id);
+            if ( bill != null)
+            {
+                _context.Bill.Remove(bill);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
 
