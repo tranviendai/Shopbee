@@ -37,7 +37,7 @@
                                     <p class="header__cart-item-price">@Convert.ToDecimal(@i.product!.price - ((@i.product!.price * @i.product!.discount) / 100)).ToString("N0")đ</p>
                                 </div>
                                 <div class="header__cart-item-body">
-                                    <p class="header__cart-item-number">x 2</p>
+                                    <p class="header__cart-item-number">x@(i.quantity)</p>
                                 </div>
                             </div>
                         </li>
