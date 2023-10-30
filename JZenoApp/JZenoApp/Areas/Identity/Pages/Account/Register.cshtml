@@ -6,7 +6,14 @@
 <link rel="stylesheet" href="~/css/StyleSheetRegister.css" />
 <!--<h1>@ViewData["Title"]</h1>-->
 <div id="wrapper2">
-    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div id="register form-group" style="border: 1px solid #dadce0;
+    border-radius: 5px;
+    padding: 30px;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    background:#fff;">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
         <h3 style ="padding-bottom: 15px"> Đăng ký</h3>
         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
         <div class="form-floating mb-3 mt-3">
@@ -41,9 +48,11 @@
         </div>
         <button id="registerSubmit" type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="margin: 0px;margin-top:11px">ĐĂNG KÝ</button>
         <section>
-            <h3 style="color: #dadce0; padding: 0 16px;text-transform: uppercase;font-size:12px; padding: 12px 0 12px 0">
+                <h3 style="color: #808080; padding: 0 16px;text-transform: uppercase;font-size:12px; padding: 12px 0 12px 0">
                 HOẶC
             </h3>
+        </section>
+        </form>
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
@@ -70,8 +79,7 @@
                     </form>
                 }
             }
-        </section>
-    </form>
+    </div>
 </div>
 
 
