@@ -1,30 +1,37 @@
 ﻿@page
 @model ExternalLoginModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Đăng ký";
+    <link rel="stylesheet" href="~/css/StyleSheetRegister.css" />
 }
 
-<h1>@ViewData["Title"]</h1>
-<h2 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h2>
-<hr />
-
+@* <h1>@ViewData["Title"]</h1>
+<h2 id="external-login-title">Liên kết tài khoản @Model.ProviderDisplayName của bạn.</h2> *@
+@* 
 <p id="external-login-description" class="text-info">
-    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-    Please enter an email address for this site below and click the Register button to finish
-    logging in.
-</p>
+    Bạn đã xác thực thành công với  <strong>@Model.ProviderDisplayName</strong>. Vui lòng nhập địa chỉ email cho trang web này bên dưới và nhấp vào nút Đăng ký để hoàn tất đăng nhập.
+</p> *@
 
-<div class="row">
-    <div class="col-md-4">
+<div id="wrapper2">
+    <div id="register form-group" style="border: 1px solid #dadce0;
+            border-radius: 5px;
+            padding: 30px;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            background:#fff;">
+        <h3 style="padding-bottom: 15px"> Đăng ký</h3>
+        <h4 id="external-login-title" style="text-align: center;">Liên kết tài khoản <strong style="color: #ee4d2d;">@Model.ProviderDisplayName</strong> của bạn.</h4>
         <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="email" readonly/>
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" readonly />
                 <label asp-for="Input.Email" class="form-label"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.FullName" class="form-control" autocomplete="email" placeholder="Please enter your full name."/>
+                <input asp-for="Input.FullName" class="form-control" autocomplete="email" placeholder="Please enter your full name." />
                 <label asp-for="Input.FullName" class="form-label"></label>
                 <span asp-validation-for="Input.FullName" class="text-danger"></span>
             </div>
@@ -33,12 +40,12 @@
                 <label asp-for="Input.Address" class="form-label"></label>
                 <span asp-validation-for="Input.Address" class="text-danger"></span>
             </div>
-              <div class="form-floating mb-3">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="email" placeholder="Please enter your phone number." />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="w-100 mb-3 btn btn-lg btn-primary" style="height:40px;margin: 0px;color: #fff; background-color: #ee4d2d;box-shadow: 0 1px 1px rgba(0,0,0,.09)">Đăng Ký</button>
         </form>
     </div>
 </div>
