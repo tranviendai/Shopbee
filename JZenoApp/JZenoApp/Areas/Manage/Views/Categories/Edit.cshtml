@@ -10,7 +10,7 @@
 
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
     <div class="col-md-15">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group row p-0">
@@ -19,9 +19,9 @@
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group row p-0">
-                <span class="col label-name">Icon</span>
-                <input asp-for="icon" class="input-form col-10" />
-                <span asp-validation-for="icon" class="text-danger"></span>
+                <span class="col label-name">file</span>
+                <input asp-for="file" class="input-form col-10" />
+                <span asp-validation-for="file" class="text-danger"></span>
             </div>
             <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
                 <input type="submit" value="Save" class="btn btn-primary" style="

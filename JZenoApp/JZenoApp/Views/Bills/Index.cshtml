@@ -2,70 +2,167 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
+<script src="~/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
-<h1>Index</h1>
+<h1>Danh sách đơn hàng</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.deliveryForm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voucher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th
-             <th>
-                @Html.DisplayNameFor(model => model.billStatic)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.payment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.deliveryForm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Voucher.voucherID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.fullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.billStatic)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.billID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.billID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.billID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="box-section-content" style="background-color:#fff; padding-top:20px;">
+    <table id="example" class="table table-striped" style="width:100%;">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Voucher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.billStatic)
+                </th>
+
+                <th>Chi tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+
+                        @Convert.ToDecimal(item.price).ToString("N0")đ
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Voucher!.voucherID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User!.fullName)
+                    </td>
+                    <td>
+                        @switch (item.billStatic)
+                        {
+                            case 3:
+                                <input class="form-control" disabled value="Đã Thanh Toán" />
+                                break;
+                            case 4:
+                                <input class="form-control" disabled value="Đã Hủy" />
+                                break;
+                            default:
+                                <select id="selectActive" data-productid="@item.billID" class="form-control">
+                                    <option selected>
+                                        @switch (item.billStatic)
+                                        {
+                                            case 0:
+                                                <div>Chưa Xử Lý</div>
+                                                break;
+                                            case 1:
+                                                <div>Đã Xác Nhận</div>
+                                                break;
+                                            case 2:
+                                                <div>Đang Giao</div>
+                                                break;
+                                            case 3:
+                                                <div>Đã Thanh Toán</div>
+                                                break;
+                                            case 4:
+                                                <div>Đã Hủy</div>
+                                                break;
+                                            default:
+                                                <div>Chưa Xử Lý</div>
+                                                break;
+                                        }
+                                    </option>
+                                    @if (item.billStatic != 0)
+                                    {
+                                        <option value="0">Chưa Xử Lý</option>
+                                    }
+                                    @if (item.billStatic != 1)
+                                    {
+                                        <option value="1">Đã Xác Nhận</option>
+                                    }
+                                    @if (item.billStatic != 2)
+                                    {
+                                        <option value="2">Đang Giao</option>
+                                    }
+                                    @if (item.billStatic != 3)
+                                    {
+                                        <option value="3">Đã Thanh Toán</option>
+                                    }
+                                    @if (item.billStatic != 4)
+                                    {
+                                        <option value="4">Đã Hủy</option>
+                                    }
+                                </select>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        <span class="btn btn-primary">
+                            <a asp-action="Details" asp-route-id="@item.billID">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Chi Tiết
+                            </a>
+                        </span>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Voucher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.billStatic)
+                </th>
+                <th>Chi tiết</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+    $('select[id^=selectActive]').on("change", function () {
+        var id = $(this).attr('data-productid');
+        var payment = $(this).find('option:selected').val();
+        $.ajax({
+            method: "PUT",
+            url: "Bills/updateActive/",
+            data: {
+                billId: id,
+                payment: payment
+            },
+            dataType: "json",
+            success: function (data)  {
+                window.location.href = "";
+            }
+        });
+    });
+</script>

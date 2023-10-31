@@ -8,7 +8,7 @@ namespace JZenoApp.Models
         [Key]
         public int? Id { get; set; }
 
-        [MaxLength(4)]
+        [MaxLength(30)]
         public string? name { get; set; }
         [Range(0, 1000)]
         public double? quantity { get; set; }

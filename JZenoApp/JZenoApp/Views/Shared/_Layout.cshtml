@@ -182,36 +182,14 @@
                         </a>
                     </div>
                     <input type="checkbox" id="mobile-search" class="header__search-check" hidden>
-                    <div class="header__search">
+                    <form asp-controller="Products" asp-action="Index" method="get" class="header__search">
                         <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input" placeholder="Tìm kiếm trên Shopbee">
-                            <div class="header__search-history">
-                                <ul class="header__search-history-list">
-                                    <li class="header__search-history-item">
-                                        <a href="#">Combo 30 điểm đại học khối A</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#">Combo 30 điểm đại học khối D</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#">Mỹ phẩm cho người yêu</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#">Bí kíp tán crush auto đổ</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#">Iphone 13 Pro Max giá rẻ</a>
-                                    </li>
-                                    <li class="header__search-history-item">
-                                        <a href="#">Người yêu đẹp trai như LTP</a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <input type="text" class="header__search-input"  name="searchName" placeholder="Tìm kiếm trên Shopbee" value="@ViewData["GetSearch"]">
                         </div>
                         <button class="btn header__search-btn">
                             <i class="header__search-btn-icon fas fa-search"></i>
                         </button>
-                    </div>
+                    </form>
                     <!-- header__cart--no-cart --><!-- header__cart--has-cart -->
                     @{
                         await Html.RenderPartialAsync("_CartPartial");
