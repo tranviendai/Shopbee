@@ -8,6 +8,7 @@
     ViewData["Title"] = "Giỏ Hàng";
     <link rel="stylesheet" href="~/css/cart/cart.css"/>
     <link rel="stylesheet" href="~/css/products/detail.css" />
+    <link rel="stylesheet" href="~/css/managementForm.css">
     }
 
 <h2>GIỎ HÀNG</h2>
@@ -110,35 +111,57 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Phương Thức Thanh Toán</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Thông Tin Thanh Toán</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <form asp-controller="Home" asp-action="CheckOut">
-                        <input id="voucherName"  name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" />
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px;height: 40px;">Voucher</span>
+                            <input id="voucherName" name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" style="font-size: 14px;" />
+                        </div>
                         @if (!SignInManager.IsSignedIn(User))
                         {
-                            <div style="height:5px;"></div>
-                            <input id="getPhone" attern="[0-9]{10}" minlength="10" maxlength="10" name="getPhone" required type="tel" class="form-control" placeholder="Nhập Số Điện Thoại" />
-                            <div style="height:5px;"></div>
-                            <input id="getAddress" required minlength="24" maxlength="100" pattern="[a-zA-Z\]*" name="getAddress" class="form-control" placeholder="Nhập Địa Chỉ Nhận Hàng" />
-                            <div style="height:5px;"></div>
-                            <input id="getName" minlength="2" maxlength="32" pattern="[a-zA-Z\]*" required name="getName" class="form-control" placeholder="Nhập Họ Tên Của Bạn" />
-                            <div style="height:5px;"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">SĐT</span>
+                                <input id="getPhone" attern="[0-9]{10}" minlength="10" maxlength="10" name="getPhone" required type="tel" class="form-control" placeholder="Nhập Số Điện Thoại" style="font-size: 14px;" />
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Địa Chỉ</span>
+                                <input id="getAddress" required minlength="24" maxlength="100" pattern="[a-zA-Z\]*" name="getAddress" class="form-control" placeholder="Nhập Địa Chỉ Nhận Hàng" style="font-size: 14px;" />
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Họ Tên</span>
+                                <input id="getName" minlength="2" maxlength="32" pattern="[a-zA-Z\]*" required name="getName" class="form-control" placeholder="Nhập Họ Tên Của Bạn" style="font-size: 14px;" />
+                            </div>
                         }
                         else{
-                            <div style="height:5px;"></div>
-                            <input id="getName" name="getNote" class="form-control" placeholder="Ghi Chú?" />
-                            <div style="height:5px;"></div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Ghi Chú</span>
+                                <input id="getName" name="getNote" class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
+                            </div>
                         }
-
-                        <button class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</button>
+                        <div class="dropdown" style="text-align: right">
+                            <button class="btn btn--primary header__cart-see-cart dropdown-toggle" style="width: 96%" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <h5 class="modal-title" id="exampleModalLabel">Chọn Phương Thanh Toán</h5>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 96%">
+                                <li>
+                                    <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn--primary header__cart-see-cart" style="width: 95%; background: #fff; color: var(--light-btn-primary-color); border: 1px solid;">Thanh Toán Bằng Paypal</a>
+                                </li>
+                                <li>
+                                    <button class="btn btn--primary header__cart-see-cart" style="width: 95%; background: #fff; color: var(--light-btn-primary-color); border: 1px solid;">Thanh Toán Khi Nhận Hàng</button>
+                                </li>
+                            </ul>
+                        </div>
                     </form>
-                    <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn--primary header__cart-see-cart">Thanh Toán Bằng Paypal</a>
                 </div>
+                
             </div>
         </div>
     </div>

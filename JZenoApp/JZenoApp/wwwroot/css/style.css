@@ -503,7 +503,7 @@ border-color: red green blue yellow */
 }
 
 .header__search-btn {
-    background-color: var(--light-btn-primary-color);
+    background-color: var(--light-btn-primary-color) !important;
     min-width: 60px;
 }
 
