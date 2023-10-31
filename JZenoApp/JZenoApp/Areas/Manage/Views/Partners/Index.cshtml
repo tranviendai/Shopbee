@@ -34,11 +34,7 @@
 </style>
 
 
-
-<p>
-    <a asp-action="Create" class="create-btn" style="color: #fff !important;">Thêm Mới</a>
-</p>
-<table class="table table table-striped" style="width:100%;">
+<table class="table table table-striped bg-white" style="width:100%;">
     <thead>
         <tr>
             <th>
@@ -75,8 +71,15 @@
                 @Html.DisplayFor(modelItem => item.dateCreated)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.isActive)
-            </td>
+                    @if (item.isActive == false)
+                    {
+                        <p>Chưa xác nhận</p>
+                    }
+                    else
+                    {
+                        <p>Đã xác nhận</p>
+                    }
+                </td>
             <td style="text-align: center;">
                 <span class="btn btn-warning" style="min-width: 42px !important;">
                     <a asp-action="Edit" asp-route-id="@item.partnerId">
@@ -88,12 +91,6 @@
                    <i class="fa-solid fa-circle-info"></i>
                    </a> 
                 </span>
-               <span class="btn btn-danger" style="min-width: 42px !important;" >
-                   <a asp-action="Delete" asp-route-id="@item.partnerId">
-                    <i class="fa-solid fa-trash"></i>
-                   </a>
-               </span>
-               
             </td>
         </tr>
     }

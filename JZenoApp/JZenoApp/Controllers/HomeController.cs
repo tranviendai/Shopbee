@@ -29,7 +29,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["GetCate"] = await _context.Category.ToListAsync();
-            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages);
+            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Where(e=>e.isPublish == true);
 
             return View(await jZenoDbContext.ToListAsync());
         }
@@ -139,9 +139,14 @@ namespace JZenoApp.Controllers
             SaveCartSession(cart);
             return RedirectToAction(nameof(Cart));
         }
+        [Route("/cart/checkout")]
+        public IActionResult CartCheckOut(IFormCollection form)
+        {
+            return View(GetCartItems());
+        }
         // [Authorize(Roles = "Customer")]
         [Route("/checkout")]
-        public IActionResult CheckOut()
+        public IActionResult CheckOut(IFormCollection form)
         {
             String idGUID = Guid.NewGuid().ToString();
             var cart = GetCartItems();
@@ -151,8 +156,9 @@ namespace JZenoApp.Controllers
             bill.payment = false;
             bill.deliveryForm = true;
             bill.billStatic = 0;
-            bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
-            //bill.voucherID = 
+            var voucherID = _context.Voucher.FirstOrDefault(e=>e.name == form["voucherName"].ToString());
+            bill.voucherID = voucherID!.voucherID;
+            bill.price = (decimal?) cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
             bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); //User Identity Name -> thay vì Name thì userID
             _context.Add(bill);
             foreach (var item in cart)
@@ -164,6 +170,10 @@ namespace JZenoApp.Controllers
                 detailOrder.price = item.product!.price;
                 detailOrder.totalPrice = item.product.price * detailOrder.quantity;
                 detailOrder.Product = product.Result;
+                var size = _context.ProductSize.Find(item.isUnique);
+                detailOrder.size = size!.name;
+                var color = _context.ProductColor.Find(size.productColorId);
+                detailOrder.color = color!.Name;
                 _context.Add(detailOrder);
                 var pro = _context.ProductSize.ToList().FirstOrDefault(e => e.Id == item.isUnique);
                 pro!.quantity -= item.quantity;

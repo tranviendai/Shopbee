@@ -27,8 +27,8 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
             {
                 Bill = await _context.Bill
                 .Include(b => b.User)!
-                .Include(x=>x.detailsOrders)!
-                .ThenInclude(p=>p.Product)!
+                .Include(x => x.detailsOrders)!
+                .ThenInclude(p => p.Product)!.ThenInclude(e => e.productImages)!
                 .Include(b => b.Voucher).ToListAsync();
             }
            

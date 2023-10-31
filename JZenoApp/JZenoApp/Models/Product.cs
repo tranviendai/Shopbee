@@ -30,6 +30,9 @@ namespace JZenoApp.Models
         [ForeignKey("Id")]
         public string? categoryID { get; set; }
         public Category? Category { get; set; }
+
+        [NotMapped]
+        public List<Category> listCategory { get; set; }
         [NotMapped]
         public IEnumerable<ColorEnum> colors { get; set; } = new List<ColorEnum>();
 

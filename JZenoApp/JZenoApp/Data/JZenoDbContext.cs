@@ -1460,7 +1460,84 @@ namespace JZenoApp.Data
                         name = "44",
                         quantity = 30,
                         productColorId = "pinkshoes4"
-                    }
+                    },
+                    new ProductSize
+                    {
+                        Id = 113,
+                        name = "64GB",
+                        quantity = 30,
+                        productColorId = "blackcamera1"
+                    },
+                    new ProductSize
+                    {
+                        Id = 114,
+                        name = "128GB",
+                        quantity = 20,
+                        productColorId = "blackcamera1"
+                    },
+                    new ProductSize
+                    {
+                        Id = 115,
+                        name = "8RAM-128GB",
+                        quantity = 10,
+                        productColorId = "blackcomputer4"
+                    },
+                     new ProductSize
+                     {
+                         Id = 116,
+                         name = "8RAM-128GB",
+                         quantity = 30,
+                         productColorId = "bluecomputer4"
+                     },
+                    new ProductSize
+                    {
+                        Id = 117,
+                        name = "64GB",
+                        quantity = 30,
+                        productColorId = "bluephone2"
+                    },
+                     new ProductSize
+                     {
+                         Id = 118,
+                         name = "128GB",
+                         quantity = 30,
+                         productColorId = "bluephone2"
+                     },
+                        new ProductSize
+                        {
+                            Id = 119,
+                            name = "64GB",
+                            quantity = 30,
+                            productColorId = "naturalphone2"
+                        },
+                        new ProductSize
+                        {
+                            Id = 120,
+                            name = "128GB",
+                            quantity = 30,
+                            productColorId = "naturalphone2"
+                        },
+                     new ProductSize
+                     {
+                         Id = 121,
+                         name = "64GB",
+                         quantity = 30,
+                         productColorId = "whitecamera1"
+                     },
+                      new ProductSize
+                      {
+                          Id = 122,
+                          name = "128GB",
+                          quantity = 30,
+                          productColorId = "whitecamera1"
+                      },
+                      new ProductSize
+                      {
+                          Id = 123,
+                          name = "64GB",
+                          quantity = 30,
+                          productColorId = "whitewatch3"
+                      }
                 );
             });
 

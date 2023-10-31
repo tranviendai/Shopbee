@@ -352,6 +352,8 @@ namespace JZenoApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     billID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     quantity = table.Column<int>(type: "int", nullable: true),
+                    size = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    color = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
                     price = table.Column<double>(type: "float", nullable: true),
                     totalPrice = table.Column<double>(type: "float", nullable: true),
                     productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
@@ -377,7 +379,7 @@ namespace JZenoApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
+                    name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     quantity = table.Column<double>(type: "float", nullable: true),
                     productColorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -396,11 +398,15 @@ namespace JZenoApp.Migrations
                 columns: new[] { "Id", "icon", "name" },
                 values: new object[,]
                 {
+                    { "camera", "camera.png", "Camera" },
+                    { "computer", "computer.png", "Computer" },
+                    { "phone", "phone.png", "Phone" },
                     { "sandal", "sandal.png", "Sandal" },
                     { "shirt", "shirt.png", "Shirt" },
                     { "shoes", "shoes.png", "Shoes" },
                     { "short", "shorts.png", "Short" },
-                    { "trouser", "trousers.png", "Trouser" }
+                    { "trouser", "trousers.png", "Trouser" },
+                    { "watch", "watch.png", "Watch" }
                 });
 
             migrationBuilder.InsertData(
@@ -408,10 +414,10 @@ namespace JZenoApp.Migrations
                 columns: new[] { "partnerId", "dateCreated", "description", "image", "isActive", "name" },
                 values: new object[,]
                 {
-                    { "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9097), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng A" },
-                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9111), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng B" },
-                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9113), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng C" },
-                    { "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9115), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng D" }
+                    { "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(4804), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng A" },
+                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(4825), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng B" },
+                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(4838), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng C" },
+                    { "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(4842), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng D" }
                 });
 
             migrationBuilder.InsertData(
@@ -429,11 +435,11 @@ namespace JZenoApp.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "address", "dateCreated", "fullName", "image" },
                 values: new object[,]
                 {
-                    { "5215212-mx18-4213-h6d1-420b466e4502", 0, "258e7cc9-16f6-4224-97dc-f81fa3b776b5", "partner1@gmail.com", true, false, null, "PARTNER1@GMAIL.COM", "PARTNER1@GMAIL.COM", "AQAAAAIAAYagAAAAEDjcw0oYjtD8kmZKLkcA42y+28iJPqMbQ4UOYDtsww9yfmJaf5IXDQIjq6yoMrE1Mw==", "0582012351", false, "04934142-efdf-45a2-94ed-ee664f9fc478", false, "partner1@gmail.com", "Bình Chánh - Hồ Chí Minh", new DateTime(2023, 10, 29, 20, 16, 18, 539, DateTimeKind.Local).AddTicks(6865), "Đối Tác Một", "shobee-logo.png" },
-                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", 0, "08d09cbf-ad51-49e8-95b6-820f1756cae4", "partner2@gmail.com", true, false, null, "PARTNER2@GMAIL.COM", "PARTNER2@GMAIL.COM", "AQAAAAIAAYagAAAAEN8k21+mYUiLD0t4iaQfiX0hEU+7oqPMVHGoEpWP0WEIce8DQ+dfypzGCecp9aCXBg==", "0582015681", false, "0840858b-3694-4b08-b2d7-bffce532f514", false, "partner2@gmail.com", "Trảng Bom - Đồng Nai", new DateTime(2023, 10, 29, 20, 16, 18, 625, DateTimeKind.Local).AddTicks(1025), "Đối Tác Hai", "shobee-logo.png" },
-                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", 0, "4a56e061-0ae6-4e67-89d9-0fcf6709dc0b", "partner3@gmail.com", true, false, null, "PARTNER3@GMAIL.COM", "PARTNER3@GMAIL.COM", "AQAAAAIAAYagAAAAEKo9BJVq7NfFiLufpTTWZ4s053L9jhel+8sWLkXNkkYW+Sm00Aji8jYVS+kxBRaJAg==", "0582014561", false, "f887f28f-adf5-4ad5-a376-736ca7bbb9b3", false, "partner3@gmail.com", "Quận 1 - Hồ Chí Minh", new DateTime(2023, 10, 29, 20, 16, 18, 713, DateTimeKind.Local).AddTicks(1860), "Đối Tác Ba", "shobee-logo.png" },
-                    { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "e47f6157-75c1-469e-9eb6-0e0112ca29d6", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEGXo+ke/qIZhszX1Lg7jydgl4G8NwwCErvjYoyFsfZwKbE1RvwAkn0CqGmA3+9vjjQ==", "0582072743", false, "e67466b7-f816-4d19-807a-e697da33fd8f", false, "admin@gmail.com", "Tắc Vân - Cà Mau", new DateTime(2023, 10, 29, 20, 16, 18, 455, DateTimeKind.Local).AddTicks(4895), "Trần Viễn Đại", "shobee-logo.png" },
-                    { "iosxiof-mx18-4213-h6d1-420b466e4502", 0, "d82fa525-1430-4e99-99af-15589b6350a5", "partner4@gmail.com", true, false, null, "PARTNER4@GMAIL.COM", "PARTNER4@GMAIL.COM", "AQAAAAIAAYagAAAAEJ81ox8Rq0HShFVPZMgu+B/+qnGTFIU27mJOP9Jz/r84dE18lrNSDd/vwyasghfSSw==", "0582753561", false, "d7c3fd8e-93ae-4a5a-ae72-96730b675a94", false, "partner4@gmail.com", "Quận 10 - Hồ Chí Minh", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(4666), "Đối Tác Bốn", "shobee-logo.png" }
+                    { "5215212-mx18-4213-h6d1-420b466e4502", 0, "f55a9791-c670-47c2-a9b0-63b7544d9ec8", "partner1@gmail.com", true, false, null, "PARTNER1@GMAIL.COM", "PARTNER1@GMAIL.COM", "AQAAAAIAAYagAAAAEKel3mslgPd2FoqgQxituzRs8TqCnQ3wvO+SHSr4e4Qe8VTLQSxMhUL8x6ooiGAdbQ==", "0582012351", false, "fe5ccd7b-cc47-4b1e-a7aa-22517b9a7e89", false, "partner1@gmail.com", "Bình Chánh - Hồ Chí Minh", new DateTime(2023, 10, 31, 3, 1, 52, 792, DateTimeKind.Local).AddTicks(53), "Đối Tác Một", "shobee-logo.png" },
+                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", 0, "15af49e8-d8ad-4edf-a9d4-5d254ddda3fc", "partner2@gmail.com", true, false, null, "PARTNER2@GMAIL.COM", "PARTNER2@GMAIL.COM", "AQAAAAIAAYagAAAAEGiScg/NYOYraphof24pOcBV6Nyzi+tSsYRI34eUxYgp38G98vC32bceRJXhEV59AQ==", "0582015681", false, "732dd0e4-6b09-4b06-b42f-e948cc84f28b", false, "partner2@gmail.com", "Trảng Bom - Đồng Nai", new DateTime(2023, 10, 31, 3, 1, 52, 907, DateTimeKind.Local).AddTicks(4439), "Đối Tác Hai", "shobee-logo.png" },
+                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", 0, "f88a8f28-eee4-46cc-a8ea-b66d11649602", "partner3@gmail.com", true, false, null, "PARTNER3@GMAIL.COM", "PARTNER3@GMAIL.COM", "AQAAAAIAAYagAAAAEGsiGyOx2qndd5i/MNxeHw1s1N1TwXzMHCzE2rSOKCUcg9MMOahRgag3q4HHDpiHwg==", "0582014561", false, "ff98a5e9-38ba-48c4-a62f-6d275b8e2bbf", false, "partner3@gmail.com", "Quận 1 - Hồ Chí Minh", new DateTime(2023, 10, 31, 3, 1, 53, 14, DateTimeKind.Local).AddTicks(7150), "Đối Tác Ba", "shobee-logo.png" },
+                    { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "b7b73247-1fb4-4729-9063-b7029f1f9f6f", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEN6X5pzu7qvPj/TsRWEjxafnvY0/c5o8lNGcpkHaPouZAY6Up7rLfIOOCfplMw7b6w==", "0582072743", false, "2f350d0f-c1cc-4474-910a-780d01b81105", false, "admin@gmail.com", "Tắc Vân - Cà Mau", new DateTime(2023, 10, 31, 3, 1, 52, 680, DateTimeKind.Local).AddTicks(4015), "Trần Viễn Đại", "shobee-logo.png" },
+                    { "iosxiof-mx18-4213-h6d1-420b466e4502", 0, "6ad5e6e7-4b9b-4fce-bf78-3124d97b6979", "partner4@gmail.com", true, false, null, "PARTNER4@GMAIL.COM", "PARTNER4@GMAIL.COM", "AQAAAAIAAYagAAAAEAxx6VKhfMnNWWaAH0OJB+JhbxlIZbJVLVYdGx78keAiTACKWR5LpMmTCLFyNYdGEA==", "0582753561", false, "9787bf7b-63de-43c9-9e60-47220a23c48f", false, "partner4@gmail.com", "Quận 10 - Hồ Chí Minh", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(1090), "Đối Tác Bốn", "shobee-logo.png" }
                 });
 
             migrationBuilder.InsertData(
@@ -441,18 +447,22 @@ namespace JZenoApp.Migrations
                 columns: new[] { "Id", "categoryID", "description", "discount", "isPublish", "name", "partnerID", "postDate", "price" },
                 values: new object[,]
                 {
-                    { "sandal2", "sandal", "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.", 15, true, "Giày sandal nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9269), 100000.0 },
-                    { "sandal3", "sandal", "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.", 35, true, "Giày sandal nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9289), 110000.0 },
-                    { "shirt1", "shirt", "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.", 10, true, "Áo thun nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9236), 50000.0 },
-                    { "shirt2", "shirt", "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.", 35, true, "Áo sơ mi nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9252), 70000.0 },
-                    { "shirt3", "shirt", "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 55, true, "Áo sơ mi nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9273), 60000.0 },
-                    { "shirt4", "shirt", "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.", 50, true, "Áo thun nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9292), 80000.0 },
-                    { "shoes1", "shoes", "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.", 30, true, "Giày thể thao nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9245), 120000.0 },
-                    { "shoes4", "shoes", "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.", 30, true, "Giày thể thao nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9298), 130000.0 },
-                    { "short1", "short", "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.", 20, true, "Quần Short nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9242), 30000.0 },
-                    { "short4", "short", "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...", 40, true, "Quần Short nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9295), 60000.0 },
-                    { "trouser2", "trouser", "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.", 25, true, "Quần dài nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9266), 50000.0 },
-                    { "trouser3", "trouser", "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 45, true, "Quần dài nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 29, 20, 16, 18, 800, DateTimeKind.Local).AddTicks(9286), 40000.0 }
+                    { "camera1", "camera", "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.", 40, true, "Máy ảnh", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5015), 5000000.0 },
+                    { "computer4", "computer", "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.", 20, true, "Máy tính", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5067), 10000000.0 },
+                    { "phone2", "phone", "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.", 5, true, "Điện thoại", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5032), 7500000.0 },
+                    { "sandal2", "sandal", "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.", 15, true, "Giày sandal nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5028), 100000.0 },
+                    { "sandal3", "sandal", "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.", 35, true, "Giày sandal nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5045), 110000.0 },
+                    { "shirt1", "shirt", "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.", 10, true, "Áo thun nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(4997), 50000.0 },
+                    { "shirt2", "shirt", "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.", 35, true, "Áo sơ mi nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5020), 70000.0 },
+                    { "shirt3", "shirt", "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 55, true, "Áo sơ mi nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5037), 60000.0 },
+                    { "shirt4", "shirt", "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.", 50, true, "Áo thun nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5054), 80000.0 },
+                    { "shoes1", "shoes", "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.", 30, true, "Giày thể thao nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5010), 120000.0 },
+                    { "shoes4", "shoes", "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.", 30, true, "Giày thể thao nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5063), 130000.0 },
+                    { "short1", "short", "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.", 20, true, "Quần Short nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5005), 30000.0 },
+                    { "short4", "short", "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...", 40, true, "Quần Short nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5058), 60000.0 },
+                    { "trouser2", "trouser", "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.", 25, true, "Quần dài nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5024), 50000.0 },
+                    { "trouser3", "trouser", "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 45, true, "Quần dài nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5041), 40000.0 },
+                    { "watch3", "watch", "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.", 25, true, "Đồng hồ", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 10, 31, 3, 1, 53, 128, DateTimeKind.Local).AddTicks(5049), 500000.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -472,11 +482,15 @@ namespace JZenoApp.Migrations
                 columns: new[] { "Id", "Name", "productId" },
                 values: new object[,]
                 {
+                    { "blackcamera1", "Đen", "camera1" },
+                    { "blackcomputer4", "Đen", "computer4" },
                     { "blackshirt1", "Đen", "shirt1" },
                     { "blackshirt3", "Đen", "shirt3" },
                     { "blackshoes1", "Đen", "shoes1" },
                     { "blackshort4", "Đen", "short4" },
                     { "blacktrouser3", "Đen", "trouser3" },
+                    { "bluecomputer4", "Xanh Dương", "computer4" },
+                    { "bluephone2", "Xanh Dương", "phone2" },
                     { "bluesandal2", "Xanh Dương", "sandal2" },
                     { "blueshort1", "Xanh Dương", "short1" },
                     { "blueshort4", "Xanh Dương", "short4" },
@@ -485,16 +499,20 @@ namespace JZenoApp.Migrations
                     { "greensandal3", "Xanh Lá", "sandal3" },
                     { "greenshirt2", "Xanh Lá", "shirt2" },
                     { "greyshirt4", "Xám", "shirt4" },
+                    { "naturalphone2", "Tự Nhiên", "phone2" },
                     { "pinkshirt4", "Hồng", "shirt4" },
                     { "pinkshoes4", "Hồng", "shoes4" },
                     { "pinktrouser2", "Hồng", "trouser2" },
+                    { "pinkwatch3", "Hồng", "watch3" },
                     { "purpleshoes4", "Tím", "shoes4" },
                     { "redshort1", "Đỏ", "short1" },
+                    { "whitecamera1", "Trắng", "camera1" },
                     { "whiteshirt1", "Trắng", "shirt1" },
                     { "whiteshirt3", "Trắng", "shirt3" },
                     { "whiteshoes1", "Trắng", "shoes1" },
                     { "whitetrouser2", "Trắng", "trouser2" },
                     { "whitetrouser3", "Trắng", "trouser3" },
+                    { "whitewatch3", "Trắng", "watch3" },
                     { "yellowshirt2", "Vàng", "shirt2" }
                 });
 
@@ -509,24 +527,32 @@ namespace JZenoApp.Migrations
                     { 4, "short1_red.jpg", "short1" },
                     { 5, "shoes1_black.jpg", "shoes1" },
                     { 6, "shoes1_white.jpg", "shoes1" },
-                    { 7, "shirt2_yellow.jpg", "shirt2" },
-                    { 8, "shirt2_green.jpg", "shirt2" },
-                    { 9, "trouser2_white.jpg", "trouser2" },
-                    { 10, "trouser2_pink.jpg", "trouser2" },
-                    { 11, "sandal2_blue.jpg", "sandal2" },
-                    { 12, "sandal2_green.jpg", "sandal2" },
-                    { 13, "shirt3_black.jpg", "shirt3" },
-                    { 14, "shirt3_white.jpg", "shirt3" },
-                    { 15, "trouser3_black.jpg", "trouser3" },
-                    { 16, "trouser3_white.jpg", "trouser3" },
-                    { 17, "sandal3_brown.jpg", "sandal3" },
-                    { 18, "sandal3_green.jpg", "sandal3" },
-                    { 19, "shirt4_grey.jpg", "shirt4" },
-                    { 20, "shirt4_pink.jpg", "shirt4" },
-                    { 21, "short4_black.jpg", "short4" },
-                    { 22, "short4_blue.jpg", "short4" },
-                    { 23, "shoes4_purple.jpg", "shoes4" },
-                    { 24, "shoes4_pink.jpg", "shoes4" }
+                    { 7, "camera1_black.jpg", "camera1" },
+                    { 8, "camera1_white.jpg", "camera1" },
+                    { 9, "shirt2_yellow.jpg", "shirt2" },
+                    { 10, "shirt2_green.jpg", "shirt2" },
+                    { 11, "trouser2_white.jpg", "trouser2" },
+                    { 12, "trouser2_pink.jpg", "trouser2" },
+                    { 13, "sandal2_blue.jpg", "sandal2" },
+                    { 14, "sandal2_green.jpg", "sandal2" },
+                    { 15, "phone2_blue.jpg", "phone2" },
+                    { 16, "phone2_natural.jpg", "phone2" },
+                    { 17, "shirt3_black.jpg", "shirt3" },
+                    { 18, "shirt3_white.jpg", "shirt3" },
+                    { 19, "trouser3_black.jpg", "trouser3" },
+                    { 20, "trouser3_white.jpg", "trouser3" },
+                    { 21, "sandal3_brown.jpg", "sandal3" },
+                    { 22, "sandal3_green.jpg", "sandal3" },
+                    { 23, "watch3_pink.jpg", "watch3" },
+                    { 24, "watch3_white.jpg", "watch3" },
+                    { 25, "shirt4_grey.jpg", "shirt4" },
+                    { 26, "shirt4_pink.jpg", "shirt4" },
+                    { 27, "short4_black.jpg", "short4" },
+                    { 28, "short4_blue.jpg", "short4" },
+                    { 29, "shoes4_purple.jpg", "shoes4" },
+                    { 30, "shoes4_pink.jpg", "shoes4" },
+                    { 31, "computer4_blue.jpg", "computer4" },
+                    { 32, "computer4_black.jpg", "computer4" }
                 });
 
             migrationBuilder.InsertData(
@@ -645,7 +671,18 @@ namespace JZenoApp.Migrations
                     { 109, "41", "pinkshoes4", 50.0 },
                     { 110, "42", "pinkshoes4", 50.0 },
                     { 111, "43", "pinkshoes4", 40.0 },
-                    { 112, "44", "pinkshoes4", 30.0 }
+                    { 112, "44", "pinkshoes4", 30.0 },
+                    { 113, "64GB", "blackcamera1", 30.0 },
+                    { 114, "128GB", "blackcamera1", 20.0 },
+                    { 115, "8RAM-128GB", "blackcomputer4", 10.0 },
+                    { 116, "8RAM-128GB", "bluecomputer4", 30.0 },
+                    { 117, "64GB", "bluephone2", 30.0 },
+                    { 118, "128GB", "bluephone2", 30.0 },
+                    { 119, "64GB", "naturalphone2", 30.0 },
+                    { 120, "128GB", "naturalphone2", 30.0 },
+                    { 121, "64GB", "whitecamera1", 30.0 },
+                    { 122, "128GB", "whitecamera1", 30.0 },
+                    { 123, "64GB", "whitewatch3", 30.0 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -43,7 +43,7 @@
                             {
                                 if (index == 0)
                                 {
-                                    <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                            <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
                                     break;
                                 }
                                 index++;
@@ -108,10 +108,6 @@
         </div>
     </div>
 
-
-    <!-- Button trigger modal -->
-    
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -122,7 +118,7 @@
                 </div>
                 <div class="modal-body" style="display: flex; justify-content: center; justify-items: center; align-items: center; text-align: center;">
                     <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn--primary header__cart-see-cart">Thanh Toán Bằng Paypal</a>
-                    <a asp-controller="Home" asp-action="checkout" class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</a>
+                    <a href="/cart/checkout" class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</a>
                 </div>
             </div>
         </div>
@@ -130,7 +126,6 @@
 
       @section Scripts {
         <script>
-
           $(document).ready(function () {
               $(".plus-btn").click(function (event) {
                   event.preventDefault();
@@ -158,18 +153,20 @@
                 var productid = $(this).attr("data-productid");
                 var productUnique = $(this).attr("data-productUnique");
                 var quantity = parseInt($(".quantity-" + productid).val()) - 1;
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.RouteUrl("updatecart")",
-                    data: {
-                        productid: productid,
-                        quantity: quantity,
-                        isUnique: productUnique
-                    },
-                    success: function (result) {
-                        window.location.href = "@Url.RouteUrl("cart")";
-                    }
-                });
+                if(quantity>0){
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.RouteUrl("updatecart")",
+                        data: {
+                            productid: productid,
+                            quantity: quantity,
+                            isUnique: productUnique
+                        },
+                        success: function (result) {
+                            window.location.href = "@Url.RouteUrl("cart")";
+                        }
+                    });
+                }
             });
         });
         </script>

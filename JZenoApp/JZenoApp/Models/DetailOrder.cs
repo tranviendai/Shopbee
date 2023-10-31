@@ -11,10 +11,12 @@ namespace JZenoApp.Models
         public int? odID { get; set; }
         [ForeignKey("billID")]
         public string? billID { get; set; }
-
-
         [Display(Name = "Số lượng")]
         public int? quantity { get; set; }
+        [MaxLength(30)]
+        public string? size { get; set; }
+        [StringLength(24)]
+        public string? color { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         [Display(Name = "Đơn giá")]

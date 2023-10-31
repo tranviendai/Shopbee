@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Hosting;
+using PayPal.Api;
 
 namespace JZenoApp.Areas.QuanLy.Controllers
 {
@@ -14,10 +16,12 @@ namespace JZenoApp.Areas.QuanLy.Controllers
     public class CategoriesController : Controller
     {
         private readonly JZenoDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CategoriesController(JZenoDbContext context)
+        public CategoriesController(JZenoDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [Route("Manage/Categories")]
@@ -35,22 +39,35 @@ namespace JZenoApp.Areas.QuanLy.Controllers
             return View();
         }
 
-        // POST: QuanLy/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Route("Manage/Categories/Create")]
-        public async Task<IActionResult> Create([Bind("Id,name,icon")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,name,icon,file")] Category category)
         {
             if (ModelState.IsValid)
             {
+                UploadFile(category.file!);
+                category.icon = UploadFile(category.file!);
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
         }
-
+        private string UploadFile(IFormFile file)
+        {
+            string? fileName = null;
+            if (file != null)
+            {
+                string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "images/logo");
+                fileName = Guid.NewGuid().ToString() + "-" + file.FileName;
+                string filePath = Path.Combine(uploadDir, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+            return fileName!;
+        }
         [Route("Manage/Categories/Edit/{id?}")]
         public async Task<IActionResult> Edit(string id)
         {
@@ -69,7 +86,7 @@ namespace JZenoApp.Areas.QuanLy.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Manage/Categories/Edit/{id?}")]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,name,icon")] Category category)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,name,icon,file")] Category category)
         {
             if (id != category.Id)
             {
@@ -78,6 +95,20 @@ namespace JZenoApp.Areas.QuanLy.Controllers
 
             if (ModelState.IsValid)
             {
+                if (category.icon != null)
+                {
+                    if (category.file == null)
+                    {
+                        DeleteFile(category.icon!);
+                        UploadFile(category.file!);
+                        category.icon = UploadFile(category.file!);
+                    }
+                }
+                else
+                {
+                    UploadFile(category.file!);
+                    category.icon = UploadFile(category.file!);
+                }
                 try
                 {
                     _context.Update(category);
@@ -99,8 +130,16 @@ namespace JZenoApp.Areas.QuanLy.Controllers
             return View(category);
         }
 
-       
-       
+        private void DeleteFile(string file)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\products", file);
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+        }
+
         private bool CategoryExists(string id)
         {
           return (_context.Category?.Any(e => e.Id == id)).GetValueOrDefault();

@@ -27,14 +27,20 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchCategory,int? page)
+        public async Task<IActionResult> Index(string searchCategory,int? page, string searchName)
         {
             ViewData["GetData"] = searchCategory;
+            ViewData["GetSearch"] = searchName;
+            ViewData["GetCategory"] = await _context.Category.ToPagedListAsync(1, 100);
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
-            if (!String.IsNullOrEmpty(searchCategory))
+            if (!String.IsNullOrEmpty(searchCategory) && searchName == null)
             {
                 return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToPagedListAsync(page ?? 1, 10));
+            }
+            else if(searchName!=null && searchCategory == null)
+            {
+                return View(await product.Where(e => e.name!.Contains(searchName)).ToPagedListAsync(page ?? 1, 10));
             }
             else
             {
@@ -42,8 +48,11 @@ namespace JZenoApp.Controllers
             }
             
         }
-
-        // GET: Products/Details/5
+        public async Task<IActionResult> _CategorypPartial()
+        {
+            var jZenoDbContext = await _context.Category.ToPagedListAsync(1, 100);
+            return PartialView("_CategorypPartial", jZenoDbContext);
+        }
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Product == null)
