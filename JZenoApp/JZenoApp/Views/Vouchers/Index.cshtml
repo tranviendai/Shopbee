@@ -94,21 +94,22 @@
                     </td>
                     <td>
                         <span class="btn btn-warning">
-                            <a href="@Url.Action("Edit", "Categories", new { id = item.voucherID })" class="">
+                            <a asp-action="Edit" asp-route-id="@item.voucherID">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Chỉnh Sửa
                             </a>
+
                         </span>
 
                         <span class="btn btn-primary">
-                            <a href="@Url.Action("Details", "Categories", new { id = item.voucherID })" class="">
+                            <a asp-action="Details" asp-route-id="@item.voucherID">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Chi Tiết
                             </a>
                         </span>
 
                         <span class="btn btn-danger">
-                            <a href="@Url.Action("Delete", "Categories", new { id = item.voucherID })" class="">
+                            <a asp-action="Delete" asp-route-id="@item.voucherID">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Xoá
                             </a>

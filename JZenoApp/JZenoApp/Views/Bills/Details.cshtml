@@ -49,6 +49,11 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.billStatic)
         </dd>
+        @foreach(var item in Model.detailsOrders!)
+        {
+            <h1>hello @item.quantity</h1>
+            <h2>hello @item.Product.name</h2>
+        }
     </dl>
 </div>
 <div>

@@ -1,0 +1,11 @@
+﻿@page
+@model JZenoApp.Areas.Identity.Pages.Account.Manage.Bills.QuickvieworderModel
+@{
+}
+
+<div class="row">
+    @foreach (var item in Model.DetailOrder)
+    {
+        <partial name="NameProduct" asp-route-id="@item.productId" />
+    }
+</div>

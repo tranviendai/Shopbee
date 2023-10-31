@@ -3,64 +3,642 @@
 
 @{
     ViewData["Title"] = "Index";
+    int dem = 0, dem1 = 0, dem2 = 0, dem3 = 0, dem4 = 0, dem5 =0 ;
 }
+<link href="~/css/profile.css" rel="stylesheet" />
+<link href="~/css/ordercustomer.css" rel="stylesheet" />
+<script src="~/js/jquery.min.js"></script>
 
-<h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].deliveryForm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].Voucher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bill[0].billStatic)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Bill) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.payment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.deliveryForm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Voucher!.voucherID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.billStatic)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.billID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.billID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.billID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section id="tabs" style="margin-top:30px;">
+    <div class="trangthai">
+        <h6 class="section-title h1 text-left"></h6>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <nav class="asa">
+                    <div class=" nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class=" nav-link active" id="nav-cd-tab" data-toggle="tab" href="#nav-cd"
+                           role="tab" aria-controls="nav-cd" aria-selected="true">Tất cả</a>
+                        <a class=" nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                           role="tab" aria-controls="nav-home" aria-selected="false">
+                            Chờ thanh toán
+                            <img src="./image/new-logo.png" width="80" alt="">
+                        </a>
+                        <a class=" nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                           role="tab" aria-controls="nav-profile" aria-selected="false">Vận chuyển</a>
+
+                        <a class=" nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
+                           role="tab" aria-controls="nav-contact" aria-selected="false">Đang giao</a>
+
+                        <a class=" nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
+                           role="tab" aria-controls="nav-about" aria-selected="false">Hoàn thành</a>
+
+                        <a class=" nav-link" id="nav-huy-tab" data-toggle="tab" href="#nav-huy"
+                           role="tab" aria-controls="nav-huy" aria-selected="false">Hủy đơn</a>
+
+                        <a class=" nav-link" id="nav-hoan-tab" data-toggle="tab" href="#nav-hoan"
+                           role="tab" aria-controls="nav-hoan" aria-selected="false">Trả hàng/Hoàn tiền</a>
+                    </div>
+                   
+                </nav>
+                <div class="khungsearch" style="margin-bottom:-15px; margin-top:8px;">
+                    <i class='bx bx-search'></i>
+                    <span>Bạn có thể tìm kiếm theo thên shop, ID đơn hàng hoặc tên sản phẩm</span>
+                </div>
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-cd" role="tabpanel"
+                         aria-labelledby="nav-cd-tab">
+                        <div class="container" style="max-width: 100%;">
+                            
+                          @foreach (var item in Model.Bill) {
+                              
+                            
+                            <div class="order1">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <span class="like">Yêu thích</span>
+                                        <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                        <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                        <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                    </div>
+                                    <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                        @if(Convert.ToInt16(item.billStatic) == 0)
+                                        {
+                                            <span>Chờ thanh toán</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 1)
+                                        {
+                                            <span>Vận chuyển</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 2)
+                                        {
+                                            <span>Đang giao</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 3)
+                                        {
+                                            <span>Hoàn thành</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 4)
+                                        {
+                                            <span>Hủy đơn</span>
+                                        }
+                                        @if(Convert.ToInt16(item.billStatic) == 5)
+                                        {
+                                            <span>Trà hành/Hoàn tiền</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+
+                                </div>
+                                 @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                 {
+                                      <h2></h2>
+                                        <div class="row">
+                                            <div class="col-2">
+                                               
+                                                <img src="/images/products/@item1.Product.productImages"  width="95%" /> @* Hình ảnh sản phẩm *@
+                                            </div>
+                                            <div class="col-10">
+                                                <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                <div class="row">
+                                                    <div class="col-10" style="color: gray; padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                    <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                </div>
+                                                <div>@item1.quantity</div>
+                                            </div>
+                                        </div>
+                                 }
+                              </div>
+                            <div class="pay">
+                                <div class="tt">
+                                    <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                        <span class="tien">Thành tiền:&nbsp;</span>
+                                    <span style="color: red; text-decoration: underline;">đ</span>
+                                        <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-5 note1">
+                                            @if (Convert.ToInt16(item.billStatic) == 0)
+                                            {
+                                                <span>Chờ thanh toán</span>
+                                            }
+                                            @if (Convert.ToInt16(item.billStatic) == 1)
+                                            {
+                                                <span>Bên vận chuyển đang đến lấy hàng</span>
+                                            }
+                                            @if (Convert.ToInt16(item.billStatic) == 2)
+                                            {
+                                                <span>Đơn hàng đã đến bạn</span>
+                                            }
+                                            @if (Convert.ToInt16(item.billStatic) == 3)
+                                            {
+                                                <span>Đánh giá sản phẩm trước 10/12/2023</span>
+                                            }
+                                            @if (Convert.ToInt16(item.billStatic) == 4)
+                                            {
+                                                <span>Đã hủy bởi bạn</span>
+                                            }
+                                            @if (Convert.ToInt16(item.billStatic) == 5)
+                                            {
+                                                <span>Trà hành/Hoàn tiền</span>
+                                            }
+                                    </div>
+                                    <div class="col-7 phu">
+                                        <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                        <button class="contactoorder">Liên hệ người bán</button>
+                                        <button class="contactoorder">Mua lại</button>
+                                    </div>
+                                </div>
+                                   
+                                </div>
+                             
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade  " id="nav-home" role="tabpanel"
+                         aria-labelledby="nav-home-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if(Convert.ToInt16(item.billStatic) == 0)
+                                {
+
+                                <div class="order1">
+                                    <div class="row">
+                                        <div class="col-10">
+                                            <span class="like">Yêu thích</span>
+                                            <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                            <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                            <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                        </div>
+                                        <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Chờ thanh toán</span>                                            
+                                        </div>
+                                    </div>
+                                    <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                    </div>
+                                    @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                    {
+                                   
+                                        <h2></h2>
+                                        <div class="row">
+                                            <div class="col-2">
+
+                                                <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                            </div>
+                                            <div class="col-10">
+                                                <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                    <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                </div>
+                                                <div>@item1.quantity</div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="pay">
+                                    <div class="tt">
+                                        <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                        <span style="color: red; text-decoration: underline;">đ</span>
+                                        <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5 note1">
+                                            @if (Convert.ToInt16(item.billStatic) == 0)
+                                            {
+                                                <span>Chờ thanh toán</span>
+                                            }
+                                        </div>
+                                        <div class="col-7 phu">
+                                            <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                            <button class="contactoorder">Liên hệ người bán</button>
+                                            <button class="contactoorder">Mua lại</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                 
+                                   dem+=1;
+                                  }                             
+                            }
+                           
+                            @if (dem == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if (Convert.ToInt16(item.billStatic) == 1)
+                                {
+                                    <div class="order1">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span class="like">Yêu thích</span>
+                                                <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                                <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                                <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                            </div>
+                                            <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Vận chuyển</span>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                        </div>
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        {
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                </div>
+                                                <div class="col-10">
+                                                    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                    <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                    </div>
+                                                    <div>@item1.quantity</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pay">
+                                        <div class="tt">
+                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                            <span style="color: red; text-decoration: underline;">đ</span>
+                                            <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-5 note1">
+                                                @if (Convert.ToInt16(item.billStatic) == 1)
+                                                {
+                                                    <span>Bên vận chuyển đang đến lấy hàng</span>
+                                                }
+                                            </div>
+                                            <div class="col-7 phu">
+                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                                <button class="contactoorder">Liên hệ người bán</button>
+                                                <button class="contactoorder">Mua lại</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    dem5+=1;
+                                }
+                            }
+                             @if (dem == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if (Convert.ToInt16(item.billStatic) == 2)
+                                {
+
+                                    <div class="order1">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span class="like">Yêu thích</span>
+                                                <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                                <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                                <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                            </div>
+                                            <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Đang giao</span>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                        </div>
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        {
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                </div>
+                                                <div class="col-10">
+                                                    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                    <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                    </div>
+                                                    <div>@item1.quantity</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pay">
+                                        <div class="tt">
+                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                            <span style="color: red; text-decoration: underline;">đ</span>
+                                            <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-5 note1">
+                                               
+                                                @if (Convert.ToInt16(item.billStatic) == 2)
+                                                {
+                                                    <span>Đơn hàng đang đến bạn</span>
+                                                }
+                                                
+                                            </div>
+                                            <div class="col-7 phu">
+                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                                <button class="contactoorder">Liên hệ người bán</button>
+                                                <button class="contactoorder">Mua lại</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    dem1+=1;
+                                }
+                            }
+                            @if (dem1 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if (Convert.ToInt16(item.billStatic) == 3)
+                                {
+
+                                    <div class="order1">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span class="like">Yêu thích</span>
+                                                <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                                <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                                <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                            </div>
+                                            <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Hoàn thành</span>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                        </div>
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        {
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                </div>
+                                                <div class="col-10">
+                                                    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                    <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                    </div>
+                                                    <div>@item1.quantity</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pay">
+                                        <div class="tt">
+                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                            <span style="color: red; text-decoration: underline;">đ</span>
+                                            <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-5 note1">
+                                                @if (Convert.ToInt16(item.billStatic) == 3)
+                                                {
+                                                    <span>Đánh giá sản phẩm trước 10/12/2023</span>
+                                                }
+                                            </div>
+                                            <div class="col-7 phu">
+                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                                <button class="contactoorder">Liên hệ người bán</button>
+                                                <button class="contactoorder">Mua lại</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    dem2+=1;
+                                }
+                            }
+                            @if (dem2 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-huy" role="tabpanel" aria-labelledby="nav-huy-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if (Convert.ToInt16(item.billStatic) == 4)
+                                {
+
+                                    <div class="order1">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span class="like">Yêu thích</span>
+                                                <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                                <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                                <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                            </div>
+                                            <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Hủy đơn</span>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                        </div>
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        {
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                </div>
+                                                <div class="col-10">
+                                                    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                    <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                    </div>
+                                                    <div>@item1.quantity</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pay">
+                                        <div class="tt">
+                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                            <span style="color: red; text-decoration: underline;">đ</span>
+                                            <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-5 note1">                                                
+                                                @if (Convert.ToInt16(item.billStatic) == 4)
+                                                {
+                                                    <span>Đã hủy bởi bạn</span>
+                                                }
+                                            </div>
+                                            <div class="col-7 phu">
+                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                                <button class="contactoorder">Liên hệ người bán</button>
+                                                <button class="contactoorder">Mua lại</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    dem3+=1;
+                                }
+                            }
+                            @if (dem3 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-hoan" role="tabpanel" aria-labelledby="nav-hoan-tab">
+                        <div class="container">
+                            @foreach (var item in Model.Bill)
+                            {
+                                @if (Convert.ToInt16(item.billStatic) == 5)
+                                {
+
+                                    <div class="order1">
+                                        <div class="row">
+                                            <div class="col-10">
+                                                <span class="like">Yêu thích</span>
+                                                <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                                <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
+                                                <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
+                                            </div>
+                                            <div class="col-2" style="color: red;display: flex; justify-content: right;">
+                                                <span>Trả hàng/Hoàn tiền</span>
+                                            </div>
+                                        </div>
+                                        <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
+                                        </div>
+                                        @foreach (var item1 in Model.Bill.FirstOrDefault().detailsOrders)
+                                        {
+                                            <h2></h2>
+                                            <div class="row">
+                                                <div class="col-2">
+
+                                                    <img src="/images/products/@item1.Product.productImages" width="95%" /> @* Hình ảnh sản phẩm *@
+                                                </div>
+                                                <div class="col-10">
+                                                    <p style="font-size: 20px; font-weight: 600; margin-bottom: 0px;">@item1.Product.name</p>
+                                                    <div class="row">
+                                                        <div class="col-10" style="color: gray;padding-left:13px;">Phân loại hàng: S / Trắng</div> @* màu với size *@
+                                                        <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.Product.price).ToString("N0")</div>
+                                                    </div>
+                                                    <div>@item1.quantity</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="pay">
+                                        <div class="tt">
+                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
+                                            <span class="tien">Thành tiền: &nbsp;</span>
+                                            <span style="color: red; text-decoration: underline;">đ</span>
+                                            <span class="toltal">@Convert.ToDecimal(item.price).ToString("N0")</span>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-5 note1">
+                                                @if (Convert.ToInt16(item.billStatic) == 5)
+                                                {
+                                                    <span>Trà hành/Hoàn tiền</span>
+                                                }
+                                            </div>
+                                            <div class="col-7 phu">
+                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
+                                                <button class="contactoorder">Liên hệ người bán</button>
+                                                <button class="contactoorder">Mua lại</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    dem4+=1;
+                                }
+                            }
+                            @if (dem4 == 0)
+                            {
+                                <div class="notorder">
+                                    <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
+                                    
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .container{
+        padding-top:0px;
+    }
+
+    .notorder {
+        height: 370px;
+        background-color: #fff;
+        margin-top: 18px;
+        justify-content: center;
+        border-radius: 0px 0px 8px 8px;
+        display: flex;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    }
+
+    .notorder img {
+        margin:auto;
+        display: table;
+        vertical-align: middle;
+    }
+</style>
+<script src="~/js/bootstrap.bundle.min.js"></script>

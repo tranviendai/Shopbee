@@ -63,7 +63,7 @@ namespace JZenoApp.Controllers
             session.SetString(CARTKEY, jsoncart);
         }
         [Route("/addcart", Name = "addcart")]
-        public  IActionResult AddToCart(string? id, string? color, int? size)
+        public IActionResult AddToCart(string? id, string? color, int? size, int? quantity)
         {
             var product = _context.Product
              .Where(p => p.Id == id)
@@ -78,34 +78,31 @@ namespace JZenoApp.Controllers
                      c => new ProductColor
                      {
                          Id = c.Id,
-                        Name = c.Name,
-                        productSize = c.productSize!.Select(
+                         Name = c.Name,
+                         productSize = c.productSize!.Select(
                             s => new ProductSize
                             {
                                 Id = s.Id,
                                 name = s.name,
                                 quantity = s.quantity
-                            }).Where(s=>s.Id == size).ToList()
-                     }).Where(c=>c.Id == color).ToList(),
+                            }).Where(s => s.Id == size).ToList()
+                     }).Where(c => c.Id == color).ToList(),
                  productImages = e.productImages,
              }
             ).ToList()
              .FirstOrDefault();
             if (product == null)
                 return NotFound("Không có sản phẩm");
-            // Xử lý đưa vào Cart ...
             var cart = GetCartItems();
 
-            var cartitem = cart.Find(e=>e.product!.Id == id && e.isUnique == size);
+            var cartitem = cart.Find(e => e.product!.Id == id && e.isUnique == size);
             if (cartitem != null)
             {
-                // Đã tồn tại, tăng thêm 1
-                cartitem.quantity++;
+                cartitem.quantity += quantity;
             }
             else
             {
-                //  Thêm mới
-                cart.Add(new CartItem() { quantity = 1, product = product, isUnique = size });
+                cart.Add(new CartItem() { quantity = quantity, product = product, isUnique = size });
             }
 
             // Lưu cart vào Session
@@ -137,50 +134,47 @@ namespace JZenoApp.Controllers
             var cartitem = cart.Find(p => p.product!.Id == productid);
             if (cartitem != null)
             {
-                // Đã tồn tại, tăng thêm 1
                 cart.Remove(cartitem);
             }
             SaveCartSession(cart);
             return RedirectToAction(nameof(Cart));
         }
-       // [Authorize(Roles = "Customer")]
+        // [Authorize(Roles = "Customer")]
         [Route("/checkout")]
         public IActionResult CheckOut()
         {
             String idGUID = Guid.NewGuid().ToString();
             var cart = GetCartItems();
-            try
+            Bill bill = new Bill();
+            bill.billID = idGUID;
+            bill.date = DateTime.Now;
+            bill.payment = false;
+            bill.deliveryForm = true;
+            bill.billStatic = 0;
+            bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
+            //bill.voucherID = 
+            bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); //User Identity Name -> thay vì Name thì userID
+            _context.Add(bill);
+            foreach (var item in cart)
             {
-                Bill bill = new Bill();
-                bill.billID = idGUID;
-                bill.date = DateTime.Now;
-                bill.payment = false;
-                bill.deliveryForm = true;
-                //bill.voucherID = 
-                bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); //User Identity Name -> thay vì Name thì userID
-                bill.price = (decimal?) cart.Sum(s => s.product!.price * s.quantity);
-                _context.Add(bill);
-                foreach (var item in cart)
-                {
-                    /*
-                      DetailOrder detailOrder = new DetailOrder();   
-                     detailOrder.billID = idGUID;
-                     detailOrder.quantity = item.quantity;
-                     detailOrder.price = item.product!.price;
-                     detailOrder.totalPrice = item.product.price * detailOrder.quantity;
-                     detailOrder.product!.productColor!.productId = item.product!.Id;                     
-                     _context.Add(detailOrder);
-                     */
-                }
-                _context.SaveChanges();
+                var product = _context.Product.FindAsync(item.product!.Id);
+                DetailOrder detailOrder = new DetailOrder();
+                detailOrder.billID = idGUID;
+                detailOrder.quantity = item.quantity;
+                detailOrder.price = item.product!.price;
+                detailOrder.totalPrice = item.product.price * detailOrder.quantity;
+                detailOrder.Product = product.Result;
+                _context.Add(detailOrder);
+                var pro = _context.ProductSize.ToList().FirstOrDefault(e => e.Id == item.isUnique);
+                pro!.quantity -= item.quantity;
+                _context.Update(pro);
             }
-            catch
-            {
-                return Content("Không Thành Công, Mời Bạn Check Lại Thông Tin");
-            }
+            _context.SaveChanges();
+
+
             ClearCart();
             return RedirectToAction("Index", "Home");
-           // return Content("Thành Công Rồi Á");
+            // return Content("Thành Công Rồi Á");
         }
         [Route("/cart", Name = "cart")]
         public IActionResult Cart()
@@ -256,14 +250,14 @@ namespace JZenoApp.Controllers
             {
                 itemList.items.Add(new Item()
                 {
-                    name =  item.product!.name,
+                    name = item.product!.name,
                     currency = "USD",
-                    price = Math.Round(((double)(item.product.price / giaTienHienTaiVNDtoUSD)!),2).ToString(),
+                    price = Math.Round(((double)(item.product.price / giaTienHienTaiVNDtoUSD)!), 2).ToString(),
                     quantity = item.quantity.ToString(),
                     sku = "sku"
                 });
             }
-            double total =  itemList.items.Sum(s=> double.Parse(s.price) * double.Parse(s.quantity));
+            double total = itemList.items.Sum(s => double.Parse(s.price) * double.Parse(s.quantity));
             var payer = new Payer()
             {
                 payment_method = "paypal"
@@ -292,7 +286,7 @@ namespace JZenoApp.Controllers
             transactionList.Add(new Transaction()
             {
                 description = $"Invoice #{paypalOrderId}",
-                invoice_number = paypalOrderId.ToString(), 
+                invoice_number = paypalOrderId.ToString(),
                 amount = amount,
                 item_list = itemList
             });
@@ -310,7 +304,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> UserDetails(string id)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.Id == id);
-            return  PartialView(user);
+            return PartialView(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
