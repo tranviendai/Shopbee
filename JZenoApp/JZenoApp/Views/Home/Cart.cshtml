@@ -1,4 +1,8 @@
-﻿@model List<JZenoApp.Models.CartItem>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model List<JZenoApp.Models.CartItem>
 
     @{
     ViewData["Title"] = "Giỏ Hàng";
@@ -7,11 +11,10 @@
     }
 
 <h2>GIỎ HÀNG</h2>
-
 @if (Model.Count > 0) {
   double? total = 0;
   int stt = 1;
-
+    
     <div class="header-cart">
         <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
             Sản Phẩm
@@ -33,7 +36,6 @@
     {
         var thanhtien = cartitem.quantity * cartitem.product!.price;
         total += thanhtien;
-
             <div class="body-cart">
                 <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
                     <div style="display: flex;">
@@ -49,10 +51,9 @@
                                 index++;
                             }
                         }
-                        <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name</p>
+                    <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name (@cartitem.product.productColor!.FirstOrDefault()!.Name - @cartitem.product!.productColor!.FirstOrDefault()!.productSize!.FirstOrDefault(e=>e.Id == cartitem!.isUnique!)!.name)</p>
                     </div>
                 </div>
-
                 <div style="text-align: center; width: 15.88022%; color: rgba(0,0,0,.8);">
                     @Convert.ToDecimal(cartitem.product.price).ToString("N0")đ
                 </div>
@@ -72,7 +73,6 @@
                             </button>
                         </div>
                     </div>
-                    
                 </div>
                 <div style="text-align: center; width: 10.43557%; color: rgba(0,0,0,.8);">
                     @Convert.ToDecimal(thanhtien).ToString("N0")đ
@@ -116,9 +116,28 @@
                     <h5 class="modal-title" id="exampleModalLabel">Phương Thức Thanh Toán</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="display: flex; justify-content: center; justify-items: center; align-items: center; text-align: center;">
+                <div class="modal-body text-center">
+                    <form asp-controller="Home" asp-action="CheckOut">
+                        <input id="voucherName"  name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" />
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                            <div style="height:5px;"></div>
+                            <input id="getPhone" attern="[0-9]{10}" minlength="10" maxlength="10" name="getPhone" required type="tel" class="form-control" placeholder="Nhập Số Điện Thoại" />
+                            <div style="height:5px;"></div>
+                            <input id="getAddress" required minlength="24" maxlength="100" pattern="[a-zA-Z\]*" name="getAddress" class="form-control" placeholder="Nhập Địa Chỉ Nhận Hàng" />
+                            <div style="height:5px;"></div>
+                            <input id="getName" minlength="2" maxlength="32" pattern="[a-zA-Z\]*" required name="getName" class="form-control" placeholder="Nhập Họ Tên Của Bạn" />
+                            <div style="height:5px;"></div>
+                        }
+                        else{
+                            <div style="height:5px;"></div>
+                            <input id="getName" name="getNote" class="form-control" placeholder="Ghi Chú?" />
+                            <div style="height:5px;"></div>
+                        }
+
+                        <button class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</button>
+                    </form>
                     <a asp-controller="Home" asp-action="PaymentWithPaypal" class="btn btn--primary header__cart-see-cart">Thanh Toán Bằng Paypal</a>
-                    <a href="/cart/checkout" class="btn btn--primary header__cart-see-cart">Thanh Toán Khi Nhận Hàng</a>
                 </div>
             </div>
         </div>

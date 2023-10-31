@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace JZenoApp.Models
 {
+    [Index(nameof(name), IsUnique = true)]
     public class Voucher
     {
         [Key]
         public int? voucherID { get; set; }
-        [MaxLength(20)]
+        [MaxLength(40)]
         public string? name { get; set; }
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [DataType(DataType.Currency)]

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace JZenoApp.Models
 {
@@ -25,7 +26,8 @@ namespace JZenoApp.Models
         [ForeignKey("voucherID")]
         public int? voucherID { get; set; }
         public Voucher? Voucher { get; set; }
-
+        [StringLength(200)]
+        public string? note { get; set; }
         [Display(Name ="Trạng Thái")]
         [Range(0,5)]
         public int? billStatic {get;set;}

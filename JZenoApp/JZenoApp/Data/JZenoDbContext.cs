@@ -1537,6 +1537,13 @@ namespace JZenoApp.Data
                           name = "64GB",
                           quantity = 30,
                           productColorId = "whitewatch3"
+                      },
+                      new ProductSize
+                      {
+                          Id = 124,
+                          name = "64GB",
+                          quantity = 30,
+                          productColorId = "pinkwatch3"
                       }
                 );
             });

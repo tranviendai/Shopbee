@@ -1,9 +1,16 @@
-﻿    @using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
+    @if (User.IsInRole("Admin"))
+    {
+        <li class="nav-item">
+            <a class="header__nav-item-link" href="/Manage/Products" title="Manage">Quản Lí</a>
+        </li>
+        <div style="width:5px;"></div>
+    }
     <li class="nav-item">
         <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserAsync(User).Result!.fullName</a>
     </li>

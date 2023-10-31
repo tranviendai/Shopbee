@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<JZenoApp.Models.NewsModel>
-
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Tin Tức";
 }
@@ -17,7 +18,6 @@
         color: #000;
         
     }
-
     .box-news:hover {
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         cursor: pointer;
@@ -51,15 +51,23 @@
     }
 </style>
 
-<p>
-    <a asp-action="Create" class="post-news">Đăng tin</a>
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("Partner"))
+{
+    <p>
+        <a asp-action="Create" class="post-news">Đăng tin</a>
+    </p>
+}
 
 <div class="row">
     @foreach (var item in Model)
     {
         <div class="col-4" style="padding: 5px;" >
             <div class="box-news" style="height: 368px;">
+                @if(item.userId == UserManager.GetUserId(User) || User.IsInRole("Admin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id" style="text-decoration: none; border-radius:3px; padding:5px; background:red; color:white; margin:3px; float:right;"> Xóa </a>
+                }
+               
                 <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none;">
                     <img src="https://cf.shopee.sg/file/sg-11134141-7qvd5-lk0zvmwjhh1z87" alt="" style="width: 100%;" />
                     <div class="p-4 d-inline-block">

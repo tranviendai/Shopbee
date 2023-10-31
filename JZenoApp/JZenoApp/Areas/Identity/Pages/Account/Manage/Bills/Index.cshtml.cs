@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using System.Security.Claims;
 
 namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
 {
@@ -28,8 +29,11 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
                 Bill = await _context.Bill
                 .Include(b => b.User)!
                 .Include(x => x.detailsOrders)!
-                .ThenInclude(p => p.Product)!.ThenInclude(e => e.productImages)!
-                .Include(b => b.Voucher).ToListAsync();
+                .ThenInclude(p => p.Product)!.
+                ThenInclude(e => e.productImages)!
+                .Include(b => b.Voucher)
+                .Where(e=>e.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToListAsync();
             }
            
         }    

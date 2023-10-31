@@ -2,6 +2,7 @@ using JZenoApp.Data;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,12 @@ namespace JZenoApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly JZenoDbContext _context;
         public const string CARTKEY = "cart";
-        public HomeController(ILogger<HomeController> logger, JZenoDbContext context)
+        private readonly SignInManager<User> _signInManager;
+        public HomeController(ILogger<HomeController> logger, JZenoDbContext context, SignInManager<User> signInManager)
         {
             _logger = logger;
             _context = context;
+            _signInManager = signInManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -139,11 +142,6 @@ namespace JZenoApp.Controllers
             SaveCartSession(cart);
             return RedirectToAction(nameof(Cart));
         }
-        [Route("/cart/checkout")]
-        public IActionResult CartCheckOut(IFormCollection form)
-        {
-            return View(GetCartItems());
-        }
         // [Authorize(Roles = "Customer")]
         [Route("/checkout")]
         public IActionResult CheckOut(IFormCollection form)
@@ -156,10 +154,27 @@ namespace JZenoApp.Controllers
             bill.payment = false;
             bill.deliveryForm = true;
             bill.billStatic = 0;
-            var voucherID = _context.Voucher.FirstOrDefault(e=>e.name == form["voucherName"].ToString());
-            bill.voucherID = voucherID!.voucherID;
-            bill.price = (decimal?) cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
-            bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); //User Identity Name -> thay vì Name thì userID
+            var voucherID = _context.Voucher.FirstOrDefault(e => e.name == form["voucherName"].ToString());
+            if (voucherID != null)
+            {
+                bill.voucherID = voucherID!.voucherID;
+                bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
+            }
+            else
+            {
+                bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
+            }
+            if(_signInManager.IsSignedIn(User))
+            {
+                bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                bill.note = $"<div>{form["getNote"].ToString()}</div>";
+            }
+            else
+            {
+                bill.note = "<div>" + "<strong>" + "Họ Tên: " + "</strong>" + form["getName"].ToString()+"</br>"+
+                     "<strong>" + "Số Điện Thoại: " + "</strong>" + form["getPhone"].ToString() + "<br/>" +
+                   "<strong>" + "Địa Chỉ Nhận Hàng: " + "</strong>" + form["getAddress"].ToString() + "</div>";
+            }
             _context.Add(bill);
             foreach (var item in cart)
             {
@@ -180,16 +195,25 @@ namespace JZenoApp.Controllers
                 _context.Update(pro);
             }
             _context.SaveChanges();
-
-
             ClearCart();
-            return RedirectToAction("Index", "Home");
+            return Redirect("Bills/Details/" + bill.billID);
             // return Content("Thành Công Rồi Á");
         }
         [Route("/cart", Name = "cart")]
         public IActionResult Cart()
         {
-            return View(GetCartItems());
+            /*
+              if (_signInManager.IsSignedIn(User))
+             {
+                 return View(GetCartItems());
+             }
+             else
+             {
+                 return Redirect("/Identity/Account/Login");
+             }*/
+            
+                return View(GetCartItems());
+           
         }
         public IActionResult PaymentWithPaypal(string? Cancel = null)
         {

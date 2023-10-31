@@ -26,31 +26,29 @@
                 <!-- navbar -->
                 <nav class="header__navbar hide-on-mobile-tablet">
                     <ul class="header__nav-list">
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                            <a class="header__nav-item-link" asp-area="Manage" asp-controller="Categories" asp-action="Index">Loại Hàng</a>
-                            </li>
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                            <a class="header__nav-item-link" asp-area="Manage" asp-controller="Products" asp-action="Index">Quản Lý Sản Phẩm</a>
+                            <a class="header__nav-item-link" href="/">Trang Chủ</a>
                         </li>
-                               <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" href="/admin/role">Vai Trò</a>
-                            </li>
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
+                        @if (User.IsInRole("Partner"))
+                        {
+                            
+                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">Kênh Người Bán</li>
+                        }
+                        @if (User.IsInRole("Customer"))
+                        {
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
                             </li>
-                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="Manage" asp-controller="Partners" asp-action="Index">Quản Lý Đối Tác</a>
-                            </li>
-
-                        
-                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">Kênh Người Bán</li>
+                        }
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                            <a class="header__nav-item-link" href="/Manage/News">Tin Tức</a>
+                        </li>
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate header__show-qr">
                             Tải ứng dụng
                         </li>
-                        <!-- qr code -->
                         <div class="header__qrcode">
                             <img src="~/images/qr/qr-code.png" class="header__qr">
                             <div class="header__apps">

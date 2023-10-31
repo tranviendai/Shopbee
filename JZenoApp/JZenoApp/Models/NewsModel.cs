@@ -10,7 +10,6 @@ namespace JZenoApp.Models
 
         [StringLength(100)]
         public string? title { get; set; }
-
         public string? description { get; set; }
 
         [ForeignKey("Id")]

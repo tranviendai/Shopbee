@@ -1,6 +1,8 @@
 ﻿@page
 @model JZenoApp.Areas.Identity.Pages.Account.Manage.Bills.IndexModel
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Index";
     int dem = 0, dem1 = 0, dem2 = 0, dem3 = 0, dem4 = 0, dem5 =0 ;
@@ -21,14 +23,14 @@
                            role="tab" aria-controls="nav-cd" aria-selected="true">Tất cả</a>
                         <a class=" nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home"
                            role="tab" aria-controls="nav-home" aria-selected="false">
-                            Chờ thanh toán
+                            Chờ Xử Lý
                             <img src="./image/new-logo.png" width="80" alt="">
                         </a>
                         <a class=" nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                           role="tab" aria-controls="nav-profile" aria-selected="false">Vận chuyển</a>
+                           role="tab" aria-controls="nav-profile" aria-selected="false">Đã Xác Nhận</a>
 
                         <a class=" nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact"
-                           role="tab" aria-controls="nav-contact" aria-selected="false">Đang giao</a>
+                           role="tab" aria-controls="nav-contact" aria-selected="false">Đang Giao</a>
 
                         <a class=" nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about"
                            role="tab" aria-controls="nav-about" aria-selected="false">Hoàn thành</a>
@@ -39,40 +41,33 @@
                         <a class=" nav-link" id="nav-hoan-tab" data-toggle="tab" href="#nav-hoan"
                            role="tab" aria-controls="nav-hoan" aria-selected="false">Trả hàng/Hoàn tiền</a>
                     </div>
-                   
                 </nav>
-                <div class="khungsearch" style="margin-bottom:-15px; margin-top:8px;">
-                    <i class='bx bx-search'></i>
-                    <span>Bạn có thể tìm kiếm theo thên shop, ID đơn hàng hoặc tên sản phẩm</span>
-                </div>
+
                 <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-cd" role="tabpanel"
                          aria-labelledby="nav-cd-tab">
                         <div class="container" style="max-width: 100%;">
-                            
                           @foreach (var item in Model.Bill) {
-                              
-                            
                             <div class="order1">
                                 <div class="row">
                                     <div class="col-10">
                                         <span class="like">Yêu thích</span>
-                                        <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">Jeno</span>
+                                        <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">JZeno</span>
                                         <span class="chat"><i class='bx bx-chat'></i><a>Chat</a></span>
                                         <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
                                     </div>
                                     <div class="col-2" style="color: red;display: flex; justify-content: right;">
                                         @if(Convert.ToInt16(item.billStatic) == 0)
                                         {
-                                            <span>Chờ thanh toán</span>
+                                            <span>Chờ Xử Lý</span>
                                         }
                                         @if(Convert.ToInt16(item.billStatic) == 1)
                                         {
-                                            <span>Vận chuyển</span>
+                                            <span>Đã Xác Nhận</span>
                                         }
                                         @if(Convert.ToInt16(item.billStatic) == 2)
                                         {
-                                            <span>Đang giao</span>
+                                            <span>Đang Giao</span>
                                         }
                                         @if(Convert.ToInt16(item.billStatic) == 3)
                                         {
@@ -129,7 +124,7 @@
                                     <div class="col-5 note1">
                                             @if (Convert.ToInt16(item.billStatic) == 0)
                                             {
-                                                <span>Chờ thanh toán</span>
+                                                <span>Chờ Xử Lý</span>
                                             }
                                             @if (Convert.ToInt16(item.billStatic) == 1)
                                             {
@@ -137,7 +132,7 @@
                                             }
                                             @if (Convert.ToInt16(item.billStatic) == 2)
                                             {
-                                                <span>Đơn hàng đã đến bạn</span>
+                                                <span>Đơn hàng đang giao đã đến bạn</span>
                                             }
                                             @if (Convert.ToInt16(item.billStatic) == 3)
                                             {
@@ -181,7 +176,7 @@
                                             <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
                                         </div>
                                         <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                <span>Chờ thanh toán</span>                                            
+                                                <span>Chờ Xử Lý</span>                                            
                                         </div>
                                     </div>
                                     <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -223,7 +218,7 @@
                                         <div class="col-5 note1">
                                             @if (Convert.ToInt16(item.billStatic) == 0)
                                             {
-                                                <span>Chờ thanh toán</span>
+                                                <span>Chờ Xử Lý</span>
                                             }
                                         </div>
                                         <div class="col-7 phu">
@@ -263,7 +258,7 @@
                                                 <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
                                             </div>
                                             <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                <span>Vận chuyển</span>
+                                                <span>Đã Xác Nhận</span>
                                             </div>
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -346,7 +341,7 @@
                                                 <span class="shop"><i class='bx bx-store'></i><a>Xem shop</a></span>
                                             </div>
                                             <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                <span>Đang giao</span>
+                                                <span>Đang Giao</span>
                                             </div>
                                         </div>
                                         <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">

@@ -4,13 +4,13 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var detailorder = Model.detailsOrders!.FirstOrDefault();
-    var x = 0;
-    double gia = Convert.ToDouble(Model.Voucher.price);
-    double giagiam = Convert.ToDouble(detailorder.totalPrice) * gia;
-    
-
+    double gia = 0;
+    @if(Model.Voucher! != null)
+    {
+        gia = Convert.ToDouble(Model.Voucher.price);
+    }
+    double giagoc = gia + (double)Model.price!;
 }
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <link href="~/css/bootstrap.min.css" rel="stylesheet" />
 
@@ -48,11 +48,11 @@
                     @{
                         if (Convert.ToInt16(Model.billStatic) == 0)
                         {
-                            <span>Chờ Thanh Toán</span>
+                            <span>Chờ Xử Lý</span>
                         }
                         else if (Convert.ToInt16(Model.billStatic) == 1)
                         {
-                            <span>Chờ Vận Chuyển</span>
+                            <span>Đã Xác Nhận</span>
                         }
                         else if (Convert.ToInt16(Model.billStatic) == 2)
                         {
@@ -66,10 +66,6 @@
                         {
                             <span>Đã Hủy</span>
                         }
-                        else if (Convert.ToInt16(Model.billStatic) == 5)
-                        {
-                            <span>Trả Tiền/Hoàn Tiền</span>
-                        }
                     }
 
                 </div>
@@ -77,17 +73,19 @@
                     <div style="font-weight: bold; padding-top: 15px" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
                     <table>
                         
-                        @foreach(var item in Model.detailsOrders)
+                        @foreach(var item in Model.detailsOrders!)
                         {
+                            var z = 0;
                             <div class="row">
                                 <div class="col-3">
-                                   @foreach(var hinh in item.Product.productImages!)
+                                   @foreach(var hinh in item.Product!.productImages!)
                                     {
-                                    if (x == 0)
-                                    {
-                                    <img src="~/images/products/@hinh.URL" style="width:200px;" /> @* Lấy ảnh dùm tui nha *@
-                                    }
-                                    x++;
+                                        
+                                        if (z == 0)
+                                        {
+                                            <img src="~/images/products/@hinh.URL" style="width:200px;" />
+                                        }
+                                        z++;
                                     }
                                 </div>
                                 <div class="col-6" style="display:flex; align-items:center;"  >
@@ -97,16 +95,16 @@
                                     <span >@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
                                 </div>
                             </div>
-                            
-                           
-                            
-                            
+                            <hr/>
                         }
                     </table>
-                    <div style="margin-top:10px;">
-                        Giảm giá:<span style="color:red;"> @Convert.ToDecimal(giagiam).ToString("N0")đ</span>
+                    <div style="margin-top:10px;text-align:right;">
+                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(giagoc).ToString("N0")đ</span>
                     </div>
-                    <div style="font-size:17px;font-weight:600;">Tổng tiền thanh toán: <span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></div>
+                    <div style="text-align:right;">
+                        <strong>Giảm giá:</strong><span style="color:red;"> @Convert.ToDecimal(gia).ToString("N0")đ</span>
+                    </div>
+                    <div style="font-size:17px;text-align:right;margin-bottom:20px;"><strong>Tổng hóa đơn :<span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></strong></div>
                 </div>
                 <!--
                 {
@@ -180,57 +178,101 @@
                  -->
             </div>
         </div>
-        <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: 550px" class="col-xs-12 col-md-4">
-            <div class="order_customer">
-                <p style="color: #4568FF; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Model.User.fullName</p>
-                <div class="tt-order" style="border-bottom: 1px solid #ccc">
-                    <p style="font-weight: bold" class="text_thss">THÔNG TIN KHÁCH HÀNG</p>
-                    <p style="color: #4568FF" class="texts-order"><span style="color:#000; ">Email: </span>@Model.User.Email</p>
-                    <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Số điện thoại: </span>@Model.User.PhoneNumber</p>
+        @if(Model.User == null)
+        {
+            <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: auto;" class="col-xs-12 col-md-4">
+                <div class="order_customer">
+                    <p style="color: #4568FF; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Html.Raw(Model.note)</p>
+                    <div class="tt-order">
+                        <p style="font-weight: bold; padding-top: 7px;" class="text_thss">TRẠNG THÁI ĐƠN HÀNG</p>
+                        @{
+                            if (Convert.ToInt16(Model.billStatic) == 0)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Chờ Xử Lý</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 1)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Xác Nhận</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 2)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 3)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 4)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 5)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
+                            }
+                            <div style="height:10px;"></div>
+                        }
+                    </div>
                 </div>
-                <div class="tt-order" style="border-bottom: 1px solid #ccc">
-                    <p style="font-weight: bold; padding-top: 7px" class="text_thss">ĐỊA CHỈ GIAO HÀNG</p>
-                    <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Địa chỉ: </span>@Model.User.address</p>
-                </div>
-                <div class="tt-order" style="border-bottom: 1px solid #ccc">
-                    <p style="font-weight: bold; padding-top: 7px" class="text_thss">PHƯƠNG THỨC THANH TOÁN</p>
-                    <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thanh toán: </span>Thanh toán tiền mặt</p>
-                </div>
-                <div class="tt-order" style="border-bottom: 1px solid #ccc">
-                    <p style="font-weight: bold; padding-top: 7px" class="text_thss">NGÀY ĐẶT ĐƠN HÀNG</p>
-                    <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thời gian: </span>@Model.date</p>
-                </div>
-                <div class="tt-order">
-                    <p style="font-weight: bold; padding-top: 7px;" class="text_thss">TRẠNG THÁI ĐƠN HÀNG</p>
-                    @{
-                        if (Convert.ToInt16(Model.billStatic) == 0)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Chờ Xác Nhận</span>
-                        }
-                        else if (Convert.ToInt16(Model.billStatic) == 1)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Chờ vận chuyển</span>
-                        }
-                        else if (Convert.ToInt16(Model.billStatic) == 2)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
-                        }
-                        else if (Convert.ToInt16(Model.billStatic) == 3)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
-                        }
-                        else if (Convert.ToInt16(Model.billStatic) == 4)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
-                        }
-                        else if (Convert.ToInt16(Model.billStatic) == 5)
-                        {
-                            <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
-                        }
-                    }
-                </div>
-
             </div>
-        </div>
+        }
+        else
+        {
+            <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: auto;" class="col-xs-12 col-md-4">
+                <div class="order_customer">
+                    <p style="color: #4568FF; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Model.User.fullName</p>
+                    <div class="tt-order" style="border-bottom: 1px solid #ccc">
+                        <p style="font-weight: bold" class="text_thss">THÔNG TIN KHÁCH HÀNG</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000; ">Email: </span>@Model.User.Email</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Số điện thoại: </span>@Model.User.PhoneNumber</p>
+                    </div>
+                    <div class="tt-order" style="border-bottom: 1px solid #ccc">
+                        <p style="font-weight: bold; padding-top: 7px" class="text_thss">ĐỊA CHỈ GIAO HÀNG</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Địa chỉ: </span>@Model.User.address</p>
+                    </div>
+                    <div class="tt-order" style="border-bottom: 1px solid #ccc">
+                        <p style="font-weight: bold; padding-top: 7px" class="text_thss">PHƯƠNG THỨC THANH TOÁN</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thanh toán: </span>Thanh toán tiền mặt</p>
+                    </div>
+                    <div class="tt-order" style="border-bottom: 1px solid #ccc">
+                        <p style="font-weight: bold; padding-top: 7px" class="text_thss">NGÀY ĐẶT ĐƠN HÀNG</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thời gian: </span>@Model.date</p>
+                    </div>
+                    <div class="tt-order" style="border-bottom: 1px solid #ccc">
+                        <p style="font-weight: bold; padding-top: 7px" class="text_thss">GHI CHÚ</p>
+                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;"></span>@Html.Raw(Model.note)</p>
+                    </div>
+                    <div class="tt-order">
+                        <p style="font-weight: bold; padding-top: 7px;" class="text_thss">TRẠNG THÁI ĐƠN HÀNG</p>
+                        @{
+                            if (Convert.ToInt16(Model.billStatic) == 0)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Chờ Xử Lý</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 1)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Xác Nhận</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 2)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 3)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 4)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
+                            }
+                            else if (Convert.ToInt16(Model.billStatic) == 5)
+                            {
+                                <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
+                            }
+                            <div style="height:10px;"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-</div>

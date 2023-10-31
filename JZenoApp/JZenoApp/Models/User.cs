@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace JZenoApp.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     public class User : IdentityUser
     {
         [StringLength(50)]

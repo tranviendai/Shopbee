@@ -42,8 +42,10 @@
     }
 </style>
 
-<a class="edit-news" asp-action="Edit" asp-route-id="@Model?.Id">Sửa bài đăng</a>
-
+@if(User.IsInRole("Admin") || User.IsInRole("Partner"))
+{
+    <a class="edit-news" style="float:right;" asp-action="Edit" asp-route-id="@Model?.Id">Sửa bài đăng</a>
+}
 
 <div style="padding: 24px 0;">
     <a asp-action="Index" class="back-news">
@@ -52,13 +54,15 @@
     </a>
 </div>
 
-<h1 style="margin: 12px 0;">
-    @Html.DisplayFor(model => model.title)
-</h1>
+<div style="border-radius:5px; padding:5px;background:white;">
+    <h1 style="margin: 12px 0;">
+        @Html.DisplayFor(model => model.title)
+    </h1>
 
-<div>
-    <h4 style="line-height: 2.5rem; font-weight: lighter;">
-        @Html.DisplayFor(model => model.description)
-    </h4>
+    <div>
+        <h4 style="line-height: 2.5rem; font-weight: lighter;">
+            @Html.Raw(Model!.description)
+        </h4>
+    </div>
+
 </div>
-

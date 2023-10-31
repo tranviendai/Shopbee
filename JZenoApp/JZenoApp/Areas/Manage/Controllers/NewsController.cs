@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Areas.Manage.Controllers
 {
@@ -36,7 +37,6 @@ namespace JZenoApp.Areas.Manage.Controllers
             {
                 return NotFound();
             }
-
             var newsModel = await _context.NewsModel
                 .Include(n => n.user)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -49,6 +49,7 @@ namespace JZenoApp.Areas.Manage.Controllers
         }
 
         [Route("Manage/News/Create")]
+        [Authorize(Roles = "Admin,Partner")]
         public IActionResult Create()
         {
             ViewData["userId"] = new SelectList(_context.User, "Id", "Id");
@@ -57,6 +58,7 @@ namespace JZenoApp.Areas.Manage.Controllers
 
         [Route("Manage/News/Create")]
         [HttpPost]
+        [Authorize(Roles = "Admin,Partner")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,title,description,userId")] NewsModel newsModel)
         {
@@ -71,6 +73,7 @@ namespace JZenoApp.Areas.Manage.Controllers
         }
 
         [Route("Manage/News/Edit/{id?}")]
+        [Authorize(Roles = "Admin,Partner")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.NewsModel == null)
@@ -89,6 +92,7 @@ namespace JZenoApp.Areas.Manage.Controllers
 
         [Route("Manage/News/Edit/{id?}")]
         [HttpPost]
+        [Authorize(Roles = "Admin,Partner")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, [Bind("Id,title,description,userId")] NewsModel newsModel)
         {
@@ -121,6 +125,7 @@ namespace JZenoApp.Areas.Manage.Controllers
             return View(newsModel);
         }
         [Route("Manage/News/Delete/{id?}")]
+        [Authorize(Roles = "Admin,Partner")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.NewsModel == null)
@@ -141,6 +146,7 @@ namespace JZenoApp.Areas.Manage.Controllers
 
         [Route("Manage/News/Delete/{id?}")]
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin,Partner")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
