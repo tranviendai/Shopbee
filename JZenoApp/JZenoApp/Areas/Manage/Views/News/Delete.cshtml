@@ -4,13 +4,40 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Xóa Tin Tức @Model.title</h1>
+<style>
+    .delete-news-btn {
+        color: #fff !important;
+        padding: 8px;
+        background: #f0421f !important;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+    }
+</style>
 
 <div>
-   
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <a asp-action="Index">Quay Về</a>
-    </form>
+    <div class="modal fade show" style="display: block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="top: 10%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá!</h5>
+                    <a class="btn" href="/Manage/News">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </a>
+                </div>
+                <div class="modal-body" style="font-size: 1.6rem;">
+                    Bạn có chắc chắn xoá?
+                    <h4 style="color: red;"> @Model.title</h4>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn" href="/Manage/News">Thoát</a>
+                    <form asp-action="Delete" asp-controller="News">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="submit" value="Xác Nhận Xoá" class="btn delete-news-btn" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

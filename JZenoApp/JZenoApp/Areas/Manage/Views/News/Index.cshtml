@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<JZenoApp.Models.NewsModel>
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     ViewData["Title"] = "Tin Tức";
 }
@@ -46,7 +49,35 @@
         text-decoration: none;
     }
 
-    .post-news:hover {
+    .delete-news {
+        color: #ee4d2d !important;
+        position: absolute;
+        overflow: visible;
+        outline: 0;
+        margin: 10px;
+        right: 0;
+        background: #fff;
+        padding: 8px;
+        text-overflow: ellipsis;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+        text-transform: capitalize;
+        text-decoration: none;
+    }
+
+        .delete-news-btn {
+        color: #fff !important;
+        padding: 8px;
+        background: #f0421f !important;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+    }
+
+    .post-news:hover, .delete-news:hover {
         opacity: 0.8;
     }
 </style>
@@ -62,21 +93,22 @@
     @foreach (var item in Model)
     {
         <div class="col-4" style="padding: 5px;" >
-            <div class="box-news" style="height: 368px;">
-                @if(item.userId == UserManager.GetUserId(User) || User.IsInRole("Admin"))
+            <div class="box-news" style="height: 368px; position: relative;">
+                @if (User.IsInRole("Admin"))
                 {
-                    <a asp-action="Delete" asp-route-id="@item.Id" style="text-decoration: none; border-radius:3px; padding:5px; background:red; color:white; margin:3px; float:right;"> Xóa </a>
+                    
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="delete-news"> Xóa </a>
                 }
-               
                 <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none;">
                     <img src="https://cf.shopee.sg/file/sg-11134141-7qvd5-lk0zvmwjhh1z87" alt="" style="width: 100%;" />
                     <div class="p-4 d-inline-block">
                         <h4 class="title-news">@Html.DisplayFor(modelItem => item.title)</h4>
                         <div class="mt-4">
-                            <a href="" style="color: #ee4d2d; text-decoration: none;">Tìm hiểu thêm</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" style="color: #ee4d2d; text-decoration: none;">Tìm hiểu thêm</a>
                         </div>
                     </div>
                 </a>
+                
             </div>
         </div>
     }
