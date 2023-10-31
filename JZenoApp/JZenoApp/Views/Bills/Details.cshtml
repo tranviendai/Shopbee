@@ -5,6 +5,10 @@
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var detailorder = Model.detailsOrders!.FirstOrDefault();
     var x = 0;
+    double gia = Convert.ToDouble(Model.Voucher.price);
+    double giagiam = Convert.ToDouble(detailorder.totalPrice) * gia;
+    
+
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -72,22 +76,36 @@
                 <div class="detail_product">
                     <div style="font-weight: bold; padding-top: 15px" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
                     <table>
+                        
                         @foreach(var item in Model.detailsOrders)
                         {
-                            
-                            foreach(var hinh in item.Product.productImages!)
-                            {
-                                if (x == 0)
-                                {
+                            <div class="row">
+                                <div class="col-3">
+                                   @foreach(var hinh in item.Product.productImages!)
+                                    {
+                                    if (x == 0)
+                                    {
                                     <img src="~/images/products/@hinh.URL" style="width:200px;" /> @* Lấy ảnh dùm tui nha *@
-                                }
-                                x++;
-                            }
-                            //ai lại xài span như này trời
-                            <span style="margin-left:10px;" >@item.Product.name (@item.color - @item.size)</span>
-                            <span style="margin-left:425px;">@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
+                                    }
+                                    x++;
+                                    }
+                                </div>
+                                <div class="col-6" style="display:flex; align-items:center;"  >
+                                    <span style="margin-left:10px;">@item.Product.name (@item.color - @item.size)</span>
+                                </div>
+                                <div class="col-3" style="display:flex; align-items:center;">
+                                    <span >@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
+                                </div>
+                            </div>
+                            
+                           
+                            
+                            
                         }
                     </table>
+                    <div style="margin-top:10px;">
+                        Giảm giá:<span style="color:red;"> @Convert.ToDecimal(giagiam).ToString("N0")đ</span>
+                    </div>
                     <div style="font-size:17px;font-weight:600;">Tổng tiền thanh toán: <span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></div>
                 </div>
                 <!--
