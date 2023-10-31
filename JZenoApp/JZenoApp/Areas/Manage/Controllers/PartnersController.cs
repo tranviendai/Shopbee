@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace JZenoApp.Areas.QuanLy
 {
@@ -14,10 +15,12 @@ namespace JZenoApp.Areas.QuanLy
     public class PartnersController : Controller
     {
         private readonly JZenoDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public PartnersController(JZenoDbContext context)
+        public PartnersController(JZenoDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [Route("Manage/Partners")]
@@ -28,22 +31,35 @@ namespace JZenoApp.Areas.QuanLy
                           Problem("Entity set 'JZenoDbContext.Partner'  is null.");
         }
 
-        [Route("Manage/Partners/Details/{id?}")]
-        public async Task<IActionResult> Details(string id)
+        [HttpPost]
+        [Route("Manage/Partners/activePartner/{id?}")]
+        public async Task<IActionResult> activePartner(string id)
         {
-            if (id == null || _context.Partner == null)
+            try
             {
-                return NotFound();
+                var partner =  await _context.Partner
+              .FirstOrDefaultAsync(m => m.partnerId == id);
+                partner!.isActive = !partner.isActive;
+                User user =  _context.User!.Where(s => s.Id! == id)!.FirstOrDefault()!;
+                if (partner!.isActive == true)
+                {
+                    _userManager.AddToRoleAsync(user, "Partner").Wait();
+                    _userManager.RemoveFromRoleAsync(user, "Customer").Wait();
+                }
+                else
+                {
+                    _userManager.AddToRoleAsync(user, "Customer").Wait();
+                    _userManager.RemoveFromRoleAsync(user, "Partner").Wait();
+                }
+                 _context.Update(partner);
+                 _context.SaveChanges();
+                return Json(partner);
             }
-
-            var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.partnerId == id);
-            if (partner == null)
+            catch (Exception ex) 
             {
-                return NotFound();
+                return Json(new { error = ex.Message });
             }
-
-            return View(partner);
+           
         }
     }
 }

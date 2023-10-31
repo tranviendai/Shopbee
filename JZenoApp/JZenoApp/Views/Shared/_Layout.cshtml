@@ -32,15 +32,10 @@
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
-                        @if (User.IsInRole("Partner"))
-                        {
-                            
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">Kênh Người Bán</li>
-                        }
-                        @if (User.IsInRole("Customer"))
+                        @if (!User.IsInRole("Partner") || User.IsInRole("Admin"))
                         {
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Index">Trở Thành Đối Tác</a>
+                                <a class="header__nav-item-link" asp-area="" asp-controller="Partners" asp-action="Create">Trở Thành Đối Tác</a>
                             </li>
                         }
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate">

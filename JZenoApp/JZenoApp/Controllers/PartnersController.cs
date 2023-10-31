@@ -28,33 +28,6 @@ namespace JZenoApp.Controllers
             _userManager = userManager;
         }
 
-        // GET: Partners
-        public async Task<IActionResult> Index()
-        {
-              return _context.Partner != null ? 
-                          View(await _context.Partner.ToListAsync()) :
-                          Problem("Entity set 'JZenoDbContext.Partner'  is null.");
-        }
-
-        // GET: Partners/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null || _context.Partner == null)
-            {
-                return NotFound();
-            }
-
-            var partner = await _context.Partner
-                .FirstOrDefaultAsync(m => m.partnerId == id);
-            if (partner == null)
-            {
-                return NotFound();
-            }
-
-            return View(partner);
-        }
-
-        // GET: Partners/Create
         public IActionResult Create()
         {
             return View();
@@ -68,24 +41,21 @@ namespace JZenoApp.Controllers
             {
                 string stringFileName = UploadFile(partner.file!);
                 partner.image = stringFileName;
-                partner.partnerId = User.FindFirstValue(ClaimTypes.Name);
+                partner.partnerId = _userManager.GetUserId(User);
                 partner.isActive = false;
                 partner.dateCreated = DateTime.Now;
                 _context.Add(partner);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect("/");
             }
             return View(partner);
         }
-
-        // GET: Partners/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Partner == null)
             {
                 return NotFound();
             }
-
             var partner = await _context.Partner.FindAsync(id);
 
             if (partner == null)
@@ -95,14 +65,10 @@ namespace JZenoApp.Controllers
             return View(partner);
         }
 
-        // POST: Partners/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,name,image,file,description,dateCreated,isActive")] Partner partner)
+        public async Task<IActionResult> Edit(string id, [Bind("partnerId,name,image,description,dateCreated,file,isActive")] Partner partner)
         {
-            string image = partner.image!;
             if (id != partner.partnerId)
             {
                 return NotFound();
@@ -111,25 +77,16 @@ namespace JZenoApp.Controllers
             {
                 try
                 {
-                    if(User.FindFirstValue(ClaimTypes.Role) != "Admin")
+                    if (partner.image != null)
                     {
                         DeleteFile(partner.image!);
-                    }
-                    partner.image = UploadFile(partner.file!);
-                    if(partner.image == null)
-                    {
-                        partner.image = image;
-                    }
-                    User user = _context.User.Where(s => s.UserName == partner.partnerId).FirstOrDefault()!;
-                    if (partner.isActive == true)
-                    {
-                        _userManager.AddToRoleAsync(user,"Partner").Wait();
-                        _userManager.RemoveFromRoleAsync(user, "Customer").Wait();
+                        UploadFile(partner.file!);
+                        partner.image = UploadFile(partner.file!);
                     }
                     else
                     {
-                        _userManager.AddToRoleAsync(user, "Customer").Wait();
-                        _userManager.RemoveFromRoleAsync(user,"Partner").Wait();
+                        UploadFile(partner.file!);
+                        partner.image = UploadFile(partner.file!);
                     }
                     _context.Update(partner);
                     await _context.SaveChangesAsync();
@@ -145,12 +102,27 @@ namespace JZenoApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Partners/Details/"+id);
             }
             return View(partner);
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null || _context.Partner == null)
+            {
+                return NotFound();
+            }
 
-       
+            var partner = await _context.Partner.Include(e=>e.products)!.ThenInclude(e=>e.productImages)
+                .FirstOrDefaultAsync(m => m.partnerId == id);
+            if (partner == null)
+            {
+                return NotFound();
+            }
+
+            return View(partner);
+        }
+
         private bool PartnerExists(string id)
         {
           return (_context.Partner?.Any(e => e.partnerId == id)).GetValueOrDefault();

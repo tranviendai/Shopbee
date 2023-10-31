@@ -11,6 +11,13 @@
         </li>
         <div style="width:5px;"></div>
     }
+    @if (User.IsInRole("Partner"))
+    {
+        <li class="nav-item">
+            <a class="header__nav-item-link" href="/Partners/Details/@UserManager.GetUserId(User)" title="Manage">Cửa Hàng Của Tôi</a>
+        </li>
+        <div style="width:5px;"></div>
+    }
     <li class="nav-item">
         <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserAsync(User).Result!.fullName</a>
     </li>

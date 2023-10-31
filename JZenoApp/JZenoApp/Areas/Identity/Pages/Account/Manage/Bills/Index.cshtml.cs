@@ -29,8 +29,9 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
                 Bill = await _context.Bill
                 .Include(b => b.User)!
                 .Include(x => x.detailsOrders)!
-                .ThenInclude(p => p.Product)!.
-                ThenInclude(e => e.productImages)!
+                .ThenInclude(p => p.Product!.Partner)!
+                .Include(p=>p.detailsOrders)!.
+                ThenInclude(e=>e.Product!.productImages)!
                 .Include(b => b.Voucher)
                 .Where(e=>e.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                 .ToListAsync();

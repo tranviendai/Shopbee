@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Drawing;
 using X.PagedList;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace JZenoApp.Controllers
 {
@@ -27,20 +28,43 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchCategory,int? page, string searchName)
+        public async Task<IActionResult> Index(string searchCategory,int? page, string searchName, string orderBy)
         {
             ViewData["GetData"] = searchCategory;
             ViewData["GetSearch"] = searchName;
+            ViewData["OrderBy"] = orderBy;
             ViewData["GetCategory"] = await _context.Category.ToPagedListAsync(1, 100);
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
             if (!String.IsNullOrEmpty(searchCategory) && searchName == null)
             {
-                return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToPagedListAsync(page ?? 1, 10));
+                if (orderBy == "Tăng Dần")
+                {
+                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderByDescending(e=>e.price).ToPagedListAsync(page ?? 1, 10));
+                }
+                else if(orderBy == "Giảm Dần")
+                {
+                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
+                }
+                else
+                {
+                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToPagedListAsync(page ?? 1, 10));
+                }
             }
             else if(searchName!=null && searchCategory == null)
             {
-                return View(await product.Where(e => e.name!.Contains(searchName)).ToPagedListAsync(page ?? 1, 10));
+
+                if (orderBy == "Tăng Dần")
+                {
+                    return View(await product.Where(e => e.name!.Contains(searchName)).OrderByDescending(e => e.price).ToPagedListAsync(page ?? 1, 10));
+                }
+                else if(orderBy == "Giảm Dần")
+                {
+                    return View(await product.Where(e => e.name!.Contains(searchName)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
+                }
+                else{
+                    return View(await product.Where(e => e.name!.Contains(searchName)).ToPagedListAsync(page ?? 1, 10));
+                }
             }
             else
             {

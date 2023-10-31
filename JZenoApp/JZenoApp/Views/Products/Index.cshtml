@@ -54,13 +54,13 @@
                         <i class="fas fa-sort-amount-down-alt"></i>
                         <ul class="home-filter-sort-list">
                             <li>
-                                <a href="#" class="home-filter-sort-item-link">
+                                <a href="/Products?orderBy=Giảm+Dần" class="home-filter-sort-item-link">
                                     Giảm dần
                                     <i class="fas fa-sort-amount-down-alt"></i>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="home-filter-sort-item-link">
+                                <a href="/Products?orderBy=Tăng+Dần" class="home-filter-sort-item-link">
                                     Tăng dần
                                     <i class="fas fa-sort-amount-up-alt"></i>
                                 </a>
@@ -178,7 +178,8 @@
             </div>
             <ul class="pagination home-product-pagination">
                 @Html.PagedListPager((IPagedList) Model, page => Url.Action("Index","Products",new { page,
-                searchCategory= @ViewData["GetData"]}),
+                searchCategory= @ViewData["GetData"],
+                orderBy = @ViewData["OrderBy"]}),
                 new X.PagedList.Web.Common.PagedListRenderOptions{
                 DisplayLinkToIndividualPages = true,
                 DisplayPageCountAndCurrentLocation = false,

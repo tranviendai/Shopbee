@@ -38,19 +38,25 @@
                         <i class="fa-solid fa-box"></i> Quản Lý Danh Mục
                     </a>
                 </li>
+                <li class="@(ViewBag.Current == "QuanLyDoiTac" ? "active" : "")">
+                    <a href="/Manage/Partners">
+                        <i class="fa-solid fa-box"></i> Quản Lý Đối Tác
+                    </a>
+                </li>
                 <li class="@(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
                     <a href="@Url.Action("Index", "Vouchers")">
                         <i class="fa-solid fa-box"></i> Quản Lý Voucher
                     </a>
                 </li>
-
-                <li class="@(ViewBag.Current == "QuanLyKhaoSat" ? "active" : "")">
+                <li class="@(ViewBag.Current == "QuanLyTinTuc" ? "active" : "")">
                     <a href="/Manage/News">
                         <i class="fa-solid fa-square-poll-vertical"></i> Quản Lý Tin Tức
                     </a>
                 </li>
-                <li>
-                    <i class="fa-solid fa-power-off"></i> @Html.ActionLink("Đăng xuất", "Logout", "User")
+                <li class="@(ViewBag.Current == "DangXuat" ? "active" : "")">
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link" style="padding: 0; margin: 0;"><span class="header__nav-item-link" style="width: 114px"> Đăng Xuất</span></button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -63,8 +69,6 @@
                             @* <img src="~/Content/Images/@ViewBag.Icon" width="20" /> *@
                             @Convert.ToString(ViewBag.Title)
                         </div>
-                        
-
                         <div class="p-2 bd-highlight">
                             <div style="background: rgb(251, 88, 49, 0.1);border-radius: 14px; display: flex;  align-items: center;">
                                 <img src="~/images/users/user.png" alt="avatar" style="border-radius: 9999px; width: 45px; padding: 5px;" />
@@ -85,3 +89,11 @@
 </body>
 
 </html>
+<style>
+    .btn-link{
+        color:white;
+    }
+    .btn-link:hover{
+            color: #ff6633;
+    }
+</style>
