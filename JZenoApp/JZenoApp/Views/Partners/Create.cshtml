@@ -1,42 +1,50 @@
 ﻿@model JZenoApp.Models.Partner
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm Đối Tác";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    <link rel="stylesheet" href="~/css/managementForm.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
 }
 
-<h1>Create</h1>
 
-<h4>Partner</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
+    <div class="col-md-15">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Tên Đối Tác</span>
+                <input asp-for="name" class="input-form col-10" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="file" class="control-label"></label>
-                <input asp-for="file" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Hình Ảnh</span>
+                <input asp-for="file" class="input-form col-10" />
                 <span asp-validation-for="file" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
+            <div class="form-group row p-0">
+                <span class="col label-name">Mô Tả</span>
+                <input asp-for="description" class="input-form col-10" />
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
          
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
+                <input type="submit" value="Create" class="btn btn-primary" style="
+                    width: 100%;
+                    background: #ee4d2d;
+                    height: 38px;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 24px;
+                    font-weight: bold;" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về</a>
 </div>
 
