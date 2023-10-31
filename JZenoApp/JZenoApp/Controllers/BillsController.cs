@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
@@ -44,6 +45,7 @@ namespace JZenoApp.Controllers
 
             return View(bill);
         }
+        [Authorize(Roles = "Partner")]
         [Route("Bills/updateActive/", Name = "updateActive")]
         public async Task<JsonResult> updateActive(string billID, int payment)
         {
@@ -65,43 +67,5 @@ namespace JZenoApp.Controllers
             }
             return Json(bill);
         }
-
-        public async Task<IActionResult> Delete(string? id)
-        {
-            if (id == null || _context.Bill == null)
-            {
-                return NotFound();
-            }
-
-            var bill = await _context.Bill
-                .FirstOrDefaultAsync(m => m.billID == id);
-            if (bill == null)
-            {
-                return NotFound();
-            }
-
-            return View(bill);
-        }
-
-        // POST: Vouchers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string? id)
-        {
-            if (_context.Bill == null)
-            {
-                return Problem("Entity set 'JZenoDbContext.Voucher'  is null.");
-            }
-            var bill = await _context.Bill.FindAsync(id);
-            if ( bill != null)
-            {
-                _context.Bill.Remove(bill);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-
     }
 }

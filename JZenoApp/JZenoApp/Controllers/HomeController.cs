@@ -65,9 +65,14 @@ namespace JZenoApp.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
+
         [Route("/addcart", Name = "addcart")]
         public IActionResult AddToCart(string? id, string? color, int? size, int? quantity)
         {
+            if ( User.IsInRole("Partner") || User.IsInRole("Admin"))
+            {
+                return Content("Bạn không được phép đặt sản phẩm");
+            }
             var product = _context.Product
              .Where(p => p.Id == id)
              .Select(e => new Product
@@ -211,9 +216,12 @@ namespace JZenoApp.Controllers
              {
                  return Redirect("/Identity/Account/Login");
              }*/
-            
-                return View(GetCartItems());
-           
+            if(User.IsInRole("Partner") || User.IsInRole("Admin"))
+            {
+                return Redirect("/");
+            }
+            return View(GetCartItems());
+
         }
         public IActionResult PaymentWithPaypal(string? Cancel = null)
         {

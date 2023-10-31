@@ -4,24 +4,25 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole("Admin") || User.IsInRole("Partner"))
     {
+        <div style="width:5px;"></div>
         <li class="nav-item">
             <a class="header__nav-item-link" href="/Manage/Products" title="Manage">Quản Lí</a>
         </li>
-        <div style="width:5px;"></div>
+        <div style="width:10px;"></div>
     }
     @if (User.IsInRole("Partner"))
     {
         <li class="nav-item">
             <a class="header__nav-item-link" href="/Partners/Details/@UserManager.GetUserId(User)" title="Manage">Cửa Hàng Của Tôi</a>
         </li>
-        <div style="width:5px;"></div>
+        <div style="width:10px;"></div>
     }
     <li class="nav-item">
         <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserAsync(User).Result!.fullName</a>
     </li>
-    <div style="width:5px;"></div>
+    <div style="width:10px;"></div>
     <li class="nav-item">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button type="submit" class="nav-link btn btn-link text-dark" style="padding: 0; margin: 0;"> <span class="header__nav-item-link" style="width: 114px"> Đăng Xuất</span></button>

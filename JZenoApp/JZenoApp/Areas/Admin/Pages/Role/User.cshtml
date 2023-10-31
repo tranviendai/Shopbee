@@ -5,34 +5,33 @@
 }
 
 
-<h4>@ViewData["Title"]</h4>
-<partial name="_StatusMessage" model="@Model.StatusMessage" />
-
-<table class="table table-striped">
-    <tr>
-        <th>UserName</th>
-        <th>Roles</th>
-        <th style ="display:flex; justify-content:center;">Actions</th>
-    </tr>
-    @foreach (var user in Model.users!)
-    {
+<div class="bg-white" style="padding:10px; border-radius:5px;">
+    <h4>@ViewData["Title"]</h4>
+    <partial name="_StatusMessage" model="@Model.StatusMessage" />
+    <table class="table table-striped">
         <tr>
-            <td>@user.UserName</td>
-            <td>@user.listroles</td>
-            <td style="display:flex; justify-content:center;">
-                <form method="POST" class="d-inline">
-                    <button style="background-color:var(--main-color1); border:none;" name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
-                        asp-page="./AddUserRole">
-                        Cập nhật Role
-                    </button>
-                </form>
-            </td>
+            <th>UserName</th>
+            <th>Roles</th>
+            <th style="display:flex; justify-content:center;">Actions</th>
         </tr>
+        @foreach (var user in Model.users!)
+        {
+            <tr>
+                <td>@user.UserName</td>
+                <td>@user.listroles</td>
+                <td style="display:flex; justify-content:center;">
+                    <form method="POST" class="d-inline">
+                        <button style="background-color:var(--main-color1); border:none;" name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
+                                asp-page="./AddUserRole">
+                            Cập nhật Role
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-    }
-</table>
-<style>
-     
-</style>
+        }
+    </table>
+</div>
+
 
 

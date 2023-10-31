@@ -100,7 +100,7 @@ namespace JZenoApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Create
+        [Authorize(Roles ="Partner")]
         public IActionResult Create()
         {
             Product product = new Product();
@@ -121,6 +121,7 @@ namespace JZenoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Create([Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID")] Product product,
             List<ProductColor>? productColor)
         {
@@ -166,7 +167,7 @@ namespace JZenoApp.Controllers
             return View(product);
         }
 
-        // GET: Products/Edit/5
+        [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Product == null)
@@ -188,6 +189,7 @@ namespace JZenoApp.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Edit(string id, [Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID,productColor")] Product product)
         {
             if (id != product.Id)
@@ -244,6 +246,7 @@ namespace JZenoApp.Controllers
             ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
             return View(product);
         }
+        [Authorize(Roles = "Partner")]
         public IActionResult PutColor(string id, string name)
         {
             var product = _context.ProductColor.FirstOrDefault(e => e.Id == id);
@@ -252,6 +255,7 @@ namespace JZenoApp.Controllers
             _context.SaveChanges();
             return Json(product);
         }
+        [Authorize(Roles = "Partner")]
         public IActionResult PutSize(int id, string name)
         {
             var product = _context.ProductSize.FirstOrDefault(e => e.Id == id);
@@ -260,6 +264,7 @@ namespace JZenoApp.Controllers
             _context.SaveChanges();
             return Json(product);
         }
+        [Authorize(Roles = "Partner")]
         public IActionResult PutQuantity(int id, int quantity)
         {
             var product = _context.ProductSize.FirstOrDefault(e => e.Id == id);

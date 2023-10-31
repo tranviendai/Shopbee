@@ -1,5 +1,6 @@
 ﻿using JZenoApp.Areas.Identity.Pages.Account.Manage;
 using JZenoApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JZenoApp.Areas.Admin.Pages.Role
 {
+    [Authorize(Roles ="Admin")]
     public class IndexModel : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;

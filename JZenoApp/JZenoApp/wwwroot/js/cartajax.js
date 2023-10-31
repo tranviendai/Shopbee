@@ -22,8 +22,6 @@
                     alert("Lỗi do mạng");
                 }
             });
-        } else {
-            alert("Vui lòng chọn màu và kích cỡ");
         }
     });
 });

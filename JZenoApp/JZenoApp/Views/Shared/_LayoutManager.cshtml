@@ -28,21 +28,32 @@
                         <i class="fa-solid fa-boxes-stacked"></i> Quản Lý Sản Phẩm
                     </a>
                 </li>
-                <li class="@(ViewBag.Current == "QuanLyDonHang" ? "active" : "")">
-                    <a href="@Url.Action("Index", "Bills")">
-                        <i class="fa-solid fa-box"></i> Quản Lý Đơn Hàng
-                    </a>
-                </li>
-                <li class="@(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
-                    <a href="/Manage/Categories">
-                        <i class="fa-solid fa-box"></i> Quản Lý Danh Mục
-                    </a>
-                </li>
-                <li class="@(ViewBag.Current == "QuanLyDoiTac" ? "active" : "")">
-                    <a href="/Manage/Partners">
-                        <i class="fa-solid fa-box"></i> Quản Lý Đối Tác
-                    </a>
-                </li>
+                @if (User.IsInRole("Partner"))
+                {
+                    <li class="@(ViewBag.Current == "QuanLyDonHang" ? "active" : "")">
+                        <a href="@Url.Action("Index", "Bills")">
+                            <i class="fa-solid fa-box"></i> Quản Lý Đơn Hàng
+                        </a>
+                    </li>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="@(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
+                        <a href="/Manage/Categories">
+                            <i class="fa-solid fa-box"></i> Quản Lý Danh Mục
+                        </a>
+                    </li>
+                    <li class="@(ViewBag.Current == "QuanLyDoiTac" ? "active" : "")">
+                        <a href="/Manage/Partners">
+                            <i class="fa-solid fa-box"></i> Quản Lý Đối Tác
+                        </a>
+                    </li>
+                    <li class="@(ViewBag.Current == "QuanLyRole" ? "active" : "")">
+                        <a href="/Admin/Role">
+                            <i class="fa-solid fa-box"></i> Quản Lý Role
+                        </a>
+                    </li>
+                }
                 <li class="@(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
                     <a href="@Url.Action("Index", "Vouchers")">
                         <i class="fa-solid fa-box"></i> Quản Lý Voucher
