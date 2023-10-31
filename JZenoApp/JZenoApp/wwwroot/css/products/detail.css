@@ -194,9 +194,13 @@ body {
     justify-content: center;
     cursor: pointer;
     float: left;
-    width: 50px;
-    height: 30px;
+    min-width: 102px;
+    height: 38px;
     position: relative;
+}
+
+.size-label {
+    padding: 4px;
 }
 
 .choose-color-product {
@@ -239,7 +243,7 @@ body {
   position: absolute;
   min-width: 5rem;
   min-height: 2.5rem;
-  width: 50px;
+  width: 102px;
 
 }
 
