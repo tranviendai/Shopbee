@@ -1,13 +1,37 @@
 ﻿@model IEnumerable<JZenoApp.Models.Partner>
 
 @{
-    ViewData["Title"] = "Danh sách đối tác";
+    ViewData["Title"] = "Quản Lý Đối Tác";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/js/jquery.dataTables.min.js"></script>
 }
+<style>
+    .create-btn {
+        color: #fff;
+        position: relative;
+        overflow: visible;
+        outline: 0;
+        background: #ee4d2d !important;
+        max-width: 250px;
+        width: 180px;
+        height: 48px;
+        padding: 0 20px;
+        text-overflow: ellipsis;
+        flex-direction: column;
+        box-sizing: border-box;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+        border-radius: 2px;
+        border: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-transform: capitalize;
+        text-decoration: none;
+    }
+</style>
 
 
 <table class="table table table-striped bg-white" style="width:100%;">

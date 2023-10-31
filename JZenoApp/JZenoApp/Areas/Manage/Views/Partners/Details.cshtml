@@ -1,41 +1,43 @@
 ﻿@model JZenoApp.Models.Partner
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi Tiết Đối Tác";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
 }
 
-<h1>Details</h1>
 
 <div>
-    <h4>Partner</h4>
-    <hr />
-    <dl class="row">
+    <dl class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            <span>Tên Đối Tác</span>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.image)
+            <span>Hình Ảnh</span>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.image)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
+            <span>Mô Tả</span>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.dateCreated)
+            <span>Ngày Bắt Đầu</span>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.dateCreated)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.isActive)
+            <span>Trạng Thái</span>
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.isActive)
@@ -43,6 +45,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.partnerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.partnerId">Chỉnh sửa</a> |
+    <a asp-action="Index">Trở lại</a>
 </div>
