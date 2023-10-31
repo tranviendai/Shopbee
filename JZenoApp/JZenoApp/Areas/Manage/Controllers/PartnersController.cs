@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace JZenoApp.Areas.QuanLy
 {
     [Area("Manage")]
-    [Authorize("Admin")]
+    [Authorize(Roles ="Admin")]
     public class PartnersController : Controller
     {
         private readonly JZenoDbContext _context;
