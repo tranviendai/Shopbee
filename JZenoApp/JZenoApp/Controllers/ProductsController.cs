@@ -99,8 +99,7 @@ namespace JZenoApp.Controllers
 
             return View(product);
         }
-
-        [Authorize(Roles ="Partner")]
+        [Authorize(Roles = "Partner")]
         public IActionResult Create()
         {
             Product product = new Product();
@@ -125,48 +124,54 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> Create([Bind("Id,name,discount,price,description,postDate,isPublish,Files,productSize,categoryID,colors,partnerID")] Product product,
             List<ProductColor>? productColor)
         {
-            foreach (var item in product.Files!)
+            try
             {
-                string stringFileName = UploadFile(item);
-                var productImgs = new ProductImage
+                foreach (var item in product.Files!)
                 {
-                    URL = stringFileName,
-                    Product = product
-                };
-                _context.Add(productImgs);
-            }
-            foreach (var item in productColor!)
-            {
-                ProductColor color = new ProductColor();
-                color.Id = product.Id + "-" + item.Name;
-                color.product = product;
-                color.productId = product.Id;
-                color.Name = item.Name;
-                foreach (var item1 in item.productSize!)
-                {
-                    ProductSize size = new ProductSize();
-                    size.quantity = item1.quantity;
-                    size.name = item1.name;
-                    size.productColorId = item.Id;
-                    size.productColor = color;
-                    _context.Add(size);
+                    string stringFileName = UploadFile(item);
+                    var productImgs = new ProductImage
+                    {
+                        URL = stringFileName,
+                        Product = product
+                    };
+                    _context.Add(productImgs);
                 }
-                _context.Add(color);
-            }
+                foreach (var item in productColor!)
+                {
+                    ProductColor color = new ProductColor();
+                    color.Id = product.Id + "-" + item.Name;
+                    color.product = product;
+                    color.productId = product.Id;
+                    color.Name = item.Name;
+                    foreach (var item1 in item.productSize!)
+                    {
+                        ProductSize size = new ProductSize();
+                        size.quantity = item1.quantity;
+                        size.name = item1.name;
+                        size.productColorId = item.Id;
+                        size.productColor = color;
+                        _context.Add(size);
+                    }
+                    _context.Add(color);
+                }
 
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    product.partnerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    product.isPublish = false;
+                    product.postDate = DateTime.Now;
+                    _context.Add(product);
+                    await _context.SaveChangesAsync();
+                    return Redirect("Partners/Details/"+product.partnerID);
+                }
+                ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
+                return View(product);
+            }
+            catch (Exception ex)
             {
-                product.partnerID = User.FindFirstValue(ClaimTypes.Name);
-                product.isPublish = false;
-                product.postDate = DateTime.Now;
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(ex.ToString());
             }
-            ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
-            return View(product);
         }
-
         [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Edit(string id)
         {

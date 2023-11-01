@@ -14,7 +14,7 @@
             <th>Roles</th>
             <th style="display:flex; justify-content:center;">Actions</th>
         </tr>
-        @foreach (var user in Model.users!)
+        @foreach (var user in Model.users!.Where(e=>e.UserName != "admin@gmail.com"))
         {
             <tr>
                 <td>@user.UserName</td>

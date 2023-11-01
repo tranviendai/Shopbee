@@ -1,0 +1,134 @@
+﻿@model IEnumerable<JZenoApp.Models.Bill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (Model.Count() != 0)
+{
+   <div class="bg-white" style="padding:2px;border-radius:5px;">
+        <div class="box-section-content" style="background-color:#fff; padding-top:20px;">
+            <h1 class="text-center">Danh sách đơn hàng</h1>
+            <table class="table table-striped" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.price)
+                        </th>
+                        <th>
+                            Thông Tin
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.billStatic)
+                        </th>
+
+                        <th>Chi tiết</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date)
+                            </td>
+                            <td>
+
+                                @Convert.ToDecimal(item.price).ToString("N0")đ
+                            </td>
+                            <td>
+                                @Html.Raw(item.note)
+                            </td>
+                            <td>
+                                @switch (item.billStatic)
+                                {
+                                    case 3:
+                                        <input class="form-control" disabled value="Đã Thanh Toán" />
+                                        break;
+                                    case 4:
+                                        <input class="form-control" disabled value="Đã Hủy" />
+                                        break;
+                                    default:
+                                        <select id="selectActive" data-productid="@item.billID" class="form-control">
+                                            <option selected>
+                                                @switch (item.billStatic)
+                                                {
+                                                    case 0:
+                                                        <div>Chưa Xử Lý</div>
+                                                        break;
+                                                    case 1:
+                                                        <div>Đã Xác Nhận</div>
+                                                        break;
+                                                    case 2:
+                                                        <div>Đang Giao</div>
+                                                        break;
+                                                    case 3:
+                                                        <div>Đã Giao</div>
+                                                        break;
+                                                    case 4:
+                                                        <div>Đã Hủy</div>
+                                                        break;
+                                                    default:
+                                                        <div>Chưa Xử Lý</div>
+                                                        break;
+                                                }
+                                            </option>
+                                            @if (item.billStatic != 4 || item.billStatic != 3 || item.billStatic != 2 || item.billStatic != 1)
+                                            {
+                                                <option value="4">Đã Hủy</option>
+                                            }
+                                        </select>
+                                        break;
+                                }
+                            </td>
+                            <td>
+                                <a href="/Bills/Details/@item.billID" style="text-decoration:none; color:red; border-radius:2px; padding:5px" class="bg-white">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    Chi Tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+   </div>
+}
+else
+{
+    <h1 class="text-center">Tìm kiếm hóa đơn</h1>
+    <div style="padding:5px; border-radius:10px" class="bg-white">
+        <form asp-controller="Bills" asp-action="List" method="get" class="row" style="padding:80px;padding-top:30px;">
+        <h2 style="margin-top:5px;" class="text-center">Vui lòng số điện thoại của bạn</h2>
+        <div style="height:5px;"></div>
+            <div class="header__search-input-wrap">
+                <input type="text" class="form-control" name="searchName" placeholder="Tìm kiếm qua số điện thoại" value="@ViewData["searchName"]">
+            </div>
+            <div style="height:20px;"></div>
+            <button class="btn" style="background-color: var(--light-btn-primary-color); color:white;">
+                <i class="header__search-btn-icon fas fa-search" style="margin-right:10px;"></i>
+                Tìm kiếm
+            </button>
+        </form>
+    </div>
+}
+<script>
+    $('select[id^=selectActive]').on("change", function () {
+        var id = $(this).attr('data-productid');
+        var payment = $(this).find('option:selected').val();
+        $.ajax({
+            method: "PUT",
+            url: "/Bills/updateActive/",
+            data: {
+                billId: id,
+                payment: payment
+            },
+            dataType: "json",
+            success: function (data) {
+                window.location.href = "";
+            }
+        });
+    });
+</script>

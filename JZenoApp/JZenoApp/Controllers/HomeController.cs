@@ -102,7 +102,6 @@ namespace JZenoApp.Controllers
             if (product == null)
                 return NotFound("Không có sản phẩm");
             var cart = GetCartItems();
-
             var cartitem = cart.Find(e => e.product!.Id == id && e.isUnique == size);
             if (cartitem != null)
             {
@@ -112,12 +111,8 @@ namespace JZenoApp.Controllers
             {
                 cart.Add(new CartItem() { quantity = quantity, product = product, isUnique = size });
             }
-
-            // Lưu cart vào Session
             SaveCartSession(cart);
-            // Chuyển đến trang hiện thị Cart
             return Json(cart);
-            //return RedirectToAction(nameof(Cart));
         }
         [Route("/updatecart", Name = "updatecart")]
         [HttpPost]

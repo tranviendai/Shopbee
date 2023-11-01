@@ -29,7 +29,6 @@ namespace JZenoApp.Controllers
             _userManager = userManager;
         }
 
-        [Authorize("Customer")]
         public IActionResult Create()
         {
             return View();

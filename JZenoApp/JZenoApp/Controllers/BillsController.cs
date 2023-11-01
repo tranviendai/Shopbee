@@ -19,13 +19,20 @@ namespace JZenoApp.Controllers
         {
             _context = context;
         }
-
+        
         public async Task<IActionResult> Index()
         {
-            var jZenoDbContext = _context.Bill.Include(b => b.User).Include(b => b.Voucher);
+            var jZenoDbContext = _context.Bill.Include(b => b.User).Include(b => b.Voucher).Include(e=>e.detailsOrders).ThenInclude(e=>e.Product);
             return View(await jZenoDbContext.ToListAsync());
         }
-
+        
+        public IActionResult List(string? searchName)
+        {
+            ViewData["searchPhone"] = searchName;
+            var bill = from m in _context.Bill
+                       select m;
+            return View(bill.Include(b => b.User).Include(b => b.Voucher).Where(e => e.note!.Contains(searchName!)).ToList());
+        }
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Bill == null)
@@ -42,10 +49,8 @@ namespace JZenoApp.Controllers
             {
                 return NotFound();
             }
-
             return View(bill);
         }
-        [Authorize(Roles = "Partner")]
         [Route("Bills/updateActive/", Name = "updateActive")]
         public async Task<JsonResult> updateActive(string billID, int payment)
         {

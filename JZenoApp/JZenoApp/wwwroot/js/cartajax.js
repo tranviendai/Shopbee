@@ -16,7 +16,7 @@
                     quantity: quantity
                 },
                 success: function (result) {
-                    window.location.href = "/cart";
+                    window.location.href = "";
                 },
                 error: function (err) {
                     alert("Lỗi do mạng");

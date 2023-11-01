@@ -32,6 +32,9 @@
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                                 <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
                             </li>
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                            <a class="header__nav-item-link" href="/Bills/List/">Tìm Đơn Hàng</a>
+                        </li>
                         @if (User.IsInRole("Customer"))
                         {
                             <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
@@ -77,7 +80,6 @@
                                 <i class="header__nav-icon far fa-bell"></i>
                                 Thông báo
                             </a>
-                            <!-- thông báo -->
                             <div class="header__notifi">
                                 <header class="header__notifi-header">
                                     <h3>Thông Báo Mới Nhận</h3>

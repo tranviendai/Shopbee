@@ -1,4 +1,9 @@
-﻿@model IEnumerable<JZenoApp.Models.Bill>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model IEnumerable<JZenoApp.Models.Bill>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -42,7 +47,6 @@
                         @Html.DisplayFor(modelItem => item.date)
                     </td>
                     <td>
-
                         @Convert.ToDecimal(item.price).ToString("N0")đ
                     </td>
                     <td>
@@ -116,8 +120,6 @@
                                 Chi Tiết
                             </a>
                         </span>
-
-
                     </td>
                 </tr>
             }

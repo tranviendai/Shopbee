@@ -119,10 +119,6 @@
                 </div>
                 <div class="modal-body text-center">
                     <form asp-controller="Home" asp-action="CheckOut">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px;height: 40px;">Voucher</span>
-                            <input id="voucherName" name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" style="font-size: 14px;" />
-                        </div>
                         @if (!SignInManager.IsSignedIn(User))
                         {
                             <div class="input-group mb-3">
@@ -142,10 +138,26 @@
                         }
                         else{
                             <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Họ Tên</span>
+                                <input value="@UserManager.GetUserAsync(User).Result?.fullName" disabled class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Địa Chỉ</span>
+                                <input value="@UserManager.GetUserAsync(User).Result?.address" disabled class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">SĐT</span>
+                                <input value="@UserManager.GetUserAsync(User).Result?.PhoneNumber" disabled class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
+                            </div>
+                            <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Ghi Chú</span>
                                 <input id="getName" name="getNote" class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
                             </div>
                         }
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px;height: 40px;">Voucher</span>
+                            <input id="voucherName" name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" style="font-size: 14px;" />
+                        </div>
                         <div class="dropdown" style="text-align: right">
                             <button class="btn btn--primary header__cart-see-cart dropdown-toggle" style="width: 96%" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <h5 class="modal-title" id="exampleModalLabel">Chọn Phương Thanh Toán</h5>
