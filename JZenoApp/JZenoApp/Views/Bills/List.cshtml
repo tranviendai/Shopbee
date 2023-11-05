@@ -42,45 +42,32 @@
                                 @Html.Raw(item.note)
                             </td>
                             <td>
-                                @switch (item.billStatic)
+                                @if(item.billStatic == 0)
                                 {
-                                    case 3:
-                                        <input class="form-control" disabled value="Đã Thanh Toán" />
-                                        break;
-                                    case 4:
-                                        <input class="form-control" disabled value="Đã Hủy" />
-                                        break;
-                                    default:
-                                        <select id="selectActive" data-productid="@item.billID" class="form-control">
-                                            <option selected>
-                                                @switch (item.billStatic)
-                                                {
-                                                    case 0:
-                                                        <div>Chưa Xử Lý</div>
-                                                        break;
-                                                    case 1:
-                                                        <div>Đã Xác Nhận</div>
-                                                        break;
-                                                    case 2:
-                                                        <div>Đang Giao</div>
-                                                        break;
-                                                    case 3:
-                                                        <div>Đã Giao</div>
-                                                        break;
-                                                    case 4:
-                                                        <div>Đã Hủy</div>
-                                                        break;
-                                                    default:
-                                                        <div>Chưa Xử Lý</div>
-                                                        break;
-                                                }
-                                            </option>
-                                            @if (item.billStatic != 4 || item.billStatic != 3 || item.billStatic != 2 || item.billStatic != 1)
+                                    <select id="selectActive" data-productid="@item.billID" class="form-control">
+                                        <option selected>
+                                            @switch (item.billStatic)
                                             {
-                                                <option value="4">Đã Hủy</option>
+                                                case 0:
+                                                    <div>Chờ Thanh Toán</div>
+                                                    break;
+                                                case 1:
+                                                    <div>Đã Hủy</div>
+                                                    break;
+                                                default:
+                                                    <div>Chưa Xử Lý</div>
+                                                    break;
                                             }
-                                        </select>
-                                        break;
+                                        </option>
+                                        @if (item.billStatic == 0)
+                                        {
+                                            <option value="1">Đã Hủy</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                <div>Đã Hủy</div>
                                 }
                             </td>
                             <td>

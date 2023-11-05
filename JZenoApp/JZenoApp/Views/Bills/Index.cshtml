@@ -27,10 +27,10 @@
                     @Html.DisplayNameFor(model => model.price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Voucher)
+                   Khuyến Mãi
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User)
+                    Số Điện Thoại
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.billStatic)
@@ -50,66 +50,39 @@
                         @Convert.ToDecimal(item.price).ToString("N0")đ
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Voucher!.voucherID)
+                        @if(item.Voucher == null)
+                        {
+                            <div>Không áp dụng</div>
+                        }
+                        else
+                        {
+                           <div>Đã áp dụng</div>
+                        }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User!.fullName)
+                        @if(item.User == null)
+                        {
+                            @Html.DisplayFor(modelItem => item.phone)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.User!.PhoneNumber)
+                        }
                     </td>
                     <td>
                         @switch (item.billStatic)
                         {
-                            case 3:
-                                <input class="form-control" disabled value="Đã Thanh Toán" />
+                            case 0:
+                                <div>Chờ Thanh Toán</div>
                                 break;
-                            case 4:
-                                <input class="form-control" disabled value="Đã Hủy" />
+                            case 1:
+                                <div>Đã Hủy</div>
+                                break;
+                            case 2:
+                                <div>Đã Thanh Toán</div>
                                 break;
                             default:
-                                <select id="selectActive" data-productid="@item.billID" class="form-control">
-                                    <option selected>
-                                        @switch (item.billStatic)
-                                        {
-                                            case 0:
-                                                <div>Chưa Xử Lý</div>
-                                                break;
-                                            case 1:
-                                                <div>Đã Xác Nhận</div>
-                                                break;
-                                            case 2:
-                                                <div>Đang Giao</div>
-                                                break;
-                                            case 3:
-                                                <div>Đã Giao</div>
-                                                break;
-                                            case 4:
-                                                <div>Đã Hủy</div>
-                                                break;
-                                            default:
-                                                <div>Chưa Xử Lý</div>
-                                                break;
-                                        }
-                                    </option>
-                                    @if (item.billStatic != 0)
-                                    {
-                                        <option value="0">Chưa Xử Lý</option>
-                                    }
-                                    @if (item.billStatic != 1)
-                                    {
-                                        <option value="1">Đã Xác Nhận</option>
-                                    }
-                                    @if (item.billStatic != 2)
-                                    {
-                                        <option value="2">Đang Giao</option>
-                                    }
-                                    @if (item.billStatic != 3)
-                                    {
-                                        <option value="3">Đã Giao</option>
-                                    }
-                                    @if (item.billStatic != 4)
-                                    {
-                                        <option value="4">Đã Hủy</option>
-                                    }
-                                </select>
+                                <div>Chờ Thanh Toán</div>
                                 break;
                         }
                     </td>
@@ -150,21 +123,5 @@
 <script>
     $(document).ready(function () {
         $('#example').DataTable();
-    });
-    $('select[id^=selectActive]').on("change", function () {
-        var id = $(this).attr('data-productid');
-        var payment = $(this).find('option:selected').val();
-        $.ajax({
-            method: "PUT",
-            url: "Bills/updateActive/",
-            data: {
-                billId: id,
-                payment: payment
-            },
-            dataType: "json",
-            success: function (data)  {
-                window.location.href = "";
-            }
-        });
     });
 </script>

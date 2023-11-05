@@ -154,11 +154,9 @@ namespace JZenoApp.Controllers
                     }
                     _context.Add(color);
                 }
-
                 if (ModelState.IsValid)
                 {
                     product.partnerID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    product.isPublish = false;
                     product.postDate = DateTime.Now;
                     _context.Add(product);
                     await _context.SaveChangesAsync();

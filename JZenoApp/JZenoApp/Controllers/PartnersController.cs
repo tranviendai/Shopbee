@@ -20,8 +20,6 @@ namespace JZenoApp.Controllers
         private readonly JZenoDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UserManager<User> _userManager;
-
-
         public PartnersController(JZenoDbContext context, IWebHostEnvironment webHostEnvironment, UserManager<User> userManager)
         {
             _context = context;
