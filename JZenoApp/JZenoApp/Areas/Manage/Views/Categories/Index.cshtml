@@ -4,82 +4,62 @@
     ViewData["Title"] = "Quản lý Danh Mục";
     ViewBag.Current = "QuanLyDanhMuc";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="~/js/jquery.dataTables.min.js"></script>
 }
-<style>
-    .create-btn {
-        color: #fff;
-        position: relative;
-        overflow: visible;
-        outline: 0;
-        background: #ee4d2d !important;
-        max-width: 250px;
-        width: 180px;
-        height: 48px;
-        padding: 0 20px;
-        text-overflow: ellipsis;
-        flex-direction: column;
-        box-sizing: border-box;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
-        border-radius: 2px;
-        border: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-transform: capitalize;
-        text-decoration: none;
-    }
-</style>
 
-<p>
-    <a asp-action="Create" class="create-btn" style="color: #fff !important;">Thêm Mới</a>
-</p>
-<div class="box-section-content" style="background: #fff;">
-    <table class="table table table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th>
-                    Tên Loại
-                </th>
-                <th>
-                    Hình Ảnh
-                </th>
-                <th></th>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.icon)
-                    </td>
-                    <td>
-                    <td style="text-align: center;">
-                        <span class="btn btn-warning" style="min-width: 42px !important;">
-                            <a asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        </span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                    Tên Loại
-                </th>
-                <th>
-                    Hình Ảnh
-                </th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+@* ============================ *@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a asp-action="Create" class="create-btn">Thêm Danh Mục</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: clip !important;">
+            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Tên Danh Mục
+                        </th>
+                        <th>
+                            Hình Ảnh
+                        </th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+                            Tên Danh Mục
+                        </th>
+                        <th>
+                            Hình Ảnh
+                        </th>
+                        <th style="width: 100px"></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                <img src="~/images/categories/@item.icon" alt="@item.name" width="50" style="border-radius: 50%;"/>
+                            <td style="text-align: center;">
+                                <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
+                                    <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                        <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<script>
+    new DataTable('#example');
+</script>

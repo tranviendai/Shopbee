@@ -10,119 +10,119 @@
     ViewBag.Current = "QuanLyDonHang";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
-<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
-<script src="~/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 
-<h1>Danh sách đơn hàng</h1>
+@* ============================ *@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <p>Danh Sách Đơn Hàng</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: clip !important;">
+            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.price)
+                        </th>
+                        <th>
+                            Khuyến Mãi
+                        </th>
+                        <th>
+                            Số Điện Thoại
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.billStatic)
+                        </th>
 
-<div class="box-section-content" style="background-color:#fff; padding-top:20px;">
-    <table id="example" class="table table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.price)
-                </th>
-                <th>
-                   Khuyến Mãi
-                </th>
-                <th>
-                    Số Điện Thoại
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.billStatic)
-                </th>
+                        <th>Chi tiết</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.price)
+                        </th>
+                        <th>
+                            Khuyến Mãi
+                        </th>
+                        <th>
+                            Số Điện Thoại
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.billStatic)
+                        </th>
 
-                <th>Chi tiết</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.date)
-                    </td>
-                    <td>
-                        @Convert.ToDecimal(item.price).ToString("N0")đ
-                    </td>
-                    <td>
-                        @if(item.Voucher == null)
-                        {
-                            <div>Không áp dụng</div>
-                        }
-                        else
-                        {
-                           <div>Đã áp dụng</div>
-                        }
-                    </td>
-                    <td>
-                        @if(item.User == null)
-                        {
-                            @Html.DisplayFor(modelItem => item.phone)
-                        }
-                        else
-                        {
-                            @Html.DisplayFor(modelItem => item.User!.PhoneNumber)
-                        }
-                    </td>
-                    <td>
-                        @switch (item.billStatic)
-                        {
-                            case 0:
-                                <div>Chờ Thanh Toán</div>
-                                break;
-                            case 1:
-                                <div>Đã Hủy</div>
-                                break;
-                            case 2:
-                                <div>Đã Thanh Toán</div>
-                                break;
-                            default:
-                                <div>Chờ Thanh Toán</div>
-                                break;
-                        }
-                    </td>
-                    <td>
-                        <span class="btn btn-primary">
-                            <a asp-action="Details" asp-route-id="@item.billID">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                Chi Tiết
-                            </a>
-                        </span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Voucher)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.billStatic)
-                </th>
-                <th>Chi tiết</th>
-            </tr>
-        </tfoot>
-    </table>
+                        <th>Chi tiết</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.date)
+                            </td>
+                            <td>
+                                @Convert.ToDecimal(item.price).ToString("N0")đ
+                            </td>
+                            <td>
+                                @if (item.Voucher == null)
+                                {
+                                    <div>Không áp dụng</div>
+                                }
+                                else
+                                {
+                                    <div>Đã áp dụng</div>
+                                }
+                            </td>
+                            <td>
+                                @if (item.User == null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.phone)
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.User!.PhoneNumber)
+                                }
+                            </td>
+                            <td>
+                                @switch (item.billStatic)
+                                {
+                                    case 0:
+                                        <div class="text-warning"><strong>Chờ Thanh Toán</strong></div>
+                                        break;
+                                    case 1:
+                                        <div class="text-danger"><strong>Đã Hủy</strong></div>
+                                        break;
+                                    case 2:
+                                        <div class="text-success"><strong>Đã Thanh Toán</strong></div>
+                                        break;
+                                    default:
+                                        <div class="text-warning"><strong>Chờ Thanh Toán</strong></div>
+                                        break;
+                                }
+                            </td>
+                            <td style="text-align: center;">
+                                <a asp-action="Details" asp-route-id="@item.billID" style="text-decoration: none">
+                                    <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
+                                        <i class="fas fa-info-circle" style="color: #fff"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+    new DataTable('#example');
 </script>

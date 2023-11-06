@@ -5,18 +5,12 @@
     ViewData["Title"] = "Quản Lý Sản Phẩm";
     ViewBag.Current = "QuanLySanPham";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
-    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-    <link href="~/css/tableCustom.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="~/js/jquery.dataTables.min.js"></script>
-
 }
 
 @* ============================ *@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a asp-action="Create" class="btn create-btn">Thêm Sản Phẩm</a>
+        <a asp-action="Create" class="create-btn">Thêm Sản Phẩm</a>
     </div>
     <div class="card-body">
         <div class="table-responsive" style="overflow-x: clip !important;">
@@ -138,15 +132,17 @@
                                 @Html.DisplayFor(modelItem => item.Partner!.name)
                             </td>
                             <td style="text-align: center;">
-                                <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
-                                    <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
-                                        <i class="fas fa-pencil-alt" style="color: #fff"></i>
-                                    </span>
-                                </a>
-
+                                @if (User.IsInRole("Partner"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
+                                        <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                            <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                        </span>
+                                    </a>
+                                }
+                                
                                 <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
                                     <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
-
                                         <i class="fas fa-info-circle" style="color: #fff"></i>
                                     </span>
                                 </a>
