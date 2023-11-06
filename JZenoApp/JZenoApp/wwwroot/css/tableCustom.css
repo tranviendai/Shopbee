@@ -1,0 +1,107 @@
+﻿.product-meta {
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+    .product-meta:hover {
+        width: 300px;
+        white-space: normal;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+.create-btn {
+    color: #fff;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+    background: #ee4d2d !important;
+    max-width: 250px;
+    width: 168px;
+    height: 42px;
+    padding: 0 20px;
+    text-overflow: ellipsis;
+    flex-direction: column;
+    box-sizing: border-box;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
+    border-radius: 25px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+    .create-btn:hover {
+        color: #fff !important;
+        opacity: 0.8;
+    }
+
+.current {
+    color: #ee4d2d !important;
+    background: #fff !important;
+    border: 1px solid #ee4d2d;
+}
+
+.paginate_button a {
+    color: #fff;
+}
+
+.paginate_button {
+    color: #ee4d2d;
+    padding: 4px;
+    margin: 6px;
+    border-radius: 4px;
+    min-width: 37px !important;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+    .paginate_button:hover {
+        opacity: 0.8;
+        color: #ee4d2d;
+        padding: 4px;
+        margin: 6px;
+        border-radius: 4px;
+        min-width: 37px !important;
+        cursor: pointer;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+    }
+
+.current {
+    color: #fff !important;
+    background: #ee4d2d !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+input[type=search] {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.dataTables_filter {
+    position: absolute;
+    right: 26px;
+    top: 1%;
+}
+
+select[name=example_length] {
+    border: none;
+    outline: none;
+    padding: 8px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
