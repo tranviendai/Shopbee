@@ -8,7 +8,8 @@ namespace JZenoApp.Models
         [Key]
         [MaxLength(20)]
         public string? Id { get; set; }
-        [MaxLength(25)]
+        [MaxLength(25,ErrorMessage ="Vui lòng nhập 25 kí tự")]
+        [Required(ErrorMessage ="Vui lòng nhập tên loại")]
         public string? name { get; set; }
         public string? icon { get; set; }
         [NotMapped]

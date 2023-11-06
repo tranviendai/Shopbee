@@ -55,7 +55,7 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             /// </summary>
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "Mật khẩu hiện tại")]
             public string OldPassword { get; set; }
 
             /// <summary>
@@ -63,9 +63,9 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Vui lòng nhập hơn 6 kí tự", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "Mật Khẩu mới")]
             public string NewPassword { get; set; }
 
             /// <summary>
@@ -73,20 +73,20 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "Xác nhận mật khẩu mới")]
+            [Compare("NewPassword", ErrorMessage = "Mật khẩu không khớp")]
             public string ConfirmPassword { get; set; }
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Số điện thoại")]
             public string PhoneNumber { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Full Name\"!")]
-            [Display(Name = "Full Name")]
+            [Required(ErrorMessage = "Vui lòng nhập họ tên!")]
+            [Display(Name = "Họ Tên")]
             [StringLength(50)]
             public string FullName { get; set; }
-            [Display(Name = "Image")]
+            [Display(Name = "Hình Ảnh")]
             public string Image { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Display\"!")]
-            [Display(Name = "Address")]
+            [Required(ErrorMessage = "vui lòng nhập địa chỉ")]
+            [Display(Name = "Địa Chỉ")]
             public string Address { get; set; }
             [DataType(DataType.Date)]
             public DateTime DateCreated { get; set; }

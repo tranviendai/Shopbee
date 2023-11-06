@@ -12,13 +12,14 @@ namespace JZenoApp.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string? Id { get; set; }
 
-        [MaxLength(100)]
+        [MaxLength(100,ErrorMessage ="Tên sản phẩm không được quá 100 kí tự")]
+        [Required(ErrorMessage ="Vui lòng nhập tên sản phẩm")]
         public string? name { get; set; }
         [Range(1, 100)]
         public int? discount { get; set; }
-        [Range(10000,1000000000000)]
+        [Range(10000,1000000000000,ErrorMessage = "nhập trong khoảng [10,000;1,000,000,000,000]")]
         public double? price { get; set; }
-        [MaxLength(1000)]
+        [MaxLength(1000,ErrorMessage ="Tối đa 1000 kí tự")]
         public string? description { get; set; }
         public DateTime? postDate { get; set; }
         public bool? isPublish { get; set; }

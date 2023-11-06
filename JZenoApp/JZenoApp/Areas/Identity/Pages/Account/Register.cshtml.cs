@@ -75,8 +75,8 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage ="Vui lòng nhập Email")]
+            [EmailAddress(ErrorMessage ="Vui lòng nhập đúng định dạng")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -84,10 +84,10 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
+            [StringLength(100, ErrorMessage = "Mật khẩu phải từ 6 kí tự trở lên", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Mật khẩu")]
             public string Password { get; set; }
 
             /// <summary>
@@ -95,25 +95,25 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Xác nhận mật khẩu")]
+            [Compare("Password", ErrorMessage = "Mật khẩu không trùng khớp")]
             public string ConfirmPassword { get; set; }
 
-            [Required(ErrorMessage = "Please, input data \"Full Name\"!")]
-            [Display(Name = "Full Name")]
+            [Required(ErrorMessage = "Vui lòng nhập họ tên")]
+            [Display(Name = "Họ Tên")]
             [StringLength(50)]
             public string FullName { get; set; }
             public string Image { get; set; }
-            [Required(ErrorMessage ="Please, input data \"Display\"!")]
+            [Required(ErrorMessage ="Vui lòng nhập địa chỉ")]
             public string Address { get; set; }
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:dd/M/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime DateCreated { get; set; }
 
-            [DataType(DataType.PhoneNumber)]
+            [DataType(DataType.PhoneNumber,ErrorMessage ="Vui lòng nhập đúng định dạng")]
             [Phone]
-            [Required(ErrorMessage = "Please, input data \"Phone Number\"!")]
-            [StringLength(10, MinimumLength=10)]
+            [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
+            [StringLength(10, MinimumLength=10,ErrorMessage ="Vui lòng nhập đúng định dạng")]
             public string PhoneNumber { get; set; }
 
         }

@@ -7,12 +7,12 @@ namespace JZenoApp.Models
     {
         [Key]
         public string? partnerId {get;set;}
-        [StringLength(100)]
+        [StringLength(100,ErrorMessage ="Vui lòng nhập tên dưới 100 kí tự")]
         public string? name { get; set; }
         [NotMapped]
         public IFormFile? file { get; set; }
         public string? image { get; set; }
-
+        [Required(ErrorMessage ="Vui lòng nhập mô tả")]
         public string? description { get; set; }
 
         public DateTime? dateCreated { get; set; }

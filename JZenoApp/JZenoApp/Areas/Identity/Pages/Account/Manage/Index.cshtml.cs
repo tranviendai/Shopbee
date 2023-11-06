@@ -58,15 +58,15 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage
         {
  
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Số điện thoại")]
             public string PhoneNumber { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Full Name\"!")]
+            [Required(ErrorMessage = "Vui lòng nhập họ tên")]
             [Display(Name = "Full Name")]
             [StringLength(50)]
             public string FullName { get; set; }
             [Display(Name = "Image")]
             public string Image { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Display\"!")]
+            [Required(ErrorMessage = "Vui lòng nhập địa chị")]
             [Display(Name = "Address")]
             public string Address { get; set; }
             [DataType(DataType.Date)]

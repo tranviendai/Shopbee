@@ -82,18 +82,19 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage ="Vui lòng nhập Email")]
+            [EmailAddress(ErrorMessage ="Vui lòng nhập đúng định dạng")]
             public string Email { get; set; }
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Số điện thoại")]
+            [StringLength(10, MinimumLength = 10, ErrorMessage = "Vui lòng nhập đúng định dạng")]
             public string PhoneNumber { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Full Name\"!")]
-            [Display(Name = "Full Name")]
+            [Required(ErrorMessage = "Vui lòng nhập họ tên")]
+            [Display(Name = "Họ Tên")]
             [StringLength(50)]
             public string FullName { get; set; }
-            [Required(ErrorMessage = "Please, input data \"Display\"!")]
-            [Display(Name = "Address")]
+            [Required(ErrorMessage = "Vui lòng nhập địa chỉ")]
+            [Display(Name = "Địa chỉ")]
             public string Address { get; set; }
             [DataType(DataType.Date)]
             public DateTime DateCreated { get; set; }

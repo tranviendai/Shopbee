@@ -8,8 +8,9 @@ namespace JZenoApp.Models
         [Key]
         public int? Id { get; set; }
 
-        [StringLength(100)]
+        [StringLength(100,ErrorMessage ="Vui lòng nhập ít nhất 100 kí tự")]
         public string? title { get; set; }
+        [Required(ErrorMessage ="Vui lòng nhập thông tin về bản tin")]
         public string? description { get; set; }
 
         [ForeignKey("Id")]
