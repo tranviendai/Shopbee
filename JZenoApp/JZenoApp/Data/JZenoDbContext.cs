@@ -243,7 +243,7 @@ namespace JZenoApp.Data
                     {
                         Id = "short",
                         name = "Short",
-                        icon = "shorts.png"
+                        icon = "short.png"
                     },
                     new Category
                     {
