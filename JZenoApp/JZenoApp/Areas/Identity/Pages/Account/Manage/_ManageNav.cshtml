@@ -8,11 +8,7 @@
 
 <ul class=" flex-column" style="list-style: none;">
    
-    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Tài khoản của tôi</a></li>
-    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Mật Khẩu</a></li>
-    @if (hasExternalLogins)
-    {
-        <li id="external-logins" class="nav-item"><a style="color:gray;" id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Liên Kết</a></li>
-    }
+    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" href="/Identity/Account/Manage/Index">Tài khoản của tôi</a></li>
+    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" href="/Identity/Account/Manage/Email">Email</a></li>
+    <li class="nav-item"><a style="color:gray;" class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" href="/Identity/Account/Manage/SetPassword">Mật Khẩu</a></li>
 </ul>

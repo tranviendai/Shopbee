@@ -31,7 +31,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();       
 builder.Services.AddSession(cfg => {                    
     cfg.Cookie.Name = "JZeno";                        
-    cfg.IdleTimeout = new TimeSpan(0, 1, 0);           
+    cfg.IdleTimeout = new TimeSpan(24, 1, 0);           
 });
 builder.Services.Configure<IdentityOptions>(options =>
 {
