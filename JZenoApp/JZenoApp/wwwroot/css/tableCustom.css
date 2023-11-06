@@ -11,6 +11,9 @@
         overflow: hidden;
         cursor: pointer;
     }
+.create-btn a {
+    text-decoration: none !important;
+}
 
 .create-btn {
     color: #fff;
@@ -32,7 +35,7 @@
     align-items: center;
     justify-content: center;
     text-transform: capitalize;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
     .create-btn:hover {

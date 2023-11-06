@@ -20,12 +20,12 @@
         <div style="width:10px;"></div>
     }
     <li class="nav-item">
-        <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserAsync(User).Result!.fullName</a>
+        <a class="header__nav-item-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><strong>@UserManager.GetUserAsync(User).Result!.fullName</strong></a>
     </li>
     <div style="width:10px;"></div>
     <li class="nav-item">
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button type="submit" class="nav-link btn btn-link text-dark" style="padding: 0; margin: 0;"> <span class="header__nav-item-link" style="width: 114px"> Đăng Xuất</span></button>
+            <button type="submit" class="" style="padding: 0; margin: 0; border: none; outline: none; background: none;"> <span class="header__nav-item-link" style="width: 114px;"> Đăng Xuất</span></button>
         </form>
     </li>
 }

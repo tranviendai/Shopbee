@@ -20,8 +20,8 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="Input!.ID">
                 <input type="hidden" asp-for="isConfirmed">
-                <span class="btn btn-primary">
-                    <a asp-page="./User">Danh sách</a>
+                <span class="btn btn-primary mr-4">
+                    <a asp-page="./User" style="color: #fff; text-decoration: none;">Danh sách</a>
                 </span>
                 <button type="submit" class="btn btn-danger">Cập nhật</button>
             </div>
@@ -32,49 +32,49 @@
             Những quyền được cấp <span id="namerole"></span>
         </div>
         <div id="QAdmin">
-            <div class="form-group1 row p-0">
+            <div class="form-group1 row p-0 mb-4">
                 <span class="col label-name">Quyền 1</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quản lý thống kê</span>
             </div>
 
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 2</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý sản phẩm</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 3</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý role</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 4</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý tin tức</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 5</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý đối tác</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 6</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý Khách hàng</span>
             </div>
         </div>
 
         @* Quyền của đối tác *@
-        <div id="Qdoitac" style="display:none;"> 
-            <div class="form-group1 row p-0">
+        <div id="Qdoitac" style="display:none;">
+            <div class="form-group1 row p-0 mb-4">
                 <span class="col label-name">Quyền 1</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quản lý đơn hàng</span>
             </div>
 
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 2</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quản lý voucher</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 3</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý thống kê</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 4</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý sản phẩm</span>
             </div>
@@ -82,16 +82,16 @@
 
         @* Quyền của khách hàng *@
         <div id="Qkhachhang" style="display:none;">
-            <div class="form-group1 row p-0">
+            <div class="form-group1 row p-0 mb-4">
                 <span class="col label-name">Quyền 1</span>
                 <span class="input-form col-10" style="background-color:#fff;">Xem sản phẩm</span>
             </div>
 
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 2</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quản lý đơn hàng</span>
             </div>
-            <div class="form-group1 row p-0" style="margin-top:-17px;">
+            <div class="form-group1 row p-0 mb-4" style="margin-top:-17px;">
                 <span class="col label-name">Quyền 3</span>
                 <span class="input-form col-10" style="background-color:#fff;">Quán lý voucher</span>
             </div>

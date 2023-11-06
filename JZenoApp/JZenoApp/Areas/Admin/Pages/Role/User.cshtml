@@ -4,34 +4,56 @@
     ViewData["Title"] = "DANH SÁCH NGƯỜI DÙNG";
 }
 
-
-<div class="bg-white" style="padding:10px; border-radius:5px;">
-    <h4>@ViewData["Title"]</h4>
-    <partial name="_StatusMessage" model="@Model.StatusMessage" />
-    <table class="table table-striped">
-        <tr>
-            <th>UserName</th>
-            <th>Roles</th>
-            <th style="display:flex; justify-content:center;">Actions</th>
-        </tr>
-        @foreach (var user in Model.users!.Where(e=>e.UserName != "admin@gmail.com"))
-        {
-            <tr>
-                <td>@user.UserName</td>
-                <td>@user.listroles</td>
-                <td style="display:flex; justify-content:center;">
-                    <form method="POST" class="d-inline">
-                        <button style="background-color:var(--main-color1); border:none;" name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm"
-                                asp-page="./AddUserRole">
-                            Cập nhật Role
-                        </button>
-                    </form>
-                </td>
-            </tr>
-
-        }
-    </table>
+@* ============================ *@
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex">
+        <a href="/Admin/Role" class="btn btn-success d-flex">
+            Quản Lý Role
+        </a>
+        <a style="" asp-page="./User" class="d-flex align-items-center ml-4">Danh sách người dùng</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: clip !important;">
+            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Tài Khoản</th>
+                        <th>Quyền</th>
+                        <th style="display:flex; justify-content:center;">Chức Năng</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Tài Khoản</th>
+                        <th>Quyền</th>
+                        <th style="display:flex; justify-content:center;">Chức Năng</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var user in Model.users!.Where(e => e.UserName != "admin@gmail.com"))
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@user.listroles</td>
+                            <td style="display:flex; justify-content:center;">
+                                <form method="POST" class="d-inline">
+                                    <button style=" border:none;" name="Input.ID" value="@user.Id" class="btn btn-success btn-sm"
+                                            asp-page="./AddUserRole">
+                                        Cập nhật Quyền
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+<script>
+    new DataTable('#example');
+</script>
 
 
 
