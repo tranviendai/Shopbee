@@ -23,11 +23,16 @@ namespace JZenoApp.Models
         public bool? payment { get; set; }
         [Display(Name = "Hình thức giao hàng")]
         public bool? deliveryForm { get; set; }
+
+        [Display(Name ="Khuyến Mãi")]
         [ForeignKey("voucherID")]
         public int? voucherID { get; set; }
         public Voucher? Voucher { get; set; }
         [StringLength(200)]
         public string? note { get; set; }
+        [StringLength(10)]
+        [DataType(DataType.PhoneNumber)]
+        public string? phone { get; set; }
         [Display(Name ="Trạng Thái")]
         [Range(0,5)]
         public int? billStatic {get;set;}

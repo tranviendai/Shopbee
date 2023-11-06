@@ -9,10 +9,12 @@ using JZenoApp.Data;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Hosting;
 using PayPal.Api;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Areas.QuanLy.Controllers
 {
     [Area("Manage")]
+    [Authorize(Roles ="Admin")]
     public class CategoriesController : Controller
     {
         private readonly JZenoDbContext _context;

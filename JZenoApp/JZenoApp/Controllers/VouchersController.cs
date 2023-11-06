@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
@@ -19,42 +20,21 @@ namespace JZenoApp.Controllers
             _context = context;
         }
 
-        // GET: Vouchers
         public async Task<IActionResult> Index()
         {
               return _context.Voucher != null ? 
                           View(await _context.Voucher.ToListAsync()) :
                           Problem("Entity set 'JZenoDbContext.Voucher'  is null.");
         }
-
-        // GET: Vouchers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Voucher == null)
-            {
-                return NotFound();
-            }
-
-            var voucher = await _context.Voucher
-                .FirstOrDefaultAsync(m => m.voucherID == id);
-            if (voucher == null)
-            {
-                return NotFound();
-            }
-
-            return View(voucher);
-        }
-
-        // GET: Vouchers/Create
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Vouchers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+  
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("voucherID,name,price,quantity,startDate,endDate")] Voucher voucher)
         {
@@ -67,7 +47,8 @@ namespace JZenoApp.Controllers
             return View(voucher);
         }
 
-        // GET: Vouchers/Edit/5
+        [Authorize(Roles ="Admin")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Voucher == null)
@@ -83,9 +64,7 @@ namespace JZenoApp.Controllers
             return View(voucher);
         }
 
-        // POST: Vouchers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, [Bind("voucherID,name,price,quantity,startDate,endDate")] Voucher voucher)
@@ -118,7 +97,7 @@ namespace JZenoApp.Controllers
             return View(voucher);
         }
 
-        // GET: Vouchers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Voucher == null)
@@ -136,7 +115,7 @@ namespace JZenoApp.Controllers
             return View(voucher);
         }
 
-        // POST: Vouchers/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)

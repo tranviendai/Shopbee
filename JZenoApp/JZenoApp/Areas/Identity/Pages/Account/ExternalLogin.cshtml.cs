@@ -150,7 +150,6 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                 return Page();
             }
         }
-
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -180,7 +179,6 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     
-
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         var callbackUrl = Url.Page(
                             "/Account/ConfirmEmail",
@@ -195,7 +193,6 @@ namespace JZenoApp.Areas.Identity.Pages.Account
                         {
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
-
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
                         user.address = Input.Address;
                         user.fullName = Input.FullName;

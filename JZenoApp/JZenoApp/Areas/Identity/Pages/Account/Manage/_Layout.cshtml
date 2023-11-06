@@ -34,15 +34,18 @@
                 <div class="col-2"> </div>
                 <div class="col-10"> <partial name="_ManageNav" /></div>
             </div>
-            <div class="order">
-                <i class="ti-clipboard" style="color:#007bff;margin-right:5px;font-size:28px;"></i><a asp-page="./Bills/Index" style="color:black;">Đơn hàng</a>
-            </div>
-            <div class="notification">
-                <i class="ti-bell" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a href="#" style="color:black;">Thông báo</a>
-            </div>
-            <div class="voucher">
-                <i class="bx bxs-discount" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a asp-page="./Vouchers/Index" style="color:black;">Kho voucher</a>
-            </div>
+            @if (User.IsInRole("Customer"))
+            {
+                <div class="order">
+                    <i class="ti-clipboard" style="color:#007bff;margin-right:5px;font-size:28px;"></i><a asp-page="./Bills/Index" style="color:black;">Đơn hàng</a>
+                </div>
+                <div class="notification">
+                    <i class="ti-bell" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a href="#" style="color:black;">Thông báo</a>
+                </div>
+                <div class="voucher">
+                    <i class="bx bxs-discount" style="color: #ee4d2d;margin-right:5px;font-size:28px;"></i><a asp-page="./Vouchers/Index" style="color:black;">Kho voucher</a>
+                </div>
+            }
             
         </div>
         <div class="col-md-9 vcr" style="padding-left:40px;">

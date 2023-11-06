@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using PayPal.Api;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
@@ -19,8 +20,6 @@ namespace JZenoApp.Controllers
         private readonly JZenoDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly UserManager<User> _userManager;
-
-
         public PartnersController(JZenoDbContext context, IWebHostEnvironment webHostEnvironment, UserManager<User> userManager)
         {
             _context = context;
@@ -50,6 +49,7 @@ namespace JZenoApp.Controllers
             }
             return View(partner);
         }
+        [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null || _context.Partner == null)
@@ -67,6 +67,7 @@ namespace JZenoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Partner")]
         public async Task<IActionResult> Edit(string id, [Bind("partnerId,name,image,description,dateCreated,file,isActive")] Partner partner)
         {
             if (id != partner.partnerId)

@@ -1,6 +1,7 @@
 ﻿using JZenoApp.Areas.Manage.Model;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using Newtonsoft.Json;
 namespace JZenoApp.Areas.Manage.Controllers
 {
     [Area("Manage")]
+    [Authorize(Roles = "Admin,Partner")]
     public class StatisticsController : Controller
     {
         private readonly JZenoDbContext _context;

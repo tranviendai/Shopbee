@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Controllers
 {
@@ -18,20 +19,26 @@ namespace JZenoApp.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
-            var jZenoDbContext = _context.Bill.Include(b => b.User).Include(b => b.Voucher);
+            var jZenoDbContext = _context.Bill.Include(b => b.User)!.Include(b => b.Voucher).Include(e=>e.detailsOrders)!.ThenInclude(e=>e.Product);
             return View(await jZenoDbContext.ToListAsync());
         }
-
+        
+        public IActionResult List(string? searchName)
+        {
+            ViewData["searchPhone"] = searchName;
+            var bill = from m in _context.Bill
+                       select m;
+            return View(bill.Include(b => b.User).Include(b => b.Voucher).Where(e => e.phone!.Contains(searchName!)).ToList());
+        }
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Bill == null)
             {
                 return NotFound();
             }
-
             var bill = await _context.Bill
                 .Include(b => b.User)!
                 .Include(b => b.Voucher)!
@@ -41,13 +48,13 @@ namespace JZenoApp.Controllers
             {
                 return NotFound();
             }
-
             return View(bill);
         }
         [Route("Bills/updateActive/", Name = "updateActive")]
         public async Task<JsonResult> updateActive(string billID, int payment)
         {
             var bill = await _context.Bill.FindAsync(billID);
+            var detailOD = await _context.DetailOD.Where(e => e.billID == billID).ToListAsync();
 
             if (ModelState.IsValid)
             {
@@ -56,6 +63,11 @@ namespace JZenoApp.Controllers
                     if (bill!.payment == null) bill.billStatic = 0;
                     else bill!.billStatic = payment;
                     _context.Update(bill);
+                    foreach(var item in detailOD)
+                    {
+                        item.detailStatic = 4;
+                        _context.Update(item);
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -65,43 +77,5 @@ namespace JZenoApp.Controllers
             }
             return Json(bill);
         }
-
-        public async Task<IActionResult> Delete(string? id)
-        {
-            if (id == null || _context.Bill == null)
-            {
-                return NotFound();
-            }
-
-            var bill = await _context.Bill
-                .FirstOrDefaultAsync(m => m.billID == id);
-            if (bill == null)
-            {
-                return NotFound();
-            }
-
-            return View(bill);
-        }
-
-        // POST: Vouchers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string? id)
-        {
-            if (_context.Bill == null)
-            {
-                return Problem("Entity set 'JZenoDbContext.Voucher'  is null.");
-            }
-            var bill = await _context.Bill.FindAsync(id);
-            if ( bill != null)
-            {
-                _context.Bill.Remove(bill);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-
     }
 }

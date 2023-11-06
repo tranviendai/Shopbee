@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<JZenoApp.Models.Product>
-
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Quản Lý Sản Phẩm";
     ViewBag.Current = "QuanLySanPham";
@@ -11,7 +12,6 @@
     <script src="~/js/jquery.dataTables.min.js"></script>
 
 }
-
 
 @* ============================ *@
 <div class="card shadow mb-4">

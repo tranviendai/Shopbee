@@ -65,9 +65,14 @@ namespace JZenoApp.Controllers
             string jsoncart = JsonConvert.SerializeObject(ls);
             session.SetString(CARTKEY, jsoncart);
         }
+
         [Route("/addcart", Name = "addcart")]
         public IActionResult AddToCart(string? id, string? color, int? size, int? quantity)
         {
+            if ( User.IsInRole("Partner") || User.IsInRole("Admin"))
+            {
+                return Content("Bạn không được phép đặt sản phẩm");
+            }
             var product = _context.Product
              .Where(p => p.Id == id)
              .Select(e => new Product
@@ -97,7 +102,6 @@ namespace JZenoApp.Controllers
             if (product == null)
                 return NotFound("Không có sản phẩm");
             var cart = GetCartItems();
-
             var cartitem = cart.Find(e => e.product!.Id == id && e.isUnique == size);
             if (cartitem != null)
             {
@@ -107,12 +111,8 @@ namespace JZenoApp.Controllers
             {
                 cart.Add(new CartItem() { quantity = quantity, product = product, isUnique = size });
             }
-
-            // Lưu cart vào Session
             SaveCartSession(cart);
-            // Chuyển đến trang hiện thị Cart
             return Json(cart);
-            //return RedirectToAction(nameof(Cart));
         }
         [Route("/updatecart", Name = "updatecart")]
         [HttpPost]
@@ -157,16 +157,26 @@ namespace JZenoApp.Controllers
             var voucherID = _context.Voucher.FirstOrDefault(e => e.name == form["voucherName"].ToString());
             if (voucherID != null)
             {
-                bill.voucherID = voucherID!.voucherID;
-                bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
+               if(voucherID.startDate <= DateTime.Now  && voucherID.endDate >= DateTime.Now && voucherID.quantity != 0)
+                {
+                    bill.voucherID = voucherID!.voucherID;
+                    bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
+                    voucherID.quantity = voucherID.quantity - 1;
+                    _context.Update(voucherID);
+                }
+                else
+                {
+                    bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
+                }
             }
             else
             {
                 bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
             }
-            if(_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
             {
                 bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                bill.phone = User.FindFirstValue(ClaimTypes.MobilePhone);
                 bill.note = $"<div>{form["getNote"].ToString()}</div>";
             }
             else
@@ -174,6 +184,7 @@ namespace JZenoApp.Controllers
                 bill.note = "<div>" + "<strong>" + "Họ Tên: " + "</strong>" + form["getName"].ToString()+"</br>"+
                      "<strong>" + "Số Điện Thoại: " + "</strong>" + form["getPhone"].ToString() + "<br/>" +
                    "<strong>" + "Địa Chỉ Nhận Hàng: " + "</strong>" + form["getAddress"].ToString() + "</div>";
+                bill.phone = form["getPhone"];
             }
             _context.Add(bill);
             foreach (var item in cart)
@@ -183,6 +194,7 @@ namespace JZenoApp.Controllers
                 detailOrder.billID = idGUID;
                 detailOrder.quantity = item.quantity;
                 detailOrder.price = item.product!.price;
+                detailOrder.detailStatic = 0;
                 detailOrder.totalPrice = item.product.price * detailOrder.quantity;
                 detailOrder.Product = product.Result;
                 var size = _context.ProductSize.Find(item.isUnique);
@@ -202,6 +214,7 @@ namespace JZenoApp.Controllers
         [Route("/cart", Name = "cart")]
         public IActionResult Cart()
         {
+            ViewData["ListVoucher"] = _context.Voucher.ToList();
             /*
               if (_signInManager.IsSignedIn(User))
              {
@@ -211,9 +224,12 @@ namespace JZenoApp.Controllers
              {
                  return Redirect("/Identity/Account/Login");
              }*/
-            
-                return View(GetCartItems());
-           
+            if (User.IsInRole("Partner") || User.IsInRole("Admin"))
+            {
+                return Redirect("/");
+            }
+            return View(GetCartItems());
+
         }
         public IActionResult PaymentWithPaypal(string? Cancel = null)
         {
@@ -346,10 +362,5 @@ namespace JZenoApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
-
-
-
     }
 }

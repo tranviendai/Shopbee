@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Areas.QuanLy.Controllers
 {
@@ -21,6 +22,7 @@ namespace JZenoApp.Areas.QuanLy.Controllers
         }
 
         [Route("Manage/Products")]
+        [Authorize(Roles = "Admin,Partner")]
         public async Task<IActionResult> Index()
         {
             var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.Partner).Include(p => p.productImages);
@@ -28,6 +30,7 @@ namespace JZenoApp.Areas.QuanLy.Controllers
         }
 
         [Route("/Manage/Products/updateActive/{id?}")]
+        [Authorize(Roles = "Admin")]
         public async Task<JsonResult> updateActive(string id)
         {
             var product = await _context.Product.FindAsync(id);

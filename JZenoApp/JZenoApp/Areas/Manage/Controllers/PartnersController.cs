@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using JZenoApp.Data;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JZenoApp.Areas.QuanLy
 {
     [Area("Manage")]
+    [Authorize(Roles ="Admin")]
     public class PartnersController : Controller
     {
         private readonly JZenoDbContext _context;

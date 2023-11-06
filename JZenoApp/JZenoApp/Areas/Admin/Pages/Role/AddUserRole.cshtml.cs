@@ -1,4 +1,5 @@
 ﻿using JZenoApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JZenoApp.Areas.Admin.Pages.Role
 {
+    [Authorize(Roles = "Admin")]
     public class AddUserRole : PageModel
     {
         private readonly RoleManager<IdentityRole> _roleManager;

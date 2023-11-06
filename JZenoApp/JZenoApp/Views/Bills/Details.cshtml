@@ -9,7 +9,6 @@
     {
         gia = Convert.ToDouble(Model.Voucher.price);
     }
-    double giagoc = gia + (double)Model.price!;
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <link href="~/css/bootstrap.min.css" rel="stylesheet" />
@@ -90,6 +89,34 @@
                                 </div>
                                 <div class="col-6" style="display:flex; align-items:center;"  >
                                     <span style="margin-left:10px;">@item.Product.name (@item.color - @item.size)</span>
+                                    <span>
+                                        @{
+                                            if (Convert.ToInt16(item.detailStatic) == 0)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Chờ Xử Lý</span>
+                                            }
+                                            else if (Convert.ToInt16(item.detailStatic) == 1)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Đã Xác Nhận</span>
+                                            }
+                                            else if (Convert.ToInt16(item.detailStatic) == 2)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
+                                            }
+                                            else if (Convert.ToInt16(item.detailStatic) == 3)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
+                                            }
+                                            else if (Convert.ToInt16(item.detailStatic) == 4)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
+                                            }
+                                            else if (Convert.ToInt16(item.detailStatic) == 5)
+                                            {
+                                                <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
+                                            }
+                                        }
+                                    </span>
                                 </div>
                                 <div class="col-3" style="display:flex; align-items:center;">
                                     <span >@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
@@ -99,7 +126,7 @@
                         }
                     </table>
                     <div style="margin-top:10px;text-align:right;">
-                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(giagoc).ToString("N0")đ</span>
+                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(gia + (double) @Model.price!).ToString("N0")đ</span>
                     </div>
                     <div style="text-align:right;">
                         <strong>Giảm giá:</strong><span style="color:red;"> @Convert.ToDecimal(gia).ToString("N0")đ</span>
@@ -188,27 +215,15 @@
                         @{
                             if (Convert.ToInt16(Model.billStatic) == 0)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Chờ Xử Lý</span>
+                                <span style="color: red; font-weight:bold" class="statys">Chờ Thanh Toán</span>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 1)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Đã Xác Nhận</span>
+                                <span style="color: red; font-weight:bold" class="statys">Đã Thanh Toán</span>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 2)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 3)
-                            {
-                                <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 4)
-                            {
                                 <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 5)
-                            {
-                                <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
                             }
                             <div style="height:10px;"></div>
                         }
@@ -247,27 +262,15 @@
                         @{
                             if (Convert.ToInt16(Model.billStatic) == 0)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Chờ Xử Lý</span>
+                                <span style="color: red; font-weight:bold" class="statys">Chờ Thanh Toán</span>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 1)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Đã Xác Nhận</span>
+                                <span style="color: red; font-weight:bold" class="statys">Đã Thanh Toán</span>
                             }
                             else if (Convert.ToInt16(Model.billStatic) == 2)
                             {
-                                <span style="color: red; font-weight:bold" class="statys">Đang Giao</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 3)
-                            {
-                                <span style="color: red; font-weight:bold" class="statys">Đã Giao</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 4)
-                            {
                                 <span style="color: red; font-weight:bold" class="statys">Đã Hủy</span>
-                            }
-                            else if (Convert.ToInt16(Model.billStatic) == 5)
-                            {
-                                <span style="color: red; font-weight:bold" class="statys">Trà Hàng/Hoàn Tiền</span>
                             }
                             <div style="height:10px;"></div>
                         }
