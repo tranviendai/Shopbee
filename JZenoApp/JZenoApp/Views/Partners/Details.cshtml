@@ -1,23 +1,37 @@
-﻿@model JZenoApp.Models.Partner
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model JZenoApp.Models.Partner
 
 @{
     ViewData["Title"] = "Chi Tiết Đối Tác";
     <link rel="stylesheet" href="~/css/managementForm.css">
-    <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    var userId = UserManager.GetUserId(User);
 }
 
 @if (Model.isActive == true)
 {
+
+
     <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
-        <h1 class="text-center">Thông Tin Cửa Hàng</h1>
+    
+
+
+
         @if (User.IsInRole("Partner"))
         {
+            <h1 class="text-center">Thông Tin Cửa Hàng</h1>
             <div>
                 <a style="background:red; float:right; padding:8px; text-decoration:none; border-radius:5px; color:white;" asp-action="Edit" asp-route-id="@Model?.partnerId">Cập Nhật Thông Tin Cửa Hàng?</a>
             </div>
+        }
+        else
+        {
+            <input id="receiverId" hidden value="@Model.partnerId" />
+            <input id="senderId" hidden value="@userId" />
+            <h1 class="text-center">Thông Tin Cửa Hàng <button id="addChat" class="btn">Chat Ngay</button> </h1>
         }
         <div class="row">
             <div class="col-2">
@@ -31,7 +45,7 @@
     </div>
     <div style="height:10px;"></div>
     <div class="row bg-white" style="padding:20px; margin:10px; border-radius:8px;">
-        @if(Model.products!.Count()==0)
+        @if (Model.products!.Count() == 0)
         {
             <h1>Hiện tại cửa hàng này chưa có sản phẩm nào</h1>
         }
@@ -51,7 +65,7 @@
                                 {
                                     if (index == 0)
                                     {
-                                        <img src="~/images/products/@i.URL" class="img-fluid" />
+                                                <img src="~/images/products/@i.URL" class="img-fluid" />
                                         break;
                                     }
                                     index++;
@@ -100,3 +114,26 @@ else
         <h1 class="text-center">Hiện tại cửa hàng đang chờ xác nhận</h1>
     </div>
 }
+<script>
+    $(function () {
+        var senderId = $('#senderId').val();
+        var receiverId = $("#receiverId").val();
+        $("#addChat").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/Chat/AddChat",
+                data: {
+                    senderId: senderId,
+                    receiverId: receiverId
+                },
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = "/chat";
+                },
+                error: function () {
+                    window.location.href = "/chat";
+                }
+            });
+        });
+    });
+</script>

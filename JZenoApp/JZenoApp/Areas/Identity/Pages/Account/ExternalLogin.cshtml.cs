@@ -87,7 +87,7 @@ namespace JZenoApp.Areas.Identity.Pages.Account
             public string Email { get; set; }
             [Phone]
             [Display(Name = "Số điện thoại")]
-            [StringLength(10, MinimumLength = 10, ErrorMessage = "Vui lòng nhập đúng định dạng")]
+            [StringLength(10)]
             public string PhoneNumber { get; set; }
             [Required(ErrorMessage = "Vui lòng nhập họ tên")]
             [Display(Name = "Họ Tên")]

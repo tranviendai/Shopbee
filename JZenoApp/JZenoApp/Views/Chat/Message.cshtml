@@ -1,0 +1,39 @@
+﻿@model JZenoApp.Models.Chat
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="row" style="margin:0">
+    <div class="col-3" style="overflow-y:auto; overflow:scroll; overflow-x:hidden;">
+        @{
+            await Html.RenderPartialAsync("ChatBar", ViewData["GetChat"]);
+        }
+    </div>
+    <div class="col">
+        <div>
+            @if (UserManager.GetUserId(User) == Model.Receiver!.Id)
+            {
+                <div><img height="40" src="/images/users/@Model.Sender!.image" /> @Model.Sender!.fullName</div>
+            }
+            else{
+                <div><img height="40" src="/images/users/@Model.Receiver!.image" /> @Model.Receiver!.fullName</div>
+            }
+        </div>
+        <input id="chatId" hidden value="@Model.id" />
+        <input id="senderId" hidden value="@Model.senderId" />
+        <div id="messagesList"></div>
+        <div class="d-flex mainInput">
+            <textarea minlength="1" required rows="1" type="text" id="messageInput" class="form-control" placeholder="Aa"></textarea>
+            <button class="btn" id="sendButton" style=" margin:0;"><i class="fa fa-send-o"></i></button>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/message.css" asp-append-version="true" />

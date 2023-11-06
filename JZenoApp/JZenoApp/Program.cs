@@ -1,4 +1,5 @@
 ﻿using JZenoApp.Data;
+using JZenoApp.Hubs;
 using JZenoApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                    .AddEntityFrameworkStores<JZenoDbContext>().AddDefaultTokenProviders().AddDefaultUI();
 builder.Services.AddControllersWithViews();
-builder.Services.AddDistributedMemoryCache();       
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSignalR();
+
 builder.Services.AddSession(cfg => {                    
     cfg.Cookie.Name = "JZeno";                        
     cfg.IdleTimeout = new TimeSpan(24, 1, 0);           
@@ -52,7 +55,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.MapHub<SignalHub>("/chatHub");
 app.UseAuthorization();
 
 app.MapControllerRoute(

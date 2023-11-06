@@ -6,12 +6,11 @@
 
 @{
     ViewData["Title"] = "Giỏ Hàng";
-    var list = (List<Voucher>)ViewData["ListVoucher"];
+    var list = (List<Voucher>)ViewData["ListVoucher"]!;
     <link rel="stylesheet" href="~/css/cart/cart.css"/>
     <link rel="stylesheet" href="~/css/products/detail.css" />
     <link rel="stylesheet" href="~/css/managementForm.css">
     <link rel="stylesheet" href="~/css/coupon.css" />
-
     }
 
 <h2>GIỎ HÀNG</h2>
@@ -113,7 +112,6 @@
     </div>
 
     <form asp-controller="Home" asp-action="CheckOut">
-
         <div class="modal fade" id="voucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="border-radius: 14px;">
             <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
                 <div class="modal-content">

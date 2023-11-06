@@ -7,15 +7,17 @@
     <link rel="icon" href="~/images/logo/shopee-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-@*     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
- *@    @* <link rel="stylesheet" href="~/JZenoApp.styles.css" asp-append-version="true" /> *@
+    @*     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    *@    @* <link rel="stylesheet" href="~/JZenoApp.styles.css" asp-append-version="true" /> *@
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/grid.css">
     <link rel="stylesheet" href="~/css/responsive.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="~/js/cartajax.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/js/cartajax.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 </head>
 <body>
     <!-- main -->
@@ -29,9 +31,9 @@
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                             <a class="header__nav-item-link" href="/">Trang Chủ</a>
                         </li>
-                            <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
-                                <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
-                            </li>
+                        <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
+                            <a class="header__nav-item-link" asp-area="" asp-controller="Products" asp-action="Index">Sản Phẩm</a>
+                        </li>
                         <li class="header__nav-item header__nav-item--hover header__nav-item--separate">
                             <a class="header__nav-item-link" href="/Bills/List/">Tìm Đơn Hàng</a>
                         </li>
@@ -157,13 +159,13 @@
                             </div>
                         </li>
                         <li class="header__nav-item">
-                            <a href="#" class="header__nav-item-link">
+                            <a href="/Chat" class="header__nav-item-link">
                                 <i class="header__nav-icon far fa-question-circle"></i>
-                                Hỗ trợ
+                                Tin Nhắn
                             </a>
                         </li>
                         <partial name="_LoginPartial" />
-                        
+
                     </ul>
                 </nav>
                 <!-- search -->
@@ -179,7 +181,7 @@
                     <input type="checkbox" id="mobile-search" class="header__search-check" hidden>
                     <form asp-controller="Products" asp-action="Index" method="get" class="header__search">
                         <div class="header__search-input-wrap">
-                            <input type="text" class="header__search-input"  name="searchName" placeholder="Tìm kiếm trên Shopbee" value="@ViewData["GetSearch"]">
+                            <input type="text" class="header__search-input" name="searchName" placeholder="Tìm kiếm trên Shopbee" value="@ViewData["GetSearch"]">
                         </div>
                         <button class="btn header__search-btn" style="background-color: var(--light-btn-primary-color);">
                             <i class="header__search-btn-icon fas fa-search"></i>

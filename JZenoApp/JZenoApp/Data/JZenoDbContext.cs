@@ -1762,6 +1762,8 @@ namespace JZenoApp.Data
         public DbSet<Partner> Partner { get; set; }
         public DbSet<NewsModel> NewsModel { get; set; }
         public DbSet<ProductComment> ProductComment { get; set; }
+        public DbSet<Chat> Chat { get; set; }
+        public DbSet<ChatDetails> ChatDetail { get; set; }
 
     }
 }

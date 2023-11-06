@@ -1,0 +1,78 @@
+﻿.message {
+    width: 100%;
+    display: table;
+}
+
+    .message div {
+        margin: 3px;
+        border-radius: 5px;
+    }
+
+.receiver div {
+    color: white;
+    float: left;
+}
+
+.receiver div {
+    padding: 10px;
+    background: #0094ff;
+    margin-right: 20%;
+}
+
+.message.receiver {
+    display: flex;
+}
+
+.sender div {
+    float: right;
+    color: white;
+}
+
+.sender div {
+    padding: 10px;
+    background: black;
+    margin-left: 20%;
+}
+
+.sender p img {
+    display: none;
+}
+
+.receiver p {
+    margin: 0;
+}
+
+    .receiver p img {
+        height: 20px;
+        justify-items: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+#sendButton {
+    background: black;
+    color: white;
+    position:absolute;
+    right:0;
+    bottom:0;
+}
+#messagesList {
+    height: 50vh;
+    overflow-y: scroll;
+}
+.mainInput{
+    margin-top:100px;
+    position:relative;
+}
+#messageInput{
+    position:absolute;
+    bottom:0;
+    padding-right:135px;
+}
+.itemName{
+    color:black;
+    font-weight:bold;
+}
+.contact {
+    color: black;
+}

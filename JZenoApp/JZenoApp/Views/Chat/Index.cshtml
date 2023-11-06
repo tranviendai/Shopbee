@@ -1,0 +1,45 @@
+﻿@model IEnumerable<JZenoApp.Models.Chat>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row" style="margin:0">
+    <div class="col-3" style="scroll-behavior:auto; overflow-y: scroll;">
+        @foreach (var item in Model)
+        {
+            <a asp-action="Message" asp-route-id="@item.id" style="margin:10px;" class="row">
+                @if (UserManager.GetUserId(User) == item.Receiver!.Id)
+                {
+                    <div class="col-3"><img height="50" src="/images/users/@item.Sender!.image" /></div>
+                    <div class="col">
+                        <div class="itemName">@item.Sender!.fullName</div>
+                        <div class="contact">Liên hệ ngay</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-3"><img height="50" src="/images/users/@item.Receiver!.image" /></div>
+                    <div class="col">
+                        <div class="itemName">@item.Receiver!.fullName</div>
+                        <div class="contact">Liên hệ ngay</div>
+                    </div>
+                }
+            </a>
+        }
+</div>
+    <div class="col bg-white" style="height:50vh">
+        <h1 class="text-center" style="margin-top:40px;">Vui lòng chọn người bạn muốn nhắn tin</h1>
+    </div>
+</div>
+<style>
+    .itemName {
+        color: black;
+        font-weight: bold;
+    }
+
+    .contact {
+        color: black;
+    }
+</style>
