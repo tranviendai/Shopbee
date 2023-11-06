@@ -27,7 +27,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 builder.Services.AddDefaultIdentity<User>().AddRoles<IdentityRole>()
                    .AddEntityFrameworkStores<JZenoDbContext>().AddDefaultTokenProviders().AddDefaultUI();
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();       
 builder.Services.AddSession(cfg => {                    
     cfg.Cookie.Name = "JZeno";                        
