@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    DateTime thisdate = DateTime.Now;
 }
 <link href="~/css/voucher.css" rel="stylesheet" />
 
@@ -27,7 +28,7 @@
     <button class="btnsearch"> Lưu</button>
 </div>
 
-<div style="font-size: 20px; margin: 27px; font-weight: 500;">Voucher của Shope</div>
+<div style="font-size: 20px; margin: 27px; font-weight: 500;">Voucher của Shope </div>
 
 <div class="bgkhung kloc">
     <a class="tvc loc" href="#" style="margin-left: 40px; ">Mới nhất</a>
@@ -36,11 +37,13 @@
 </div>
 <div class="row" style="margin:20px 20px;">
 @foreach (var item in Model.Voucher) {
-        
+    if(item.endDate>= thisdate && item.startDate<=thisdate && Convert.ToInt16(item.quantity)>0)
+    {
         <div class="col-6" style="padding: 20px;"> 
                 <div class="row dsvoucher">
                     <div class="col-3" style="margin: -4px 0px; margin-left: -27px;">
                         <img src="~/images/voucher/voucher%.png" width="140px">
+                      
                     </div>
 
                     <div class="col-9 detailvc" style="padding:6px 25px 6px 35px;">
@@ -106,8 +109,8 @@
                         <div class="timevc">
                             <div class="row">
                                 <div class="col-8">
-                                    <i class='bx bx-stopwatch'></i>
-                                    <span>Có hiệu lực sau 1 ngày</span>
+                                     <i class='bx bx-note'></i>
+                                    <span>Voucher còn @item.quantity</span>
                                 </div>
                                 <div class="col-4" style=" display: flex;justify-content: right; font-size: 25px;">
                                     <a href="#" style="font-size:17px; color: rgb(32, 235, 235);text-decoration: none;margin-top: 15px; margin-right: -20px;">Điều Kiện</a>
@@ -118,7 +121,8 @@
                     </div>
                 </div>
         </div>
-    }       
+    }
+}
 </div>
 
 <style>
