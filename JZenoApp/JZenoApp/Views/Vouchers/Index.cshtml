@@ -1,143 +1,135 @@
 ﻿@model IEnumerable<JZenoApp.Models.Voucher>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản Lý Voucher";
     ViewBag.Current = "QuanLyVoucher";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
-<script src="~/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
-
-<h1>Danh sách voucher</h1>
-
-<p class="btn btn-success" style="margin-bottom:20px; padding: 2px 12px 28px 12px; background-color:var(--main-color1); border:none;">
-    <a asp-action="Create">Tạo mới</a>
-</p>
-
-<div class="box-section-content" style="background-color:#fff; padding-top:20px;">
-    <table id="example" class="table table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th>
-                    Tên voucher
-                </th>
-                <th>
-                    Giá voucher
-                </th>
-                <th>
-                    Số lượng
-                </th>
-                <th>
-                    Ngày bắt đầu
-                </th>
-                <th>
-                    Ngày kết thúc
-                </th>
-                <th >
-                    Chức năng
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @if (Convert.ToDouble(item.price) == 0.1)
-                        {
-                            <span>10%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.2)
-                        {
-                            <span>20%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.3)
-                        {
-                            <span>30%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.4)
-                        {
-                            <span>40%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.5)
-                        {
-                            <span>50%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.6)
-                        {
-                            <span>60%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) == 0.7)
-                        {
-                            <span>70%</span>
-                        }
-                        @if (Convert.ToDouble(item.price) > 1)
-                        {
-                            <div>
-                                Giảm @Convert.ToDecimal(item.price).ToString("N0")đ
-                            </div>
-                        }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.startDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.endDate)
-                    </td>
-                    <td>
-                        <span class="btn btn-warning">
-                            <a asp-action="Edit" asp-route-id="@item.voucherID">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                Chỉnh Sửa
-                            </a>
-
-                        </span>
-                        <span class="btn btn-danger">
-                            <a asp-action="Delete" asp-route-id="@item.voucherID">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                Xoá
-                            </a>
-                        </span>
-                    </td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                    Tên voucher
-                </th>
-                <th>
-                    Giá voucher
-                </th>
-                <th>
-                    Số lượng
-                </th>
-                <th>
-                    Ngày bắt đầu
-                </th>
-                <th>
-                    Ngày kết thúc
-                </th>
-                <th>
-                    Chức năng
-                </th>
-            </tr>
-        </tfoot>
-    </table>
+@* ============================ *@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a asp-action="Create" class="create-btn">Thêm Voucher</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: clip !important;">
+            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Tên voucher
+                        </th>
+                        <th>
+                            Giá voucher
+                        </th>
+                        <th>
+                            Số lượng
+                        </th>
+                        <th>
+                            Ngày bắt đầu
+                        </th>
+                        <th>
+                            Ngày kết thúc
+                        </th>
+                        <th style="text-align: center">
+                            Chức năng
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+                            Tên voucher
+                        </th>
+                        <th>
+                            Giá voucher
+                        </th>
+                        <th>
+                            Số lượng
+                        </th>
+                        <th>
+                            Ngày bắt đầu
+                        </th>
+                        <th>
+                            Ngày kết thúc
+                        </th>
+                        <th style="text-align: center">
+                            Chức năng
+                        </th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @if (Convert.ToDouble(item.price) == 0.1)
+                                {
+                                    <span>10%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.2)
+                                {
+                                    <span>20%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.3)
+                                {
+                                    <span>30%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.4)
+                                {
+                                    <span>40%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.5)
+                                {
+                                    <span>50%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.6)
+                                {
+                                    <span>60%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) == 0.7)
+                                {
+                                    <span>70%</span>
+                                }
+                                @if (Convert.ToDouble(item.price) > 1)
+                                {
+                                    <div>
+                                        Giảm @Convert.ToDecimal(item.price).ToString("N0")đ
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.startDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.endDate)
+                            </td>
+                            <td style="text-align: center">
+                                <a asp-action="Edit" asp-route-id="@item.voucherID" style="text-decoration: none">
+                                    <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                        <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                    </span>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.voucherID" style="text-decoration: none">
+                                    <span class="btn btn-danger" style="min-width: 65px !important; border-radius: 25px;">
+                                        <i class="fas fa-trash-alt" style="color: #fff"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+    new DataTable('#example');
 </script>

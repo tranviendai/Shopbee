@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="~/css/cart/cart.css"/>
     <link rel="stylesheet" href="~/css/products/detail.css" />
     <link rel="stylesheet" href="~/css/managementForm.css">
+    <link rel="stylesheet" href="~/css/coupon.css" />
+
     }
 
 <h2>GIỎ HÀNG</h2>
@@ -47,7 +49,7 @@
                             {
                                 if (index == 0)
                                 {
-                                            <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                                <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
                                     break;
                                 }
                                 index++;
@@ -109,33 +111,45 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="voucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Danh Sách Voucher</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    @foreach (var item in list!)
-                    {
-                        <div>@item.name - @item.price</div>
-                    }
-                </div>
 
+    <form asp-controller="Home" asp-action="CheckOut">
+
+        <div class="modal fade" id="voucher" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="border-radius: 14px;">
+            <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Danh Sách Voucher</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="input-group mb-3">
+                            <input id="voucherName" name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" style="border: none;outline: none;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;font-size: 16px;padding: 10px;border-radius: 8px;" />
+                        </div>
+                        @foreach (var item in list!)
+                        {
+                            <div class="copy-button">
+                                <input id="copyvalue-@item.name" type="text" readonly value="@item.name" />
+                                <span style="margin-right: 8px;">@Convert.ToDecimal(item.price).ToString("N0")đ</span>
+                                <div data-coupon="@item.name" class="copybtn" style="cursor: pointer;">SAO CHÉP</div>
+                            </div>
+                        }
+                    </div>
+
+                    <button class="btn btn--primary header__cart-see-cart" style="width: 96%" type="button" data-bs-dismiss="modal" aria-label="Close">
+                        <h5>Áp Dụng</h5>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Thông Tin Thanh Toán</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <form asp-controller="Home" asp-action="CheckOut">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="font-size: 1.6rem; top: 12%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 16px;">Thông Tin Thanh Toán</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
                         @if (!SignInManager.IsSignedIn(User))
                         {
                             <div class="input-group mb-3">
@@ -153,7 +167,8 @@
                                 <input id="getName" minlength="2" maxlength="32" pattern="[a-zA-Z\]*" required name="getName" class="form-control" placeholder="Nhập Họ Tên Của Bạn" style="font-size: 14px;" />
                             </div>
                         }
-                        else{
+                        else
+                        {
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px; height: 40px;">Họ Tên</span>
                                 <input value="@UserManager.GetUserAsync(User).Result?.fullName" disabled class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
@@ -171,10 +186,7 @@
                                 <input id="getName" name="getNote" class="form-control" placeholder="Ghi Chú?" style="font-size: 14px;" />
                             </div>
                         }
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1" style="width: 68px; font-size: 14px;height: 40px;">Voucher</span>
-                            <input id="voucherName" name="voucherName" class="form-control" placeholder="Nhập Mã Voucher (Nếu Có)" style="font-size: 14px;" />
-                        </div>
+                        
                         <div class="dropdown" style="text-align: right">
                             <button class="btn btn--primary header__cart-see-cart dropdown-toggle" style="width: 96%" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <h5 class="modal-title" id="exampleModalLabel">Chọn Phương Thanh Toán</h5>
@@ -188,15 +200,40 @@
                                 </li>
                             </ul>
                         </div>
-                    </form>
+                    </div>
+
                 </div>
-                
             </div>
         </div>
-    </div>
+    </form>
 
       @section Scripts {
         <script>
+        // let copybtn = document.querySelector(".copybtn");
+
+        // function copyIt(code) {
+        //     console.log('#copyvalue-' + code)
+        //     let copyInput = document.querySelector('#copyvalue-' + code);
+
+        //     copyInput.select();
+
+        //     document.execCommand("copy");
+
+        //     copybtn.textContent = "ĐÃ SAO CHÉP";
+        // }
+
+        $(document).ready(function () {
+            $(".copybtn").click(function (event) {
+                event.preventDefault();
+                var dataCouponInput = $(this).attr("data-coupon");
+                $('#copyvalue-' + dataCouponInput).select();
+                console.log('copyvalue-' + dataCouponInput)
+                document.execCommand("copy");
+                this.textContent = "ĐÃ SAO CHÉP";
+            });
+        });
+
+
           $(document).ready(function () {
               $(".plus-btn").click(function (event) {
                   event.preventDefault();
