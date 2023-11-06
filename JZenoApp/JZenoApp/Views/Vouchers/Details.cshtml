@@ -1,0 +1,55 @@
+﻿@model JZenoApp.Models.Voucher
+
+@{
+    ViewData["Title"] = "Details";
+    ViewBag.Current = "QuanLyVoucher";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<link href="~/css/manage.css" rel="stylesheet" />
+
+<div>
+    <div class="box-form" style="background-color: #fff;">
+        <div class="form-horizontal">
+            <h4 class="title-form">Chi tiết Voucher</h4>
+            <div class="form-group row p-0">
+                <span class="col label-name">Tên Voucher</span>
+                <span class="input-form col-10" style="background-color:#fff;">@Html.DisplayFor(model => model.name)</span>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Giá Voucher</span>
+                <span class="input-form col-10" style="background-color:#fff;">@Html.DisplayFor(model => model.price)</span>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Số Lượng</span>
+                <span class="input-form col-10" style="background-color:#fff;">@Html.DisplayFor(model => model.quantity)</span>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Ngày Bắt Đầu</span>
+                <span class="input-form col-10" style="background-color:#fff;">@Html.DisplayFor(model => model.startDate)</span>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row p-0">
+                <span class="col label-name">Ngày kết thúc</span>
+                <span class="input-form col-10" style="background-color:#fff;">@Html.DisplayFor(model => model.endDate)</span>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-center form-btn">
+                <a asp-action="Edit" class="btn btn-warning dtvc" style="width: 100%; color:#fff" asp-route-id="@Model?.voucherID">Chỉnh sửa</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div>
+     
+    <a asp-action="Index">Trở lại</a>
+</div>

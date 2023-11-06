@@ -3,321 +3,165 @@
 @inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Quản Lý Sản Phẩm";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    ViewBag.Current = "QuanLySanPham";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     <link href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="~/css/tableCustom.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/js/jquery.dataTables.min.js"></script>
 
 }
-<style>
-    .product-meta {
-        max-width: 400px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 
-        .product-meta:hover {
-            width: 300px;
-            white-space: normal;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .create-btn {
-        color: #fff;
-        position: relative;
-        overflow: visible;
-        outline: 0;
-        background: #ee4d2d !important;
-        max-width: 250px;
-        width: 180px;
-        height: 48px;
-        padding: 0 20px;
-        text-overflow: ellipsis;
-        flex-direction: column;
-        box-sizing: border-box;
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,.09);
-        border-radius: 2px;
-        border: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-transform: capitalize;
-        text-decoration: none;
-        }
-
-    .current {
-        color: #ee4d2d !important;
-        background: #fff !important;
-        border: 1px solid #ee4d2d;
-    }
-
-    .paginate_button a {
-        color: #fff ;
-    }
-
-    .paginate_button {
-        padding: 4px;
-        margin: 6px;
-        border-radius: 4px;
-        min-width: 37px !important;
-        cursor: pointer;
-        }
-
-        
-</style>
-
-<p>
-    <a asp-action="Create" class="create-btn" style="color: #fff !important;">Thêm Mới</a>
-</p>
-
-<div class="box-section-content" style="background: #fff;">
-    <table id="example" class="table table-striped" style="width:100%;">
-        <thead>
-            <tr>
-                <th>
-                </th>
-                <th>
-                    Tên Sản Phẩm
-                </th>
-                <th>
-                    Giảm Giá
-                </th>
-                <th>
-                    Đơn Giá
-                </th>
-                <th>
-                    Mô Tả
-                </th>
-                <th>
-                    Ngày Đăng
-                </th>
-                <th>
-                    Trạng Thái
-                </th>
-                <th>
-                    Danh Mục
-                </th>
-                <th>
-                    Đối Tác
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (User.IsInRole("Admin"))
-            {
-                @foreach (var item in Model)
-                {
+@* ============================ *@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <a asp-action="Create" class="btn create-btn">Thêm Sản Phẩm</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: clip !important;">
+            <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                <thead>
                     <tr>
-                        <td>
-                            @foreach (var i in item.productImages!)
-                            {
-                                var index = 0;
-                                @if (i.URL != null)
+                        <th>
+                        </th>
+                        <th>
+                            Tên Sản Phẩm
+                        </th>
+                        <th>
+                            Giảm Giá
+                        </th>
+                        <th>
+                            Đơn Giá
+                        </th>
+                        <th>
+                            Ngày Đăng
+                        </th>
+                        <th style="text-align: center;">
+                            Mở Bán
+                        </th>
+                        <th>
+                            Danh Mục
+                        </th>
+                        <th>
+                            Đối Tác
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>
+                            Tên Sản Phẩm
+                        </th>
+                        <th>
+                            Giảm Giá
+                        </th>
+                        <th>
+                            Đơn Giá
+                        </th>
+                        <th>
+                            Ngày Đăng
+                        </th>
+                        <th style="text-align: center;">
+                            Mở Bán
+                        </th>
+                        <th>
+                            Danh Mục
+                        </th>
+                        <th>
+                            Đối Tác
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @foreach (var i in item.productImages!)
                                 {
-                                    @if (index == 0)
+                                    var index = 0;
+                                    @if (i.URL != null)
                                     {
-                                        <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
-                                        break;
+                                        @if (index == 0)
+                                        {
+                                            <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
+                                            break;
+                                        }
                                     }
+                                    else
+                                    {
+                                        <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
+                                    }
+                                    index++;
                                 }
-                                else
-                                {
-                                    <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
-                                }
-                                index++;
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.discount)%
+                            </td>
+                            <td class="ui-money">
+                                @Convert.ToDecimal(item.price).ToString("N0")đ
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.postDate)
+                            </td>
+                            @if (item.isPublish == true)
+                            {
+                                <td style="text-align: center;">
+                                    <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#ee4d2d"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="text-align: center;">
+                                    <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#a1a1a1"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                    </button>
+                                </td>
                             }
 
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.discount)%
-                        </td>
-                        <td class="ui-money">
-                            @Convert.ToDecimal(item.price).ToString("N0")đ
-                        </td>
-
-                        <td class="product-meta">
-                            @Html.DisplayFor(modelItem => item.description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.postDate)
-                        </td>
-                        @if (item.isPublish == true)
-                        {
-                            <td style="text-align: center;">
-                                Mở Bán
-                                <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0,0,256,256"><g fill="#ee4d2d" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M11,2l-0.77539,3.41797l-3.22461,3.58203v12h11.25l3.75,-8.4375v-3.5625h-9l1,-4l-1,-3zM2,9v12h3v-12z"></path></g></g></svg>
-                                </button>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category!.name)
                             </td>
-                        }
-                        else
-                        {
-                            <td style="text-align: center;">
-                                Ngưng Bán
-                                <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
-                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0,0,256,256"><g fill="#ee4d2d" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M2,3v12h3v-12zM8.875,3c-1.036,0 -1.875,0.839 -1.875,1.875v9.53516c0,0.497 0.19783,0.97417 0.54883,1.32617l6.01367,6.01367c0,0 1.875,-0.44712 1.875,-2.20312c0.001,-0.68 -1.4375,-4.54687 -1.4375,-4.54687h6c1.036,0 2,-0.964 2,-2v-0.94141c0,-0.41 -0.08595,-0.81545 -0.25195,-1.18945l-3.00391,-6.75586c-0.301,-0.678 -0.97189,-1.11328 -1.71289,-1.11328z"></path></g></g></svg>
-                                </button>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Partner!.name)
                             </td>
-                        }
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category!.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Partner!.name)
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="btn btn-warning" style="min-width: 42px !important;">
-                                <a asp-action="Edit" asp-route-id="@item.Id">
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                            <td style="text-align: center;">
+                                <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
+                                    <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                        <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                    </span>
                                 </a>
 
-                            </span>
+                                <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
+                                    <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
 
-                            <span class="btn btn-primary" style="min-width: 42px !important;">
-                                <a asp-action="Details" asp-route-id="@item.Id">
-                                    <i class="fa-solid fa-circle-info"></i>
+                                        <i class="fas fa-info-circle" style="color: #fff"></i>
+                                    </span>
                                 </a>
-
-                            </span>
-                            @* <span class="btn btn-danger" style="min-width: 42px !important;">
-                    <a href="#" >
-                    <i class="fa-solid fa-trash"></i>
-                    </a>
-                    </span> *@
-                        </td>
-                    </tr>
-                }
-            }
-            else
-            {
-                @foreach (var item in Model.Where(e=>e.partnerID == UserManager.GetUserId(User)))
-                {
-                    <tr>
-                        <td>
-                            @foreach (var i in item.productImages!)
-                            {
-                                var index = 0;
-                                @if (i.URL != null)
-                                {
-                                    @if (index == 0)
-                                    {
-                                        <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
-                                }
-                                index++;
-                            }
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.discount)%
-                        </td>
-                        <td class="ui-money">
-                            @Convert.ToDecimal(item.price).ToString("N0")đ
-                        </td>
-
-                        <td class="product-meta">
-                            @Html.DisplayFor(modelItem => item.description)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.postDate)
-                        </td>
-                        @if (item.isPublish == true)
-                        {
-                            <td style="text-align: center;">
-                                Mở Bán
                             </td>
-                        }
-                        else
-                        {
-                            <td style="text-align: center;">
-                                Ngưng Bán
-                            </td>
-                        }
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category!.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Partner!.name)
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="btn btn-warning" style="min-width: 42px !important;">
-                                <a asp-action="Edit" asp-route-id="@item.Id">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-
-                            </span>
-
-                            <span class="btn btn-primary" style="min-width: 42px !important;">
-                                <a asp-action="Details" asp-route-id="@item.Id">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </a>
-
-                            </span>
-                            @* <span class="btn btn-danger" style="min-width: 42px !important;">
-                    <a href="#" >
-                    <i class="fa-solid fa-trash"></i>
-                    </a>
-                    </span> *@
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                </th>
-                <th>
-                    Tên Sản Phẩm
-                </th>
-                <th>
-                    % Giảm Giá
-                </th>
-                <th>
-                    Đơn Giá
-                </th>
-                <th>
-                    Mô Tả
-                </th>
-                <th>
-                    Ngày Đăng
-                </th>
-                <th>
-                    Trạng Thái
-                </th>
-                <th>
-                    Danh Mục
-                </th>
-                <th>
-                    Đối Tác
-                </th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
+    new DataTable('#example');
+
     $('button[id^=update-isActive]').on("click", function () {
         var id = $(this).attr('data-productid');
         $.ajax({

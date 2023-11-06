@@ -12,7 +12,16 @@
     }
 </style>
 
-<div class="row">
+<div class="row" style="background: #fff; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; border-radius: 4px; padding: 12px 8px;">
+    <div style="width: 100%; color: #333;     
+    font-weight: 600;
+    font-size: 30px;
+    justify-content: center;
+    display: flex;
+}">
+        <h2 class="font-weight-bold">Sửa Bài Đăng</h2>
+        <hr />
+    </div>
     <div class="">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,21 +39,37 @@
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
 
-            <div class="form-group row p-0">
+@*             <div class="form-group row p-0">
                 <span class="col label-name">Người đăng</span>
                 <select  asp-for="userId" class="form-control" asp-items="ViewBag.userId"></select>
                 <span asp-validation-for="userId" class="text-danger"></span>
-            </div>
-            <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
-                <input type="submit" value="Lưu chỉnh sửa" class="btn btn-primary" style="
-                    width: 50%;
-                    background: #ee4d2d;
-                    color: #fff;
-                    height: 48px;
-                    border: none;
+            </div> *@
+            <div class="form-btn d-flex justify-content-end form-btn btn-hover" style="margin: 8px 12px;">
+                <a href="/Manage/News" style="
+                    width: 8%;
+                    color: #ee4d2d;
+                    text-decoration: none;
+                    height: 38px;
                     font-size: 18px;
-                    border-radius: 24px;
-                    font-weight: bold;" />
+                    margin-right: 14px;
+                    border-radius: 6px;
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    Huỷ
+                </a>
+
+                <input type="submit" value="Lưu Chỉnh Sửa" class="" style="
+                       width: 18%;
+                       color: #fff;
+                       background: #ee4d2d;
+                       height: 38px;
+                       border: none;
+                       font-size: 18px;
+                       border-radius: 6px;
+                       font-weight: bold; " />
             </div>
         </form>
     </div>

@@ -2,12 +2,29 @@
 
 @{
     ViewData["Title"] = "Thêm sản phẩm";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    ViewBag.Current = "QuanLySanPham";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
     <link rel="stylesheet" href="~/css/managementForm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
 }
+
+<style>
+    .btn-hover:hover {
+        opacity: 0.inherit;
+    }
+
+    option {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border: none;
+        outline: none;
+    }
+</style>
 <div class="row" style="background: #fff; padding: 20px; margin: 10px; border-radius: 8px;">
+    <div style="width: 100%; color: #333">
+        <h4 class="font-weight-bold">Thông Tin Sản Phẩm</h4>
+        <hr/>
+    </div>
     <div class="col-md-15">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -90,22 +107,38 @@
                 <span class="col control-label">Hình ảnh</span>
                 <img src="~/images/products/no-image-product.png" id="img-not-found" class="img-create" alt="Chưa có hình ảnh sản phẩm" width="200px" height="200px" />
                 <div class="gallery img-create" style="display: inline; background: transparent;"></div>
-                <input asp-for="Files" id="gallery-photo-add" class="form-control mt-2" style="display: inline;" onchange="ResetImage()" multiple />
+                <input asp-for="Files" id="gallery-photo-add" class="input-form" style="display: inline;" onchange="ResetImage()" multiple />
                 <span asp-validation-for="Files" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="col control-label">Danh Mục</span>
                 <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
             </div>
-            <div class="form-btn d-flex justify-content-center form-btn" style="margin: 8px 12px;">
-                <input type="submit" value="Thêm Sản Phẩm" class="btn btn-primary" style="
-                    width: 100%;
-                    background: #ee4d2d;
+            <div class="form-btn d-flex justify-content-end form-btn btn-hover" style="margin: 8px 12px;">
+                <a href="/Manage/Products" style="
+                    width: 8%;
+                    color: #ee4d2d;
+                    text-decoration: none;
                     height: 38px;
-                    border: none;
                     font-size: 18px;
-                    border-radius: 24px;
-                    font-weight: bold;" />
+                    margin-right: 14px;
+                    border-radius: 6px;
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+                    Huỷ
+                </a>
+
+                <input type="submit" value="Thêm Sản Phẩm" class="btn btn-primary btn-hover" style="
+                       width: 10%;
+                       background: #ee4d2d;
+                       height: 38px;
+                       border: none;
+                       font-size: 18px;
+                       border-radius: 6px;
+                       font-weight: bold; " />
             </div>
         </form>
     </div>
@@ -113,7 +146,7 @@
 
 
 <div>
-    <a href="/Manage/Products">Trở lại</a>
+    
 </div>
 
 
