@@ -9,9 +9,12 @@
 
 @* ============================ *@
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <a asp-action="Create" class="create-btn">Thêm Sản Phẩm</a>
-    </div>
+    @if (User.IsInRole("Partner"))
+    {
+        <div class="card-header py-3">
+            <a asp-action="Create" class="create-btn">Thêm Sản Phẩm</a>
+        </div>
+    }
     <div class="card-body">
         <div class="table-responsive" style="overflow-x: clip !important;">
             <table class="table table-bordered" id="example" width="100%" cellspacing="0">
@@ -72,82 +75,165 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                    @foreach (var item in Model)
+                    @if (User.IsInRole("Partner"))
                     {
-                        <tr>
-                            <td>
-                                @foreach (var i in item.productImages!)
-                                {
-                                    var index = 0;
-                                    @if (i.URL != null)
+                        @foreach (var item in Model.Where(e => e.partnerID == UserManager.GetUserId(User)))
+                        {
+                            <tr>
+                                <td>
+                                    @foreach (var i in item.productImages!)
                                     {
-                                        @if (index == 0)
+                                        var index = 0;
+                                        @if (i.URL != null)
                                         {
-                                            <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
-                                            break;
+                                            @if (index == 0)
+                                            {
+                                                <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
+                                                break;
+                                            }
                                         }
+                                        else
+                                        {
+                                            <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
+                                        }
+                                        index++;
                                     }
-                                    else
-                                    {
-                                        <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
-                                    }
-                                    index++;
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.discount)%
+                                </td>
+                                <td class="ui-money">
+                                    @Convert.ToDecimal(item.price).ToString("N0")đ
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.postDate)
+                                </td>
+                                @if (item.isPublish == true)
+                                {
+                                    <td style="text-align: center;">
+                                        <button style="border:none; background:transparent;" >
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#ee4d2d"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                        </button>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="text-align: center;">
+                                        <button style="border:none; background:transparent;" >
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#a1a1a1"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                        </button>
+                                    </td>
                                 }
 
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.discount)%
-                            </td>
-                            <td class="ui-money">
-                                @Convert.ToDecimal(item.price).ToString("N0")đ
-                            </td>
-
-                            <td>
-                                @Html.DisplayFor(modelItem => item.postDate)
-                            </td>
-                            @if (item.isPublish == true)
-                            {
-                                <td style="text-align: center;">
-                                    <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#ee4d2d"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
-                                    </button>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category!.name)
                                 </td>
-                            }
-                            else
-                            {
-                                <td style="text-align: center;">
-                                    <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
-                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#a1a1a1"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
-                                    </button>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Partner!.name)
                                 </td>
-                            }
+                                <td style="text-align: center;">
+                                    @if (User.IsInRole("Partner"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
+                                            <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                                <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                            </span>
+                                        </a>
+                                    }
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category!.name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Partner!.name)
-                            </td>
-                            <td style="text-align: center;">
-                                @if (User.IsInRole("Partner"))
-                                {
-                                    <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
-                                        <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
-                                            <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                    <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
+                                        <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
+                                            <i class="fas fa-info-circle" style="color: #fff"></i>
                                         </span>
                                     </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @foreach (var i in item.productImages!)
+                                    {
+                                        var index = 0;
+                                        @if (i.URL != null)
+                                        {
+                                            @if (index == 0)
+                                            {
+                                                <img src="~/images/products/@i.URL" alt="@Html.DisplayFor(modelItem => item.name)" height="50" width="50" style="border-radius: 4px;" />
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <img src="~/images/products/no-image-product.png" alt="Không Có Hình Ảnh" height="50" width="50" />
+                                        }
+                                        index++;
+                                    }
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.discount)%
+                                </td>
+                                <td class="ui-money">
+                                    @Convert.ToDecimal(item.price).ToString("N0")đ
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.postDate)
+                                </td>
+                                @if (item.isPublish == true)
+                                {
+                                    <td style="text-align: center;">
+                                        <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="translate(256,256) rotate(180) scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#ee4d2d"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                        </button>
+                                    </td>
                                 }
-                                
-                                <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
-                                    <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
-                                        <i class="fas fa-info-circle" style="color: #fff"></i>
-                                    </span>
-                                </a>
-                            </td>
-                        </tr>
+                                else
+                                {
+                                    <td style="text-align: center;">
+                                        <button style="border:none; background:transparent;" data-productid="@item.Id" id="update-isActive">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0,0,256,256"><defs><radialGradient cx="15" cy="24" r="14" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M33,9c-2.965,0 -15.035,0 -18,0c-8.284,0 -15,6.716 -15,15c0,8.284 6.716,15 15,15c2.965,0 15.035,0 18,0c8.284,0 15,-6.716 15,-15c0,-8.284 -6.716,-15 -15,-15z" fill="#a1a1a1"></path><circle cx="15" cy="24" r="14" fill="url(#color-1)"></circle><circle cx="15" cy="24" r="12" fill="#f9f9f9"></circle></g></g></svg>
+                                        </button>
+                                    </td>
+                                }
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category!.name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Partner!.name)
+                                </td>
+                                <td style="text-align: center;">
+                                    @if (User.IsInRole("Partner"))
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id" style="text-decoration: none">
+                                            <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
+                                                <i class="fas fa-pencil-alt" style="color: #fff"></i>
+                                            </span>
+                                        </a>
+                                    }
+
+                                    <a asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none">
+                                        <span class="btn btn-primary" style="min-width: 65px !important; border-radius: 25px;">
+                                            <i class="fas fa-info-circle" style="color: #fff"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>
