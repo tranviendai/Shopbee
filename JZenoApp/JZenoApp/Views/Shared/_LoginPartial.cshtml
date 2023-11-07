@@ -4,6 +4,12 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    <li class="header__nav-item">
+        <a href="/Chat" class="header__nav-item-link">
+            <i class="header__nav-icon far fa-question-circle"></i>
+            Tin Nhắn
+        </a>
+    </li>
     <input id="userId" hidden value="@UserManager.GetUserAsync(User).Result!.Id" />
     @if (User.IsInRole("Admin") || User.IsInRole("Partner"))
     {
