@@ -1,7 +1,7 @@
 ﻿@model JZenoApp.Models.Voucher
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm Voucher";
     ViewBag.Current = "QuanLyVoucher";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
@@ -31,18 +31,24 @@
                 <input asp-for="quantity" class="input-form col-11" />
                 <span asp-validation-for="quantity" class="text-danger"></span>
             </div>
-            <div class="form-group row p-0">
+            <div id="inputDate" class="form-group row p-0">
                 <span class="col label-name">Ngày Bắt Đầu</span>
-                <input asp-for="startDate" class="input-form col-11" />
+                <input asp-for="startDate" class="input-form col-11" onchange="isDateBeforeToday()" />
                 <span asp-validation-for="startDate" class="text-danger"></span>
             </div>
             <div class="form-group row p-0">
                 <span class="col label-name">Ngày Kết Thúc</span>
-                <input asp-for="endDate" class="input-form col-11" />
+                <input asp-for="endDate" class="input-form col-11" onchange="endDateLonHonstartDate()" />
                 <span asp-validation-for="endDate" class="text-danger"></span>
             </div>
             <div class="form-btn d-flex justify-content-center form-btn">
-                <input type="submit" value="Tạo mới" style="background-color:var(--main-color1); border:none;" class="btn btn-primary" />
+                <input type="submit" value="Tạo mới" class="btn btn-success" id="submit-coupon" style="border:none;width: 100%;
+                    background: #ee4d2d;
+                    height: 38px;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 24px;
+                    font-weight: bold;"   />
             </div>
         </form>
     </div>
@@ -52,6 +58,34 @@
     <a asp-action="Index">Trở lại</a>
 </div>
 
+<script>
+    var dateStart = document.querySelector("#startDate")
+    var dateEnd = document.querySelector("#endDate")
+    var submitcoupon = document.querySelector("#submit-coupon")
+
+    
+    function isDateBeforeToday() {
+        if (new Date((dateStart.value)) < new Date(new Date().toDateString())) {
+            alert("Ngày bắt đầu phải lớn hơn ngày hiện tại!")
+            submitcoupon.setAttribute('disabled', true);
+        } else {
+            submitcoupon.removeAttribute('disabled');
+        }
+    }
+    
+    function endDateLonHonstartDate() {
+         if (new Date((dateEnd.value)) < new Date((dateStart.value))) {
+            alert("Ngày kết thúc phải lớn hơn ngày bắt đầu!")
+            submitcoupon.setAttribute('disabled', true);
+        } else {
+            submitcoupon.removeAttribute('disabled');
+        }
+    }
+</script>
+
+
 @section Scripts {
+        
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
