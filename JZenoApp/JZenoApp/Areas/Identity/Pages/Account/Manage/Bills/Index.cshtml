@@ -12,6 +12,12 @@
 <link href="~/css/ordercustomer.css" rel="stylesheet" />
 <script src="~/js/jquery.min.js"></script>
 
+<style>
+    select option {
+        background: #ffffff;
+        color: red;
+    }
+</style>
 <section id="tabs" style="margin-top:30px;">
     <div class="trangthai">
         <h6 class="section-title h1 text-left"></h6>
@@ -294,7 +300,7 @@
                                                     @if (item0.billStatic == 0)
                                                     {
                                                         <select id="selectActive" data-productid="@item0.billID" class=" ChoTT">
-                                                            <option selected>
+                                                            <option>
                                                                 @switch (item0.billStatic)
                                                                 {
                                                                     case 0:
@@ -351,7 +357,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -572,7 +578,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -694,7 +700,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option >
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -783,7 +789,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option >
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
