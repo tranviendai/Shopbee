@@ -31,14 +31,17 @@
         {
             <input id="receiverId" hidden value="@Model.partnerId" />
             <input id="senderId" hidden value="@userId" />
-            <h1 class="text-center">Thông Tin Cửa Hàng <button id="addChat" class="btn">Chat Ngay</button> </h1>
+            <h1 class="text-center">Thông Tin Cửa Hàng</h1>
         }
         <div class="row">
             <div class="col-2">
                 <img src="/images/partner/@Model!.image" height="150" />
             </div>
             <div class="col">
-                <h2>@Model.name</h2>
+                <div class="d-flex">
+                    <h2>@Model.name </h2>
+                    <div id="addChat" class=" text-danger" style="cursor: pointer; font-size: 16px;"><i class="fab fa-facebook-messenger"></i> Chat Ngay</div>
+                </div>
                 <span>@Html.Raw(Model.description)</span>
             </div>
         </div>

@@ -3,14 +3,87 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    *{
+        font-size: 1.3rem;
+    }
+</style>
 @if (Model.Count() != 0)
 {
-   <div class="bg-white" style="padding:2px;border-radius:5px;">
-        <div class="box-section-content" style="background-color:#fff; padding-top:20px;">
+    <h1 class="text-center">Danh sách đơn hàng</h1>
+    <div style="margin: 0; padding: 8px;border-radius: 8px; font-weight: bold" class="row bg-white">
+        <div class="col-2">
+            Ngày Đặt
+        </div>
+        <div class="col">
+            Thành Tiền
+        </div>
+        <div class="col-5">
+            Thông Tin
+        </div>
+        <div class="col-2">
+            Trạng Thái
+        </div>
+        <div class="col-2" style="align-items: center; justify-content: right; display: flex;">
+           Chi Tiết
+        </div>
+    </div>
+
+    <div style="margin-top: 8px;border-radius:4px;">
+        @foreach (var item in Model)
+        {
+            <div style="margin: 8px 0 0 0; padding: 8px;border-radius: 8px;" class="row bg-white">
+                <div class="col-2" style="display: flex; align-items: center;">
+                    @Html.DisplayFor(modelItem => item.date)
+                </div>
+                <div class="col" style="display: flex; align-items: center;">
+
+                    @Convert.ToDecimal(item.price).ToString("N0")đ
+                </div>
+                <div class="col-5" style="display: flex; align-items: center;">
+                    @Html.Raw(item.note)
+                </div>
+                <div class="col-2" style="display: flex; align-items: center;">
+                    @if (item.billStatic == 0)
+                    {
+                        @switch (item.billStatic)
+                                {
+                                    case 0:
+                                        <div class="text-primary">Chờ Thanh Toán</div>
+                                        break;
+                                    case 1:
+                                        <div class="text-danger">Đã Hủy</div>
+                                        break;
+                                    default:
+                                        <div class="text-warning">Chưa Xử Lý</div>
+                                        break;
+                                }
+                    }
+                    else
+                    {
+                        <div class="text-danger">Đã Hủy</div>
+                    }
+                </div>
+                <div class="col-2" style="align-items: center; justify-content: right; display: flex;">
+                    @if (item.billStatic == 0)
+                    {
+                        <div id="selectActive" data-productid="@item.billID" style="background: #fb5533; color: #fff; border-radius:4px; margin-right: 8px; padding: 8px; cursor: pointer;">Hủy Đơn</div>
+                    }
+                    <a href="/Bills/Details/@item.billID" style="text-decoration:none; color:#fb5533; border-radius:2px;" class="bg-white">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Chi Tiết
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+   @* <div class="bg-white" style="padding:2px;border-radius:5px;">
+        <div class="box-section-content" style="background-color:#fff; padding:12px;">
             <h1 class="text-center">Danh sách đơn hàng</h1>
-            <table class="table table-striped" style="width:100%;">
+            <table class="" style="width:100%;">
                 <thead>
-                    <tr>
+                    <tr style="border-bottom:1px solid rgba(148, 148, 148, 0.1);">
                         <th>
                             @Html.DisplayNameFor(model => model.date)
                         </th>
@@ -30,7 +103,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr style="border-bottom:1px solid rgba(148, 148, 148, 0.1);">
                             <td>
                                 @Html.DisplayFor(modelItem => item.date)
                             </td>
@@ -81,17 +154,16 @@
                 </tbody>
             </table>
         </div>
-   </div>
+   </div> *@
 }
 else
 {
-    <h1 class="text-center">Tìm kiếm hóa đơn</h1>
     <div style="padding:5px; border-radius:10px" class="bg-white">
         <form asp-controller="Bills" asp-action="List" method="get" class="row" style="padding:80px;padding-top:30px;">
         <h2 style="margin-top:5px;" class="text-center">Vui lòng số điện thoại của bạn</h2>
         <div style="height:5px;"></div>
             <div class="header__search-input-wrap">
-                <input type="text" class="form-control" name="searchName" placeholder="Tìm kiếm qua số điện thoại" value="@ViewData["searchName"]">
+                <input type="text" class="form-control" style="border: none; padding: 13px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; font-size: 1.3rem; }" name="searchName" placeholder="Tìm kiếm qua số điện thoại" value="@ViewData["searchName"]">
             </div>
             <div style="height:20px;"></div>
             <button class="btn" style="background-color: var(--light-btn-primary-color); color:white;">
@@ -102,7 +174,7 @@ else
     </div>
 }
 <script>
-    $('select[id^=selectActive]').on("change", function () {
+    $('#selectActive').click(function () {
         var id = $(this).attr('data-productid');
         var payment = $(this).find('option:selected').val();
         $.ajax({
@@ -110,7 +182,7 @@ else
             url: "/Bills/updateActive/",
             data: {
                 billId: id,
-                payment: payment
+                payment: 1
             },
             dataType: "json",
             success: function (data) {
@@ -118,4 +190,20 @@ else
             }
         });
     });
+    // $('select[id^=selectActive]').on("change", function () {
+    //     var id = $(this).attr('data-productid');
+    //     var payment = $(this).find('option:selected').val();
+    //     $.ajax({
+    //         method: "PUT",
+    //         url: "/Bills/updateActive/",
+    //         data: {
+    //             billId: id,
+    //             payment: payment
+    //         },
+    //         dataType: "json",
+    //         success: function (data) {
+    //             window.location.href = "";
+    //         }
+    //     });
+    // });
 </script>

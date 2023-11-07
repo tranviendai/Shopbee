@@ -7,11 +7,11 @@
 }
 @foreach (var item in Model)
 {
-    <a asp-action="Message" asp-route-id="@item.id" style="margin:10px;" class="row">
+    <a asp-action="Message" asp-route-id="@item.id" style="margin:10px; align-items: center;" class="row d-flex">
         @if (UserManager.GetUserId(User) == item.Receiver!.Id)
         {
             <div class="col-3"><img height="50" src="/images/users/@item.Sender!.image" /></div>
-            <div class="col">
+            <div class="col d-none d-xl-block">
                 <div class="itemName">@item.Sender!.fullName</div>
                 <div class="contact">Liên hệ ngay</div>
             </div>
@@ -19,10 +19,11 @@
         else
         {
             <div class="col-3"><img height="50" src="/images/users/@item.Receiver!.image" /></div>
-            <div class="col">
+            <div class="col d-none d-xl-block">
                 <div class="itemName">@item.Receiver!.fullName</div>
                 <div class="contact">Liên hệ ngay</div>
             </div>
         }
     </a>
+    <hr style="opacity: 0.1; color: rgba(148, 148, 148, 0.8)" />
 }

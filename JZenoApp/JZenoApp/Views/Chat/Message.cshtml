@@ -7,31 +7,40 @@
 }
 
 
-<div class="row" style="margin:0">
-    <div class="col-3" style="overflow-y:auto; overflow:scroll; overflow-x:hidden;">
+<div class="row chat-box" style="margin:0; border-radius: 8px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+    <div class="col" style="overflow-y:auto; overflow:scroll; overflow-x:hidden; background: #f9f9f9; border-radius: 8px 0 0 8px; padding: 10px;">
         @{
             await Html.RenderPartialAsync("ChatBar", ViewData["GetChat"]);
         }
     </div>
-    <div class="col">
+
+    <div class="col-9" style="padding: 10px;">
         <div>
             @if (UserManager.GetUserId(User) == Model.Receiver!.Id)
             {
-                <div><img height="40" src="/images/users/@Model.Sender!.image" /> @Model.Sender!.fullName</div>
+                <div><img height="40" src="/images/users/@Model.Sender!.image" /> <strong>@Model.Sender!.fullName</strong></div>
             }
             else{
-                <div><img height="40" src="/images/users/@Model.Receiver!.image" /> @Model.Receiver!.fullName</div>
+                <div style="display: flex; align-items: center; padding: 0 14px"><img height="40" style="margin-right: 8px" src="/images/users/@Model.Receiver!.image" /> <h4>@Model.Receiver!.fullName</h4></div>
             }
         </div>
+        <hr style="opacity: 0.1" />
         <input id="chatId" hidden value="@Model.id" />
         <input id="senderId" hidden value="@Model.senderId" />
         <div id="messagesList"></div>
-        <div class="d-flex mainInput">
-            <textarea minlength="1" required rows="1" type="text" id="messageInput" class="form-control" placeholder="Aa"></textarea>
-            <button class="btn" id="sendButton" style=" margin:0;"><i class="fa fa-send-o"></i></button>
+
+        <div class="card-footer mt-4">
+            <div class="input-group" >
+                <textarea name="" id="messageInput" class="form-control type_msg" placeholder="Nhập nội dung..."></textarea>
+                <div class="input-group-append" style="z-index: 10">
+                    <span class="send_btn" id="sendButton"><i class="fas fa-location-arrow" style="right: -5px; position: absolute; background: #f53d2d; padding: 10px; font-size: 18px; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;"></i></span>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
