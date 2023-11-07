@@ -36,6 +36,7 @@ namespace JZenoApp.Controllers
             ViewData["GetCategory"] = await _context.Category.ToPagedListAsync(1, 100);
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
+
             if (!String.IsNullOrEmpty(searchCategory) && searchName == null)
             {
                 if (orderBy == "Tăng Dần")
@@ -45,6 +46,9 @@ namespace JZenoApp.Controllers
                 else if(orderBy == "Giảm Dần")
                 {
                     return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
+                } else if(orderBy == "Mới Nhất")
+                {
+                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderByDescending(e => e.postDate).ToPagedListAsync(page ?? 1, 10));
                 }
                 else
                 {
@@ -62,7 +66,12 @@ namespace JZenoApp.Controllers
                 {
                     return View(await product.Where(e => e.name!.Contains(searchName)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
                 }
-                else{
+                else if (orderBy == "Mới Nhất")
+                {
+                    return View(await product.Where(e => e.name!.Contains(searchName)).OrderByDescending(e => e.postDate).ToPagedListAsync(page ?? 1, 10));
+                }
+                else
+                {
                     return View(await product.Where(e => e.name!.Contains(searchName)).ToPagedListAsync(page ?? 1, 10));
                 }
             }
