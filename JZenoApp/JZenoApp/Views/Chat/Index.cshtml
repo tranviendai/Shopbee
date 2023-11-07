@@ -5,8 +5,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="row" style="margin:0">
-    <div class="col-3" style="scroll-behavior:auto; overflow-y: scroll;">
+
+<div class="row chat-box" style="margin:0; border-radius: 8px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+    <div class="col" style="overflow-y:auto; overflow:scroll; overflow-x:hidden; background: #f9f9f9; border-radius: 8px 0 0 8px; padding: 10px;">
         @foreach (var item in Model)
         {
             <a asp-action="Message" asp-route-id="@item.id" style="margin:10px;" class="row">
@@ -27,19 +28,17 @@
                     </div>
                 }
             </a>
+            <hr style="opacity: 0.1; color: rgba(148, 148, 148, 0.8)" />
         }
-</div>
-    <div class="col bg-white" style="height:50vh">
-        <h1 class="text-center" style="margin-top:40px;">Vui lòng chọn người bạn muốn nhắn tin</h1>
+    </div>
+
+    <div class="col-9 d-flex" style="padding: 10px; height:50vh; justify-content: center; align-items: center; ">
+                <h1 class="text-center" style="margin-top:40px;">Vui lòng chọn tin nhắn</h1>
+        <img src="~/images/mess.png" width="100" alt="" />
     </div>
 </div>
-<style>
-    .itemName {
-        color: black;
-        font-weight: bold;
-    }
 
-    .contact {
-        color: black;
-    }
-</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/message.css" asp-append-version="true" />
