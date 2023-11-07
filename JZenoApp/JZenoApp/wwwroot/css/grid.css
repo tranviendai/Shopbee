@@ -451,6 +451,15 @@ no-gutters : no gutters each column
     }
 }
 
+@media (min-width: 0px) and (max-width: 740px) {
+    .respon {
+        margin-top: 60px !important;
+    }
+    .m-chat-name {
+        display: none !important;
+    }
+}
+
 /* Tablet - PC low resolution */
 @media (min-width: 740px) and (max-width: 1023px) {
     .wide {

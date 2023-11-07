@@ -1,11 +1,90 @@
-﻿.message {
+﻿* {
+    font-size: 1.3rem;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 25px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+.sender div {
+    background: #f53d2d !important;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.card {
+    height: 500px;
+    border-radius: 15px !important;
+    /* 			background-color: rgba(0,0,0,0.4) !important;
+ */
+}
+
+.contacts_body {
+    padding: 0.75rem 0 !important;
+    overflow-y: auto;
+    white-space: nowrap;
+}
+
+.msg_card_body {
+    overflow-y: auto;
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: 0 !important;
+}
+
+.card-footer {
+    border-radius: 0 0 15px 15px !important;
+    border-top: 0 !important;
+}
+
+.type_msg {
+    background-color: transparent !important;
+    border: 0 !important;
+    color: #333 !important;
+    overflow-y: auto;
+}
+
+    .type_msg:focus {
+        box-shadow: none !important;
+        outline: 0px !important;
+    }
+
+.send_btn {
+    border-radius: 0 15px 15px 0 !important;
+    background-color: rgba(0,0,0,0.3) !important;
+    border: 0 !important;
+    color: white !important;
+    cursor: pointer;
+}
+
+.message {
     width: 100%;
     display: table;
 }
 
     .message div {
         margin: 3px;
-        border-radius: 5px;
+        border-radius: 20px 20px 0 20px;
     }
 
 .receiver div {
@@ -50,24 +129,26 @@
     }
 
 #sendButton {
-    background: black;
+    /*background: black;
     color: white;
     position:absolute;
     right:0;
-    bottom:0;
+    bottom:0;*/
+    display: flex;
 }
 #messagesList {
     height: 50vh;
     overflow-y: scroll;
 }
 .mainInput{
-    margin-top:100px;
+   /* margin-top:100px;*/
     position:relative;
 }
 #messageInput{
-    position:absolute;
+    font-size: 1.3rem;
+   /* position:absolute;
     bottom:0;
-    padding-right:135px;
+    padding-right:135px;*/
 }
 .itemName{
     color:black;
