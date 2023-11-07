@@ -10,6 +10,7 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link href="~/css/profile.css" rel="stylesheet" />
 <link href="~/css/ordercustomer.css" rel="stylesheet" />
+<link href="~/css/feedback.css" rel="stylesheet" />
 <script src="~/js/jquery.min.js"></script>
 
 <style>
@@ -611,6 +612,58 @@
                                                     <span class="like">Yêu thích</span>
                                                     <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item1.Product!.Partner!.name</span>
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
+                                                    @if (item1.active == null || item1.active == false)
+                                                    {
+                                                        <button type="button" class="feedback" data-toggle="modal" data-target="#exampleModal">Đánh Giá</button>
+                                                    }
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content" style="border:none; border-radius:8px;">
+                                                                <div class="modal-header" style="display:flex;justify-content:center;">
+                                                                    <h1 class="modal-title" id="exampleModalLabel" style="font-size:30px;font-weight:600;color:red;" >Đánh Giá</h1>
+                                                                    @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button> *@
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <input hidden id="userId" value="@UserManager.GetUserId(User)" />
+                                                                    <input hidden id="productId" value="@item1.productId" />
+                                                                    <input hidden id="detailOD" value="@item1.odID" />
+                                                                    <div>
+                                                                        <select id="evaluate" style="display:none;">
+                                                                            <option value="" id="domain"></option>
+                                                                        </select>
+                                                                        <div id="" class="star-widget" style="margin-right:65px;">
+                                                                            <input type="radio" name="" onclick="setDomain()" style="display:none;" id="rate-5" value="5" />
+                                                                            <label for="rate-5" class="bx bxs-star"></label>
+
+                                                                            <input type="radio" name="" onclick="setDomain1()" style="display:none;" id="rate-4" value="4" />
+                                                                            <label for="rate-4" class="bx bxs-star"></label>
+
+                                                                            <input type="radio" name="" onclick="setDomain2()" style="display:none;" id="rate-3" value="3" />
+                                                                            <label for="rate-3" class="bx bxs-star"></label>
+                                                                            <input type="radio" name="" onclick="setDomain3()" style="display:none;" id="rate-2" value="2" />
+                                                                            <label for="rate-2" class="bx bxs-star"></label>
+                                                                            <input type="radio" name="" onclick="setDomain4()" style="display:none;" id="rate-1" value="1" />
+                                                                            <label for="rate-1" class="bx bxs-star"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                  
+                                                                    <form action="#">
+                                                                        <header id="textshow"></header>
+                                                                        <div class="textarea" style="height:220px;">
+                                                                            <textarea cols="30" id="comment" rows="10"  required maxlength="250" style="width:100%; margin-top:10px;" placeholder="Nội dung..."></textarea>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="justify-content:center; border:none; margin-top:10px;">
+                                                                            <button type="button" class="closefb" data-dismiss="modal">Đóng</button>
+                                                                            <button type="button" id="addCmt" class="feedback">Gửi đánh giá</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
                                                         <span>Hoàn thành</span>
@@ -637,41 +690,7 @@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.price * item1.quantity).ToString("N0")</div>
                                                     </div>
                                                     <div>@Convert.ToDecimal(item1.price).ToString("N0") x @item1.quantity</div>
-                                                    @if(item1.active == null || item1.active == false)
-                                                    {
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Đánh Giá</button>
-                                                    }
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Đánh Giá</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <input hidden id="userId" value="@UserManager.GetUserId(User)" />
-                                                                    <input hidden id="productId" value="@item1.productId" />
-                                                                    <input hidden id="detailOD" value="@item1.odID" />
-                                                                    <div>
-                                                                        <select id="evaluate">
-                                                                            <option value="1">1sao</option>
-                                                                            <option value="2">2sao</option>
-                                                                            <option value="3">3sao</option>
-                                                                            <option value="4">4sao</option>
-                                                                            <option value="5">5sao</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <textarea id="comment" rows="10" required maxlength="250" style="width:100%"></textarea>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                                    <button type="button" id="addCmt" class="btn btn-primary">Gửi đánh giá</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         }
@@ -890,6 +909,21 @@
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
     }
 
+    .feedback{
+        color: #fff;
+        background-color: red;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 20px;
+    }
+    .closefb{
+        color: #fff;
+        background-color: #0dcaf0;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 20px;
+    }
+
     .notorder img {
         margin: auto;
         display: table;
@@ -947,4 +981,29 @@
                 }
             });
         });
+</script>
+<script>
+    function setDomain() {
+        let domain = 5;
+        document.getElementById('domain').value = domain;
+       
+    }
+    function setDomain1() {
+        let domain = 4;
+        document.getElementById('domain').value = domain;
+        
+    }
+    function setDomain2() {
+        let domain = 3;
+        document.getElementById('domain').value = domain;
+    }
+    function setDomain3() {
+        let domain = 2;
+        document.getElementById('domain').value = domain;
+    }
+    function setDomain4() {
+        let domain = 1;
+        document.getElementById('domain').value = domain;
+    }
+    
 </script>
