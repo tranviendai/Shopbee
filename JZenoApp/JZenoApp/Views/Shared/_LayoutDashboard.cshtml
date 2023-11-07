@@ -28,9 +28,7 @@
 </head>
 
 <body id="page-top">
-
     <div id="wrapper">
-
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -42,12 +40,24 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item @(ViewBag.Current == "ThongKe" ? "active" : "")">
-                <a href="/Manage/Statistic" class="nav-link">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Trang Chủ</span>
-                </a>
-            </li>
+            @if (User.IsInRole("Partner"))
+            {
+                <li class="nav-item @(ViewBag.Current == "ThongKe" ? "active" : "")">
+                    <a href="/Manage/Statistic" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Trang Chủ</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item @(ViewBag.Current == "ThongKe" ? "active" : "")">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Trang Chủ</span>
+                    </a>
+                </li>
+            }
 
             <hr class="sidebar-divider">
 
@@ -62,40 +72,52 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item @(ViewBag.Current == "QuanLyDonHang" ? "active" : "")">
-                <a href="@Url.Action("Index", "Bills")" class="nav-link">
-                    <i class="fas fa-box"></i>
-                    <span>Quản Lý Đơn Hàng</span>
-                </a>
-            </li>
-            <li class="nav-item @(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
-                <a href="/Manage/Categories" class="nav-link">
-                    <i class="fas fa-list-alt"></i>
-                    <span>Quản Lý Danh Mục</span>
-                </a>
-            </li>
-            <li class="nav-item @(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
-                <a href="@Url.Action("Index", "Vouchers")" class="nav-link">
-                    <i class="fas fa-ticket-alt"></i>
-                    <span>
-                        Quản Lý Voucher
-                    </span>
-                </a>
-            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item @(ViewBag.Current == "QuanLyDonHang" ? "active" : "")">
+                    <a href="@Url.Action("Index", "Bills")" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <span>Quản Lý Hóa Đơn</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewBag.Current == "QuanLyDanhMuc" ? "active" : "")">
+                    <a href="/Manage/Categories" class="nav-link">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Quản Lý Danh Mục</span>
+                    </a>
+                </li>
+                <li class="nav-item @(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
+                    <a href="@Url.Action("Index", "Vouchers")" class="nav-link">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>
+                            Quản Lý Voucher
+                        </span>
+                    </a>
+                </li>
+                <div class="sidebar-heading">
+                    Đối Tác
+                </div>
+                <hr class="sidebar-divider my-0">
 
-            <div class="sidebar-heading">
-                Đối Tác
-            </div>
-            <hr class="sidebar-divider my-0">
-
-            <li class="nav-item @(ViewBag.Current == "QuanLyDoiTac" ? "active" : "")">
-                <a href="/Manage/Partners" class="nav-link">
-                    <i class="fas fa-hands-helping"></i>
-                    <span>
-                        Quản Lý Đối Tác
-                    </span>
-                </a>
-            </li>
+                <li class="nav-item @(ViewBag.Current == "QuanLyDoiTac" ? "active" : "")">
+                    <a href="/Manage/Partners" class="nav-link">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>
+                            Quản Lý Đối Tác
+                        </span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item @(ViewBag.Current == "QuanLyDonHang" ? "active" : "")">
+                    <a href="@Url.Action("Index", "DetailOrders")" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <span>Quản Lý Đơn Hàng</span>
+                    </a>
+                </li>
+            }
+          
 
             <div class="sidebar-heading">
                 Tin Tức

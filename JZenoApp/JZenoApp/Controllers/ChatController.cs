@@ -88,30 +88,6 @@ namespace JZenoApp.Controllers
             }
             return Json("Không thành công");
         }
-        public IActionResult Create()
-        {
-            ViewData["receiverId"] = new SelectList(_context.Users, "Id", "fullName");
-            ViewData["senderId"] = new SelectList(_context.Users, "Id", "fullName");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,isActive,nameActive,senderId,receiverId")] Chat chat)
-        {
-            if (ModelState.IsValid)
-            {
-                chat.isActive = false;
-                chat.nameActive = "";
-                chat.id = chat.senderId + "-" + chat.receiverId;
-                _context.Add(chat);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["receiverId"] = new SelectList(_context.Users, "Id", "fullName", chat.receiverId);
-            ViewData["senderId"] = new SelectList(_context.Users, "Id", "fullName", chat.senderId);
-            return View(chat);
-        }
         [HttpPost]
         public async Task<JsonResult> AddChat(string senderId, string receiverId)
         {
