@@ -1,0 +1,138 @@
+﻿.tong {
+    display: grid;
+    place-content: center;
+    text-align: center;
+}
+
+    .tong h1 {
+        margin-bottom: 15px;
+        font-size: 50px;
+        color: #0c81bb;
+        font-weight: 800;
+        text-shadow: 0px 0px 0 rgb(0 93 151), 0px 1px 0 rgb(0 57 115), 0px 2px 1px rgb(148 148 148 / 47%), 0px 2px 1px rgb(148 148 148 / 50%), 0px 0px 1px rgb(148 148 148 / 20%)
+    }
+
+.container1 {
+    
+    padding: 20px 30px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+    .container1 .star-widget input {
+        display: none;
+    }
+
+.star-widget label {
+    font-size: 50px;
+    color: #bfbfbf;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}
+
+input:not(:checked) ~ label:hover,
+input:not(:checked) ~ label:hover ~ label {
+    color: #fd4;
+}
+
+input:checked ~ label {
+    color: #fd4;
+}
+
+input#rate-5:checked ~ label {
+    color: #fd7;
+    text-shadow: 0 0 20px #952;
+}
+
+#rate-1:checked ~ form #textshow::before {
+    content: "Hoàn toàn không thích";
+}
+
+#rate-2:checked ~ form header::before {
+    content: "Không thích";
+}
+
+#rate-3:checked ~ form header::before {
+    content: "Chấp nhận được";
+}
+
+#rate-4:checked ~ form header::before {
+    content: "Thích";
+}
+
+#rate-5:checked ~ form header::before {
+    content: "Hoàn toàn thích";
+}
+
+form header {
+    width: 100%;
+    font-size: 25px;
+    color: #fe7;
+    font-weight: 500;
+    margin: 5px 0 20px 0;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+form .textarea {
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+    form .textarea textarea {
+        height: 100%;
+        width: 100%;
+        outline: none;
+        color: black;
+        border: none;
+        background: #eee;
+        padding: 10px;
+        font-size: 17px;
+        resize: none;
+        border-radius: 8px;
+    }
+
+form .binhluan {
+    height: 45px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+    form .binhluan button, form .binhluan input {
+        height: 100%;
+        width: 150px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+        background: #D19C97;
+        color: white;
+        font-size: 17px;
+        font-weight: 500;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+
+        form .binhluan button:hover {
+            background: #cd9994;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        }
+
+    form .binhluan input {
+        margin-top: -3px;
+        color: white;
+        background-color: #d8b0ac;
+    }
+
+        form .binhluan input:hover {
+            background-color: #D19C97;
+            color: white;
+        }
