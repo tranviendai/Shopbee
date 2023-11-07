@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JZenoApp.Migrations
 {
     [DbContext(typeof(JZenoDbContext))]
-    [Migration("20231106184520_Database")]
+    [Migration("20231107125129_Database")]
     partial class Database
     {
         /// <inheritdoc />
@@ -205,6 +205,9 @@ namespace JZenoApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("odID"));
 
+                    b.Property<bool?>("active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("billID")
                         .HasColumnType("nvarchar(450)");
 
@@ -296,7 +299,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "5215212-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(743),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3759),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -305,7 +308,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(775),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3783),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -314,7 +317,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(796),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3799),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -323,7 +326,7 @@ namespace JZenoApp.Migrations
                         new
                         {
                             partnerId = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(798),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3802),
                             description = "Chưa Cập Nhật",
                             image = "default_avt.png",
                             isActive = true,
@@ -366,6 +369,9 @@ namespace JZenoApp.Migrations
                     b.Property<double?>("price")
                         .HasColumnType("float");
 
+                    b.Property<int?>("sold")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("categoryID");
@@ -384,7 +390,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo thun nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(957),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3932),
                             price = 50000.0
                         },
                         new
@@ -396,7 +402,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần Short nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(963),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3974),
                             price = 30000.0
                         },
                         new
@@ -408,7 +414,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày thể thao nam",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(967),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3977),
                             price = 120000.0
                         },
                         new
@@ -420,7 +426,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Máy ảnh",
                             partnerID = "5215212-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(970),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3981),
                             price = 5000000.0
                         },
                         new
@@ -432,7 +438,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo sơ mi nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(973),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3984),
                             price = 70000.0
                         },
                         new
@@ -444,7 +450,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần dài nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(977),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3987),
                             price = 50000.0
                         },
                         new
@@ -456,7 +462,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày sandal nữ",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(980),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3990),
                             price = 100000.0
                         },
                         new
@@ -468,7 +474,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Điện thoại",
                             partnerID = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(983),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3995),
                             price = 7500000.0
                         },
                         new
@@ -480,7 +486,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo sơ mi nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(986),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3998),
                             price = 60000.0
                         },
                         new
@@ -492,7 +498,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần dài nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(989),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4001),
                             price = 40000.0
                         },
                         new
@@ -504,7 +510,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày sandal nam",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(992),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4004),
                             price = 110000.0
                         },
                         new
@@ -516,7 +522,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Đồng hồ",
                             partnerID = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(996),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4007),
                             price = 500000.0
                         },
                         new
@@ -528,7 +534,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Áo thun nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(999),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4010),
                             price = 80000.0
                         },
                         new
@@ -540,7 +546,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Quần Short nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(1002),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4014),
                             price = 60000.0
                         },
                         new
@@ -552,7 +558,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Giày thể thao nữ",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(1048),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4017),
                             price = 130000.0
                         },
                         new
@@ -564,7 +570,7 @@ namespace JZenoApp.Migrations
                             isPublish = true,
                             name = "Máy tính",
                             partnerID = "iosxiof-mx18-4213-h6d1-420b466e4502",
-                            postDate = new DateTime(2023, 11, 7, 1, 45, 20, 428, DateTimeKind.Local).AddTicks(1051),
+                            postDate = new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4020),
                             price = 10000000.0
                         });
                 });
@@ -794,11 +800,20 @@ namespace JZenoApp.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<DateTime?>("dateCmt")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("evaluate")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("isComment")
+                        .HasColumnType("bit");
+
                     b.Property<string>("productId")
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("userName")
                         .HasMaxLength(50)
@@ -807,6 +822,8 @@ namespace JZenoApp.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("productId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("ProductComment");
                 });
@@ -2007,20 +2024,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "a79e98b4-d8a6-4640-98eb-5b417ffb2661",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac438491-1418-4fb1-ba71-26f47e3aba78",
+                            ConcurrencyStamp = "41876e0e-079b-4c75-be25-b13545656dde",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDNJk+DJ2Uj8531WncB3ufULPZ8zMNT2YCaGXOVxC+qlWh6d1J0CYv2wgriBZHPc5Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECVi+1J+fPJqoBYVr9bonstmRoV2AaqTwKlLNdKzuu2ZJmZJADbXVizXs5XkCxepJg==",
                             PhoneNumber = "0582072743",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca3d314e-7938-4ce2-848b-5353a607d3b4",
+                            SecurityStamp = "6ec64392-db3a-4d1d-9193-854098cfe866",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com",
                             address = "Tắc Vân - Cà Mau",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 19, 942, DateTimeKind.Local).AddTicks(8924),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 28, DateTimeKind.Local).AddTicks(6403),
                             fullName = "Trần Viễn Đại",
                             image = "shobee-logo.png"
                         },
@@ -2028,20 +2045,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5215212-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8cdce42c-a844-4291-b80c-0b1f38efab35",
+                            ConcurrencyStamp = "dbcd1aa2-82aa-44fb-9ada-e97265550505",
                             Email = "partner1@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER1@GMAIL.COM",
                             NormalizedUserName = "PARTNER1@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJYao11MyIAOu0Qo8wrWpzLPA4nAtfpfmr2AOoMlsMP+0CeGZ4ee6LHKp/0lcfZDQQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELftB5LHwBcz7Jo+eaop8xRukv9FrwGOo0IdFdt5kQwF3Wd84DQYdknFvufzFT53ow==",
                             PhoneNumber = "0582012351",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0bd76d42-beec-46f7-a87b-b8b455ef4d7f",
+                            SecurityStamp = "bba57756-6b1f-4014-8240-4a450831af5b",
                             TwoFactorEnabled = false,
                             UserName = "partner1@gmail.com",
                             address = "Bình Chánh - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 66, DateTimeKind.Local).AddTicks(7962),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 160, DateTimeKind.Local).AddTicks(9953),
                             fullName = "Đối Tác Một",
                             image = "shobee-logo.png"
                         },
@@ -2049,20 +2066,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "5dfgsg2-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9eba26bf-fff9-4df7-b45e-81c1545f1435",
+                            ConcurrencyStamp = "9743a7ff-b093-4073-bc05-f2411a7be076",
                             Email = "partner2@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER2@GMAIL.COM",
                             NormalizedUserName = "PARTNER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJOlDFL+p0yTkFT0tt+FNHIYNSQ15PO1vH/t22/46aGVLjrRC9Q7BCAp6ypizxASXw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENpAYgkI/93JIvDnuR/Gi1FuP3HG8WgsOjea154xqUF9YXdscNNWkoCCbqTuEpZ3PQ==",
                             PhoneNumber = "0582015681",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8f307aaa-a915-4e1e-9687-0631e09dde0d",
+                            SecurityStamp = "1bb1f857-b70f-431b-8c14-54f54699ba15",
                             TwoFactorEnabled = false,
                             UserName = "partner2@gmail.com",
                             address = "Trảng Bom - Đồng Nai",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 186, DateTimeKind.Local).AddTicks(7017),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 326, DateTimeKind.Local).AddTicks(3144),
                             fullName = "Đối Tác Hai",
                             image = "shobee-logo.png"
                         },
@@ -2070,20 +2087,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "9f15d62-mx18-4213-h6d1-fdsafdsafdsd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b58f70f5-f88c-4e39-a207-e2ecb65b5a59",
+                            ConcurrencyStamp = "071a6fc8-2593-4982-9fca-aa06470ce240",
                             Email = "partner3@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER3@GMAIL.COM",
                             NormalizedUserName = "PARTNER3@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAb6B5Rv+51VNSROffT22d2a8Ezm5gLAi9bQjdSsBbJkoE64YNo31U4e5cpVOZ/ruQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH45wZpVkunEhtup8T3Yjwu9yC4uXTl8hOpJ6rzQfpmM/tIevgWd6ClMlgL9ywoBww==",
                             PhoneNumber = "0582014561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14995ecf-e074-4097-baf2-10786dd825b4",
+                            SecurityStamp = "6776b753-30fb-4f28-bd4b-c3fd3f76b29f",
                             TwoFactorEnabled = false,
                             UserName = "partner3@gmail.com",
                             address = "Quận 1 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 305, DateTimeKind.Local).AddTicks(1273),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 456, DateTimeKind.Local).AddTicks(3464),
                             fullName = "Đối Tác Ba",
                             image = "shobee-logo.png"
                         },
@@ -2091,20 +2108,20 @@ namespace JZenoApp.Migrations
                         {
                             Id = "iosxiof-mx18-4213-h6d1-420b466e4502",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed121458-54d4-44ad-841f-1a135c0a2299",
+                            ConcurrencyStamp = "61cadffd-0e4f-4b52-94f5-2888cec25e43",
                             Email = "partner4@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PARTNER4@GMAIL.COM",
                             NormalizedUserName = "PARTNER4@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKJX3CZeNrVZryEo8maH5NgWZFcMM41RJt59UQjSA2bwX1TfEAAdvXxU/3zdce9rqg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED/+Pg4K2wG7xA/73NWGTqCldnA8D12scXxMsOztkBPSydW40tZwb02j/FPqJCl22g==",
                             PhoneNumber = "0582753561",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "69841bf5-c804-4d10-bacf-1e5b7b3da6f1",
+                            SecurityStamp = "bbcd8951-5fdb-40f3-ac02-883c451ed269",
                             TwoFactorEnabled = false,
                             UserName = "partner4@gmail.com",
                             address = "Quận 10 - Hồ Chí Minh",
-                            dateCreated = new DateTime(2023, 11, 7, 1, 45, 20, 427, DateTimeKind.Local).AddTicks(6066),
+                            dateCreated = new DateTime(2023, 11, 7, 19, 51, 29, 578, DateTimeKind.Local).AddTicks(9383),
                             fullName = "Đối Tác Bốn",
                             image = "shobee-logo.png"
                         });
@@ -2424,6 +2441,12 @@ namespace JZenoApp.Migrations
                     b.HasOne("JZenoApp.Models.Product", "product")
                         .WithMany("productComment")
                         .HasForeignKey("productId");
+
+                    b.HasOne("JZenoApp.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("userId");
+
+                    b.Navigation("User");
 
                     b.Navigation("product");
                 });

@@ -10,8 +10,15 @@
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link href="~/css/profile.css" rel="stylesheet" />
 <link href="~/css/ordercustomer.css" rel="stylesheet" />
+<link href="~/css/feedback.css" rel="stylesheet" />
 <script src="~/js/jquery.min.js"></script>
 
+<style>
+    select option {
+        background: #ffffff;
+        color: red;
+    }
+</style>
 <section id="tabs" style="margin-top:30px;">
     <div class="trangthai">
         <h6 class="section-title h1 text-left"></h6>
@@ -209,7 +216,7 @@
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if(item0.detailsOrders.FirstOrDefault().detailStatic == 0)
+                                @if(item0.detailsOrders.FirstOrDefault()!.detailStatic == 0)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -294,7 +301,7 @@
                                                     @if (item0.billStatic == 0)
                                                     {
                                                         <select id="selectActive" data-productid="@item0.billID" class=" ChoTT">
-                                                            <option selected>
+                                                            <option>
                                                                 @switch (item0.billStatic)
                                                                 {
                                                                     case 0:
@@ -351,7 +358,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -376,7 +383,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!)
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 1))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -507,7 +514,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!)
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 2))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -547,47 +554,6 @@
                                             </div>
                                         }
                                     </div>
-                                    <div class="pay">
-                                        <div class="tt">
-                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
-                                            <span class="tien">Thành tiền:&nbsp;</span>
-                                            <span style="color: red; text-decoration: underline;">đ</span>
-                                            <span class="toltal">@Convert.ToDecimal(item0.price).ToString("N0")</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-5 note1">
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 0)
-                                                {
-                                                    <span>Chờ Xử Lý</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 1)
-                                                {
-                                                    <span>Bên vận chuyển đang đến lấy hàng</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 2)
-                                                {
-                                                    <span>Đơn hàng đang giao đã đến bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 3)
-                                                {
-                                                    <span>Đánh giá sản phẩm trước 10/12/2023</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 4)
-                                                {
-                                                    <span>Đã hủy bởi bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 5)
-                                                {
-                                                    <span>Trà hành/Hoàn tiền</span>
-                                                }
-                                            </div>
-                                            <div class="col-7 phu">
-                                              @*   <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button> *@
-                                                <button class="contactoorder">Liên hệ người bán</button>
-                                                <button class="contactoorder">Mua lại</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     dem2 += 1;
                                 }
                                 
@@ -613,7 +579,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -638,7 +604,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!)
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 3))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -646,11 +612,61 @@
                                                     <span class="like">Yêu thích</span>
                                                     <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item1.Product!.Partner!.name</span>
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
+                                                    @if (item1.active == null || item1.active == false)
+                                                    {
+                                                        <button type="button" class="feedback" data-toggle="modal" data-target="#exampleModal">Đánh Giá</button>
+                                                    }
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content" style="border:none; border-radius:8px;">
+                                                                <div class="modal-header" style="display:flex;justify-content:center;">
+                                                                    <h1 class="modal-title" id="exampleModalLabel" style="font-size:30px;font-weight:600;color:red;" >Đánh Giá</h1>
+                                                                    @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button> *@
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <input hidden id="userId" value="@UserManager.GetUserId(User)" />
+                                                                    <input hidden id="productId" value="@item1.productId" />
+                                                                    <input hidden id="detailOD" value="@item1.odID" />
+                                                                    <div>
+                                                                        <select id="evaluate" style="display:none;">
+                                                                            <option value="" id="domain"></option>
+                                                                        </select>
+                                                                        <div id="" class="star-widget" style="margin-right:65px;">
+                                                                            <input type="radio" name="" onclick="setDomain()" style="display:none;" id="rate-5" value="5" />
+                                                                            <label for="rate-5" class="bx bxs-star"></label>
+
+                                                                            <input type="radio" name="" onclick="setDomain1()" style="display:none;" id="rate-4" value="4" />
+                                                                            <label for="rate-4" class="bx bxs-star"></label>
+
+                                                                            <input type="radio" name="" onclick="setDomain2()" style="display:none;" id="rate-3" value="3" />
+                                                                            <label for="rate-3" class="bx bxs-star"></label>
+                                                                            <input type="radio" name="" onclick="setDomain3()" style="display:none;" id="rate-2" value="2" />
+                                                                            <label for="rate-2" class="bx bxs-star"></label>
+                                                                            <input type="radio" name="" onclick="setDomain4()" style="display:none;" id="rate-1" value="1" />
+                                                                            <label for="rate-1" class="bx bxs-star"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                  
+                                                                    <form action="#">
+                                                                        <header id="textshow"></header>
+                                                                        <div class="textarea" style="height:220px;">
+                                                                            <textarea cols="30" id="comment" rows="10"  required maxlength="250" style="width:100%; margin-top:10px;" placeholder="Nội dung..."></textarea>
+                                                                        </div>
+                                                                        <div class="modal-footer" style="justify-content:center; border:none; margin-top:10px;">
+                                                                            <button type="button" class="closefb" data-dismiss="modal">Đóng</button>
+                                                                            <button type="button" id="addCmt" class="feedback">Gửi đánh giá</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                   
                                                         <span>Hoàn thành</span>
-                                                   
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -674,50 +690,10 @@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.price * item1.quantity).ToString("N0")</div>
                                                     </div>
                                                     <div>@Convert.ToDecimal(item1.price).ToString("N0") x @item1.quantity</div>
+                                                    
                                                 </div>
                                             </div>
                                         }
-                                    </div>
-                                    <div class="pay">
-                                        <div class="tt">
-                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
-                                            <span class="tien">Thành tiền:&nbsp;</span>
-                                            <span style="color: red; text-decoration: underline;">đ</span>
-                                            <span class="toltal">@Convert.ToDecimal(item0.price).ToString("N0")</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-5 note1">
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 0)
-                                                {
-                                                    <span>Chờ Xử Lý</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 1)
-                                                {
-                                                    <span>Bên vận chuyển đang đến lấy hàng</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 2)
-                                                {
-                                                    <span>Đơn hàng đang giao đã đến bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 3)
-                                                {
-                                                    <span>Đánh giá sản phẩm trước 10/12/2023</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 4)
-                                                {
-                                                    <span>Đã hủy bởi bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 5)
-                                                {
-                                                    <span>Trà hành/Hoàn tiền</span>
-                                                }
-                                            </div>
-                                            <div class="col-7 phu">
-                                                <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button>
-                                                <button class="contactoorder">Liên hệ người bán</button>
-                                                <button class="contactoorder">Mua lại</button>
-                                            </div>
-                                        </div>
                                     </div>
                                     dem3 += 1;
                                 }
@@ -743,7 +719,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option >
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -768,7 +744,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!)
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic==4))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -808,47 +784,6 @@
                                             </div>
                                         }
                                     </div>
-                                    <div class="pay">
-                                        <div class="tt">
-                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
-                                            <span class="tien">Thành tiền:&nbsp;</span>
-                                            <span style="color: red; text-decoration: underline;">đ</span>
-                                            <span class="toltal">@Convert.ToDecimal(item0.price).ToString("N0")</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-5 note1">
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 0)
-                                                {
-                                                    <span>Chờ Xử Lý</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 1)
-                                                {
-                                                    <span>Bên vận chuyển đang đến lấy hàng</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 2)
-                                                {
-                                                    <span>Đơn hàng đang giao đã đến bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 3)
-                                                {
-                                                    <span>Đánh giá sản phẩm trước 10/12/2023</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 4)
-                                                {
-                                                    <span>Đã hủy bởi bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 5)
-                                                {
-                                                    <span>Trà hành/Hoàn tiền</span>
-                                                }
-                                            </div>
-                                            <div class="col-7 phu">
-                                               @*  <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button> *@
-                                                <button class="contactoorder">Liên hệ người bán</button>
-                                                <button class="contactoorder">Mua lại</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     dem4 += 1;
                                 }
                             }
@@ -864,7 +799,7 @@
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if (item0.detailsOrders.FirstOrDefault().detailStatic == 5)
+                                @if (item0.detailsOrders.FirstOrDefault()!.detailStatic == 5)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -873,7 +808,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option selected>
+                                                    <option >
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -898,7 +833,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!)
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 5))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -939,47 +874,6 @@
                                             </div>
                                         }
                                     </div>
-                                    <div class="pay">
-                                        <div class="tt">
-                                            <span style="margin-right: 3px; margin-top: -3px;"><img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/83e10a1f95cb083579c089448ef8dd3b.png" style="width: 23px; height: 24px;" class="sure-img"></span>
-                                            <span class="tien">Thành tiền:&nbsp;</span>
-                                            <span style="color: red; text-decoration: underline;">đ</span>
-                                            <span class="toltal">@Convert.ToDecimal(item0.price).ToString("N0")</span>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-5 note1">
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 0)
-                                                {
-                                                    <span>Chờ Xử Lý</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 1)
-                                                {
-                                                    <span>Bên vận chuyển đang đến lấy hàng</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 2)
-                                                {
-                                                    <span>Đơn hàng đang giao đã đến bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 3)
-                                                {
-                                                    <span>Đánh giá sản phẩm trước 10/12/2023</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 4)
-                                                {
-                                                    <span>Đã hủy bởi bạn</span>
-                                                }
-                                                @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 5)
-                                                {
-                                                    <span>Trà hành/Hoàn tiền</span>
-                                                }
-                                            </div>
-                                            <div class="col-7 phu">
-                                     @*            <button style="color: #fff; background-color: red; border: none; border-radius: 4px; padding: 5px 20px">Đánh giá</button> *@
-                                                <button class="contactoorder">Liên hệ người bán</button>
-                                                <button class="contactoorder">Mua lại</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                     dem5 += 1;
                                 }
                             }
@@ -1013,6 +907,21 @@
         border-radius: 0px 0px 8px 8px;
         display: flex;
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    }
+
+    .feedback{
+        color: #fff;
+        background-color: red;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 20px;
+    }
+    .closefb{
+        color: #fff;
+        background-color: #0dcaf0;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 20px;
     }
 
     .notorder img {
@@ -1050,4 +959,51 @@
             }
         });
     });
+        $("#addCmt").click(function () {
+            var evaluate = $("#evaluate :selected").val();
+            var userId = $('#userId').val();
+            var productId = $("#productId").val();
+            var message = $('#comment').val();
+            var detail = $('#detailOD').val();
+            $.ajax({
+                method: "POST",
+                url: "/Products/AddComment",
+                data: {
+                    message: message,
+                    star: evaluate,
+                    productId: productId,
+                    userId: userId,
+                    detailOD: detail
+                },
+                dataType: "json",
+                success: function (data) {
+                   window.location.href = "/Identity/Account/Manage/Bills";
+                }
+            });
+        });
+</script>
+<script>
+    function setDomain() {
+        let domain = 5;
+        document.getElementById('domain').value = domain;
+       
+    }
+    function setDomain1() {
+        let domain = 4;
+        document.getElementById('domain').value = domain;
+        
+    }
+    function setDomain2() {
+        let domain = 3;
+        document.getElementById('domain').value = domain;
+    }
+    function setDomain3() {
+        let domain = 2;
+        document.getElementById('domain').value = domain;
+    }
+    function setDomain4() {
+        let domain = 1;
+        document.getElementById('domain').value = domain;
+    }
+    
 </script>

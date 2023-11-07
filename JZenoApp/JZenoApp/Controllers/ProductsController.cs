@@ -28,7 +28,7 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchCategory,int? page, string searchName, string orderBy)
+        public async Task<IActionResult> Index(string searchCategory, int? page, string searchName, string orderBy)
         {
             ViewData["GetData"] = searchCategory;
             ViewData["GetSearch"] = searchName;
@@ -41,9 +41,9 @@ namespace JZenoApp.Controllers
             {
                 if (orderBy == "Tăng Dần")
                 {
-                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderByDescending(e=>e.price).ToPagedListAsync(page ?? 1, 10));
+                    return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderByDescending(e => e.price).ToPagedListAsync(page ?? 1, 10));
                 }
-                else if(orderBy == "Giảm Dần")
+                else if (orderBy == "Giảm Dần")
                 {
                     return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
                 } else if(orderBy == "Mới Nhất")
@@ -55,14 +55,14 @@ namespace JZenoApp.Controllers
                     return View(await product.Where(e => e.categoryID!.Contains(searchCategory)).ToPagedListAsync(page ?? 1, 10));
                 }
             }
-            else if(searchName!=null && searchCategory == null)
+            else if (searchName != null && searchCategory == null)
             {
 
                 if (orderBy == "Tăng Dần")
                 {
                     return View(await product.Where(e => e.name!.Contains(searchName)).OrderByDescending(e => e.price).ToPagedListAsync(page ?? 1, 10));
                 }
-                else if(orderBy == "Giảm Dần")
+                else if (orderBy == "Giảm Dần")
                 {
                     return View(await product.Where(e => e.name!.Contains(searchName)).OrderBy(e => e.price).ToPagedListAsync(page ?? 1, 10));
                 }
@@ -79,13 +79,53 @@ namespace JZenoApp.Controllers
             {
                 return View(await product.ToPagedListAsync(page ?? 1, 10));
             }
-            
+
         }
         public async Task<IActionResult> _CategorypPartial()
         {
             var jZenoDbContext = await _context.Category.ToPagedListAsync(1, 100);
             return PartialView("_CategorypPartial", jZenoDbContext);
         }
+        [HttpPost]
+        public async Task<JsonResult> AddComment(string message, int star, string productId, string userId, int detailOD)
+        {
+            try
+            {
+                var product = await _context.Product.FindAsync(productId);
+                var user = await _context.User.FindAsync(userId);
+
+                ProductComment cmt = new ProductComment
+                {
+                    isComment = true,
+                    comment = message,
+                    product = product,
+                    productId = productId,
+                    User = user,
+                    userId = userId,
+                    evaluate = star,
+                    userName = user!.fullName,
+                    dateCmt = DateTime.Now
+                };
+
+                _context.Add(cmt);
+                var detail = await _context.DetailOD.FindAsync(detailOD);
+
+                detail!.active = true;
+                _context.Update(detail);
+
+                product!.sold += 1;
+                _context.Update(product);
+
+                await _context.SaveChangesAsync();
+                return Json(cmt);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
+        }
+
+
         public async Task<IActionResult> Details(string id)
         {
             if (id == null || _context.Product == null)
@@ -169,7 +209,7 @@ namespace JZenoApp.Controllers
                     product.postDate = DateTime.Now;
                     _context.Add(product);
                     await _context.SaveChangesAsync();
-                    return Redirect("Partners/Details/"+product.partnerID);
+                    return Redirect("Partners/Details/" + product.partnerID);
                 }
                 ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
                 return View(product);

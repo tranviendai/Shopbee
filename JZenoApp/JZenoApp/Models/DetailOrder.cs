@@ -28,7 +28,7 @@ namespace JZenoApp.Models
         [DisplayFormat(DataFormatString = "{0:N0}", ApplyFormatInEditMode = true)]
         [Display(Name = "Thành Tiền")]
         public double? totalPrice { get; set; }
-
+        public bool? active { get; set; }
         [ForeignKey("Id")]
         public string? productId { get; set; }
         public Product? Product { get; set; }

@@ -23,6 +23,7 @@ namespace JZenoApp.Models
         public string? description { get; set; }
         public DateTime? postDate { get; set; }
         public bool? isPublish { get; set; }
+        public int? sold { get; set; }
         [NotMapped]
         public List<IFormFile>? Files { get; set; } = new List<IFormFile>();
 

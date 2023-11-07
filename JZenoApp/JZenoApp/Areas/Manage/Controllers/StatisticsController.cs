@@ -4,6 +4,7 @@ using JZenoApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace JZenoApp.Areas.Manage.Controllers
@@ -15,7 +16,6 @@ namespace JZenoApp.Areas.Manage.Controllers
         private readonly JZenoDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-
         public StatisticsController(JZenoDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
@@ -33,44 +33,44 @@ namespace JZenoApp.Areas.Manage.Controllers
 			List<DataPoint> dataPoints7 = new List<DataPoint>();
             List<DataPoint> dataPoints8 = new List<DataPoint>();
 			List<DataPoint> dataPoints9 = new List<DataPoint>();
-			var billDay1 = _context.Bill.Where(e=>e.billStatic == 0 && e.date!.Value.Day == DateTime.Now.Day).Count();
-			var billDay2 = _context.Bill.Where(e => e.billStatic == 1 && e.date!.Value.Day == DateTime.Now.Day).Count();
-			var billDay3 = _context.Bill.Where(e => e.billStatic == 2 && e.date!.Value.Day == DateTime.Now.Day).Count();
-			var billDay4 = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day).Count();
-			var billDay5 = _context.Bill.Where(e => e.billStatic == 4 && e.date!.Value.Day == DateTime.Now.Day).Count();
+			var billDay1 = _context.DetailOD.Include(e=>e.Product).Include(e=>e.Bill).Where(e => e.Bill!.date!.Value.Day == DateTime.Now.Day && e.detailStatic == 0 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+            var billDay2 = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.Bill!.date!.Value.Day == DateTime.Now.Day && e.detailStatic == 1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+            var billDay3 = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.Bill!.date!.Value.Day == DateTime.Now.Day && e.detailStatic == 2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+            var billDay4 = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.Bill!.date!.Value.Day == DateTime.Now.Day && e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+            var billDay5 = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.Bill!.date!.Value.Day == DateTime.Now.Day && e.detailStatic == 4 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
             dataPoints1.Add(new DataPoint("Chưa Xử Lý", billDay1));
             dataPoints1.Add(new DataPoint("Đã Xử Lý", billDay2));
             dataPoints1.Add(new DataPoint("Đang Giao", billDay3));
             dataPoints1.Add(new DataPoint("Đã Thanh Toán", billDay4));
             dataPoints1.Add(new DataPoint("Đã Hủy", billDay5));
             ViewBag.DataPoints0 = JsonConvert.SerializeObject(dataPoints1);
-            var billDay1A = _context.Bill.Where(e => e.billStatic == 0 && e.date!.Value.Day == DateTime.Now.Day -1).Count();
-			var billDay2A = _context.Bill.Where(e => e.billStatic == 1 && e.date!.Value.Day == DateTime.Now.Day -1).Count();
-			var billDay3A = _context.Bill.Where(e => e.billStatic == 2 && e.date!.Value.Day == DateTime.Now.Day -1).Count();
-			var billDay4A = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day -1).Count();
-			var billDay5A = _context.Bill.Where(e => e.billStatic == 4 && e.date!.Value.Day == DateTime.Now.Day -1).Count();
+            var billDay1A = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 0 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay2A = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 1 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay3A = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 2 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay4A = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay5A = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 4 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
             dataPoints2.Add(new DataPoint("Chưa Xử Lý", billDay1A));
             dataPoints2.Add(new DataPoint("Đã Xử Lý", billDay2A));
             dataPoints2.Add(new DataPoint("Đang Giao", billDay3A));
             dataPoints2.Add(new DataPoint("Đã Thanh Toán", billDay4A));
             dataPoints2.Add(new DataPoint("Đã Hủy", billDay5A));
             ViewBag.DataPoints1 = JsonConvert.SerializeObject(dataPoints2);
-            var billDay1AA = _context.Bill.Where(e => e.billStatic == 0 && e.date!.Value.Day == DateTime.Now.Day - 2).Count();
-			var billDay2AA = _context.Bill.Where(e => e.billStatic == 1 && e.date!.Value.Day == DateTime.Now.Day - 2).Count();
-			var billDay3AA = _context.Bill.Where(e => e.billStatic == 2 && e.date!.Value.Day == DateTime.Now.Day - 2).Count();
-			var billDay4AA = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day - 2).Count();
-			var billDay5AA = _context.Bill.Where(e => e.billStatic == 4 && e.date!.Value.Day == DateTime.Now.Day - 2).Count();
+            var billDay1AA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 0 && e.Bill!.date!.Value.Day == DateTime.Now.Day -2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay2AA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 1 && e.Bill!.date!.Value.Day == DateTime.Now.Day -2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay3AA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 2 && e.Bill!.date!.Value.Day == DateTime.Now.Day -2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay4AA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay5AA = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 4 && e.Bill!.date!.Value.Day == DateTime.Now.Day - 2 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
             dataPoints3.Add(new DataPoint("Chưa Xử Lý", billDay1AA));
             dataPoints3.Add(new DataPoint("Đã Xử Lý", billDay2AA));
             dataPoints3.Add(new DataPoint("Đang Giao", billDay3AA));
             dataPoints3.Add(new DataPoint("Đã Thanh Toán", billDay4AA));
             dataPoints3.Add(new DataPoint("Đã Hủy", billDay5AA));
-            ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints3);
-            var billDay1AAA = _context.Bill.Where(e => e.billStatic == 0 && e.date!.Value.Day  == DateTime.Now.Day - 3).Count();
-			var billDay2AAA = _context.Bill.Where(e => e.billStatic == 1 && e.date!.Value.Day  == DateTime.Now.Day - 3).Count();
-			var billDay3AAA = _context.Bill.Where(e => e.billStatic == 2 && e.date!.Value.Day  == DateTime.Now.Day - 3).Count();
-			var billDay4AAA = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day  == DateTime.Now.Day - 3).Count();
-			var billDay5AAA = _context.Bill.Where(e => e.billStatic == 4 && e.date!.Value.Day  == DateTime.Now.Day - 3).Count();
+            ViewBag.DataPoints2 = JsonConvert.SerializeObject(dataPoints3);																									 
+            var billDay1AAA = _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 0 && e.Bill!.date!.Value.Day == DateTime.Now.Day - 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+            var billDay2AAA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 1 && e.Bill!.date!.Value.Day == DateTime.Now.Day -3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay3AAA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 2 && e.Bill!.date!.Value.Day == DateTime.Now.Day -3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay4AAA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
+			var billDay5AAA =  _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 4 && e.Bill!.date!.Value.Day == DateTime.Now.Day -3 && e.Product!.partnerID == _userManager.GetUserId(User)).Count();
 			dataPoints4.Add(new DataPoint("Chưa Xử Lý", billDay1AAA));
 			dataPoints4.Add(new DataPoint("Đã Xử Lý", billDay2AAA));
 			dataPoints4.Add(new DataPoint("Đang Giao", billDay3AAA));
@@ -79,10 +79,10 @@ namespace JZenoApp.Areas.Manage.Controllers
             ViewBag.DataPoints3 = JsonConvert.SerializeObject(dataPoints4);
 
 
-            var billMonth1 = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day).Sum(e=>e.price);
-			var billMonth2 = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day -1).Sum(e => e.price);
-			var billMonth3 = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day -2).Sum(e=>e.price);
-			var billMonth4 = _context.Bill.Where(e => e.billStatic == 3 && e.date!.Value.Day == DateTime.Now.Day -3).Sum(e=>e.price);
+            var billMonth1 =   _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e=>e.totalPrice);
+			var billMonth2 =   _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -1 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billMonth3 =   _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -2 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billMonth4 =   _context.DetailOD.Include(e => e.Product).Include(e => e.Bill).Where(e => e.detailStatic == 3 && e.Bill!.date!.Value.Day == DateTime.Now.Day -3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
 
 			dataPoints7.Add(new DataPoint("Hôm Nay", (int) billMonth1!));
 			dataPoints7.Add(new DataPoint("Hôm Qua", (int)billMonth2!));
@@ -90,18 +90,18 @@ namespace JZenoApp.Areas.Manage.Controllers
 			dataPoints7.Add(new DataPoint("3 Ngày Trước", (int)billMonth4!));
             ViewBag.DataPoints4 = JsonConvert.SerializeObject(dataPoints7);
 
-            var billTh1 = _context.Bill.Where(e => e.date!.Value.Month == 1).Sum(e => e.price);
-			var billTh2 = _context.Bill.Where(e => e.date!.Value.Month == 2).Sum(e => e.price);
-			var billTh3 = _context.Bill.Where(e => e.date!.Value.Month == 3).Sum(e => e.price);
-			var billTh4 = _context.Bill.Where(e => e.date!.Value.Month == 4).Sum(e => e.price);
-			var billTh5 = _context.Bill.Where(e => e.date!.Value.Month == 5).Sum(e => e.price);
-			var billTh6 = _context.Bill.Where(e => e.date!.Value.Month == 6).Sum(e => e.price);
-			var billTh7 = _context.Bill.Where(e => e.date!.Value.Month == 7).Sum(e => e.price);
-			var billTh8 = _context.Bill.Where(e => e.date!.Value.Month == 8).Sum(e => e.price);
-			var billTh9 = _context.Bill.Where(e => e.date!.Value.Month == 9).Sum(e => e.price);
-			var billTh10 = _context.Bill.Where(e => e.date!.Value.Month == 10).Sum(e => e.price);
-			var billTh11 = _context.Bill.Where(e => e.date!.Value.Month == 11).Sum(e => e.price);
-			var billTh12 = _context.Bill.Where(e => e.date!.Value.Month == 12).Sum(e => e.price);
+            var billTh1 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 1 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh2 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 2 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh3 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 3 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh4 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 4 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh5 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 5 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh6 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 6 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh7 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 7 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh8 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 8 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh9 =  _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 9 &&  e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh10 = _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 10 && e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh11 = _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 11 && e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
+			var billTh12 = _context.DetailOD.Include(e=>e.Bill).Include(e=>e.Product).Where(e => e.Bill!.date!.Value.Month == 12 && e.detailStatic == 3 && e.Product!.partnerID == _userManager.GetUserId(User)).Sum(e => e.totalPrice);
 			dataPoints8.Add(new DataPoint("Tháng 1", (double)billTh1!));
 			dataPoints8.Add(new DataPoint("Tháng 2", (double)billTh2!));
 			dataPoints8.Add(new DataPoint("Tháng 3", (double)billTh3!));
