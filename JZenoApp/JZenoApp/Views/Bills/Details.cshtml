@@ -43,7 +43,7 @@
             
             <div class="editcreate">
                 <div class="status_dh" style="padding-top: 15px;padding-bottom: 10px; border-bottom: 1px solid #ccc; font-weight: bold">
-                    <img src="~/images/voucher/delivery.png" style="width:22px; padding-bottom: 7px" />
+                    <img src="~/images/voucher/delivery.png" style="width:22px; padding-bottom: 7px;margin-right:5px;" />
                     @{
                         if (Convert.ToInt16(Model.billStatic) == 0)
                         {
@@ -69,7 +69,7 @@
 
                 </div>
                 <div class="detail_product">
-                    <div style="font-weight: bold; padding-top: 15px" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
+                    <div style="font-weight: bold; padding-top: 15px; margin-bottom:15px; font-size:18px;" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
                     <table>
                         
                         @foreach(var item in Model.detailsOrders!)
@@ -88,7 +88,7 @@
                                     }
                                 </div>
                                 <div class="col-6" style="display:flex; align-items:center;"  >
-                                    <span style="margin-left:10px;">@item.Product.name (@item.color - @item.size)</span>
+                                    <span style="margin-left:10px; margin-right:5px;">@item.Product.name (@item.color - @item.size)</span>
                                     <span>
                                         @{
                                             if (Convert.ToInt16(item.detailStatic) == 0)
@@ -209,7 +209,7 @@
         {
             <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: auto;" class="col-xs-12 col-md-4">
                 <div class="order_customer">
-                    <p style="color: #4568FF; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Html.Raw(Model.note)</p>
+                    <p style="color: #ff4f4f; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Html.Raw(Model.note)</p>
                     <div class="tt-order">
                         <p style="font-weight: bold; padding-top: 7px;" class="text_thss">TRẠNG THÁI ĐƠN HÀNG</p>
                         @{
@@ -235,27 +235,27 @@
         {
             <div style="border: 1px solid #ccc; background-color: #FFFFFF; height: auto;" class="col-xs-12 col-md-4">
                 <div class="order_customer">
-                    <p style="color: #4568FF; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Model.User.fullName</p>
+                    <p style="color: #ff4f4f; text-align: center; font-size: 26px; font-weight:bold; border-bottom: 1px solid #ccc; padding-top:5px; padding-bottom: 10px" class="name_cus">@Model.User.fullName</p>
                     <div class="tt-order" style="border-bottom: 1px solid #ccc">
                         <p style="font-weight: bold" class="text_thss">THÔNG TIN KHÁCH HÀNG</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000; ">Email: </span>@Model.User.Email</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Số điện thoại: </span>@Model.User.PhoneNumber</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000; ">Email: </span>@Model.User.Email</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000;">Số điện thoại: </span>@Model.User.PhoneNumber</p>
                     </div>
                     <div class="tt-order" style="border-bottom: 1px solid #ccc">
                         <p style="font-weight: bold; padding-top: 7px" class="text_thss">ĐỊA CHỈ GIAO HÀNG</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Địa chỉ: </span>@Model.User.address</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000;">Địa chỉ: </span>@Model.User.address</p>
                     </div>
                     <div class="tt-order" style="border-bottom: 1px solid #ccc">
                         <p style="font-weight: bold; padding-top: 7px" class="text_thss">PHƯƠNG THỨC THANH TOÁN</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thanh toán: </span>Thanh toán tiền mặt</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000;">Thanh toán: </span>Thanh toán tiền mặt</p>
                     </div>
                     <div class="tt-order" style="border-bottom: 1px solid #ccc">
                         <p style="font-weight: bold; padding-top: 7px" class="text_thss">NGÀY ĐẶT ĐƠN HÀNG</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;">Thời gian: </span>@Model.date</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000;">Thời gian: </span>@Model.date</p>
                     </div>
                     <div class="tt-order" style="border-bottom: 1px solid #ccc">
                         <p style="font-weight: bold; padding-top: 7px" class="text_thss">GHI CHÚ</p>
-                        <p style="color: #4568FF" class="texts-order"><span style="color:#000;"></span>@Html.Raw(Model.note)</p>
+                        <p style="color: #ff4f4f" class="texts-order"><span style="color:#000;"></span>@Html.Raw(Model.note)</p>
                     </div>
                     <div class="tt-order">
                         <p style="font-weight: bold; padding-top: 7px;" class="text_thss">TRẠNG THÁI ĐƠN HÀNG</p>
