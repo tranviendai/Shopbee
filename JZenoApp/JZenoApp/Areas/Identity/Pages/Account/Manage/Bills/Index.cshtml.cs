@@ -35,6 +35,7 @@ namespace JZenoApp.Areas.Identity.Pages.Account.Manage.Bills
                 .ThenInclude(e=>e.Product!.Partner)
                 .Include(b => b.Voucher)
                 .Where(e => e.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .OrderByDescending(e => e.date)
                 .ToListAsync();
             }
         }

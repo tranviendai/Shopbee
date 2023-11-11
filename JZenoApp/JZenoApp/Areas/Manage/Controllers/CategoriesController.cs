@@ -77,7 +77,6 @@ namespace JZenoApp.Areas.QuanLy.Controllers
             {
                 return NotFound();
             }
-
             var category = await _context.Category.FindAsync(id);
             if (category == null)
             {
@@ -97,22 +96,20 @@ namespace JZenoApp.Areas.QuanLy.Controllers
 
             if (ModelState.IsValid)
             {
-                if (category.icon != null)
+               
+                try
                 {
-                    if (category.file == null)
+                    if (category.icon != null)
                     {
                         DeleteFile(category.icon!);
                         UploadFile(category.file!);
                         category.icon = UploadFile(category.file!);
                     }
-                }
-                else
-                {
-                    UploadFile(category.file!);
-                    category.icon = UploadFile(category.file!);
-                }
-                try
-                {
+                    else
+                    {
+                        UploadFile(category.file!);
+                        category.icon = UploadFile(category.file!);
+                    }
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }

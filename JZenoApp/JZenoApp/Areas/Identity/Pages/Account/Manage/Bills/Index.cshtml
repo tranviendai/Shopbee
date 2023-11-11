@@ -567,7 +567,7 @@
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if (item0.detailsOrders.FirstOrDefault().detailStatic == 3)
+                                @if (item0.detailsOrders!.FirstOrDefault()!.detailStatic == 3)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -633,10 +633,8 @@
                                                                         <div id="" class="star-widget" style="margin-right:65px;">
                                                                             <input type="radio" name="" onclick="setDomain()" style="display:none;" id="rate-5" value="5" />
                                                                             <label for="rate-5" class="bx bxs-star"></label>
-
                                                                             <input type="radio" name="" onclick="setDomain1()" style="display:none;" id="rate-4" value="4" />
                                                                             <label for="rate-4" class="bx bxs-star"></label>
-
                                                                             <input type="radio" name="" onclick="setDomain2()" style="display:none;" id="rate-3" value="3" />
                                                                             <label for="rate-3" class="bx bxs-star"></label>
                                                                             <input type="radio" name="" onclick="setDomain3()" style="display:none;" id="rate-2" value="2" />

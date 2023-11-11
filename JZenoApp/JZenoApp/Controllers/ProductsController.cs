@@ -92,6 +92,7 @@ namespace JZenoApp.Controllers
             try
             {
                 var product = await _context.Product.FindAsync(productId);
+                var detail = await _context.DetailOD.FindAsync(detailOD);
                 var user = await _context.User.FindAsync(userId);
 
                 ProductComment cmt = new ProductComment
@@ -106,9 +107,11 @@ namespace JZenoApp.Controllers
                     userName = user!.fullName,
                     dateCmt = DateTime.Now
                 };
-
+                if(cmt.evaluate == 0 || cmt.evaluate == null)
+                {
+                    cmt.evaluate = 5;
+                }
                 _context.Add(cmt);
-                var detail = await _context.DetailOD.FindAsync(detailOD);
 
                 detail!.active = true;
                 _context.Update(detail);
@@ -212,7 +215,7 @@ namespace JZenoApp.Controllers
                     return Redirect("Partners/Details/" + product.partnerID);
                 }
                 ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
-                return View(product);
+                return View(nameof(Index));
             }
             catch (Exception ex)
             {
@@ -293,7 +296,7 @@ namespace JZenoApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Manage/Products");
             }
             ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id", product.categoryID);
             return View(product);
