@@ -82,9 +82,13 @@
     display: table;
 }
 
-    .message div {
+    .message.sender div {
         margin: 3px;
         border-radius: 20px 20px 0 20px;
+    }
+    .message.receiver div {
+        margin: 3px;
+        border-radius: 20px 20px 20px 0px;
     }
 
 .receiver div {
@@ -100,6 +104,7 @@
 
 .message.receiver {
     display: flex;
+
 }
 
 .sender div {

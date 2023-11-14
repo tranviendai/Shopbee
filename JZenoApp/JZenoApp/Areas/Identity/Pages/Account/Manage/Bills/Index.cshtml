@@ -5,7 +5,7 @@
 @inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Index";
-    int dem = 0, dem1 = 0, dem2 = 0, dem3 = 0, dem4 = 0, dem5 = 0, dem6 =0;
+    int dem = 0, dem1 = 0, dem2 = 0, dem3 = 0, dem4 = 0, dem5 = 0, dem6 = 0;
 }
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link href="~/css/profile.css" rel="stylesheet" />
@@ -50,7 +50,7 @@
                     </div>
                 </nav>
 
-            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-cd" role="tabpanel"
                          aria-labelledby="nav-cd-tab">
                         <div class="container" style="max-width: 100%;">
@@ -58,7 +58,7 @@
                             {
                                 <div class="order1">
                                     <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
-                                    
+
                                     @foreach (var item1 in item0.detailsOrders!)
                                     {
                                         var x = 0;
@@ -155,7 +155,7 @@
                                             }
                                         </div>
                                         <div class="col-7 phu">
-                                            @if (item0.detailsOrders.FirstOrDefault().detailStatic==0)
+                                            @if (item0.detailsOrders.FirstOrDefault().detailStatic == 0)
                                             {
                                                 @if (item0.detailsOrders!.Where(e => e.detailStatic != 0).Count() == 0)
                                                 {
@@ -191,7 +191,7 @@
 
                                                 }
                                             }
-                                           
+
                                             <button class="contactoorder">Liên hệ người bán</button>
                                             <button class="contactoorder">Mua lại</button>
                                         </div>
@@ -207,17 +207,17 @@
                             }
                         </div>
                     </div>
-               @*  Index tất cả *@
-                <div class="tab-pane fade  " id="nav-home" role="tabpanel"
-                     aria-labelledby="nav-home-tab">
+                    @*  Index tất cả *@
+                    <div class="tab-pane fade  " id="nav-home" role="tabpanel"
+                         aria-labelledby="nav-home-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if(item0.detailsOrders.FirstOrDefault()!.detailStatic == 0)
+                                @if (item0.detailsOrders.FirstOrDefault()!.detailStatic == 0)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
-                                        
+
                                         @foreach (var item1 in item0.detailsOrders!)
                                         {
                                             var x = 0;
@@ -228,9 +228,9 @@
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                    
-                                                        <span>Chờ xác nhận</span>
-                                                 
+
+                                                    <span>Chờ xác nhận</span>
+
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -317,14 +317,14 @@
                                                             {
                                                                 <option value="1">Đã Hủy</option>
                                                             }
-                                                           
+
                                                         </select>
                                                     }
                                                     else
                                                     {
                                                         <div>Đã Hủy</div>
                                                     }
-                                                   
+
                                                 }
                                                 <button class="contactoorder">Liên hệ người bán</button>
                                                 <button class="contactoorder">Mua lại</button>
@@ -334,15 +334,15 @@
                                     dem += 1;
                                 }
                             }
-                            @if(dem==0)
+                            @if (dem == 0)
                             {
                                 <div class="notorder">
                                     <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/orderlist/5fafbb923393b712b96488590b8f781f.png" />
                                 </div>
                             }
                         </div>
-                </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
@@ -380,7 +380,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 1))
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e => e.detailStatic == 1))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -390,9 +390,9 @@
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                    
-                                                        <span>Đã Xác Nhận</span>
-                                                   
+
+                                                    <span>Đã Xác Nhận</span>
+
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -471,9 +471,9 @@
                                 </div>
                             }
                         </div>
-                </div>
+                    </div>
 
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
@@ -511,7 +511,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 2))
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e => e.detailStatic == 2))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -521,9 +521,9 @@
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                   
-                                                        <span>Đang Giao</span>
-                                                   
+
+                                                    <span>Đang Giao</span>
+
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -553,7 +553,7 @@
                                     </div>
                                     dem2 += 1;
                                 }
-                                
+
                             }
                             @if (dem2 == 0)
                             {
@@ -562,8 +562,8 @@
                                 </div>
                             }
                         </div>
-                </div>
-                <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                    </div>
+                    <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
@@ -601,67 +601,68 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 3))
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e => e.detailStatic == 3).OrderBy(e=>e.active))
                                         {
                                             var x = 0;
                                             <div class="row">
-                                                <div class="col-10">
+                                                <div class="col-10 modalList">
                                                     <span class="like">Yêu thích</span>
                                                     <span style="font-weight: 600; width: 100px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">@item1.Product!.Partner!.name</span>
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                     @if (item1.active == null || item1.active == false)
                                                     {
-                                                        <button type="button" class="feedback" data-toggle="modal" data-target="#exampleModal">Đánh Giá</button>
+                                                        <button type="button" class="feedback" data-value="@item1.odID">Đánh Giá</button>
                                                     }
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="exampleModal-@item1.odID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content" style="border:none; border-radius:8px;">
                                                                 <div class="modal-header" style="display:flex;justify-content:center;">
-                                                                    <h1 class="modal-title" id="exampleModalLabel" style="font-size:30px;font-weight:600;color:red;" >Đánh Giá</h1>
+                                                                    <h1 class="modal-title" id="exampleModalLabel" style="font-size:30px;font-weight:600;color:red;">Đánh Giá</h1>
                                                                     @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button> *@
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button> *@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <input hidden id="userId" value="@UserManager.GetUserId(User)" />
-                                                                    <input hidden id="productId" value="@item1.productId" />
-                                                                    <input hidden id="detailOD" value="@item1.odID" />
-                                                                    <div>
-                                                                        <select id="evaluate" style="display:none;">
-                                                                            <option value="" id="domain"></option>
-                                                                        </select>
-                                                                        <div id="" class="star-widget" style="margin-right:65px;">
-                                                                            <input type="radio" name="" onclick="setDomain()" style="display:none;" id="rate-5" value="5" />
-                                                                            <label for="rate-5" class="bx bxs-star"></label>
-                                                                            <input type="radio" name="" onclick="setDomain1()" style="display:none;" id="rate-4" value="4" />
-                                                                            <label for="rate-4" class="bx bxs-star"></label>
-                                                                            <input type="radio" name="" onclick="setDomain2()" style="display:none;" id="rate-3" value="3" />
-                                                                            <label for="rate-3" class="bx bxs-star"></label>
-                                                                            <input type="radio" name="" onclick="setDomain3()" style="display:none;" id="rate-2" value="2" />
-                                                                            <label for="rate-2" class="bx bxs-star"></label>
-                                                                            <input type="radio" name="" onclick="setDomain4()" style="display:none;" id="rate-1" value="1" />
-                                                                            <label for="rate-1" class="bx bxs-star"></label>
-                                                                        </div>
+                                                                    <input hidden id="productId-@item1.odID" value="@item1.productId" />
+                                                                    <input hidden id="detailOD-@item1.odID" value="@item1.odID" />
+                                                                    <input hidden id="star" value="5" />
+                                                                    <div class="wrapper">
+                                                                        <form class="demoForm">
+                                                                            <div class="rating rating-large" dir="rtl">
+                                                                                <input type="radio" name="rate" class="rate-5-@item1.odID" id="5" value="5" />
+                                                                                <label class="rating-label" for="5">&#9734</label>
+                                                                                <input type="radio" name="rate" class="rate-4-@item1.odID"  id="4" value="4" />
+                                                                                <label class="rating-label" for="4">&#9734</label>
+                                                                                <input type="radio" name="rate" class="rate-3-@item1.odID" id="3" value="3" />
+                                                                                <label class="rating-label" for="3">&#9734</label>
+                                                                                <input type="radio" name="rate" class="rate-2-@item1.odID" id="2" value="2" />
+                                                                                <label class="rating-label" for="2">&#9734</label>
+                                                                                <input type="radio" name="rate" id="1" class="rate-1-@item1.odID" value="1" />
+                                                                                <label class="rating-label" for="1">&#9734</label>
+                                                                            </div>
+
+                                                                        </form>
+
                                                                     </div>
-                                                                  
                                                                     <form action="#">
                                                                         <header id="textshow"></header>
                                                                         <div class="textarea" style="height:220px;">
-                                                                            <textarea cols="30" id="comment" rows="10"  required maxlength="250" style="width:100%; margin-top:10px;" placeholder="Nội dung..."></textarea>
+                                                                            <textarea cols="30" id="comment" rows="10" required maxlength="250" style="width:100%; margin-top:10px;" placeholder="Nội dung..."></textarea>
                                                                         </div>
                                                                         <div class="modal-footer" style="justify-content:center; border:none; margin-top:10px;">
                                                                             <button type="button" class="closefb" data-dismiss="modal">Đóng</button>
-                                                                            <button type="button" id="addCmt" class="feedback">Gửi đánh giá</button>
+                                                                            <button type="button" id="addCmt-@item1.odID" name="@item1.odID" class="feedback">Gửi đánh giá</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                        <span>Hoàn thành</span>
+                                                    <span>Hoàn thành</span>
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -685,7 +686,7 @@
                                                         <div class="col-2" style="color: red; justify-content: right; display: flex;">@Convert.ToDecimal(item1.price * item1.quantity).ToString("N0")</div>
                                                     </div>
                                                     <div>@Convert.ToDecimal(item1.price).ToString("N0") x @item1.quantity</div>
-                                                    
+
                                                 </div>
                                             </div>
                                         }
@@ -700,12 +701,12 @@
                                 </div>
                             }
                         </div>
-                </div>
-                <div class="tab-pane fade" id="nav-huy" role="tabpanel" aria-labelledby="nav-huy-tab">
+                    </div>
+                    <div class="tab-pane fade" id="nav-huy" role="tabpanel" aria-labelledby="nav-huy-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if (item0.detailsOrders.FirstOrDefault().detailStatic == 4)
+                                @if (item0.detailsOrders!.FirstOrDefault()!.detailStatic == 4)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -714,7 +715,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option >
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -739,7 +740,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic==4))
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e => e.detailStatic == 4))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -749,9 +750,9 @@
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                   
-                                                        <span>Đã Hủy</span>
-                                                  
+
+                                                    <span>Đã Hủy</span>
+
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -789,12 +790,12 @@
                                 </div>
                             }
                         </div>
-                </div>
-                <div class="tab-pane fade" id="nav-hoan" role="tabpanel" aria-labelledby="nav-hoan-tab">
+                    </div>
+                    <div class="tab-pane fade" id="nav-hoan" role="tabpanel" aria-labelledby="nav-hoan-tab">
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if (item0.detailsOrders.FirstOrDefault()!.detailStatic == 5)
+                                @if (item0.detailsOrders!.FirstOrDefault()!.detailStatic == 5)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -803,7 +804,7 @@
                                             @if (item0.billStatic == 0)
                                             {
                                                 <select id="selectActive" data-productid="@item0.billID" class="form-control">
-                                                    <option >
+                                                    <option>
                                                         @switch (item0.billStatic)
                                                         {
                                                             case 0:
@@ -828,7 +829,7 @@
                                                 <div>Đã Hủy</div>
                                             }
                                         }
-                                        @foreach (var item1 in item0.detailsOrders!.Where(e=>e.detailStatic == 5))
+                                        @foreach (var item1 in item0.detailsOrders!.Where(e => e.detailStatic == 5))
                                         {
                                             var x = 0;
                                             <div class="row">
@@ -838,10 +839,10 @@
                                                     <span class="shop"><i class='bx bx-store'></i><a style="text-decoration:none; color:black;" href="/Partners/Details/@item1.Product.partnerID">Xem shop</a></span>
                                                 </div>
                                                 <div class="col-2" style="color: red;display: flex; justify-content: right;">
-                                                    
-                                                    
-                                                        <span>Trà hành/Hoàn tiền</span>
-                                                    
+
+
+                                                    <span>Trà hành/Hoàn tiền</span>
+
                                                 </div>
                                             </div>
                                             <div style="border-bottom: 1px solid rgb(232, 232, 232); margin: 20px 0px;">
@@ -879,17 +880,18 @@
                                 </div>
                             }
                         </div>
+                    </div>
+
                 </div>
-                
             </div>
         </div>
-    </div>
 </section>
 
 <style>
-    .sd{
-        margin-bottom:20px;
+    .sd {
+        margin-bottom: 20px;
     }
+
     .container {
         padding-top: 0px;
     }
@@ -904,14 +906,15 @@
         box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
     }
 
-    .feedback{
+    .feedback {
         color: #fff;
         background-color: red;
         border: none;
         border-radius: 4px;
         padding: 5px 20px;
     }
-    .closefb{
+
+    .closefb {
         color: #fff;
         background-color: #0dcaf0;
         border: none;
@@ -924,10 +927,12 @@
         display: table;
         vertical-align: middle;
     }
-    .order1{
+
+    .order1 {
         margin-top: 0px;
     }
-    .ChoTT{
+
+    .ChoTT {
         padding: 4px 9px;
         width: 183px;
         background-color: red;
@@ -954,13 +959,45 @@
             }
         });
     });
-        $("#addCmt").click(function () {
-            var evaluate = $("#evaluate :selected").val();
-            var userId = $('#userId').val();
-            var productId = $("#productId").val();
+    $('.feedback').on('click', function (e) {
+        $('.rate-1-' + $(this).attr('data-value')).click(function () {
+            if ($(this).is(':checked')) {
+                $("#star").val("1");
+            }
+        });
+
+        $('.rate-2-'+ $(this).attr('data-value')).click(function () {
+            if ($(this).is(':checked')) {
+                $("#star").val("2");
+            }
+        });
+        $('.rate-3-'+ $(this).attr('data-value')).click(function () {
+            if ($(this).is(':checked')) {
+                $("#star").val("3");
+            }
+        });
+
+        $('.rate-4-'+ $(this).attr('data-value')).click(function () {
+            if ($(this).is(':checked')) {
+                $("#star").val("4");
+            }
+        });
+
+        $('.rate-5-' + $(this).attr('data-value')).click(function () {
+            if ($(this).is(':checked')) {
+                $("#star").val("5");
+            }
+        });
+        $('#exampleModal-'+ $(this).attr('data-value')).modal('show');
+        var userId = $('#userId').val();
+        var productId = $("#productId-" + $(this).attr('data-value')).val();
+        var detail = $('#detailOD-' + $(this).attr('data-value')).val();
+       
+         
+        $("#addCmt-" + $(this).attr('data-value')).click(function () {
+            var evaluate = $("#star").val();
             var message = $('#comment').val();
-            var detail = $('#detailOD').val();
-            $.ajax({
+             $.ajax({
                 method: "POST",
                 url: "/Products/AddComment",
                 data: {
@@ -972,33 +1009,10 @@
                 },
                 dataType: "json",
                 success: function (data) {
-                   window.location.href = "/Identity/Account/Manage/Bills";
+                    window.location.href = "/Identity/Account/Manage/Bills";
                 }
             });
         });
-</script>
-<script>
-    function setDomain() {
-        let domain = 5;
-        document.getElementById('domain').value = domain;
-       
-    }
-    function setDomain1() {
-        let domain = 4;
-        document.getElementById('domain').value = domain;
-        
-    }
-    function setDomain2() {
-        let domain = 3;
-        document.getElementById('domain').value = domain;
-    }
-    function setDomain3() {
-        let domain = 2;
-        document.getElementById('domain').value = domain;
-    }
-    function setDomain4() {
-        let domain = 1;
-        document.getElementById('domain').value = domain;
-    }
-    
+    });
+   
 </script>

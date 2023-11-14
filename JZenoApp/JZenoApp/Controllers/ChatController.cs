@@ -27,19 +27,19 @@ namespace JZenoApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var jZsChatDbContext = await _context.Chat.Include(c => c.Receiver).Include(c => c.Sender).Include(e => e.chats).Where(e => e.senderId == _userManager.GetUserId(User) || e.receiverId == _userManager.GetUserId(User)).ToListAsync();
+            var jZsChatDbContext = await _context.Chat.Include(c => c.Receiver).ThenInclude(e=>e!.Partner).Include(c => c.Sender).ThenInclude(e => e!.Partner).Include(e => e.chats).ToListAsync();
             return View(jZsChatDbContext);
 
         }
         public async Task<IActionResult> ChatBar()
         {
-            var jZsChatDbContext = await _context.Chat.Include(c => c.Receiver).Include(c => c.Sender).Include(e => e.chats).Where(e => e.senderId == _userManager.GetUserId(User) || e.receiverId == _userManager.GetUserId(User)).ToListAsync();
+            var jZsChatDbContext = await _context.Chat.Include(c => c.Receiver).ThenInclude(e => e.Partner).Include(c => c.Sender).ThenInclude(e => e.Partner).Include(e => e.chats).Where(e => e.senderId == _userManager.GetUserId(User) || e.receiverId == _userManager.GetUserId(User)).ToListAsync();
             return PartialView("ChatBar", jZsChatDbContext);
         }
 
         public async Task<IActionResult> Message(string id)
         {
-            var jZsChatDbContext = _context.Chat.Include(c => c.Receiver).Include(c => c.Sender).Include(e => e.chats).Where(e => e.senderId == _userManager.GetUserId(User) || e.receiverId == _userManager.GetUserId(User));
+            var jZsChatDbContext = _context.Chat.Include(c => c.Receiver).Include(c => c.Sender).ThenInclude(e => e.Partner).Include(e => e.chats).Where(e => e.senderId == _userManager.GetUserId(User) || e.receiverId == _userManager.GetUserId(User));
             ViewData["GetChat"] = jZsChatDbContext;
             if (id == null || _context.Chat == null)
             {
@@ -47,7 +47,9 @@ namespace JZenoApp.Controllers
             }
             var chat = await _context.Chat
                 .Include(c => c.Receiver)
+                .ThenInclude(e=>e.Partner)
                 .Include(c => c.Sender)
+                .ThenInclude(e=>e.Partner)
                 .Include(c => c.chats)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (chat == null)
@@ -59,7 +61,8 @@ namespace JZenoApp.Controllers
         }
         public JsonResult GetMessage(string id)
         {
-            var jZsChatDbContext = _context.ChatDetail.Include(e => e.Chat).ThenInclude(e => e!.Receiver).Include(e => e.Chat).ThenInclude(e => e.Sender).Where(e => e.Chat!.id == id);
+            var jZsChatDbContext = _context.ChatDetail.Include(e => e.Chat).ThenInclude(e => e!.Receiver).ThenInclude(e => e!.Partner).
+                Include(e => e.Chat).ThenInclude(e => e!.Sender).ThenInclude(e => e!.Partner).Where(e => e.Chat!.id == id);
 
             return Json(jZsChatDbContext);
         }

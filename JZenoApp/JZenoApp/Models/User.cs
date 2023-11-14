@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JZenoApp.Models
 {
@@ -15,5 +16,8 @@ namespace JZenoApp.Models
         [DisplayFormat(DataFormatString = "{0:dd/M/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime dateCreated { get; set; }
 
+        public string? partnerId { get; set; }
+        [ForeignKey("partnerId")]
+        public Partner? Partner { get; set; }
     }
 }

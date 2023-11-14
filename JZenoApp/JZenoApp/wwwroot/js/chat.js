@@ -14,7 +14,7 @@ function loadData() {
                 var className = item.senderId != userId ? 'message receiver' : 'message sender';
                 var classNameImg = item.senderId == userId ? 'display:none;' : 'display:block';
                 divMessage = divMessage +
-                    `<div class="${className}"><p style="${classNameImg}"><img src="/images/users/${item.chat.sender.image}"/></p><div> <span>${item.message}</span></div></div>`;
+                    `<div class="${className}"><p style="${classNameImg}"></p><div> <span>${item.message}</span></div></div>`;
             });
             $("#messagesList").html(divMessage.split("\n").join("<br>"));
             $('#messagesList').scrollTop($('#messagesList')[0].scrollHeight);

@@ -20,5 +20,6 @@ namespace JZenoApp.Models
         public bool? isActive { get; set; }
 
         public List<Product>? products { get; set; } = new List<Product>();
+        public User? User { get; set; }
     }
 }

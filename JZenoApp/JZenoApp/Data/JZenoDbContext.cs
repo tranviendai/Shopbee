@@ -79,6 +79,7 @@ namespace JZenoApp.Data
                 PhoneNumber = "0582012351",
                 address = "Bình Chánh - Hồ Chí Minh",
                 dateCreated = DateTime.Now,
+                partnerId = PARTNERID01
             },
             new User
             {
@@ -94,6 +95,7 @@ namespace JZenoApp.Data
                 PhoneNumber = "0582015681",
                 address = "Trảng Bom - Đồng Nai",
                 dateCreated = DateTime.Now,
+                partnerId = PARTNERID02
             },
             new User
             {
@@ -109,6 +111,7 @@ namespace JZenoApp.Data
                 PhoneNumber = "0582014561",
                 address = "Quận 1 - Hồ Chí Minh",
                 dateCreated = DateTime.Now,
+                partnerId = PARTNERID03
             },
             new User
             {
@@ -124,6 +127,7 @@ namespace JZenoApp.Data
                 PhoneNumber = "0582753561",
                 address = "Quận 10 - Hồ Chí Minh",
                 dateCreated = DateTime.Now,
+                partnerId = PARTNERID04
             }
             );
             });

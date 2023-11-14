@@ -167,7 +167,7 @@ namespace JZenoApp.Controllers
             }
             ViewData["categoryID"] = new SelectList(_context.Category, "Id", "Id");
             ViewData["colorName"] = new SelectList(_context.ProductColor, "Name", "Name");
-            return View(product);
+            return View();
         }
 
         [HttpPost]

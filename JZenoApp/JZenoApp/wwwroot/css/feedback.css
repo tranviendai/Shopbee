@@ -13,7 +13,6 @@
     }
 
 .container1 {
-    
     padding: 20px 30px;
     border: none;
     border-radius: 8px;
@@ -24,50 +23,85 @@
     flex-direction: column;
 }
 
-    .container1 .star-widget input {
+
+.rating {
+    font-size: 0;
+}
+
+    .rating:after {
+        content: " ";
+        clear: both;
+        display: block;
+    }
+
+    .rating input {
         display: none;
     }
 
-.star-widget label {
-    font-size: 50px;
-    color: #bfbfbf;
-    padding: 10px;
-    float: right;
-    transition: all 0.2s ease;
+.rating-label {
+    height: 16px;
+    width: 16px;
+    color: #ccc;
+    font-size: 24px;
+    line-height: 16px;
+    margin-right: 4px;
+    text-align: center;
+    display: inline-block;
 }
 
-input:not(:checked) ~ label:hover,
-input:not(:checked) ~ label:hover ~ label {
-    color: #fd4;
+.rating[dir="rtl"] {
+    unicode-bidi: bidi-override;
 }
 
-input:checked ~ label {
-    color: #fd4;
+    .rating[dir="rtl"] > input:checked ~ .rating-label {
+        font-size: 0;
+    }
+
+        .rating[dir="rtl"] > input:checked ~ .rating-label:before {
+            content: "\2605";
+            color: green;
+        }
+
+    .rating[dir="rtl"] > input:nth-child(7):checked ~ .rating-label:before,
+    .rating[dir="rtl"] > input:nth-child(9):checked ~ .rating-label:before {
+        color: #feca02;
+    }
+
+.rating-label.is-active {
+    color: #feca02;
 }
 
-input#rate-5:checked ~ label {
-    color: #fd7;
-    text-shadow: 0 0 20px #952;
+.rating-large .rating-label {
+    height: 24px;
+    width: 24px;
+    font-size: 40px;
+    margin-right: 15px;
 }
 
-#rate-1:checked ~ form #textshow::before {
-    content: "Hoàn toàn không thích";
+    .rating-large .rating-label:before {
+        font-size: 32px;
+    }
+
+.rating-small .rating-label {
+    height: 12px;
+    width: 12px;
+    font-size: 16px;
+    margin-right: 2px;
 }
 
-#rate-2:checked ~ form header::before {
-    content: "Không thích";
+    .rating-small .rating-label:before {
+        font-size: 16px;
+    }
+
+.wrapper {
+    position: relative;
+    align-content:center;
+    display:contents;
+    text-align:center;
 }
 
-#rate-3:checked ~ form header::before {
-    content: "Chấp nhận được";
-}
-
-#rate-4:checked ~ form header::before {
-    content: "Thích";
-}
-
-#rate-5:checked ~ form header::before {
-    content: "Hoàn toàn thích";
+.rating {
+    margin: 15px auto;
 }
 
 form header {
