@@ -14,6 +14,11 @@ namespace JZenoApp.Models
         [DisplayFormat(DataFormatString = "{0:dd/M/yyyy HH:mm}")]
         public DateTime? date { get; set; }
 
+        [Display(Name = "Tiền Ship")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DataType(DataType.Currency)]
+        public decimal? shipPrice { get; set; }
+
         [Display(Name = "Tổng hóa đơn")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [DataType(DataType.Currency)]

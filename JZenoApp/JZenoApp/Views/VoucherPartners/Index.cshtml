@@ -1,7 +1,7 @@
-﻿@model IEnumerable<JZenoApp.Models.Voucher>
+﻿@model IEnumerable<JZenoApp.Models.VoucherPartner>
 
 @{
-    ViewData["Title"] = "Quản Lý Voucher";
+    ViewData["Title"] = "Quản Lý Voucher Cửa Hàng";
     ViewBag.Current = "QuanLyVoucher";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
@@ -24,12 +24,6 @@
                         <th>
                             Số lượng
                         </th>
-                        <th>
-                            Ngày bắt đầu
-                        </th>
-                        <th>
-                            Ngày kết thúc
-                        </th>
                         <th style="text-align: center">
                             Chức năng
                         </th>
@@ -46,12 +40,6 @@
                         <th>
                             Số lượng
                         </th>
-                        <th>
-                            Ngày bắt đầu
-                        </th>
-                        <th>
-                            Ngày kết thúc
-                        </th>
                         <th style="text-align: center">
                             Chức năng
                         </th>
@@ -62,7 +50,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.name)
+                                @Html.DisplayFor(modelItem => item.vID)
                             </td>
                             <td>
                                 @if (Convert.ToDouble(item.price) == 0.1)
@@ -103,21 +91,10 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.quantity)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.startDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.endDate)
-                            </td>
                             <td style="text-align: center">
-                                <a asp-action="Edit" asp-route-id="@item.voucherID" style="text-decoration: none">
+                                <a asp-action="Edit" asp-route-id="@item.vID" style="text-decoration: none">
                                     <span class="btn btn-warning" style="min-width: 65px !important; border-radius: 25px;">
                                         <i class="fas fa-pencil-alt" style="color: #fff"></i>
-                                    </span>
-                                </a>
-                                <a asp-action="Delete" asp-route-id="@item.voucherID" style="text-decoration: none">
-                                    <span class="btn btn-danger" style="min-width: 65px !important; border-radius: 25px;">
-                                        <i class="fas fa-trash-alt" style="color: #fff"></i>
                                     </span>
                                 </a>
                             </td>

@@ -34,7 +34,7 @@ namespace JZenoApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,name,image,description,dateCreated,file,isActive")] Partner partner)
+        public async Task<IActionResult> Create([Bind("Id,name,image,address,description,dateCreated,file,isActive")] Partner partner)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace JZenoApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Partner")]
-        public async Task<IActionResult> Edit(string id, [Bind("partnerId,name,image,description,dateCreated,file,isActive")] Partner partner)
+        public async Task<IActionResult> Edit(string id, [Bind("partnerId,name,image,address,description,dateCreated,file,isActive")] Partner partner)
         {
             if (id != partner.partnerId)
             {
@@ -113,7 +113,6 @@ namespace JZenoApp.Controllers
             {
                 return NotFound();
             }
-
             var partner = await _context.Partner.Include(e=>e.products)!.ThenInclude(e=>e.productImages)
                 .FirstOrDefaultAsync(m => m.partnerId == id);
             if (partner == null)

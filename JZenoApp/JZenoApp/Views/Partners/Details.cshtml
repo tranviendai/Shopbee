@@ -32,19 +32,24 @@
             <input id="receiverId" hidden value="@Model.partnerId" />
             <input id="senderId" hidden value="@userId" />
             <h1 class="text-center">Thông Tin Cửa Hàng</h1>
-        }
-        <div class="row">
-            <div class="col-2">
-                <img src="/images/partner/@Model!.image" height="150" />
-            </div>
-            <div class="col">
-                <div class="d-flex">
-                    <h2>@Model.name </h2>
-                    <div id="addChat" class=" text-danger" style="cursor: pointer; font-size: 16px;"><i class="fab fa-facebook-messenger"></i> Chat Ngay</div>
+            <div class="row">
+                <div class="col-2">
+                    <img src="/images/partner/@Model!.image" height="150" />
                 </div>
-                <span>@Html.Raw(Model.description)</span>
+                <div class="col">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div class="d-flex">
+                            <h2>@Model.name </h2>
+                            <div id="addChat" class=" text-danger" style="cursor: pointer; font-size: 16px;"><i class="fab fa-facebook-messenger"></i> Chat Ngay</div>
+                        </div>
+                    }
+            <h6>Địa Chỉ: @Model.address</h6>
+                    <span>@Html.Raw(Model.description)</span>
+                </div>
             </div>
-        </div>
+        }
+        
     </div>
     <div style="height:10px;"></div>
     <div class="row bg-white" style="padding:20px; margin:10px; border-radius:8px;">

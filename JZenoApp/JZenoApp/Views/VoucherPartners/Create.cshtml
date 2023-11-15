@@ -1,0 +1,57 @@
+﻿@model JZenoApp.Models.VoucherPartner
+
+@{
+    ViewData["Title"] = "Thêm Voucher";
+    ViewBag.Current = "QuanLyVoucher";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+<link href="~/css/manage.css" rel="stylesheet" />
+
+
+
+
+<hr />
+<div class="box-form" style="background-color: #fff;">
+    <div class="form-horizontal">
+        <h4 class="title-form">Thêm Voucher</h4>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row p-0">
+                <span class="col label-name">Tên Voucher</span>
+                <input asp-for="vID" class="input-form col-11" />
+                <span asp-validation-for="vID" class="text-danger"></span>
+            </div>
+            <div class="form-group row p-0">
+                <span class="col label-name">Giá Voucher</span>
+                <input asp-for="price" class="input-form col-11" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group row p-0">
+                <span class="col label-name">Số Lượng</span>
+                <input asp-for="quantity" class="input-form col-11" />
+                <span asp-validation-for="quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-btn d-flex justify-content-center form-btn">
+                <input type="submit" value="Tạo mới" class="btn btn-success" id="submit-coupon" style="border:none;width: 100%;
+                    background: #ee4d2d;
+                    height: 38px;
+                    border: none;
+                    font-size: 18px;
+                    border-radius: 24px;
+                    font-weight: bold;" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Trở lại</a>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

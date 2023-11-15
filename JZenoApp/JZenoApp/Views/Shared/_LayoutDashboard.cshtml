@@ -116,6 +116,12 @@
                         <span>Quản Lý Đơn Hàng</span>
                     </a>
                 </li>
+                <li class="nav-item @(ViewBag.Current == "QuanLyVoucher" ? "active" : "")">
+                    <a href="@Url.Action("Index", "VoucherPartners")" class="nav-link">
+                        <i class="fas fa-box"></i>
+                        <span>Quản Lý Voucher</span>
+                    </a>
+                </li>
             }
           
 

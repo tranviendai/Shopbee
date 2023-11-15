@@ -190,6 +190,7 @@ namespace JZenoApp.Data
                         image = "default_avt.png",
                         description= "Chưa Cập Nhật",
                         dateCreated= DateTime.Now,
+                        address = "Hồ Chí Minh"
                     },
                     new Partner
                     {
@@ -199,6 +200,7 @@ namespace JZenoApp.Data
                         image = "default_avt.png",
                         description = "Chưa Cập Nhật",
                         dateCreated = DateTime.Now,
+                        address = "Hà Nội"
                     },
                      new Partner
                      {
@@ -208,6 +210,7 @@ namespace JZenoApp.Data
                          image = "default_avt.png",
                          description = "Chưa Cập Nhật",
                          dateCreated = DateTime.Now,
+                         address = "Đà Nẵng"
                      },
                       new Partner
                       {
@@ -217,6 +220,7 @@ namespace JZenoApp.Data
                           image = "default_avt.png",
                           description = "Chưa Cập Nhật",
                           dateCreated = DateTime.Now,
+                          address = "Nam Định"
                       }
                     );
             }
@@ -294,7 +298,8 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.",
-                        categoryID = "shirt"
+                        categoryID = "shirt",
+                        sold = 0
                     },
                     new Product
                     {
@@ -306,7 +311,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.",
-                        categoryID = "short"
+                        categoryID = "short",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -318,7 +325,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.",
-                        categoryID = "shoes"
+                        categoryID = "shoes",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -330,7 +339,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.",
-                        categoryID = "camera"
+                        categoryID = "camera",
+                        sold = 0
+
                     },
                     new Product // Sản phẩm của Đối Tác Hai
                     {
@@ -342,7 +353,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.",
-                        categoryID = "shirt"
+                        categoryID = "shirt",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -354,7 +367,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.",
-                        categoryID = "trouser"
+                        categoryID = "trouser",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -366,7 +381,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.",
-                        categoryID = "sandal"
+                        categoryID = "sandal",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -378,7 +395,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.",
-                        categoryID = "phone"
+                        categoryID = "phone",
+                        sold = 0
+
                     },
                     new Product // Sản phẩm của Đối Tác Ba
                     {
@@ -390,7 +409,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
-                        categoryID = "shirt"
+                        categoryID = "shirt",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -402,7 +423,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.",
-                        categoryID = "trouser"
+                        categoryID = "trouser",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -414,7 +437,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.",
-                        categoryID = "sandal"
+                        categoryID = "sandal",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -426,7 +451,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.",
-                        categoryID = "watch"
+                        categoryID = "watch",
+                        sold = 0
+
                     },
                     new Product // Sản phẩm của Đối Tác Bốn
                     {
@@ -438,7 +465,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.",
-                        categoryID = "shirt"
+                        categoryID = "shirt",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -450,7 +479,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...",
-                        categoryID = "short"
+                        categoryID = "short",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -462,7 +493,9 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.",
-                        categoryID = "shoes"
+                        categoryID = "shoes",
+                        sold = 0
+
                     },
                     new Product
                     {
@@ -474,7 +507,8 @@ namespace JZenoApp.Data
                         isPublish = true,
                         postDate = DateTime.Now,
                         description = "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.",
-                        categoryID = "computer"
+                        categoryID = "computer",
+                        sold = 0
                     }
                 );
             });
@@ -1755,6 +1789,7 @@ namespace JZenoApp.Data
         {
         }
         public DbSet<Product> Product { get; set; }
+        public DbSet<VoucherPartner> VoucherPartner { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<ProductImage> ProductImage { get; set; }

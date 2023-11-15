@@ -32,7 +32,7 @@ namespace JZenoApp.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["GetCate"] = await _context.Category.ToListAsync();
-            var jZenoDbContext = _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Where(e=>e.isPublish == true);
+            var jZenoDbContext = _context.Product.Include(e=>e.Partner).Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Where(e=>e.isPublish == true);
 
             return View(await jZenoDbContext.ToListAsync());
         }
@@ -80,8 +80,9 @@ namespace JZenoApp.Controllers
                  Id = e.Id,
                  name = e.name,
                  Category = e.Category,
-                 price = e.price,
+                 price = (e.price - e.price * e.discount / 100),
                  discount = e.discount,
+                 partnerID = e.partnerID,
                  productColor = e.productColor!.Select(
                      c => new ProductColor
                      {
@@ -154,24 +155,25 @@ namespace JZenoApp.Controllers
             bill.payment = false;
             bill.deliveryForm = true;
             bill.billStatic = 0;
+            bill.shipPrice = 20000;
             var voucherID = _context.Voucher.FirstOrDefault(e => e.name == form["voucherName"].ToString());
             if (voucherID != null)
             {
                if(voucherID.startDate <= DateTime.Now  && voucherID.endDate >= DateTime.Now && voucherID.quantity != 0)
                 {
                     bill.voucherID = voucherID!.voucherID;
-                    bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity) - voucherID.price;
+                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price)) * s.quantity) + bill.shipPrice - voucherID.price;
                     voucherID.quantity = voucherID.quantity - 1;
                     _context.Update(voucherID);
                 }
                 else
                 {
-                    bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
+                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price))* s.quantity) + bill.shipPrice;
                 }
             }
             else
             {
-                bill.price = (decimal?)cart.Sum(s => s.product!.price * s.quantity);
+                bill.price = (decimal?)cart.Sum(s => ((s.product!.price * 2 / 100) + (s.product!.price)) * s.quantity) + bill.shipPrice;
             }
             if (_signInManager.IsSignedIn(User))
             {
@@ -215,6 +217,7 @@ namespace JZenoApp.Controllers
         public IActionResult Cart()
         {
             ViewData["ListVoucher"] = _context.Voucher.ToList();
+            ViewData["ListVoucherPartner"] = _context.VoucherPartner.ToList();
             /*
               if (_signInManager.IsSignedIn(User))
              {

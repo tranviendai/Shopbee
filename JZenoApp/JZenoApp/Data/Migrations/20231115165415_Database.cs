@@ -31,7 +31,8 @@ namespace JZenoApp.Migrations
                 columns: table => new
                 {
                     partnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     dateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -54,35 +55,6 @@ namespace JZenoApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Role", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    fullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,6 +106,60 @@ namespace JZenoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    fullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    partnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Partner_partnerId",
+                        column: x => x.partnerId,
+                        principalTable: "Partner",
+                        principalColumn: "partnerId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VoucherPartner",
+                columns: table => new
+                {
+                    vID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    quantity = table.Column<int>(type: "int", nullable: true),
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    partnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VoucherPartner", x => x.vID);
+                    table.ForeignKey(
+                        name: "FK_VoucherPartner_Partner_partnerId",
+                        column: x => x.partnerId,
+                        principalTable: "Partner",
+                        principalColumn: "partnerId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 columns: table => new
                 {
@@ -152,6 +178,74 @@ namespace JZenoApp.Migrations
                         principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductColor",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
+                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductColor", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductColor_Product_productId",
+                        column: x => x.productId,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductImage_Product_productId",
+                        column: x => x.productId,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bill",
+                columns: table => new
+                {
+                    billID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    shipPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    payment = table.Column<bool>(type: "bit", nullable: true),
+                    deliveryForm = table.Column<bool>(type: "bit", nullable: true),
+                    voucherID = table.Column<int>(type: "int", nullable: true),
+                    note = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    billStatic = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bill", x => x.billID);
+                    table.ForeignKey(
+                        name: "FK_Bill_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bill_Voucher_voucherID",
+                        column: x => x.voucherID,
+                        principalTable: "Voucher",
+                        principalColumn: "voucherID");
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +288,35 @@ namespace JZenoApp.Migrations
                     table.PrimaryKey("PK_NewsModel", x => x.Id);
                     table.ForeignKey(
                         name: "FK_NewsModel_User_userId",
+                        column: x => x.userId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductComment",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    userName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    comment = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    evaluate = table.Column<int>(type: "int", nullable: true),
+                    isComment = table.Column<bool>(type: "bit", nullable: true),
+                    dateCmt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductComment", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ProductComment_Product_productId",
+                        column: x => x.productId,
+                        principalTable: "Product",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProductComment_User_userId",
                         column: x => x.userId,
                         principalTable: "User",
                         principalColumn: "Id");
@@ -285,120 +408,23 @@ namespace JZenoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bill",
-                columns: table => new
-                {
-                    billID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    payment = table.Column<bool>(type: "bit", nullable: true),
-                    deliveryForm = table.Column<bool>(type: "bit", nullable: true),
-                    voucherID = table.Column<int>(type: "int", nullable: true),
-                    note = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    billStatic = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bill", x => x.billID);
-                    table.ForeignKey(
-                        name: "FK_Bill_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Bill_Voucher_voucherID",
-                        column: x => x.voucherID,
-                        principalTable: "Voucher",
-                        principalColumn: "voucherID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductColor",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
-                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductColor", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ProductColor_Product_productId",
-                        column: x => x.productId,
-                        principalTable: "Product",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductComment",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    userName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    comment = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    evaluate = table.Column<int>(type: "int", nullable: true),
-                    isComment = table.Column<bool>(type: "bit", nullable: true),
-                    dateCmt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    userId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductComment", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ProductComment_Product_productId",
-                        column: x => x.productId,
-                        principalTable: "Product",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ProductComment_User_userId",
-                        column: x => x.userId,
-                        principalTable: "User",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProductImage",
+                name: "ProductSize",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    productId = table.Column<string>(type: "nvarchar(15)", nullable: true)
+                    name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    quantity = table.Column<double>(type: "float", nullable: true),
+                    productColorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductImage", x => x.Id);
+                    table.PrimaryKey("PK_ProductSize", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductImage_Product_productId",
-                        column: x => x.productId,
-                        principalTable: "Product",
+                        name: "FK_ProductSize_ProductColor_productColorId",
+                        column: x => x.productColorId,
+                        principalTable: "ProductColor",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChatDetail",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    message = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    senderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    chatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChatDetail", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ChatDetail_Chat_chatId",
-                        column: x => x.chatId,
-                        principalTable: "Chat",
-                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -433,23 +459,24 @@ namespace JZenoApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductSize",
+                name: "ChatDetail",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    quantity = table.Column<double>(type: "float", nullable: true),
-                    productColorId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    senderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    chatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    sendDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductSize", x => x.Id);
+                    table.PrimaryKey("PK_ChatDetail", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ProductSize_ProductColor_productColorId",
-                        column: x => x.productColorId,
-                        principalTable: "ProductColor",
-                        principalColumn: "Id");
+                        name: "FK_ChatDetail_Chat_chatId",
+                        column: x => x.chatId,
+                        principalTable: "Chat",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.InsertData(
@@ -470,13 +497,13 @@ namespace JZenoApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Partner",
-                columns: new[] { "partnerId", "dateCreated", "description", "image", "isActive", "name" },
+                columns: new[] { "partnerId", "address", "dateCreated", "description", "image", "isActive", "name" },
                 values: new object[,]
                 {
-                    { "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3759), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng A" },
-                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3783), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng B" },
-                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3799), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng C" },
-                    { "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3802), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng D" }
+                    { "5215212-mx18-4213-h6d1-420b466e4502", "Hồ Chí Minh", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1375), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng A" },
+                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", "Hà Nội", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1392), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng B" },
+                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", "Đà Nẵng", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1409), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng C" },
+                    { "iosxiof-mx18-4213-h6d1-420b466e4502", "Nam Định", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1412), "Chưa Cập Nhật", "default_avt.png", true, "Cửa Hàng D" }
                 });
 
             migrationBuilder.InsertData(
@@ -491,50 +518,47 @@ namespace JZenoApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "address", "dateCreated", "fullName", "image" },
-                values: new object[,]
-                {
-                    { "5215212-mx18-4213-h6d1-420b466e4502", 0, "dbcd1aa2-82aa-44fb-9ada-e97265550505", "partner1@gmail.com", true, false, null, "PARTNER1@GMAIL.COM", "PARTNER1@GMAIL.COM", "AQAAAAIAAYagAAAAELftB5LHwBcz7Jo+eaop8xRukv9FrwGOo0IdFdt5kQwF3Wd84DQYdknFvufzFT53ow==", "0582012351", false, "bba57756-6b1f-4014-8240-4a450831af5b", false, "partner1@gmail.com", "Bình Chánh - Hồ Chí Minh", new DateTime(2023, 11, 7, 19, 51, 29, 160, DateTimeKind.Local).AddTicks(9953), "Đối Tác Một", "shobee-logo.png" },
-                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", 0, "9743a7ff-b093-4073-bc05-f2411a7be076", "partner2@gmail.com", true, false, null, "PARTNER2@GMAIL.COM", "PARTNER2@GMAIL.COM", "AQAAAAIAAYagAAAAENpAYgkI/93JIvDnuR/Gi1FuP3HG8WgsOjea154xqUF9YXdscNNWkoCCbqTuEpZ3PQ==", "0582015681", false, "1bb1f857-b70f-431b-8c14-54f54699ba15", false, "partner2@gmail.com", "Trảng Bom - Đồng Nai", new DateTime(2023, 11, 7, 19, 51, 29, 326, DateTimeKind.Local).AddTicks(3144), "Đối Tác Hai", "shobee-logo.png" },
-                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", 0, "071a6fc8-2593-4982-9fca-aa06470ce240", "partner3@gmail.com", true, false, null, "PARTNER3@GMAIL.COM", "PARTNER3@GMAIL.COM", "AQAAAAIAAYagAAAAEH45wZpVkunEhtup8T3Yjwu9yC4uXTl8hOpJ6rzQfpmM/tIevgWd6ClMlgL9ywoBww==", "0582014561", false, "6776b753-30fb-4f28-bd4b-c3fd3f76b29f", false, "partner3@gmail.com", "Quận 1 - Hồ Chí Minh", new DateTime(2023, 11, 7, 19, 51, 29, 456, DateTimeKind.Local).AddTicks(3464), "Đối Tác Ba", "shobee-logo.png" },
-                    { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "41876e0e-079b-4c75-be25-b13545656dde", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAECVi+1J+fPJqoBYVr9bonstmRoV2AaqTwKlLNdKzuu2ZJmZJADbXVizXs5XkCxepJg==", "0582072743", false, "6ec64392-db3a-4d1d-9193-854098cfe866", false, "admin@gmail.com", "Tắc Vân - Cà Mau", new DateTime(2023, 11, 7, 19, 51, 29, 28, DateTimeKind.Local).AddTicks(6403), "Trần Viễn Đại", "shobee-logo.png" },
-                    { "iosxiof-mx18-4213-h6d1-420b466e4502", 0, "61cadffd-0e4f-4b52-94f5-2888cec25e43", "partner4@gmail.com", true, false, null, "PARTNER4@GMAIL.COM", "PARTNER4@GMAIL.COM", "AQAAAAIAAYagAAAAED/+Pg4K2wG7xA/73NWGTqCldnA8D12scXxMsOztkBPSydW40tZwb02j/FPqJCl22g==", "0582753561", false, "bbcd8951-5fdb-40f3-ac02-883c451ed269", false, "partner4@gmail.com", "Quận 10 - Hồ Chí Minh", new DateTime(2023, 11, 7, 19, 51, 29, 578, DateTimeKind.Local).AddTicks(9383), "Đối Tác Bốn", "shobee-logo.png" }
-                });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "address", "dateCreated", "fullName", "image", "partnerId" },
+                values: new object[] { "a79e98b4-d8a6-4640-98eb-5b417ffb2661", 0, "20408f6c-8190-49aa-84df-bf29efa80a33", "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEIVXoxfVLa25bU92weFkatkfhboY6WrwYw6A+LH5yLFeIWDGQAXZ/0wrguxrgNMzpQ==", "0582072743", false, "01fc54f7-8ded-440d-ab37-7aa1f3053aff", false, "admin@gmail.com", "Tắc Vân - Cà Mau", new DateTime(2023, 11, 15, 23, 54, 15, 261, DateTimeKind.Local).AddTicks(2129), "Trần Viễn Đại", "shobee-logo.png", null });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "Id", "categoryID", "description", "discount", "isPublish", "name", "partnerID", "postDate", "price", "sold" },
                 values: new object[,]
                 {
-                    { "camera1", "camera", "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.", 40, true, "Máy ảnh", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3981), 5000000.0, null },
-                    { "computer4", "computer", "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.", 20, true, "Máy tính", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4020), 10000000.0, null },
-                    { "phone2", "phone", "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.", 5, true, "Điện thoại", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3995), 7500000.0, null },
-                    { "sandal2", "sandal", "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.", 15, true, "Giày sandal nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3990), 100000.0, null },
-                    { "sandal3", "sandal", "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.", 35, true, "Giày sandal nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4004), 110000.0, null },
-                    { "shirt1", "shirt", "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.", 10, true, "Áo thun nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3932), 50000.0, null },
-                    { "shirt2", "shirt", "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.", 35, true, "Áo sơ mi nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3984), 70000.0, null },
-                    { "shirt3", "shirt", "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 55, true, "Áo sơ mi nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3998), 60000.0, null },
-                    { "shirt4", "shirt", "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.", 50, true, "Áo thun nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4010), 80000.0, null },
-                    { "shoes1", "shoes", "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.", 30, true, "Giày thể thao nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3977), 120000.0, null },
-                    { "shoes4", "shoes", "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.", 30, true, "Giày thể thao nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4017), 130000.0, null },
-                    { "short1", "short", "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.", 20, true, "Quần Short nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3974), 30000.0, null },
-                    { "short4", "short", "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...", 40, true, "Quần Short nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4014), 60000.0, null },
-                    { "trouser2", "trouser", "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.", 25, true, "Quần dài nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(3987), 50000.0, null },
-                    { "trouser3", "trouser", "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 45, true, "Quần dài nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4001), 40000.0, null },
-                    { "watch3", "watch", "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.", 25, true, "Đồng hồ", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 7, 19, 51, 29, 579, DateTimeKind.Local).AddTicks(4007), 500000.0, null }
+                    { "camera1", "camera", "Máy ảnh là một thiết bị dùng để ghi lại hình ảnh của thế giới xung quanh. Máy ảnh có thể được chia thành hai loại chính là máy ảnh phim và máy ảnh kỹ thuật số. Máy ảnh phim sử dụng phim ảnh để ghi lại hình ảnh. Phim ảnh là một loại vật liệu nhạy sáng, khi ánh sáng đi qua ống kính sẽ được ghi lại trên phim. Sau đó, phim ảnh cần được mang đi tráng rửa để cho ra một bức ảnh. Máy ảnh kỹ thuật số sử dụng cảm biến điện tử để ghi lại hình ảnh. Cảm biến điện tử sẽ chuyển đổi ánh sáng thành các tín hiệu điện, sau đó các tín hiệu điện này sẽ được lưu trữ dưới dạng file ảnh kỹ thuật số. Máy ảnh có thể được sử dụng để ghi lại những khoảnh khắc quan trọng trong cuộc sống, để lưu giữ những kỷ niệm đẹp, hoặc để thể hiện khả năng sáng tạo của người chụp.", 40, true, "Máy ảnh", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1636), 5000000.0, null },
+                    { "computer4", "computer", "Máy tính là một thiết bị điện tử có thể thực hiện các phép tính và xử lý thông tin theo một chương trình được viết sẵn. Máy tính có thể được sử dụng cho nhiều mục đích khác nhau, bao gồm tính toán, soạn thảo văn bản, chơi game, nghe nhạc, xem phim, v.v.", 20, true, "Máy tính", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1691), 10000000.0, null },
+                    { "phone2", "phone", "Điện thoại thông minh (smartphone) là một loại thiết bị di động kết hợp điện thoại di động, máy tính cá nhân và các chức năng điện toán di động khác vào một thiết bị. Smartphone có thể thực hiện các chức năng cơ bản của điện thoại di động, chẳng hạn như thực hiện và nhận cuộc gọi, gửi và nhận tin nhắn văn bản, và truy cập Internet. Ngoài ra, smartphone còn có thể chạy các ứng dụng, chơi game, và thực hiện nhiều tác vụ khác.", 5, true, "Điện thoại", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1656), 7500000.0, null },
+                    { "sandal2", "sandal", "Giày sandal nữ là một loại giày dép có quai dép đan chéo hoặc buộc xung quanh bàn chân và mắt cá chân. Giày sandal nữ có nhiều loại, từ sandal đế bệt đến sandal đế cao gót, từ sandal quai mảnh đến sandal quai bản to. Giày sandal nữ được làm từ nhiều chất liệu khác nhau, từ da, vải, nhựa đến cao su.", 15, true, "Giày sandal nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1651), 100000.0, null },
+                    { "sandal3", "sandal", "Giày sandal nam là loại giày có quai ngang đan chéo giữa các ngón chân, có thể có quai hậu ở gót hoặc không. Giày sandal nam thường được làm từ chất liệu da, vải, hoặc nhựa. Giày sandal nam có ưu điểm là thoáng mát, dễ đi, và phù hợp với nhiều trang phục khác nhau.", 35, true, "Giày sandal nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1671), 110000.0, null },
+                    { "shirt1", "shirt", "Áo thun nam là một loại trang phục phổ biến dành cho nam giới. Áo được làm từ chất liệu cotton mềm mại, thấm hút mồ hôi tốt, mang lại cảm giác thoải mái cho người mặc. Áo thun nam có nhiều kiểu dáng, màu sắc và họa tiết khác nhau, phù hợp với nhiều phong cách thời trang.", 10, true, "Áo thun nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1620), 50000.0, null },
+                    { "shirt2", "shirt", "Áo sơ mi nữ là một loại trang phục có cổ, tay áo và hàng nút phía trước, dành cho phụ nữ. Áo sơ mi nữ có thể được làm từ nhiều loại vải khác nhau, bao gồm cotton, lanh, lụa, polyester, v.v. Áo sơ mi nữ thường có màu sắc trung tính như trắng, đen, xanh dương, v.v., nhưng cũng có thể có màu sắc sặc sỡ hơn.", 35, true, "Áo sơ mi nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1642), 70000.0, null },
+                    { "shirt3", "shirt", "Áo sơ mi nam là một loại áo được làm từ vải cotton, linen, hoặc polyester, có cổ áo, tay áo, và khuy áo. Áo sơ mi nam thường được mặc trong các dịp trang trọng, như đi làm, đi dự tiệc, hoặc đi gặp đối tác. Áo sơ mi nam có nhiều kiểu dáng và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 55, true, "Áo sơ mi nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1660), 60000.0, null },
+                    { "shirt4", "shirt", "Áo thun nữ là một loại áo được làm từ chất liệu cotton, có kiểu dáng đơn giản, dễ mặc, dễ phối đồ. Áo thun nữ có thể được mặc trong nhiều dịp khác nhau, từ đi chơi, đi làm, đến tập thể thao.", 50, true, "Áo thun nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1679), 80000.0, null },
+                    { "shoes1", "shoes", "Giày thể thao nam là loại giày được thiết kế chủ yếu để phục vụ cho các hoạt động thể thao, thể dục hoặc các hoạt động ngoài trời. Tuy nhiên, ngày nay, giày thể thao nam cũng được sử dụng phổ biến trong đời sống hàng ngày, bởi sự thoải mái, năng động và cá tính của nó.", 30, true, "Giày thể thao nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1633), 120000.0, null },
+                    { "shoes4", "shoes", "Giày thể thao nữ là loại giày được thiết kế dành riêng cho nữ giới, thường được sử dụng để tập thể dục, thể thao, hay đơn giản là để đi lại hàng ngày. Giày thể thao nữ có đặc điểm chung là đế cao su mềm, có độ bám tốt, giúp người sử dụng di chuyển dễ dàng và thoải mái. Ngoài ra, giày thể thao nữ còn có phần thân giày được làm từ nhiều chất liệu khác nhau, như da, vải, hay nhựa, tùy theo sở thích và nhu cầu của người sử dụng.", 30, true, "Giày thể thao nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1686), 130000.0, null },
+                    { "short1", "short", "Quần short nam là một loại quần dáng ngắn, từ đầu gối trở lên, được thiết kế cho nam giới. Quần short nam thường được làm từ các chất liệu thoáng mát, thấm hút mồ hôi tốt như cotton, kaki, jean,... Quần short nam có nhiều kiểu dáng và mẫu mã khác nhau, phù hợp với nhiều phong cách thời trang.", 20, true, "Quần Short nam", "5215212-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1626), 30000.0, null },
+                    { "short4", "short", "Quần short nữ là một loại quần ngắn, thường có chiều dài đến đầu gối hoặc trên đầu gối. Quần short nữ có thể được làm từ nhiều chất liệu khác nhau, như cotton, denim, kaki,... Quần short nữ thường được mặc trong những dịp thoải mái, như đi chơi, đi dạo,...", 40, true, "Quần Short nữ", "iosxiof-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1683), 60000.0, null },
+                    { "trouser2", "trouser", "Quần dài nữ là một loại quần có chiều dài từ mắt cá chân trở lên, được thiết kế dành riêng cho phụ nữ. Quần dài nữ có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang và mục đích sử dụng.", 25, true, "Quần dài nữ", "5dfgsg2-mx18-4213-h6d1-420b466e4502", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1648), 50000.0, null },
+                    { "trouser3", "trouser", "Quần dài nam là một loại trang phục bao phủ phần thân dưới của cơ thể, từ thắt lưng đến mắt cá chân. Quần dài nam có nhiều kiểu dáng, chất liệu và màu sắc khác nhau, phù hợp với nhiều phong cách thời trang.", 45, true, "Quần dài nam", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1665), 40000.0, null },
+                    { "watch3", "watch", "Đồng hồ đeo tay là một chiếc đồng hồ được thiết kế để đeo trên cổ tay. Nó được điều khiển bởi một bộ máy cơ học hoặc điện tử và hiển thị thời gian bằng các kim hoặc màn hình điện tử. Đồng hồ đeo tay là một vật dụng thiết yếu trong cuộc sống hiện đại, được sử dụng để theo dõi thời gian, quản lý công việc và thể hiện phong cách cá nhân.", 25, true, "Đồng hồ", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", new DateTime(2023, 11, 15, 23, 54, 15, 627, DateTimeKind.Local).AddTicks(1675), 500000.0, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "address", "dateCreated", "fullName", "image", "partnerId" },
+                values: new object[,]
+                {
+                    { "5215212-mx18-4213-h6d1-420b466e4502", 0, "490c9480-691a-45a1-94ae-1d2b3776bdbf", "partner1@gmail.com", true, false, null, "PARTNER1@GMAIL.COM", "PARTNER1@GMAIL.COM", "AQAAAAIAAYagAAAAEDAUzP02CB5RN+go9ongTHQGYUSabq+1F833yAtBov5DSv5S6SoJznu9oxw8Su8ifA==", "0582012351", false, "62e1413d-79b3-4e33-bcc2-3cd295dd06d7", false, "partner1@gmail.com", "Bình Chánh - Hồ Chí Minh", new DateTime(2023, 11, 15, 23, 54, 15, 351, DateTimeKind.Local).AddTicks(866), "Đối Tác Một", "shobee-logo.png", "5215212-mx18-4213-h6d1-420b466e4502" },
+                    { "5dfgsg2-mx18-4213-h6d1-420b466e4502", 0, "6fc7c673-7887-4889-8800-ec1ff4828c40", "partner2@gmail.com", true, false, null, "PARTNER2@GMAIL.COM", "PARTNER2@GMAIL.COM", "AQAAAAIAAYagAAAAEBSbe8DBUaeTodgkOj2Qzq3eqS30k5DHFFZZ/7+b9ZKBV5j3hewzKzi8GQ5fPaquhg==", "0582015681", false, "9b7ba0bc-a5ab-437f-8380-959180b01f47", false, "partner2@gmail.com", "Trảng Bom - Đồng Nai", new DateTime(2023, 11, 15, 23, 54, 15, 442, DateTimeKind.Local).AddTicks(6247), "Đối Tác Hai", "shobee-logo.png", "5dfgsg2-mx18-4213-h6d1-420b466e4502" },
+                    { "9f15d62-mx18-4213-h6d1-fdsafdsafdsd", 0, "f2c2f4ed-67b1-4edb-bac7-cc06ef84ac2f", "partner3@gmail.com", true, false, null, "PARTNER3@GMAIL.COM", "PARTNER3@GMAIL.COM", "AQAAAAIAAYagAAAAECOCixk0SOR7L49q/1zmVAZSZWIZKIgz8T2wpfI0UG9WHMD8YWbcExTuLFbDv0lFIQ==", "0582014561", false, "283e3165-55f1-449b-a68d-8989fd7ae91d", false, "partner3@gmail.com", "Quận 1 - Hồ Chí Minh", new DateTime(2023, 11, 15, 23, 54, 15, 533, DateTimeKind.Local).AddTicks(1177), "Đối Tác Ba", "shobee-logo.png", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd" },
+                    { "iosxiof-mx18-4213-h6d1-420b466e4502", 0, "680b15da-d2b9-4507-8d7f-0b16c4ec0a1a", "partner4@gmail.com", true, false, null, "PARTNER4@GMAIL.COM", "PARTNER4@GMAIL.COM", "AQAAAAIAAYagAAAAEOseTosvQnRG9iOpaYbqb2hIKVCbhDPodymLOQ3KmJCWCNtYVe0TbuK4TfpynHyQig==", "0582753561", false, "b2f7e0b9-90a8-4fff-9826-540306346a54", false, "partner4@gmail.com", "Quận 10 - Hồ Chí Minh", new DateTime(2023, 11, 15, 23, 54, 15, 626, DateTimeKind.Local).AddTicks(7607), "Đối Tác Bốn", "shobee-logo.png", "iosxiof-mx18-4213-h6d1-420b466e4502" }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "5215212-mx18-4213-h6d1-420b466e4502" },
-                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "5dfgsg2-mx18-4213-h6d1-420b466e4502" },
-                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd" },
-                    { "07bf1560-b5ff-4702-a9f1-a64026e570cf", "a79e98b4-d8a6-4640-98eb-5b417ffb2661" },
-                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "iosxiof-mx18-4213-h6d1-420b466e4502" }
-                });
+                values: new object[] { "07bf1560-b5ff-4702-a9f1-a64026e570cf", "a79e98b4-d8a6-4640-98eb-5b417ffb2661" });
 
             migrationBuilder.InsertData(
                 table: "ProductColor",
@@ -612,6 +636,17 @@ namespace JZenoApp.Migrations
                     { 30, "shoes4_pink.jpg", "shoes4" },
                     { 31, "computer4_blue.jpg", "computer4" },
                     { 32, "computer4_black.jpg", "computer4" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "5215212-mx18-4213-h6d1-420b466e4502" },
+                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "5dfgsg2-mx18-4213-h6d1-420b466e4502" },
+                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "9f15d62-mx18-4213-h6d1-fdsafdsafdsd" },
+                    { "5h45cxf3-mx18-4acb-h6d1-420b466e4502", "iosxiof-mx18-4213-h6d1-420b466e4502" }
                 });
 
             migrationBuilder.InsertData(
@@ -838,6 +873,13 @@ namespace JZenoApp.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_User_partnerId",
+                table: "User",
+                column: "partnerId",
+                unique: true,
+                filter: "[partnerId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_PhoneNumber",
                 table: "User",
                 column: "PhoneNumber",
@@ -872,6 +914,11 @@ namespace JZenoApp.Migrations
                 column: "name",
                 unique: true,
                 filter: "[name] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VoucherPartner_partnerId",
+                table: "VoucherPartner",
+                column: "partnerId");
         }
 
         /// <inheritdoc />
@@ -909,6 +956,9 @@ namespace JZenoApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
+
+            migrationBuilder.DropTable(
+                name: "VoucherPartner");
 
             migrationBuilder.DropTable(
                 name: "Chat");

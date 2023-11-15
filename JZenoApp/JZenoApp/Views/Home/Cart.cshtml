@@ -7,15 +7,18 @@
 @{
     ViewData["Title"] = "Giỏ Hàng";
     var list = (List<Voucher>)ViewData["ListVoucher"]!;
+    var listVPartner = (List<VoucherPartner>)ViewData["ListVoucherPartner"]!;
+
     <link rel="stylesheet" href="~/css/cart/cart.css"/>
     <link rel="stylesheet" href="~/css/products/detail.css" />
     <link rel="stylesheet" href="~/css/managementForm.css">
     <link rel="stylesheet" href="~/css/coupon.css" />
     }
 
-<h2>GIỎ HÀNG</h2>
+<h1 class="text-center">GIỎ HÀNG</h1>
+<h3 style="text-align:right;color:red;">Tiền Ship 20.000 VNĐ</h3>
 @if (Model.Count > 0) {
-  double? total = 0;
+  double? total = 20000; //đã + ship
   int stt = 1;
     
     <div class="header-cart">
@@ -37,7 +40,7 @@
     </div>
     @foreach (var cartitem in Model)
     {
-        var thanhtien = cartitem.quantity * cartitem.product!.price;
+        var thanhtien = (cartitem.quantity * cartitem.product!.price * 2/100) + (cartitem.quantity * cartitem.product!.price); //2% tiền của shopbee
         total += thanhtien;
             <div class="body-cart">
                 <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
@@ -48,14 +51,18 @@
                             {
                                 if (index == 0)
                                 {
-                                                <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
                                     break;
                                 }
                                 index++;
                             }
                         }
                     <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name (@cartitem.product.productColor!.FirstOrDefault()!.Name - @cartitem.product!.productColor!.FirstOrDefault()!.productSize!.FirstOrDefault(e=>e.Id == cartitem!.isUnique!)!.name)</p>
-                    </div>
+                    @foreach(var l in listVPartner.Where(e=>e.partnerId == cartitem.product.partnerID))
+                    {
+                        <p>@l.vID</p>
+                    }
+                </div>
                 </div>
                 <div style="text-align: center; width: 15.88022%; color: rgba(0,0,0,.8);">
                     @Convert.ToDecimal(cartitem.product.price).ToString("N0")đ
@@ -132,7 +139,6 @@
                             </div>
                         }
                     </div>
-
                     <button class="btn btn--primary header__cart-see-cart" style="width: 96%" type="button" data-bs-dismiss="modal" aria-label="Close">
                         <h5>Áp Dụng</h5>
                     </button>

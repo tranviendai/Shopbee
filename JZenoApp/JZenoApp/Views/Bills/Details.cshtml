@@ -123,17 +123,23 @@
                                     </span>
                                 </div>
                                 <div class="col-3" style="display:flex; align-items:center;">
-                                    <span >@item.price x @item.quantity = <span style="color:red;">@Convert.ToDecimal(item.totalPrice).ToString("N0")đ</span></span>
+                                    @{
+                                        var total = (@item.totalPrice * 2 / 100) + (@item.totalPrice);
+                                    }
+                                    <span>@total x @item.quantity = <span style="color:red;">@Convert.ToDecimal(total).ToString("N0")đ</span></span>
                                 </div>
                             </div>
                             <hr/>
                         }
                     </table>
                     <div style="margin-top:10px;text-align:right;">
-                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(gia + (double) @Model.price!).ToString("N0")đ</span>
+                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(gia + (double) @Model.price! - 20000).ToString("N0")đ</span>
                     </div>
                     <div style="text-align:right;">
                         <strong>Giảm giá:</strong><span style="color:red;"> @Convert.ToDecimal(gia).ToString("N0")đ</span>
+                    </div>
+                    <div style="text-align:right;">
+                        <strong>Tiền Ship:</strong><span style="color:red;"> @Convert.ToDecimal(20000).ToString("N0")đ</span>
                     </div>
                     <div style="font-size:17px;text-align:right;margin-bottom:20px;"><strong>Tổng hóa đơn :<span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></strong></div>
                 </div>
