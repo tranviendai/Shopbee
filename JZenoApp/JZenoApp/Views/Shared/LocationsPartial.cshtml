@@ -1,0 +1,11 @@
+﻿@model IEnumerable<JZenoApp.Models.Partner>
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="/Products?location=@item.address">
+            @item.address
+        </a>
+    </li>
+}
+

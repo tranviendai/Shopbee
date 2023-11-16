@@ -28,14 +28,20 @@ namespace JZenoApp.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchCategory, int? page, string searchName, string orderBy)
+        public async Task<IActionResult> Index(string searchCategory, int? page, string searchName, string orderBy, string location)
         {
             ViewData["GetData"] = searchCategory;
             ViewData["GetSearch"] = searchName;
             ViewData["OrderBy"] = orderBy;
+            ViewData["GetPartner"] = await _context.Partner.ToPagedListAsync(1, 100);
             ViewData["GetCategory"] = await _context.Category.ToPagedListAsync(1, 100);
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
+
+            if(location != null)
+            {
+                return View(await product.Where(e => e.Partner!.address!.Contains(location)).ToPagedListAsync(page ?? 1, 10));
+            }
 
             if (!String.IsNullOrEmpty(searchCategory) && searchName == null)
             {
@@ -81,11 +87,17 @@ namespace JZenoApp.Controllers
             }
 
         }
+        public async Task<IActionResult> LocationsPartial()
+        {
+            var jZenoDbContext = await _context.Partner.ToPagedListAsync(1, 100);
+            return PartialView("LocationsPartial", jZenoDbContext);
+        }
         public async Task<IActionResult> _CategorypPartial()
         {
             var jZenoDbContext = await _context.Category.ToPagedListAsync(1, 100);
             return PartialView("_CategorypPartial", jZenoDbContext);
         }
+
         [HttpPost]
         public async Task<JsonResult> AddComment(string message, int star, string productId, string userId, int detailOD)
         {
