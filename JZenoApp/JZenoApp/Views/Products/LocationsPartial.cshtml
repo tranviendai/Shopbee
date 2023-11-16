@@ -1,0 +1,12 @@
+﻿@{
+    IEnumerable<Partner> list = (IEnumerable<Partner>)ViewData["GetPartner"]!;
+}
+@foreach (var item in list)
+{
+    <li class="category-group-item">
+        <a href="/Products?location=@item.address" style="color:black; text-decoration:none;">
+            @item.address
+        </a>
+    </li>
+}
+

@@ -32,13 +32,24 @@
                     Bộ lọc tìm kiếm
                 </h3>
                 <div class="category-group">
-                    <div class="category-group-title">Theo Danh Mục</div>
+                    <div class="category-group-title"><strong style="font-size: 18px">Theo Danh Mục</strong></div>
                     <ul class="category-group-list">
                         @{
                             await Html.RenderPartialAsync("_CategorypPartial");
                         }
                     </ul>
+                    
                 </div>
+
+                <div class="category-group">
+                    <div class="category-group-title"><strong style="font-size: 18px">Theo Địa Chỉ</strong></div>
+                    <ul class="category-group-list">
+                        @{
+                            await Html.RenderPartialAsync("LocationsPartial");
+                        }
+                    </ul>
+                </div>
+                
              </nav>
         </div>
         <div class="col l-10 m-12 c-12">
@@ -160,9 +171,9 @@
                                                 <i class="star-checked far fa-star"></i>
                                                 <i class="star-uncheck far fa-star"></i>
                                             </div>
-                                            <div class="home-product-item__saled">Đã bán 2k</div>
+                                            <div class="home-product-item__saled">Đã bán @item.sold</div>
                                         </div>
-                                        <div class="home-product-item__origin">TPHCM</div>
+                                        <div class="home-product-item__origin">@item.Partner!.address</div>
                                         <div class="home-product-item__favourite">
                                             Yêu thích
                                         </div>
