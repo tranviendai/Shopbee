@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
     // Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var detailorder = Model.detailsOrders!.FirstOrDefault();
-    double gia = 0;
+    double gia = 0, priceShip = 0;
     @if(Model.Voucher! != null)
     {
         gia = Convert.ToDouble(Model.Voucher.price);
@@ -78,6 +78,7 @@
                         
                         @foreach(var item in Model.detailsOrders!)
                         {
+                            priceShip += 10000;
                             var z = 0;
                             <div class="row">
                                 <div class="col-3">
@@ -133,13 +134,13 @@
                         }
                     </table>
                     <div style="margin-top:10px;text-align:right;">
-                        <strong>Thành Tiền:</strong><span style="color:red;"> @Convert.ToDecimal(gia + (double) @Model.price! - 20000).ToString("N0")đ</span>
+                        <strong>Thành Tiền:</strong><span style="color:red; margin-bottom:5px;"> @Convert.ToDecimal(gia + (double) @Model.price! - 20000).ToString("N0")đ</span>
                     </div>
                     <div style="text-align:right;">
-                        <strong>Giảm giá:</strong><span style="color:red;"> @Convert.ToDecimal(gia).ToString("N0")đ</span>
+                        <strong>Giảm giá:</strong><span style="color:red; margin-bottom:5px;"> @Convert.ToDecimal(gia).ToString("N0")đ</span>
                     </div>
                     <div style="text-align:right;">
-                        <strong>Tiền Ship:</strong><span style="color:red;"> @Convert.ToDecimal(20000).ToString("N0")đ</span>
+                        <strong>Tiền Ship:</strong><span style="color:red; margin-bottom:5px;"> @Convert.ToDecimal(priceShip).ToString("N0")đ</span>
                     </div>
                     <div style="font-size:17px;text-align:right;margin-bottom:20px;"><strong>Tổng hóa đơn :<span style="color:red;">@Convert.ToDecimal(Model.price).ToString("N0")đ</span></strong></div>
                 </div>
