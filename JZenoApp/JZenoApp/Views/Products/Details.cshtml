@@ -456,6 +456,17 @@
 
         </div>
     </div>
+
+
+    <div class="main-detail mt-4">
+        <div class="rate-detail-product">
+            <h2>SẢN PHẨM LIÊN QUAN</h2>
+            @{
+                await Html.RenderPartialAsync("_RelatedProducts");
+            }
+
+        </div>
+    </div>
 </div>
 
 <script>
