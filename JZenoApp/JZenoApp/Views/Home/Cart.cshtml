@@ -16,11 +16,9 @@
     }
 
 <h1 class="text-center">GIỎ HÀNG</h1>
-<h3 style="text-align:right;color:red;">Tiền Ship 20.000 VNĐ</h3>
 @if (Model.Count > 0) {
-  double? total = 20000; //đã + ship
-  int stt = 1;
-    
+    <h3 style="text-align:right;color:red;">Tiền Ship 20.000 VNĐ</h3>
+  double? total = 10000 * Model.Count;
     <div class="header-cart">
         <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
             Sản Phẩm
@@ -51,17 +49,33 @@
                             {
                                 if (index == 0)
                                 {
-                                    <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
+                                        <img src="~/images/products/@img.URL" alt="@cartitem.product.name" style="width: 80px; height: 80px; object-fit: cover;">
                                     break;
                                 }
                                 index++;
                             }
                         }
                     <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name (@cartitem.product.productColor!.FirstOrDefault()!.Name - @cartitem.product!.productColor!.FirstOrDefault()!.productSize!.FirstOrDefault(e=>e.Id == cartitem!.isUnique!)!.name)</p>
-                    @foreach(var l in listVPartner.Where(e=>e.partnerId == cartitem.product.partnerID))
-                    {
-                        <p>@l.vID</p>
-                    }
+                    <form action="#" style="overflow:auto">
+                        @if(cartitem.vActive == true){
+                            <div>Áp dụng Thành Công</div>
+                        }
+                        else
+                        {
+                            <h6>Danh sách voucher</h6>
+                            <div dir="rvc">
+                                @foreach (var l in listVPartner.Where(e => e.partnerId == cartitem.product.partnerID))
+                                {
+                                    <input type="radio" name="voucher" id="vPrice" value="@l.price" />
+                                    <label for="@l.price">@l.vID -  @Convert.ToDecimal(l.price).ToString("N0")đ</label>
+                                    <br />
+                                }
+                            </div>
+                            <button class="updatevoucher updatecartitem" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
+                                Áp dụng
+                            </button>
+                        }
+                    </form>
                 </div>
                 </div>
                 <div style="text-align: center; width: 15.88022%; color: rgba(0,0,0,.8);">
@@ -93,9 +107,6 @@
                 </div>
             </div>
     }
-
-
-
     <div class="grid-container">
         <div class="grid-item" style="justify-content: center; text-align: center; align-items: center; display: flex;">
             <div class="total-payment-left">
@@ -213,19 +224,6 @@
 
       @section Scripts {
         <script>
-        // let copybtn = document.querySelector(".copybtn");
-
-        // function copyIt(code) {
-        //     console.log('#copyvalue-' + code)
-        //     let copyInput = document.querySelector('#copyvalue-' + code);
-
-        //     copyInput.select();
-
-        //     document.execCommand("copy");
-
-        //     copybtn.textContent = "ĐÃ SAO CHÉP";
-        // }
-
         $(document).ready(function () {
             $(".copybtn").click(function (event) {
                 event.preventDefault();
@@ -236,14 +234,32 @@
                 this.textContent = "ĐÃ SAO CHÉP";
             });
         });
-
-
+        $(document).ready(function () {
+            $(".updatevoucher").click(function (event) {
+                event.preventDefault();
+                var productid = $(this).attr("data-productid");
+                var productUnique = $(this).attr("data-productUnique");
+                var price = $("#vPrice:checked").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.RouteUrl("updatevoucher")",
+                    data: {
+                        productid: productid,
+                        isUnique: productUnique,
+                        vPrice: price
+                    },
+                    success: function (result) {
+                        window.location.href = "@Url.RouteUrl("cart")";
+                    }
+                });
+            });
+        });
           $(document).ready(function () {
               $(".plus-btn").click(function (event) {
                   event.preventDefault();
                   var productid = $(this).attr("data-productid");
-                var productUnique = $(this).attr("data-productUnique");
-                var quantity = parseInt($(".quantity-" + productid).val()) +1;
+                  var productUnique = $(this).attr("data-productUnique");
+                  var quantity = parseInt($(".quantity-" + productid).val()) +1;
                   $.ajax({
                       type: "POST",
                       url:"@Url.RouteUrl("updatecart")",

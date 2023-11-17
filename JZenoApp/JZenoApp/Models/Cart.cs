@@ -12,6 +12,9 @@ namespace JZenoApp.Models
         [Required]
         public int? quantity { get; set; }
         public int? isUnique { get; set; }
+
+        public bool? vActive { get; set; }
+        public bool? shipActive { get; set; }
     }
     public class Cart
     {

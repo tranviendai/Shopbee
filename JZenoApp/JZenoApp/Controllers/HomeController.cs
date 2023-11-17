@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Newtonsoft.Json;
@@ -35,7 +36,6 @@ namespace JZenoApp.Controllers
             
             ViewData["GetCate"] = await _context.Category.ToListAsync();
             var jZenoDbContext = _context.Product.Include(e=>e.Partner).Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Where(e=>e.isPublish == true);
-
             return View(await jZenoDbContext.ToListAsync());
         }
 
@@ -62,7 +62,6 @@ namespace JZenoApp.Controllers
             var session = HttpContext.Session;
             session.Remove(CARTKEY);
         }
-
         void SaveCartSession(List<CartItem> ls)
         {
             var session = HttpContext.Session;
@@ -111,10 +110,11 @@ namespace JZenoApp.Controllers
             if (cartitem != null)
             {
                 cartitem.quantity += quantity;
+                cartitem.vActive = false;
             }
             else
             {
-                cart.Add(new CartItem() { quantity = quantity, product = product, isUnique = size });
+                cart.Add(new CartItem() { quantity = quantity, product = product, isUnique = size, vActive = false, shipActive = false });
             }
             SaveCartSession(cart);
             return Json(cart);
@@ -123,16 +123,28 @@ namespace JZenoApp.Controllers
         [HttpPost]
         public IActionResult UpdateCart([FromForm] string productid, [FromForm] int quantity, [FromForm] int isUnique)
         {
-            // Cập nhật Cart thay đổi số lượng quantity ...
             var cart = GetCartItems();
             var cartitem = cart.Find(p => p.product!.Id == productid && p.isUnique == isUnique);
             if (cartitem != null)
             {
-                // Đã tồn tại, tăng thêm 1
                 cartitem.quantity = quantity;
+                cartitem.product!.price = cartitem.product.price;
             }
             SaveCartSession(cart);
-            // Trả về mã thành công (không có nội dung gì - chỉ để Ajax gọi)
+            return Ok();
+        }
+        [Route("/updatevoucher", Name = "updatevoucher")]
+        [HttpPost]
+        public IActionResult UpdateVoucher([FromForm] string productid,[FromForm] int isUnique, [FromForm] double vPrice)
+        {
+            var cart = GetCartItems();
+            var cartitem = cart.Find(p => p.product!.Id == productid && p.isUnique == isUnique);
+            if (cartitem != null)
+            {
+                cartitem.vActive = true;
+                cartitem.product!.price = cartitem.product.price - vPrice;
+            }
+            SaveCartSession(cart);
             return Ok();
         }
         [Route("/removecart/{productid}", Name = "removecart")]
@@ -147,7 +159,7 @@ namespace JZenoApp.Controllers
             SaveCartSession(cart);
             return RedirectToAction(nameof(Cart));
         }
-        // [Authorize(Roles = "Customer")]
+       
         [Route("/checkout")]
         public IActionResult CheckOut(IFormCollection form)
         {
@@ -159,25 +171,25 @@ namespace JZenoApp.Controllers
             bill.payment = false;
             bill.deliveryForm = true;
             bill.billStatic = 0;
-            bill.shipPrice = 20000;
+            bill.shipPrice = 10000 * cart.Count;
             var voucherID = _context.Voucher.FirstOrDefault(e => e.name == form["voucherName"].ToString());
             if (voucherID != null)
             {
                if(voucherID.startDate <= DateTime.Now  && voucherID.endDate >= DateTime.Now && voucherID.quantity != 0)
                 {
                     bill.voucherID = voucherID!.voucherID;
-                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price)) * s.quantity) + bill.shipPrice - voucherID.price;
+                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price)) * s.quantity) - voucherID.price;
                     voucherID.quantity = voucherID.quantity - 1;
                     _context.Update(voucherID);
                 }
                 else
                 {
-                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price))* s.quantity) + bill.shipPrice;
+                    bill.price = (decimal?) cart.Sum(s => ((s.product!.price * 2/100) + (s.product!.price))* s.quantity);
                 }
             }
             else
             {
-                bill.price = (decimal?)cart.Sum(s => ((s.product!.price * 2 / 100) + (s.product!.price)) * s.quantity) + bill.shipPrice;
+                bill.price = (decimal?)cart.Sum(s => ((s.product!.price * 2 / 100) + (s.product!.price)) * s.quantity);
             }
             if (_signInManager.IsSignedIn(User))
             {
@@ -231,11 +243,30 @@ namespace JZenoApp.Controllers
              {
                  return Redirect("/Identity/Account/Login");
              }*/
+            var cart = GetCartItems();
+            if(cart.Count! > 0)
+            {
+                var shipPrice = 10000;
+                for (var x = 0; x < cart.Count; x++)
+                {
+                    if (cart[x].shipActive == true)
+                    {
+                        cart[x]!.product!.price = cart[x]!.product!.price;
+                    }
+                    else
+                    {
+                        cart[x].shipActive = true;
+                        cart[x]!.product!.price = cart[x]!.product!.price + shipPrice;
+                    }
+                }
+                SaveCartSession(cart);
+            }
+
             if (User.IsInRole("Partner") || User.IsInRole("Admin"))
             {
                 return Redirect("/");
             }
-            return View(GetCartItems());
+            return View(cart);
 
         }
         public IActionResult PaymentWithPaypal(string? Cancel = null)

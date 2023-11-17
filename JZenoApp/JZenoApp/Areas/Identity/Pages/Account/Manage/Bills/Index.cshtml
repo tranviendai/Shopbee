@@ -129,33 +129,33 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-5 note1">
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 0)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 0)
                                             {
                                                 <span>Chờ Xử Lý</span>
                                             }
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 1)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 1)
                                             {
                                                 <span>Bên vận chuyển đang đến lấy hàng</span>
                                             }
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 2)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 2)
                                             {
                                                 <span>Đơn hàng đang giao đã đến bạn</span>
                                             }
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 3)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 3)
                                             {
                                                 <span>Đánh giá sản phẩm trước 10/12/2023</span>
                                             }
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 4)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 4)
                                             {
                                                 <span>Đã hủy bởi bạn</span>
                                             }
-                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault().detailStatic) == 5)
+                                            @if (Convert.ToInt16(item0.detailsOrders.FirstOrDefault()!.detailStatic) == 5)
                                             {
                                                 <span>Trà hành/Hoàn tiền</span>
                                             }
                                         </div>
                                         <div class="col-7 phu">
-                                            @if (item0.detailsOrders.FirstOrDefault().detailStatic == 0)
+                                            @if (item0.detailsOrders.FirstOrDefault()!.detailStatic == 0)
                                             {
                                                 @if (item0.detailsOrders!.Where(e => e.detailStatic != 0).Count() == 0)
                                                 {
@@ -191,7 +191,6 @@
 
                                                 }
                                             }
-
                                             <button class="contactoorder">Liên hệ người bán</button>
                                             <button class="contactoorder">Mua lại</button>
                                         </div>
@@ -213,7 +212,7 @@
                         <div class="container" style="max-width: 100%;">
                             @foreach (var item0 in Model.Bill.Where(e => e.UserId == UserManager.GetUserId(User)))
                             {
-                                @if (item0.detailsOrders.FirstOrDefault()!.detailStatic == 0)
+                                @if (item0.detailsOrders!.FirstOrDefault()!.detailStatic == 0)
                                 {
                                     <div class="order1">
                                         <div style="display:none;">@item0.billID | @Convert.ToDecimal(item0.price).ToString("N0") | @item0.date</div>
@@ -641,9 +640,7 @@
                                                                                 <input type="radio" name="rate" id="1" class="rate-1-@item1.odID" value="1" />
                                                                                 <label class="rating-label" for="1">&#9734</label>
                                                                             </div>
-
                                                                         </form>
-
                                                                     </div>
                                                                     <form action="#">
                                                                         <header id="textshow"></header>
