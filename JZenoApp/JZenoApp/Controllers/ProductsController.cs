@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Drawing;
 using X.PagedList;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JZenoApp.Controllers
 {
@@ -37,13 +38,12 @@ namespace JZenoApp.Controllers
             ViewData["GetCategory"] = await _context.Category.ToPagedListAsync(1, 100);
             var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
                           select m;
-
             if(location != null)
             {
                 return View(await product.Where(e => e.Partner!.address!.Contains(location)).ToPagedListAsync(page ?? 1, 10));
             }
 
-            if (!String.IsNullOrEmpty(searchCategory) && searchName == null)
+            if (!System.String.IsNullOrEmpty(searchCategory) && searchName == null)
             {
                 if (orderBy == "Tăng Dần")
                 {
@@ -98,6 +98,14 @@ namespace JZenoApp.Controllers
             return PartialView("_CategorypPartial", jZenoDbContext);
         }
 
+        public async Task<IActionResult> _RelatedProducts(string? cate)
+        {
+            var product = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
+                          select m;
+            var productRelated = await product.Where(p => p.categoryID == cate).ToPagedListAsync(1, 100);
+            return PartialView("_RelatedProducts", productRelated);
+        }
+
         [HttpPost]
         public async Task<JsonResult> AddComment(string message, int star, string productId, string userId, int detailOD)
         {
@@ -141,8 +149,13 @@ namespace JZenoApp.Controllers
         }
 
 
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string cate)
         {
+            var product1 = from m in _context.Product.Include(p => p.Category).Include(p => p.productColor).Include(i => i.productImages).Include(i => i.Partner)
+                          select m;
+            ViewData["GetProduct"] = await product1.Where(p => p.categoryID == cate).ToPagedListAsync(1, 100);
+            
+
             if (id == null || _context.Product == null)
             {
                 return NotFound();

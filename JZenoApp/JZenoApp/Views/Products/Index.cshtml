@@ -139,7 +139,7 @@
                         if(item.isPublish == true)
                         {
                             <div data="${item.id}" class="col l-2-4 m-0 c-6 home-product-item">
-                                <a class="home-product-item-link" href="/Products/Details/@item.Id">
+                                <a class="home-product-item-link" href="/Products/Details/@item.Id?cate=@item.categoryID">
                                     @{
                                         var index = 0;
                                         foreach (var i in item.productImages!)
