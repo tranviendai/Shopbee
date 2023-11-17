@@ -17,10 +17,9 @@
 
 <h1 class="text-center">GIỎ HÀNG</h1>
 @if (Model.Count > 0) {
-    <h3 style="text-align:right;color:red;">Tiền Ship 20.000 VNĐ</h3>
   double? total = 10000 * Model.Count;
     <div class="header-cart">
-        <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
+        <div style="color: rgba(0,0,0,.8); width: 36.27949%;">
             Sản Phẩm
         </div>
         <div style="text-align: center; width: 15.88022%;">
@@ -35,13 +34,16 @@
         <div style="text-align: center; width: 12.70417%;">
             Thao Tác
         </div>
+        <div style="text-align: center; width: 22.70417%;">
+            Voucher Shop
+        </div>
     </div>
     @foreach (var cartitem in Model)
     {
         var thanhtien = (cartitem.quantity * cartitem.product!.price * 2/100) + (cartitem.quantity * cartitem.product!.price); //2% tiền của shopbee
         total += thanhtien;
             <div class="body-cart">
-                <div style="color: rgba(0,0,0,.8); width: 46.27949%;">
+                <div style="color: rgba(0,0,0,.8); width: 36.27949%;">
                     <div style="display: flex;">
                         @{
                             var index = 0;
@@ -56,26 +58,8 @@
                             }
                         }
                     <p style="padding: 4px; justify-content: center; text-align: center; align-items: center; display: flex;">@cartitem.product.name (@cartitem.product.productColor!.FirstOrDefault()!.Name - @cartitem.product!.productColor!.FirstOrDefault()!.productSize!.FirstOrDefault(e=>e.Id == cartitem!.isUnique!)!.name)</p>
-                    <form action="#" style="overflow:auto">
-                        @if(cartitem.vActive == true){
-                            <div>Áp dụng Thành Công</div>
-                        }
-                        else
-                        {
-                            <h6>Danh sách voucher</h6>
-                            <div dir="rvc">
-                                @foreach (var l in listVPartner.Where(e => e.partnerId == cartitem.product.partnerID))
-                                {
-                                    <input type="radio" name="voucher" id="vPrice" value="@l.price" />
-                                    <label for="@l.price">@l.vID -  @Convert.ToDecimal(l.price).ToString("N0")đ</label>
-                                    <br />
-                                }
-                            </div>
-                            <button class="updatevoucher updatecartitem" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique">
-                                Áp dụng
-                            </button>
-                        }
-                    </form>
+                   @* 123123 *@
+                    
                 </div>
                 </div>
                 <div style="text-align: center; width: 15.88022%; color: rgba(0,0,0,.8);">
@@ -105,10 +89,72 @@
                 <a asp-route="removecart" asp-route-productid="@cartitem.product.Id" class="" style="color: rgba(0,0,0,.8); text-decoration: none;">Xóa</a>
                     <input type="text" id="unique" hidden>
                 </div>
+                <div style="text-align: center; width: 22.70417%;">
+                    @{
+                        var VPartner = listVPartner.Where(e => e.partnerId == cartitem.product.partnerID);
+                        if (VPartner.Count() > 0)
+                        {
+                            <form action="#">
+                                @if (cartitem.vActive == true)
+                                {
+                                <div style="color: #ee4d2d;">Áp dụng Thành Công <i class="fa-solid fa-check"></i></div>
+                                }
+                                else
+                                {
+                                <div dir="rvc" style="border: 1px solid #ccc;border-radius: 5px; width: fit-content;">
+                                        <select name="voucher" id="vPrice" style="border: none; outline: none;">
+                                            @foreach (var l in listVPartner.Where(e => e.partnerId == cartitem.product.partnerID))
+                                            {
+                                                <option value="@l.price">@l.vID -  @Convert.ToDecimal(l.price).ToString("N0")đ</option>
+                                                // <input type="radio" name="voucher" id="vPrice" value="@l.price" />
+                                                // <label for="@l.price">@l.vID -  @Convert.ToDecimal(l.price).ToString("N0")đ</label>
+                                                // <br />
+                                            }
+                                        </select>
+                                    <button class="updatevoucher updatecartitem btn-primary" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique" style="padding: 8px;color: #fff;background: #ee4d2d !important;border-radius: 2px; border: none; outline: none; cursor: pointer;">
+                                        <i class="fa-solid fa-check"></i>
+                                        </button>
+                                    </div>
+                                    
+                                }
+                        </form>
+                    } else
+                    {
+                        <span>Không Có Voucher nào</span>
+                    }
+
+                    }
+                </div>
             </div>
     }
+
+    <div class="grid-container mb-4">
+        <div class="grid-item" style="justify-content: left; text-align: center; align-items: center; display: flex;">
+            <div class="total-payment-left">
+                <span>
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28px" height="28px" viewBox="0,0,256,256"><defs><radialGradient cx="22.447" cy="22.436" r="16.046" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#000000"></stop><stop offset="1" stop-color="#000000" stop-opacity="0"></stop></radialGradient><linearGradient x1="10.018" y1="9.018" x2="32.29" y2="31.29" gradientUnits="userSpaceOnUse" id="color-2"><stop offset="0" stop-color="#fede00"></stop><stop offset="1" stop-color="#ffd000"></stop></linearGradient></defs><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><circle cx="27" cy="28" r="16" fill="#ff8f6b"></circle><circle cx="27" cy="28" r="13" fill="#ed6c47"></circle><path d="M27,12c-8.837,0 -16,7.163 -16,16c0,2.634 0.648,5.112 1.776,7.304c2.772,2.307 6.335,3.696 10.224,3.696c8.837,0 16,-7.163 16,-16c0,-2.634 -0.648,-5.112 -1.776,-7.304c-2.772,-2.307 -6.335,-3.696 -10.224,-3.696z" fill="url(#color-1)"></path><circle cx="21" cy="20" r="16" fill="url(#color-2)"></circle><circle cx="21" cy="20" r="13" fill="#f5be00"></circle><path d="M25.449,26.345h-8.187v-2.255h2.681v-8.061l-2.754,0.596v-2.31l5.596,-1.129v10.904h2.663z" fill="#fee119"></path></g></g></svg>
+                    Tiền Ship
+                </span>
+                <div style="color: #ee4d2d; text-decoration: None; margin-left: 28px;">
+                    <h3 style="text-align:right;color:red;">(2% thuế sản phẩm)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="grid-item"></div>
+        <div class="grid-item">
+            <div class="total-payment-right">
+                <span>
+                    Tổng Ship (@Model.Count Sản phẩm):
+                </span>
+                <div style="margin-left: 8px;">
+                    <span class="shipping-fee" style="color: #ee4d2d;">₫@Convert.ToDecimal(Model.Count * 10000).ToString("N0")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="grid-container">
-        <div class="grid-item" style="justify-content: center; text-align: center; align-items: center; display: flex;">
+        <div class="grid-item" style="justify-content: left; text-align: center; align-items: center; display: flex;">
             <div class="total-payment-left">
                 <span>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28px" height="28px" viewBox="0,0,256,256"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M46,36c0,1.657 -1.343,3 -3,3h-38c-1.657,0 -3,-1.343 -3,-3v-24c0,-1.657 1.343,-3 3,-3h38c1.657,0 3,1.343 3,3z" fill="#ff5252"></path><path d="M21.045,16.097c-0.637,-0.731 -1.49,-1.097 -2.558,-1.097c-1.069,0 -1.917,0.372 -2.545,1.117c-0.628,0.745 -0.942,1.706 -0.942,2.884v0.944c0,1.25 0.322,2.238 0.968,2.965c0.645,0.727 1.494,1.09 2.545,1.09c1.06,0 1.906,-0.363 2.538,-1.09c0.633,-0.727 0.949,-1.688 0.949,-2.885v-0.97c0,-1.241 -0.319,-2.227 -0.955,-2.958zM19.628,19.985c0,0.532 -0.101,0.962 -0.301,1.29c-0.201,0.328 -0.473,0.492 -0.814,0.492c-0.333,0 -0.609,-0.157 -0.827,-0.472c-0.218,-0.314 -0.327,-0.738 -0.327,-1.27v-0.984c0,-0.54 0.103,-0.977 0.308,-1.309c0.205,-0.332 0.478,-0.499 0.821,-0.499c0.35,0 0.628,0.166 0.833,0.499c0.205,0.332 0.308,0.756 0.308,1.27v0.983zM20,34l-1.832,-1.039l9.986,-19l1.846,1.039zM32.04,25.083c-0.64,-0.722 -1.489,-1.083 -2.546,-1.083c-1.049,0 -1.894,0.366 -2.534,1.097c-0.64,0.731 -0.96,1.695 -0.96,2.891v0.984c0,1.214 0.315,2.189 0.947,2.925c0.631,0.736 1.489,1.103 2.572,1.103c1.075,0 1.924,-0.366 2.547,-1.097c0.622,-0.731 0.934,-1.69 0.934,-2.878v-0.97c0,-1.259 -0.32,-2.249 -0.96,-2.972zM30.633,29.198c-0.034,1.055 -0.405,1.582 -1.113,1.582c-0.316,0 -0.587,-0.168 -0.813,-0.505c-0.226,-0.337 -0.339,-0.753 -0.339,-1.25v-0.758c0,-1.356 0.375,-2.034 1.126,-2.034c0.341,0 0.616,0.162 0.825,0.485c0.209,0.324 0.314,0.747 0.314,1.27z" fill="#ffffff"></path></g></g></svg>
