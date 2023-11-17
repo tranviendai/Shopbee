@@ -96,6 +96,27 @@
     text-decoration: none;
 }
 
+.shipping-fee {
+    color: #fff;
+    position: relative;
+    overflow: visible;
+    outline: 0;
+/*    background: #ee4d2d !important;
+*/    max-width: 250px;
+    height: 48px;
+    padding: 0 20px;
+    text-overflow: ellipsis;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
 .buy-now:hover {
     color: #fff;
     opacity: 0.8;
