@@ -297,9 +297,20 @@
         {
             <div class="col l-2-4 m-3 c-6 home-product-item">
                 <a class="home-product-item-link" href="/Products/Details/@product.Id">
-
+                    @{
+                        var index = 0;
+                        foreach (var x in product.productImages!)
+                        {
+                            if (index == 0)
+                            {
+                                <div class="home-product-item__img" style="background-image: url(./images/products/@x.URL);"></div>
+                                break;
+                            }
+                            index++;
+                        }
+                    }
                     @* Ảnh sản phẩm *@
-                    <div class="home-product-item__imggg"><img class="img-fluid" src="~/images/products/@product.productImages![0].URL" alt=""></div>
+                    @* <div class="home-product-item__imggg"><img class="img-fluid" src="~/images/products/@product.productImages![0].URL" alt=""></div> *@
 
                     <div class="home-product-item__info">
                         @* Tên sản phẩm *@
@@ -339,11 +350,7 @@
                     @* <div class="home-product-item-footer">Tìm sản phẩm tương tự</div> *@
                 </a>
             </div>
-        }
-        
-        
-
-        
+        }             
     </div>
 </div>
 
