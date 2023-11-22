@@ -193,7 +193,7 @@ namespace JZenoApp.Controllers
             }
             if (_signInManager.IsSignedIn(User))
             {
-                bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                bill.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
                 bill.phone = User.FindFirstValue(ClaimTypes.MobilePhone);
                 bill.note = $"<div>{form["getNote"].ToString()}</div>";
             }
@@ -207,13 +207,29 @@ namespace JZenoApp.Controllers
             _context.Add(bill);
             foreach (var item in cart)
             {
+                var vPrice = voucherID!.price / cart.Count;
+
                 var product = _context.Product.FindAsync(item.product!.Id);
                 DetailOrder detailOrder = new DetailOrder();
                 detailOrder.billID = idGUID;
                 detailOrder.quantity = item.quantity;
                 detailOrder.price = item.product!.price;
                 detailOrder.detailStatic = 0;
-                detailOrder.totalPrice = item.product.price * detailOrder.quantity;
+                if(voucherID != null)
+                {
+                    if (voucherID.startDate <= DateTime.Now && voucherID.endDate >= DateTime.Now && voucherID.quantity != 0)
+                    {
+                        detailOrder.totalPrice = (item.product.price * detailOrder.quantity) - (double?)vPrice;
+                    }
+                    else
+                    {
+                        detailOrder.totalPrice = item.product.price * detailOrder.quantity;
+                    }
+                }
+                else
+                {
+                    detailOrder.totalPrice = item.product.price * detailOrder.quantity;
+                }
                 detailOrder.Product = product.Result;
                 var size = _context.ProductSize.Find(item.isUnique);
                 detailOrder.size = size!.name;

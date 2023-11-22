@@ -75,7 +75,6 @@
                 <div class="detail_product">
                     <div style="font-weight: bold; padding-top: 15px; margin-bottom:15px; font-size:18px;" class="text-center details_sps">THÔNG TIN SẢN PHẨM</div>
                     <table>
-                        
                         @foreach(var item in Model.detailsOrders!)
                         {
                             priceShip += 10000;
@@ -127,7 +126,7 @@
                                     @{
                                         var total = (@item.totalPrice * 2 / 100) + (@item.totalPrice);
                                     }
-                                    <span>@total x @item.quantity = <span style="color:red;">@Convert.ToDecimal(total).ToString("N0")đ</span></span>
+                                    <span>@Convert.ToDecimal(item.price).ToString("N0")đ x @item.quantity = <span style="color:red;">@Convert.ToDecimal(total).ToString("N0")đ</span></span>
                                 </div>
                             </div>
                             <hr/>

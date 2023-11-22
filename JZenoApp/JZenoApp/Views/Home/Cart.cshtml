@@ -18,6 +18,7 @@
 <h1 class="text-center">GIỎ HÀNG</h1>
 @if (Model.Count > 0) {
   double? total = 10000 * Model.Count;
+    double? totalPrice = 0;
     <div class="header-cart">
         <div style="color: rgba(0,0,0,.8); width: 36.27949%;">
             Sản Phẩm
@@ -42,7 +43,8 @@
     {
         var thanhtien = (cartitem.quantity * cartitem.product!.price * 2/100) + (cartitem.quantity * cartitem.product!.price); //2% tiền của shopbee
         total += thanhtien;
-            <div class="body-cart">
+        totalPrice += thanhtien;
+        <div class="body-cart">
                 <div style="color: rgba(0,0,0,.8); width: 36.27949%;">
                     <div style="display: flex;">
                         @{
@@ -113,7 +115,7 @@
                                         </select>
                                     <button class="updatevoucher updatecartitem btn-primary" data-productid="@cartitem.product.Id" data-productUnique="@cartitem.isUnique" style="padding: 8px;color: #fff;background: #ee4d2d !important;border-radius: 2px; border: none; outline: none; cursor: pointer;">
                                         <i class="fa-solid fa-check"></i>
-                                        </button>
+                                      </button>
                                     </div>
                                     
                                 }
@@ -168,7 +170,7 @@
             <div class="total-payment-right">
                 <span>
                     Tổng thanh toán (@Model.Count Sản phẩm):
-                    <span style="color: #ee4d2d;">₫@Convert.ToDecimal(total).ToString("N0")</span>
+                    <span style="color: #ee4d2d;">₫@Convert.ToDecimal(totalPrice).ToString("N0")</span>
                 </span>
                 <div class="buy-now" data-bs-toggle="modal" data-bs-target="#exampleModal" asp-area="" style="margin-left: 8px;">Mua Hàng</div>
             </div>
@@ -285,7 +287,7 @@
                 event.preventDefault();
                 var productid = $(this).attr("data-productid");
                 var productUnique = $(this).attr("data-productUnique");
-                var price = $("#vPrice:checked").val();
+                var price = $("#vPrice").find("option:selected").val();
                 $.ajax({
                     type: "POST",
                     url: "@Url.RouteUrl("updatevoucher")",
